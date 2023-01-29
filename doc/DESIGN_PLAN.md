@@ -1,6 +1,6 @@
 # Cell Society Design Plan
-### Team Number
-### Names
+### Team 4
+### Brandon Weiss, Han Zhang, Changmin Shin
 
 
 #### Examples
