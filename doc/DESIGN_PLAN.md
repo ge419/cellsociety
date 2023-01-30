@@ -7,14 +7,14 @@
 
 Here is a graphical look at my design:
 
-![This is cool, too bad you can't see it](/images/online-shopping-uml-example.png "An initial UI")
+![This is cool, too bad you can't see it](images/online-shopping-uml-example.png "An initial UI")
 
 made from [a tool that generates UML from existing code](http://staruml.io/).
 
 
 Here is our amazing UI:
 
-![This is cool, too bad you can't see it](/images/29-sketched-ui-wireframe.jpg "An alternate design")
+![This is cool, too bad you can't see it](images/29-sketched-ui-wireframe.jpg "An alternate design")
 
 taken from [Brilliant Examples of Sketched UI Wireframes and Mock-Ups](https://onextrapixel.com/40-brilliant-examples-of-sketched-ui-wireframes-and-mock-ups/).
 
@@ -31,7 +31,7 @@ the model will handle the inputs fed to the view behind the scene, such as the s
 
 ## User Interface
 
-![Image GUI layout](/images/GUI_Picture.png).
+![Image GUI layout](images/GUI_Picture.png).
 
 For Grid, the user will be able to click on individual cells to change the state of the cells.
 If the user loads up an empty file or a bad XML file, inside the 
@@ -46,7 +46,7 @@ After the error pops up, the grid will not run until the grid is cleared.
 
 While the exact specifics of the error box isn't defined yet, the general appearance will match
 the view given in the image above. The discussion we have in our group is whether to display every field
-as an input or to have the error message only display fields that are invalid. 
+as an input or to have the error message only display fields that are invalid.  
 
 ## Configuration File Format
 
@@ -76,7 +76,10 @@ for meta-data, so everything is an element.
 ## Use Cases
 
 - Apply the rules to a middle cell: set the next state of a cell to dead by counting its number of neighbors using the Game of Life rules for a cell in the middle (i.e., with all its neighbors)
-
+- Apply the rules to an edge cell: set the next state of a cell to live by counting its number of neighbors using the Game of Life rules for a cell on the edge (i.e., with some of its neighbors missing)
+- Move to the next generation: update all cells in a simulation from their current state to their next state and display the result graphically
+- Switch simulations: load a new simulation from a data file, replacing the current running simulation with the newly loaded one
+- Set a simulation parameter: set the value of a parameter, probCatch, for a simulation, Fire, based on the value given in a data file
 
 
 ## Design Considerations
