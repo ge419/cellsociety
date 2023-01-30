@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<data>
+  <sim_type> Spreading of Fire</sim_type>
+  <config_Name> California</config_Name>
+  <author> Han Zhang</author>
+  <description> An artistic representation of California on fire</description>
+  <width> 10 </width>
+  <height> 10 </height>
+  <!--Not Required to have an init_state-->
+  <init_state>
+    1 1 1 1 1 1 1 1 1 1
+    1 1 1 1 1 1 1 1 1 1
+    1 1 1 1 1 1 1 1 1 1
+    1 1 1 1 1 1 1 1 1 1
+    1 1 1 1 1 1 1 1 1 1
+    1 1 1 1 1 1 1 1 1 1
+    1 1 1 1 1 1 1 1 1 1
+    1 1 1 1 1 1 1 1 1 1
+    1 1 1 1 1 1 1 1 1 1
+    1 1 1 1 1 1 1 1 1 1
+  </init_state>
+  <!--Not Required to have a parameters-->
+  <params> 0.5 </params>
+</data>
