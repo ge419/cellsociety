@@ -68,9 +68,18 @@ be preferred over an XML element, due to attributes not being easily mutable, an
 for meta-data, so everything is an element. 
 
 ## Design Overview
-
+We plan to use abstraction for Cell and Mode.
+Cell class will be a base for cells in different states, such as dead, alive, in transition, etc. Each individual Cell will form the Grid, which is the 2D array used to display the simulation.
+Mode will be a base for different modes of simulation that determines how it is executed. Each variations of Mode will have rules of how each cells will interact with its neighbors.
 
 ## Design Details
+
+Cell abstraction will be implemented depending on the state of the cell, and will contain information about the size of the cell(width and height), coordinates, which is its location on the grid, and the color of the cell depending on its state.
+Mode abstraction will be implemented depending on the variation of the simulation the user is willing to choose. Each implementation of Mode will contain a “rulebook” of the behavior of the cells depending on the state of its own state as well as their neighbors’. Thus, each cell’s state(and color) will be altered by the rules in the Mode. Also, the description about the simulation displayed on the right side of the simulation screen will be altered to match the variation the user chooses from the drop menu.
+
+We also have a possible class named Engine which holds information about the simulation itself as well as methods that operate the simulation. However, we are still undecided on whether this class should be separate from the Mode, and is left as a design conflict which will be discussed in the section below.
+
+Some possible roles Engine(whether it’s integrated with Mode or not) include the initial simulation speed and updating the speed, setting the Grid to its initial state depending on the configuration file, and applying changes to each cell’s state and color using the “rules” or algorithms from Mode. Setting the Grid to its initial state will also be affected by the Config class which reads and interprets the XML file reader uploads.
 
 
 ## Use Cases
