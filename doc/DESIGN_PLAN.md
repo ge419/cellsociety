@@ -72,6 +72,13 @@ We plan to use abstraction for Cell and Mode.
 Cell class will be a base for cells in different states, such as dead, alive, in transition, etc. Each individual Cell will form the Grid, which is the 2D array used to display the simulation.
 Mode will be a base for different modes of simulation that determines how it is executed. Each variation of Mode will have rules of how each cell will interact with its neighbors.
 
+![Design Chart](images/Design_Diagram.png)
+
+Here is the Design Chart for our Design Overview. The arrows with white blanks stand for inheritance,
+the dotted arrows are dependencies, and the arrows with white diamonds mean composition, which means the 
+class makes up part of another class. With our Model/View approach, we have two main connects between the two
+categories, between Mode and GUI Container, as well as PopUp and Config. 
+
 ## Design Details
 Cell abstraction will be implemented depending on the state of the cell, and will contain information about the size of the cell(width and height), coordinates, which is its location on the grid, and the color of the cell depending on its state.
 Mode abstraction will be implemented depending on the variation of the simulation the user is willing to choose. Each implementation of Mode will contain a “rulebook” of the behavior of the cells depending on the state of its own state as well as their neighbors’. Thus, each cell’s state(and color) will be altered by the rules in the Mode. Also, the description about the simulation displayed on the right side of the simulation screen will be altered to match the variation the user chooses from the drop menu.
