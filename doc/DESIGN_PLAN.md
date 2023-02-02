@@ -58,7 +58,7 @@ XML file tags
 - description
 - width
 - init_state
-- height
+- heightgit
 - params
 
 The two example files are listed in the data folder, called Example1.xml and Example2.xml. 
