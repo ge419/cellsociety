@@ -15,7 +15,6 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 public class PopUp {
-
   private static Stage popUpStage;
   private static Set<TextField> TextFields = new HashSet<>();
 
@@ -38,6 +37,7 @@ public class PopUp {
       inside.getChildren().addAll(issueText, issueField);
       comp.getChildren().add(inside);
     }
+    //TODO Refactor into Lambda Expressions
     clear.setOnAction(new EventHandler<ActionEvent>() {
       @Override
       public void handle(ActionEvent event) {
@@ -46,7 +46,7 @@ public class PopUp {
         }
       }
     });
-
+    //TODO Refactor into Lambda Expressions
     submit.setOnAction(new EventHandler<ActionEvent>() {
       @Override
       public void handle(ActionEvent event) {
@@ -65,7 +65,7 @@ public class PopUp {
     popUpStage.show();
   }
 
-  //TODO, properly return after discussion with Changmin
+  //TODO, properly return after discussion with Changmin, return edit tags if we have time later
   public static List<String> returnInput(){
     System.out.println(UserInput);
     return UserInput;
