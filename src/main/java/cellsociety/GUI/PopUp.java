@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
@@ -16,9 +14,9 @@ import javafx.stage.Stage;
 
 public class PopUp {
   private static Stage popUpStage;
-  private static Set<TextField> TextFields = new HashSet<>();
+  private final static Set<TextField> TextFields = new HashSet<>();
 
-  private static List<String> UserInput= new ArrayList<>();
+  private final static List<String> UserInput= new ArrayList<>();
   public PopUp(List<String> Issues){
     popUpStage = new Stage();
     VBox comp = new VBox();
@@ -38,23 +36,17 @@ public class PopUp {
       comp.getChildren().add(inside);
     }
     //TODO Refactor into Lambda Expressions
-    clear.setOnAction(new EventHandler<ActionEvent>() {
-      @Override
-      public void handle(ActionEvent event) {
-        for(TextField field: TextFields){
-          field.clear();
-        }
+    clear.setOnAction(event -> {
+      for(TextField field: TextFields){
+        field.clear();
       }
     });
     //TODO Refactor into Lambda Expressions
-    submit.setOnAction(new EventHandler<ActionEvent>() {
-      @Override
-      public void handle(ActionEvent event) {
-        for(TextField field: TextFields){
-          UserInput.add(field.getText());
-        }
-        returnInput();
+    submit.setOnAction(event -> {
+      for(TextField field: TextFields){
+        UserInput.add(field.getText());
       }
+      returnInput();
     });
 
     comp.getChildren().add(new HBox(clear, submit));
