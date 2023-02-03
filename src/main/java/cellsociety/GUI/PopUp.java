@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
@@ -15,11 +13,10 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 public class PopUp {
-
   private static Stage popUpStage;
-  private static Set<TextField> TextFields = new HashSet<>();
+  private final static Set<TextField> TextFields = new HashSet<>();
 
-  private static List<String> UserInput= new ArrayList<>();
+  private final static List<String> UserInput= new ArrayList<>();
   public PopUp(List<String> Issues){
     popUpStage = new Stage();
     VBox comp = new VBox();
@@ -38,23 +35,18 @@ public class PopUp {
       inside.getChildren().addAll(issueText, issueField);
       comp.getChildren().add(inside);
     }
-    clear.setOnAction(new EventHandler<ActionEvent>() {
-      @Override
-      public void handle(ActionEvent event) {
-        for(TextField field: TextFields){
-          field.clear();
-        }
+    //TODO Refactor into Lambda Expressions
+    clear.setOnAction(event -> {
+      for(TextField field: TextFields){
+        field.clear();
       }
     });
-
-    submit.setOnAction(new EventHandler<ActionEvent>() {
-      @Override
-      public void handle(ActionEvent event) {
-        for(TextField field: TextFields){
-          UserInput.add(field.getText());
-        }
-        returnInput();
+    //TODO Refactor into Lambda Expressions
+    submit.setOnAction(event -> {
+      for(TextField field: TextFields){
+        UserInput.add(field.getText());
       }
+      returnInput();
     });
 
     comp.getChildren().add(new HBox(clear, submit));
@@ -65,7 +57,7 @@ public class PopUp {
     popUpStage.show();
   }
 
-  //TODO, properly return after discussion with Changmin
+  //TODO, properly return after discussion with Changmin, return edit tags if we have time later
   public static List<String> returnInput(){
     System.out.println(UserInput);
     return UserInput;
