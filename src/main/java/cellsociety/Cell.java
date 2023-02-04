@@ -10,10 +10,9 @@ public abstract class Cell {
   private int yPos;
   private double size;
 
-  public Cell(int xCoordinate, int yCoordinate, double cellSize) {
+  public Cell(int xCoordinate, int yCoordinate) {
     xPos = xCoordinate;
     yPos = yCoordinate;
-    size = cellSize;
   }
 
   public String getStatus() {
@@ -24,11 +23,22 @@ public abstract class Cell {
     status = s;
   }
 
+  public void setSize(double cellSize) {
+    size = cellSize;
+  }
+
   public int getX() {
     return xPos;
   }
 
   public int getY() {
     return yPos;
+  }
+  public void setX(int x) {
+    xPos = x;
+  }
+
+  public void setY(int y) {
+    yPos = y;
   }
 }
