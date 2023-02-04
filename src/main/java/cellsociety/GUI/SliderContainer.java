@@ -4,6 +4,10 @@ import javafx.scene.control.Slider;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
+/**
+ * @Author Han Zhang
+ */
+
 public class SliderContainer {
 
   VBox container;

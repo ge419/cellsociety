@@ -6,6 +6,9 @@ import javafx.scene.control.Slider;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
+/**
+ * @Author Han Zhang
+ */
 public class GUIContainer {
   Stage mainStage;
   GridPane pane;

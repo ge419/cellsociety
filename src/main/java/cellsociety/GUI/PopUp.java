@@ -12,6 +12,10 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
+/**
+ * @Author Han Zhang
+ */
+
 public class PopUp {
   private static Stage popUpStage;
   private final static Set<TextField> TextFields = new HashSet<>();
