@@ -11,13 +11,15 @@ public class GUIContainer {
   Stage mainStage;
   GridPane pane;
 
+  private static String GUI_CSS= "stylesheets/GUIContainer.css";
   Slider slider;
   public GUIContainer(Stage primaryStage) {
     mainStage = primaryStage;
     pane = new GridPane();
 
     pane.setGridLinesVisible(true);
-    slider = new Slider();
+    pane.setId("pane");
+    slider = createSlider(6, 2);
     Button step = createButton("Step", 0, 5);
     Button reset = createButton("Reset", 1, 5);
     Button go = createButton("Go/Pause",2, 5);
@@ -29,9 +31,9 @@ public class GUIContainer {
     pane.getChildren().add(slider);
 
 
-
     Scene stageScene = new Scene(pane, 1000, 700);
     mainStage.setScene(stageScene);
+    stageScene.getStylesheets().add(GUI_CSS);
     mainStage.show();
   }
 
@@ -40,5 +42,10 @@ public class GUIContainer {
     newButton.setId("SettingButtons");
     pane.setConstraints(newButton, x, y);
     return newButton;
+  }
+  public Slider createSlider(int x, int y){
+    Slider newSlider = new Slider();
+    pane.setConstraints(newSlider, x, y);
+    return newSlider;
   }
 }
