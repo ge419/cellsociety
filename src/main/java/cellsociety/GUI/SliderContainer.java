@@ -1,19 +1,19 @@
 package cellsociety.GUI;
 
 import javafx.scene.control.Slider;
-import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
 public class SliderContainer {
 
-  HBox container;
+  VBox container;
   Slider slider;
   Text text;
   public SliderContainer(int min, int max, int current, int increment, String caption){
 
     sliderInit(min, max, current, increment);
     setText(caption);
-    container = new HBox(slider, text);
+    container = new VBox(slider, text);
   }
 
   private void sliderInit(int min, int max, int current, int increment) {
@@ -29,5 +29,7 @@ public class SliderContainer {
     text = new Text(caption);
     text.setId("SliderText");
   }
-
+  public VBox getContainer(){
+    return container;
+  }
 }

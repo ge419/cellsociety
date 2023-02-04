@@ -4,7 +4,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Slider;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class GUIContainer {
@@ -19,16 +18,9 @@ public class GUIContainer {
 
     pane.setGridLinesVisible(true);
     pane.setId("pane");
-    slider = createSlider(6, 2);
-    Button step = createButton("Step", 0, 5);
-    Button reset = createButton("Reset", 1, 5);
-    Button go = createButton("Go/Pause",2, 5);
-    Button clear = createButton("Clear", 3, 5);
-    Button random = createButton("Random", 4, 5);
 
-    //https://docs.oracle.com/javase/8/javafx/api/javafx/scene/layout/GridPane.html
-    pane.getChildren().addAll(step, reset, go, clear, random);
-    pane.getChildren().add(slider);
+    setUpButtons();
+    setUpSliderContainer();
 
 
     Scene stageScene = new Scene(pane, 1000, 700);
@@ -37,15 +29,27 @@ public class GUIContainer {
     mainStage.show();
   }
 
+  private void setUpButtons() {
+    Button step = createButton("Step", 0, 5);
+    Button reset = createButton("Reset", 1, 5);
+    Button go = createButton("Go/Pause",2, 5);
+    Button clear = createButton("Clear", 3, 5);
+    Button random = createButton("Random", 4, 5);
+
+    //https://docs.oracle.com/javase/8/javafx/api/javafx/scene/layout/GridPane.html
+    pane.getChildren().addAll(step, reset, go, clear, random);
+  }
+
   public Button createButton(String word, int x, int y){
     Button newButton = new Button(word);
-    newButton.setId("SettingButtons");
+    newButton.setId("Button");
     pane.setConstraints(newButton, x, y);
     return newButton;
   }
-  public Slider createSlider(int x, int y){
-    Slider newSlider = new Slider();
-    pane.setConstraints(newSlider, x, y);
-    return newSlider;
+
+  public void setUpSliderContainer(){
+    SliderContainer container = new SliderContainer(0, 50, 25, 5, "Animation Speed");
+    pane.getChildren().add(container.getContainer());
+    pane.setConstraints(container.getContainer(), 4, 4, 2, 1);
   }
 }
