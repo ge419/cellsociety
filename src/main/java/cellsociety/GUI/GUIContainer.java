@@ -50,6 +50,6 @@ public class GUIContainer {
   public void setUpSliderContainer(){
     SliderContainer container = new SliderContainer(0, 50, 25, 5, "Animation Speed");
     pane.getChildren().add(container.getContainer());
-    pane.setConstraints(container.getContainer(), 4, 4, 2, 1);
+    pane.setConstraints(container.getContainer(), 3, 4, 2, 1);
   }
 }
