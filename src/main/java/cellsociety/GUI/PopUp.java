@@ -17,9 +17,12 @@ public class PopUp {
   private final static Set<TextField> TextFields = new HashSet<>();
 
   private final static List<String> UserInput= new ArrayList<>();
+
+  private static String CSS_FILE = "stylesheets/PopUp.css";
   public PopUp(List<String> Issues){
     popUpStage = new Stage();
     VBox comp = new VBox();
+    comp.setId("Vbox");
 
     TextField issueField;
     Text issueText;
@@ -29,6 +32,7 @@ public class PopUp {
 
     for(String issue:Issues){
       HBox inside = new HBox();
+      inside.setId("Hbox");
       issueField = new TextField();
       issueText = new Text(issue);
       TextFields.add(issueField);
@@ -51,6 +55,7 @@ public class PopUp {
 
     comp.getChildren().add(new HBox(clear, submit));
     Scene stageScene = new Scene(comp, 300, 300);
+    stageScene.getStylesheets().add(CSS_FILE);
     popUpStage.setScene(stageScene);
   }
   public void showPopUp(){
