@@ -42,6 +42,8 @@ public class Main extends Application {
 //            showMessage(AlertType.INFORMATION, String.format("Number of Blocks = %d", numBlocks));
 //        }
         GUIContainer container = new GUIContainer(primaryStage);
+        // load Cells into Grid
+        //
     }
 
     /**

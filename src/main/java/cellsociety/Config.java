@@ -3,6 +3,7 @@ package cellsociety;
 import cellsociety.GUI.PopUp;
 import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
@@ -32,6 +33,7 @@ public class Config {
   private static int height;
   private static List<Integer> currState;
   private static Element root;
+  public static HashMap<String, Double> params;
 
   /**
    * Reads XML file, if XML file is valid, upload info
@@ -40,27 +42,27 @@ public class Config {
     if (checkValidXML(xmlFile)) {
       // code checking if the simType is in the list of simType names
       uploadXML(root);
-      switch (getTextValue(root, "sim_type")) {
-        case "Game of Life":
-          // initiate Game of Life
-          break;
-        case "Spreading Fire":
-          // initiate Spreading Fire
-          break;
-        case "Schelling's Model of Segregation":
-          // initiate Schelling's Model of Segregation
-          break;
-        case "Wa-Tor World Model of Predator-Prey Relationships":
-          // initiate Wa-Tor World Model of Predator-Prey Relationships
-          break;
-        case "Percolation":
-          // initiate Percolation
-          break;
-        default:
-          // popup for incorrect sim_type
-          //PopUp.showPopUp();
+//      switch (getTextValue(root, "sim_type")) {
+//        case "Game of Life":
+//          // initiate Game of Life
+//          break;
+//        case "Spreading Fire":
+//          // initiate Spreading Fire
+//          break;
+//        case "Schelling's Model of Segregation":
+//          // initiate Schelling's Model of Segregation
+//          break;
+//        case "Wa-Tor World Model of Predator-Prey Relationships":
+//          // initiate Wa-Tor World Model of Predator-Prey Relationships
+//          break;
+//        case "Percolation":
+//          // initiate Percolation
+//          break;
+//        default:
+//          // popup for incorrect sim_type
+//          //PopUp.showPopUp();
           resetTagValues();
-      }
+//      }
     }
   }
 
