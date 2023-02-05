@@ -9,6 +9,7 @@ public class TestMain extends Application {
     launch(args);
   }
   public void start (Stage primaryStage) {
-    GUIContainer container = new GUIContainer(primaryStage);
+    String english = "english";
+    GUIContainer container = new GUIContainer(primaryStage, english);
   }
 }

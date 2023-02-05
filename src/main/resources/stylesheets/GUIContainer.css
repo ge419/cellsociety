@@ -1,11 +1,13 @@
 #pane{
-  -fx-hgap: 50;
+  -fx-hgap: 120;
   -fx-vgap: 50;
   -fx-padding: 50;
   -fx-border-insets: 50;
   -fx-border-radius: 30;
 }
+#label{
 
+}
 
 /* Style based on css code taken from http://fxexperience.com/2011/12/styling-fx-buttons-with-css/*/
 

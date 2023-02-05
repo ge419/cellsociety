@@ -16,7 +16,7 @@ public class DropDown {
   private static Button button;
 
   private static VBox container;
-  public DropDown(List<String> list){
+  public DropDown(List<String> list, String buttonlabel){
 
     container = new VBox();
     container.setId("Container-Vbox");
@@ -25,7 +25,7 @@ public class DropDown {
 
     container.getChildren().add(dropdown);
 
-    button = new Button("Get Selection");
+    button = new Button(buttonlabel);
 
     button.setId("drop-button");
 
