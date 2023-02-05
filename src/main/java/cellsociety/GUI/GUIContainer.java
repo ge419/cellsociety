@@ -1,17 +1,28 @@
 package cellsociety.GUI;
 
+import cellsociety.GUI.Grids.RectangleGrid;
+import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Slider;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
+/**
+ * @Author Han Zhang
+ */
 public class GUIContainer {
   Stage mainStage;
   GridPane pane;
 
+  FileUploader uploader;
   private static String GUI_CSS= "stylesheets/GUIContainer.css";
-  Slider slider;
   public GUIContainer(Stage primaryStage) {
     mainStage = primaryStage;
     pane = new GridPane();
@@ -21,12 +32,58 @@ public class GUIContainer {
 
     setUpButtons();
     setUpSliderContainer();
+    SetUpDescriptionBox();
+
+    setUpFileUploader();
+
+    setUpFileSaver();
+
+    setUpGrid();
+
+    List<String> FileNames = new ArrayList<>();
+    FileNames.add("test");
+    FileNames.add("test1");
+    setUpDropDown(FileNames);
 
 
     Scene stageScene = new Scene(pane, 1000, 700);
     mainStage.setScene(stageScene);
     stageScene.getStylesheets().add(GUI_CSS);
     mainStage.show();
+  }
+
+  private void setUpGrid() {
+    RectangleGrid grid = new RectangleGrid(10,10);
+    pane.getChildren().add(grid.getGridLayout());
+    pane.setConstraints(grid.getGridLayout(), 0, 0, 3,4);
+  }
+
+  private void setUpDropDown(List<String> FileNames) {
+    DropDown drop = new DropDown(FileNames);
+    pane.getChildren().add(drop.getContainer());
+    pane.setConstraints(drop.getContainer(), 3,1, 2, 1);
+  }
+
+  private void setUpFileSaver() {
+    FileSaver save = new FileSaver();
+    pane.getChildren().add(save.getButton());
+    pane.setConstraints(save.getButton(), 4, 0);
+    save.setFile("Test");
+  }
+
+  private void setUpFileUploader() {
+    FileUploader upload = new FileUploader();
+    pane.getChildren().add(upload.getButton());
+    pane.setConstraints(upload.getButton(), 3,0);
+  }
+
+  private void SetUpDescriptionBox() {
+    TextArea description = new TextArea();
+    VBox descriptionContainer = new VBox();
+    descriptionContainer.getChildren().add(description);
+    descriptionContainer.setVgrow(description, Priority.ALWAYS);
+    pane.getChildren().add(descriptionContainer);
+    pane.setConstraints(descriptionContainer, 3,3, 2, 1);
   }
 
   private void setUpButtons() {

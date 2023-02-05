@@ -4,6 +4,10 @@ import javafx.scene.control.Slider;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
+/**
+ * @Author Han Zhang
+ */
+
 public class SliderContainer {
 
   VBox container;
@@ -14,6 +18,7 @@ public class SliderContainer {
     sliderInit(min, max, current, increment);
     setText(caption);
     container = new VBox(slider, text);
+    container.setId("Container-Vbox");
   }
 
   private void sliderInit(int min, int max, int current, int increment) {

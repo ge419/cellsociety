@@ -16,7 +16,27 @@
   -fx-background-insets: 0, 1;
   -fx-text-fill: #395306;
 }
-
 #SliderText{
   -fx-font-family: "Times New Roman";
+  -fx-alignment: CENTER;
 }
+#Container-Vbox{
+  -fx-alignment: CENTER;
+}
+.text-area{
+  -fx-pref-height: 200;
+  -fx-pref-width: 250;
+}
+#files-button{
+  -fx-pref-height: 50;
+  -fx-pref-width: 120;
+  -fx-background-color: lightgrey;
+  -fx-border-color: black;
+}
+
+#drop-button{
+  -fx-pref-height: 30;
+  -fx-pref-width: 100;
+  -fx-background-color: lightgrey;
+}
+
