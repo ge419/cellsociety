@@ -13,7 +13,7 @@ public class Life extends Simulation {
     }
 
     public String getUpdatedCellStatus(Cell cell, List<Cell> neighbors) {
-        int alive = super.countNeighbors(neighbors, getAliveString());
+        int alive = countNeighbors(neighbors, getAliveString());
         return toggleCell(cell, alive);
     }
 
