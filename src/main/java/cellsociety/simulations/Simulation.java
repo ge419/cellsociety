@@ -1,8 +1,6 @@
 package cellsociety.simulations;
 
 import java.util.List;
-import cellsociety.Cell;
-
 import cellsociety.Cells.Cell;
 
 /*

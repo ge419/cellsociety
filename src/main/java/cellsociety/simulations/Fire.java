@@ -2,8 +2,11 @@ package cellsociety.simulations;
 
 import java.util.List;
 import java.util.Random;
-import cellsociety.Cell;
+import cellsociety.Cells.Cell;
 
+/*
+ * @author Brandon Weiss
+ */
 public class Fire extends Simulation {
     public static final Random RAND_NUM_GEN = new Random();
     private String burningState;
