@@ -119,7 +119,7 @@ public class Config {
           Element rootElement = doc.createElement("data");
           doc.appendChild(rootElement);
 
-          rootElement.appendChild(createStatus(doc, rootElement, "sim_type", RuleBook.getSimType()));
+          rootElement.appendChild(createStatus(doc, rootElement, "sim_type", RuleBook.getSimType())); // from GUI not RuleBook
           rootElement.appendChild(createStatus(doc, rootElement, "config_Name", RuleBook.getConfigName()));
           rootElement.appendChild(createStatus(doc, rootElement, "author", RuleBook.getAuthor()));
           rootElement.appendChild(createStatus(doc, rootElement, "description", RuleBook.getDescription()));
