@@ -1,6 +1,6 @@
 package cellsociety.GUI.Grids;
 
-import cellsociety.Cell;
+import cellsociety.Cells.Cell;
 import cellsociety.GUI.Grid;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;

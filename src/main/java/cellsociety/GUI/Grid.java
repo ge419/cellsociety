@@ -1,7 +1,6 @@
 package cellsociety.GUI;
 
-import cellsociety.Cell;
-import javafx.scene.layout.GridPane;
+import cellsociety.Cells.Cell;
 
 /**
  * @Author Han Zhang
