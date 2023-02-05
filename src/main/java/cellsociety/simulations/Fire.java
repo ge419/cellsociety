@@ -23,7 +23,7 @@ public class Fire extends Simulation {
     }
 
     public String getUpdatedCellStatus(Cell cell, List<Cell> neighbors) {
-        int burning = super.countNeighbors(neighbors, burningState);
+        int burning = countNeighbors(neighbors, burningState);
         return toggleCell(cell, burning);
     }
 
