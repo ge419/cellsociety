@@ -65,20 +65,20 @@ public class GUIContainer {
   }
 
   private void setUpDropDown(List<String> FileNames) {
-    DropDown drop = new DropDown(FileNames);
+    DropDown drop = new DropDown(FileNames, myResources.getString("DropButton"));
     pane.getChildren().add(drop.getContainer());
     pane.setConstraints(drop.getContainer(), 3,1, 2, 1);
   }
 
   private void setUpFileSaver() {
-    FileSaver save = new FileSaver();
+    FileSaver save = new FileSaver(myResources.getString("Save"));
     pane.getChildren().add(save.getButton());
     pane.setConstraints(save.getButton(), 4, 0);
     save.setFile("Test");
   }
 
   private void setUpFileUploader() {
-    FileUploader upload = new FileUploader();
+    FileUploader upload = new FileUploader(myResources.getString("Upload"));
     pane.getChildren().add(upload.getButton());
     pane.setConstraints(upload.getButton(), 3,0);
   }
