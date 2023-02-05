@@ -10,13 +10,12 @@ public class RectangleGrid extends Grid {
 
   GridPane gridLayout;
 
-  public final int GRID_SIZE = 300;
+  public final int GRID_SIZE = 400;
 
   private int cellSize;
 
   int width;
   int height;
-
 
   public RectangleGrid(int Width, int Height){
     super(Width, Height);
