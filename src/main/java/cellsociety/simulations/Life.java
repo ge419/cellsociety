@@ -12,9 +12,8 @@ public class Life extends Simulation {
         super(deadString, aliveString);
     }
 
-    @Override
     public String getUpdatedCellStatus(Cell cell, List<Cell> neighbors) {
-        int alive = super.countAliveNeighbors(neighbors);
+        int alive = super.countNeighbors(neighbors, getAliveString());
         return toggleCell(cell, alive);
     }
 

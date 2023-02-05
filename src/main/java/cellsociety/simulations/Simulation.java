@@ -15,14 +15,10 @@ public abstract class Simulation {
         aliveState = aliveString;
     }
 
-    public String getUpdatedCellStatus(Cell cell, List<Cell> neighbors) {
-        return cell.getStatus();
-    }
-
-    public int countAliveNeighbors(List<Cell> neighbors) {
+    public int countNeighbors(List<Cell> neighbors, String state) {
         int count = 0;
         for (Cell cell : neighbors) {
-            if (cell.getStatus().equals(aliveState)) {
+            if (cell.getStatus().equals(state)) {
                 count++;
             }
         }
