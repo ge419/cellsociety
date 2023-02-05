@@ -1,6 +1,8 @@
 package cellsociety.GUI;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Slider;
@@ -33,15 +35,30 @@ public class GUIContainer {
 
     setUpFileUploader();
 
-    FileSaver save = new FileSaver();
-    pane.getChildren().add(save.getButton());
-    pane.setConstraints(save.getButton(), 4, 0);
-    save.setFile("Test");
+    setUpFileSaver();
+
+    List<String> FileNames = new ArrayList<>();
+    FileNames.add("test");
+    FileNames.add("test1");
+    setUpDropDown(FileNames);
 
     Scene stageScene = new Scene(pane, 1000, 700);
     mainStage.setScene(stageScene);
     stageScene.getStylesheets().add(GUI_CSS);
     mainStage.show();
+  }
+
+  private void setUpDropDown(List<String> FileNames) {
+    DropDown drop = new DropDown(FileNames);
+    pane.getChildren().add(drop.getContainer());
+    pane.setConstraints(drop.getContainer(), 3,1);
+  }
+
+  private void setUpFileSaver() {
+    FileSaver save = new FileSaver();
+    pane.getChildren().add(save.getButton());
+    pane.setConstraints(save.getButton(), 4, 0);
+    save.setFile("Test");
   }
 
   private void setUpFileUploader() {
