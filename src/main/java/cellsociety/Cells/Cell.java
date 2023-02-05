@@ -29,6 +29,7 @@ public abstract class Cell {
   public int getY() {
     return yPos;
   }
+
   public void setX(int x) {
     xPos = x;
   }
