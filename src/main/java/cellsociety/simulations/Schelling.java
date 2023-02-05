@@ -51,4 +51,9 @@ public class Schelling extends Simulation {
         }
         move.removeAll(move);
     }
+
+    @Override
+    public String toString() {
+        return "Schelling's model of segregation.";
+    }
 }
