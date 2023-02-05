@@ -20,3 +20,7 @@
 #SliderText{
   -fx-font-family: "Times New Roman";
 }
+#Description Box{
+  -fx-min-width: 50;
+  -fx-min-height: 200;
+}

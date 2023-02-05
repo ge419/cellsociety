@@ -3,7 +3,11 @@ package cellsociety.GUI;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Slider;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 /**
@@ -24,12 +28,22 @@ public class GUIContainer {
 
     setUpButtons();
     setUpSliderContainer();
-
+    SetUpDescriptionBox();
 
     Scene stageScene = new Scene(pane, 1000, 700);
     mainStage.setScene(stageScene);
     stageScene.getStylesheets().add(GUI_CSS);
     mainStage.show();
+  }
+
+  private void SetUpDescriptionBox() {
+    TextArea description = new TextArea();
+    VBox descriptionContainer = new VBox();
+    description.setId("Description Box");
+    descriptionContainer.getChildren().add(description);
+    descriptionContainer.setVgrow(description, Priority.ALWAYS);
+    pane.getChildren().add(descriptionContainer);
+    pane.setConstraints(descriptionContainer, 3,3, 2, 1);
   }
 
   private void setUpButtons() {
