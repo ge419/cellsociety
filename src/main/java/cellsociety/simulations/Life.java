@@ -1,5 +1,8 @@
 package cellsociety.simulations;
 
+import java.util.List;
+import cellsociety.Cell;
+
 /*
  * @author Brandon Weiss
  */
@@ -20,9 +23,9 @@ public class Life extends Simulation {
             return cell.getStatus();
         }
         if (numAlive == 3) {
-            return super.aliveState;
+            return getAliveString();
         }
-        return super.deadState;
+        return getDeadString();
     }
 
     @Override
