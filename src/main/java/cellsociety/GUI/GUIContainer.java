@@ -51,7 +51,7 @@ public class GUIContainer {
   private void setUpDropDown(List<String> FileNames) {
     DropDown drop = new DropDown(FileNames);
     pane.getChildren().add(drop.getContainer());
-    pane.setConstraints(drop.getContainer(), 3,1);
+    pane.setConstraints(drop.getContainer(), 3,1, 2, 1);
   }
 
   private void setUpFileSaver() {

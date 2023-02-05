@@ -21,8 +21,13 @@ public class DropDown {
     container = new VBox();
     container.setId("Container-Vbox");
     dropdown = new ComboBox<>();
+
+    container.getChildren().add(dropdown);
+
     button = new Button("Get Selection");
     button.setId("drop-button");
+
+    container.getChildren().add(button);
     button.setOnAction(new EventHandler<ActionEvent>() {
       @Override
       public void handle(ActionEvent event) {
