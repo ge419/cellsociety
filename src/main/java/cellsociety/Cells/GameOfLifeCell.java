@@ -1,4 +1,4 @@
-package cellsociety;
+package cellsociety.Cells;
 
 public class GameOfLifeCell extends Cell{
   private static final String DEFAULT_STATUS = "dead";

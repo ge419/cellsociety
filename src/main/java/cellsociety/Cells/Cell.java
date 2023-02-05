@@ -1,4 +1,4 @@
-package cellsociety;
+package cellsociety.Cells;
 
 /*
  * @author Changmin Shin

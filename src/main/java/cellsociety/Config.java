@@ -1,5 +1,6 @@
 package cellsociety;
 
+import cellsociety.GUI.FileUploader;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
@@ -27,7 +28,7 @@ public class Config {
   public static final String DATA_FILE_FOLDER = System.getProperty("user.dir") + "/data";
   // NOTE: make ONE chooser since generally accepted behavior is that it remembers
   // where user left it last
-  private final static FileChooser FILE_CHOOSER = makeChooser(DATA_FILE_EXTENSION);
+  //private final static FileChooser FILE_CHOOSER = makeChooser(DATA_FILE_EXTENSION);
 
   String simType;
   String configName;
@@ -35,15 +36,55 @@ public class Config {
   String description;
   int width;
   int height;
-  Stage primaryStage; //temp
+  List<Integer> currState;
+
+  Element root;
+  //Stage primaryStage; //temp
 
   /**
-   * Reads the XML file, checks if the imported XML file is valid, stores the read values if valid.
-   * --> separate into multiple methods when refactoring?
+   * Reads XML file, if XML file is valid, upload info
+   */
+  public void readFile(File xmlFile) {
+    if (checkValidXML(xmlFile)) {
+      // code checking if the simType is in the list of simType names
+      uploadXML(root);
+      switch (getTextValue(root, "sim_type")) {
+        case "Game of Life":
+          // initiate Game of Life
+          break;
+        case "Spreading Fire":
+          // initiate Spreading Fire
+          break;
+        case "Schelling's Model of Segregation":
+          // initiate Schelling's Model of Segregation
+          break;
+        case "Wa-Tor World Model of Predator-Prey Relationships":
+          // initiate Wa-Tor World Model of Predator-Prey Relationships
+          break;
+        case "Percolation":
+          // initiate Percolation
+          break;
+        default:
+          // popup for incorrect sim_type
+          resetTagValues();
+      }
+    }
+  }
+
+  private void resetTagValues() {
+    simType = "";
+    configName = "";
+    author = "";
+    description = "";
+    width = 0;
+    height = 0;
+    //currState = empty list of integers
+  }
+
+  /**
+   * Checks if the XML file has correct String or integer for each tags
    */
   public boolean checkValidXML(File xmlFile) {
-    File dataFile = FILE_CHOOSER.showOpenDialog(primaryStage);
-    Element root;
     try {
       Document xmlDocument =
           DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(xmlFile);
@@ -58,10 +99,6 @@ public class Config {
       showMessage(AlertType.ERROR, "Invalid XML Data");
       return false;
     }
-
-    // code checking if it's the correct name for simulation variant
-
-    uploadXML(root);
     return true;
   }
 
@@ -81,16 +118,16 @@ public class Config {
     new Alert(type, message).showAndWait();
   }
 
-  // set some sensible defaults when the FileChooser is created
-  private static FileChooser makeChooser(String extensionAccepted) {
-    FileChooser result = new FileChooser();
-    result.setTitle("Open Data File");
-    // pick a reasonable place to start searching for files
-    result.setInitialDirectory(new File(DATA_FILE_FOLDER));
-    result.getExtensionFilters()
-        .setAll(new FileChooser.ExtensionFilter("Data Files", extensionAccepted));
-    return result;
-  }
+//  // set some sensible defaults when the FileChooser is created
+//  private static FileChooser makeChooser(String extensionAccepted) {
+//    FileChooser result = new FileChooser();
+//    result.setTitle("Open Data File");
+//    // pick a reasonable place to start searching for files
+//    result.setInitialDirectory(new File(DATA_FILE_FOLDER));
+//    result.getExtensionFilters()
+//        .setAll(new FileChooser.ExtensionFilter("Data Files", extensionAccepted));
+//    return result;
+//  }
 
 
   // upload xml file --> alter rules
@@ -101,16 +138,13 @@ public class Config {
       description = getTextValue(root, "description");
       width = Integer.parseInt(getTextValue(root, "width"));
       height = Integer.parseInt(getTextValue(root, "height"));
-      // List of integers(or list of list of integers) for init_state
 
-      //updateRules(simType, configName, author, description, width, height, initState);
-      //updateRules() in Config class or in RuleBook class?
-      //if in RuleBook, don't save into variables in Config, save into RuleBook using updateRules()
+      // List of integers(or list of list of integers) for init_state
   }
 
   // save xml file --> create new xml file with current state
   // refined code from https://www.javaguides.net/2018/10/how-to-create-xml-file-in-java-dom-parser.html
-  public void saveXML(String simType, String configName, String author, String description, int width, int weight, List<Integer> currState) { // code from ChatGPT
+  public void saveXML(String simType, String configName, String author, String description, int width, int weight, List<Integer> currState) {
     DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
         try {
           DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
@@ -119,13 +153,13 @@ public class Config {
           Element rootElement = doc.createElement("data");
           doc.appendChild(rootElement);
 
-          rootElement.appendChild(createStatus(doc, rootElement, "sim_type", RuleBook.getSimType())); // from GUI not RuleBook
-          rootElement.appendChild(createStatus(doc, rootElement, "config_Name", RuleBook.getConfigName()));
-          rootElement.appendChild(createStatus(doc, rootElement, "author", RuleBook.getAuthor()));
-          rootElement.appendChild(createStatus(doc, rootElement, "description", RuleBook.getDescription()));
-          rootElement.appendChild(createStatus(doc, rootElement, "width", RuleBook.getWidth()));
-          rootElement.appendChild(createStatus(doc, rootElement, "height", RuleBook.getHeight()));
-          rootElement.appendChild(createStatus(doc, rootElement, "curr_state", RuleBook.getCurrState())); // or init_state
+          rootElement.appendChild(createStatus(doc, "sim_type", RuleBook.getSimType())); // from GUI not RuleBook
+          rootElement.appendChild(createStatus(doc, "config_Name", RuleBook.getConfigName()));
+          rootElement.appendChild(createStatus(doc, "author", RuleBook.getAuthor()));
+          rootElement.appendChild(createStatus(doc, "description", RuleBook.getDescription()));
+          rootElement.appendChild(createStatus(doc, "width", RuleBook.getWidth()));
+          rootElement.appendChild(createStatus(doc, "height", RuleBook.getHeight()));
+          rootElement.appendChild(createStatus(doc, "curr_state", RuleBook.getCurrState())); // or init_state
 
           TransformerFactory transformerFactory = TransformerFactory.newInstance();
           Transformer transformer = transformerFactory.newTransformer();
@@ -137,7 +171,7 @@ public class Config {
         }
   }
 
-  private org.w3c.dom.Node createStatus(Document doc, Element element, String tagName, String value) {
+  private org.w3c.dom.Node createStatus(Document doc, String tagName, String value) {
     Element node = doc.createElement(tagName);
     doc.appendChild(doc.createTextNode(value));
     return  node;

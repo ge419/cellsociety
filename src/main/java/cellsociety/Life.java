@@ -1,5 +1,7 @@
 package cellsociety;
 
+import cellsociety.Cells.Cell;
+
 /*
  * @author Brandon Weiss
  */
