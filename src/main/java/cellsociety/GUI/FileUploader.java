@@ -12,8 +12,7 @@ public class FileUploader {
   public FileUploader(){
     Button uploadButton = new Button("Upload");
     button = uploadButton;
-    button.setId("upload-button");
-    uploadButton.setId("upload-button");
+    uploadButton.setId("files-button");
     uploadButton.setOnAction(event -> {
       FileChooser fileChooser = new FileChooser();
       fileChooser.setTitle("Choose a file");
