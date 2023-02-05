@@ -21,10 +21,12 @@ public class DropDown {
     container = new VBox();
     container.setId("Container-Vbox");
     dropdown = new ComboBox<>();
+    dropdown.getItems().addAll(list);
 
     container.getChildren().add(dropdown);
 
     button = new Button("Get Selection");
+
     button.setId("drop-button");
 
     container.getChildren().add(button);
