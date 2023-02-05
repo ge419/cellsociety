@@ -15,6 +15,10 @@ public class Fire extends Simulation {
     public Fire(String emptyString, String treeString, String burningString, double probCatch){
         super(emptyString, treeString);
         burningState = burningString;
+        setProbCatch(probCatch);
+    }
+
+    public void setProbCatch(double probCatch){
         this.probCatch = probCatch;
     }
 
