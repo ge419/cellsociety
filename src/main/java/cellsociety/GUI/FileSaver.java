@@ -8,11 +8,11 @@ import javafx.stage.FileChooser;
 
 public class FileSaver {
 
-  File saved;
+  private File saved;
 
-  String data;
-  PrintWriter fileWriter;
-  Button button;
+  private static String data;
+  private static PrintWriter fileWriter;
+  private static Button button;
   public FileSaver() {
     button = new Button("Save to File");
     button.setId("files-button");
