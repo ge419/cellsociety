@@ -20,7 +20,7 @@
   -fx-font-family: "Times New Roman";
   -fx-alignment: CENTER;
 }
-#Slider-Vbox{
+#Container-Vbox{
   -fx-alignment: CENTER;
 }
 .text-area{
@@ -32,4 +32,10 @@
   -fx-pref-width: 120;
   -fx-background-color: lightgrey;
   -fx-border-color: black;
+}
+
+#drop-button{
+  -fx-pref-height: 30;
+  -fx-pref-width: 100;
+  -fx-background-color: grey;
 }
