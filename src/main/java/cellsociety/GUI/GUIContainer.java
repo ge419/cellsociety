@@ -39,7 +39,6 @@ public class GUIContainer {
   private void SetUpDescriptionBox() {
     TextArea description = new TextArea();
     VBox descriptionContainer = new VBox();
-    description.setId("Description Box");
     descriptionContainer.getChildren().add(description);
     descriptionContainer.setVgrow(description, Priority.ALWAYS);
     pane.getChildren().add(descriptionContainer);

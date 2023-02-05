@@ -17,10 +17,14 @@
   -fx-text-fill: #395306;
 }
 
-#SliderText{
+.SliderText{
   -fx-font-family: "Times New Roman";
+  -fx-alignment: CENTER;
 }
-#Description Box{
-  -fx-min-width: 50;
-  -fx-min-height: 200;
+#Slider-Vbox{
+  -fx-alignment: CENTER;
+}
+.text-area{
+  -fx-pref-height: 200;
+  -fx-pref-width: 250;
 }
