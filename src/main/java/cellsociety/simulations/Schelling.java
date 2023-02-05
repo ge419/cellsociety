@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 import cellsociety.Cells.Cell;
 
+/*
+ * @author Brandon Weiss
+ */
 public class Schelling extends Simulation {
     private double threshold;
     private List<Cell> empty;
