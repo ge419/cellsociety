@@ -10,16 +10,22 @@ public class FileSaver {
 
   File saved;
 
+  String data;
   PrintWriter fileWriter;
   Button button;
   public FileSaver() {
     button = new Button("Save to File");
+    button.setId("files-button");
     button.setOnAction(e -> {
       FileChooser fileChooser = new FileChooser();
+      FileChooser.ExtensionFilter xmlFilter = new FileChooser.ExtensionFilter("XML files (*.xml)", "*.xml");
+      fileChooser.getExtensionFilters().add(xmlFilter);
+      fileChooser.setSelectedExtensionFilter(xmlFilter);
       saved = fileChooser.showSaveDialog(button.getScene().getWindow());
       if (saved != null) {
         try (PrintWriter writer = new PrintWriter(saved)) {
           fileWriter = writer;
+          fileWriter.println(data);
         } catch (FileNotFoundException ex) {
           System.out.println("Error writing to file: " + ex.getMessage());
         }
@@ -31,6 +37,6 @@ public class FileSaver {
     return button;
   }
   public void setFile(String str){
-    fileWriter.println(str);
+    data = str;
   }
 }

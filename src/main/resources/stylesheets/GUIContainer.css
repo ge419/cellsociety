@@ -27,7 +27,7 @@
   -fx-pref-height: 200;
   -fx-pref-width: 250;
 }
-#upload-button{
+#files-button{
   -fx-pref-height: 50;
   -fx-pref-width: 120;
   -fx-background-color: lightgrey;

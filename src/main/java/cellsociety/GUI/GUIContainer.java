@@ -33,6 +33,11 @@ public class GUIContainer {
 
     setUpFileUploader();
 
+    FileSaver save = new FileSaver();
+    pane.getChildren().add(save.getButton());
+    pane.setConstraints(save.getButton(), 4, 0);
+    save.setFile("Test");
+
     Scene stageScene = new Scene(pane, 1000, 700);
     mainStage.setScene(stageScene);
     stageScene.getStylesheets().add(GUI_CSS);
