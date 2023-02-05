@@ -1,5 +1,6 @@
 package cellsociety;
 
+import cellsociety.GUI.PopUp;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
@@ -17,21 +18,25 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
+/**
+ * @Author Changmin Shin
+ */
+
 public class Config {
 
-  String simType;
-  String configName;
-  String author;
-  String description;
-  int width;
-  int height;
-  List<Integer> currState;
-  Element root;
+  private static String simType;
+  private static String configName;
+  private static String author;
+  private static String description;
+  private static int width;
+  private static int height;
+  private static List<Integer> currState;
+  private static Element root;
 
   /**
    * Reads XML file, if XML file is valid, upload info
    */
-  public void readFile(File xmlFile) {
+  public static void readFile(File xmlFile) {
     if (checkValidXML(xmlFile)) {
       // code checking if the simType is in the list of simType names
       uploadXML(root);
@@ -53,12 +58,13 @@ public class Config {
           break;
         default:
           // popup for incorrect sim_type
+          //PopUp.showPopUp();
           resetTagValues();
       }
     }
   }
 
-  private void resetTagValues() {
+  private static void resetTagValues() {
     simType = "";
     configName = "";
     author = "";
@@ -71,7 +77,7 @@ public class Config {
   /**
    * Checks if the XML file is valid
    */
-  public boolean checkValidXML(File xmlFile) {
+  public static boolean checkValidXML(File xmlFile) {
     try {
       Document xmlDocument =
           DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(xmlFile);
@@ -89,7 +95,7 @@ public class Config {
     return true;
   }
 
-  private String getTextValue(Element e, String tagName) {
+  private static String getTextValue(Element e, String tagName) {
     NodeList nodeList = e.getElementsByTagName(tagName);
     if (nodeList.getLength() > 0) {
       return nodeList.item(0).getTextContent();
@@ -100,7 +106,7 @@ public class Config {
     }
   }
 
-  private void showMessage(AlertType type, String message) {    // Is PopUp class necessary?
+  private static void showMessage(AlertType type, String message) {    // Is PopUp class necessary?
     new Alert(type, message).showAndWait();
   }
 
@@ -109,7 +115,7 @@ public class Config {
    * @param root
    */
 
-  public void uploadXML(Element root) {
+  public static void uploadXML(Element root) {
       simType = getTextValue(root, "sim_type");
       configName = getTextValue(root,"config_Name");
       author = getTextValue(root, "author");
@@ -140,13 +146,13 @@ public class Config {
           Element rootElement = doc.createElement("data");
           doc.appendChild(rootElement);
 
-          rootElement.appendChild(createStatus(doc, "sim_type", RuleBook.getSimType())); // from GUI not RuleBook
-          rootElement.appendChild(createStatus(doc, "config_Name", RuleBook.getConfigName()));
-          rootElement.appendChild(createStatus(doc, "author", RuleBook.getAuthor()));
-          rootElement.appendChild(createStatus(doc, "description", RuleBook.getDescription()));
-          rootElement.appendChild(createStatus(doc, "width", RuleBook.getWidth()));
-          rootElement.appendChild(createStatus(doc, "height", RuleBook.getHeight()));
-          rootElement.appendChild(createStatus(doc, "curr_state", RuleBook.getCurrState())); // or init_state
+//          rootElement.appendChild(createStatus(doc, "sim_type", RuleBook.getSimType())); // from GUI not RuleBook
+//          rootElement.appendChild(createStatus(doc, "config_Name", RuleBook.getConfigName()));
+//          rootElement.appendChild(createStatus(doc, "author", RuleBook.getAuthor()));
+//          rootElement.appendChild(createStatus(doc, "description", RuleBook.getDescription()));
+//          rootElement.appendChild(createStatus(doc, "width", RuleBook.getWidth()));
+//          rootElement.appendChild(createStatus(doc, "height", RuleBook.getHeight()));
+//          rootElement.appendChild(createStatus(doc, "curr_state", RuleBook.getCurrState())); // or init_state
 
           TransformerFactory transformerFactory = TransformerFactory.newInstance();
           Transformer transformer = transformerFactory.newTransformer();
@@ -174,5 +180,4 @@ public class Config {
   public String getVariant() {
     return simType;
   }
-
 }
