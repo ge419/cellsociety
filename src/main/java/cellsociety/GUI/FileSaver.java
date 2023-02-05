@@ -13,8 +13,8 @@ public class FileSaver {
   private static String data;
   private static PrintWriter fileWriter;
   private static Button button;
-  public FileSaver() {
-    button = new Button("Save to File");
+  public FileSaver(String label) {
+    button = new Button(label);
     button.setId("files-button");
     button.setOnAction(e -> {
       FileChooser fileChooser = new FileChooser();
