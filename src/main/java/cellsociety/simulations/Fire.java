@@ -12,23 +12,27 @@ public class Fire extends Simulation {
     private String burningState;
     private double probCatch;
 
-    public Fire(String emptyString, String treeString, String burningString, double probCatch){
+    public Fire(String emptyString, String treeString, String burningString, double probCatch) {
         super(emptyString, treeString);
         burningState = burningString;
+        setProbCatch(probCatch);
+    }
+
+    public void setProbCatch(double probCatch) {
         this.probCatch = probCatch;
     }
 
     public String getUpdatedCellStatus(Cell cell, List<Cell> neighbors) {
-        int burning = super.countNeighbors(neighbors, burningState);
+        int burning = countNeighbors(neighbors, burningState);
         return toggleCell(cell, burning);
     }
 
-    public String toggleCell(Cell cell, int numBurning){
+    public String toggleCell(Cell cell, int numBurning) {
         double randDouble = RAND_NUM_GEN.nextDouble();
-        if (!cell.getStatus().equals(getAliveString())){
+        if (!cell.getStatus().equals(getAliveString())) {
             return getDeadString();
         }
-        if (randDouble < probCatch){
+        if (randDouble < probCatch) {
             return burningState;
         }
         return getAliveString();

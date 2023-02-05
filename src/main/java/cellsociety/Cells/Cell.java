@@ -1,18 +1,17 @@
 package cellsociety.Cells;
 
-/**
- * @author Changmin Shin
+/*
+ * @author Changmin Shin, Brandon Weiss
  */
 
 public abstract class Cell {
   private String status;
   private int xPos;
   private int yPos;
-  private double size;
 
   public Cell(int xCoordinate, int yCoordinate) {
-    xPos = xCoordinate;
-    yPos = yCoordinate;
+    setX(xCoordinate);
+    setY(yCoordinate);
   }
 
   public String getStatus() {
@@ -23,10 +22,6 @@ public abstract class Cell {
     status = s;
   }
 
-  public void setSize(double cellSize) {
-    size = cellSize;
-  }
-
   public int getX() {
     return xPos;
   }
@@ -34,6 +29,7 @@ public abstract class Cell {
   public int getY() {
     return yPos;
   }
+
   public void setX(int x) {
     xPos = x;
   }
