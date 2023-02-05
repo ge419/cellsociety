@@ -5,16 +5,12 @@ import java.util.List;
 import cellsociety.Cells.Cell;
 
 public class Schelling extends Simulation {
-    private String stateA;
-    private String stateB;
     private double threshold;
     private List<Cell> empty;
     private List<String> move;
 
-    public Schelling(String emptyString, String stateAString, String stateBString, double threshold) {
+    public Schelling(String emptyString, double threshold) {
         super(emptyString, "");
-        stateA = stateAString;
-        stateB = stateBString;
         setThreshold(threshold);
         empty = new ArrayList<>();
         move = new ArrayList<>();
