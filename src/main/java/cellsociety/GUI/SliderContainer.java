@@ -18,7 +18,7 @@ public class SliderContainer {
     sliderInit(min, max, current, increment);
     setText(caption);
     container = new VBox(slider, text);
-    container.setId("Slider-Vbox");
+    container.setId("Container-Vbox");
   }
 
   private void sliderInit(int min, int max, int current, int increment) {
