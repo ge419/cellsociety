@@ -1,5 +1,6 @@
 package cellsociety.GUI;
 
+import java.io.File;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Slider;
@@ -17,8 +18,8 @@ public class GUIContainer {
   Stage mainStage;
   GridPane pane;
 
+  FileUploader uploader;
   private static String GUI_CSS= "stylesheets/GUIContainer.css";
-  Slider slider;
   public GUIContainer(Stage primaryStage) {
     mainStage = primaryStage;
     pane = new GridPane();
@@ -30,10 +31,18 @@ public class GUIContainer {
     setUpSliderContainer();
     SetUpDescriptionBox();
 
+    setUpFileUploader();
+
     Scene stageScene = new Scene(pane, 1000, 700);
     mainStage.setScene(stageScene);
     stageScene.getStylesheets().add(GUI_CSS);
     mainStage.show();
+  }
+
+  private void setUpFileUploader() {
+    FileUploader upload = new FileUploader();
+    pane.getChildren().add(upload.getButton());
+    pane.setConstraints(upload.getButton(), 3,0);
   }
 
   private void SetUpDescriptionBox() {

@@ -16,8 +16,7 @@
   -fx-background-insets: 0, 1;
   -fx-text-fill: #395306;
 }
-
-.SliderText{
+#SliderText{
   -fx-font-family: "Times New Roman";
   -fx-alignment: CENTER;
 }
@@ -27,4 +26,10 @@
 .text-area{
   -fx-pref-height: 200;
   -fx-pref-width: 250;
+}
+#upload-button{
+  -fx-pref-height: 50;
+  -fx-pref-width: 120;
+  -fx-background-color: lightgrey;
+  -fx-border-color: black;
 }
