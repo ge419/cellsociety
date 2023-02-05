@@ -1,5 +1,6 @@
-package cellsociety;
+package cellsociety.simulations;
 
+import java.util.List;
 import cellsociety.Cells.Cell;
 
 /*
@@ -14,18 +15,22 @@ public abstract class Simulation {
         aliveState = aliveString;
     }
 
-    public String getUpdatedCellStatus(Cell cell, List<Cell> neighbors) {
-        return cell.getStatus();
-    }
-
-    private int countAliveNeighbors(List<Cell> neighbors) {
+    public int countNeighbors(List<Cell> neighbors, String state) {
         int count = 0;
         for (Cell cell : neighbors) {
-            if (cell.getStatus().equals(aliveState)) {
+            if (cell.getStatus().equals(state)) {
                 count++;
             }
         }
         return count;
+    }
+
+    public String getAliveString(){
+        return aliveState;
+    }
+
+    public String getDeadString(){
+        return deadState;
     }
 
     public String toString() {
