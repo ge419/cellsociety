@@ -4,17 +4,16 @@ import java.util.ArrayList;
 import java.util.List;
 import cellsociety.Cells.Cell;
 
+/*
+ * @author Brandon Weiss
+ */
 public class Schelling extends Simulation {
-    private String stateA;
-    private String stateB;
     private double threshold;
     private List<Cell> empty;
     private List<String> move;
 
-    public Schelling(String emptyString, String stateAString, String stateBString, double threshold) {
+    public Schelling(String emptyString, double threshold) {
         super(emptyString, "");
-        stateA = stateAString;
-        stateB = stateBString;
         setThreshold(threshold);
         empty = new ArrayList<>();
         move = new ArrayList<>();
@@ -54,5 +53,10 @@ public class Schelling extends Simulation {
             empty.remove(hold);
         }
         move.removeAll(move);
+    }
+
+    @Override
+    public String toString() {
+        return "Schelling's model of segregation.";
     }
 }
