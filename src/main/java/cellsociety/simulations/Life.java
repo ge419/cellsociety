@@ -1,4 +1,7 @@
-package cellsociety;
+package cellsociety.simulations;
+
+import java.util.List;
+import cellsociety.Cells.Cell;
 
 /*
  * @author Brandon Weiss
@@ -9,9 +12,8 @@ public class Life extends Simulation {
         super(deadString, aliveString);
     }
 
-    @Override
     public String getUpdatedCellStatus(Cell cell, List<Cell> neighbors) {
-        int alive = super.countAliveNeighbors(neighbors);
+        int alive = countNeighbors(neighbors, getAliveString());
         return toggleCell(cell, alive);
     }
 
@@ -20,9 +22,9 @@ public class Life extends Simulation {
             return cell.getStatus();
         }
         if (numAlive == 3) {
-            return super.aliveState;
+            return getAliveString();
         }
-        return super.deadState;
+        return getDeadString();
     }
 
     @Override

@@ -1,5 +1,6 @@
 package cellsociety.GUI;
 
+import cellsociety.Config;
 import java.io.File;
 import javafx.scene.control.Button;
 import javafx.stage.FileChooser;
@@ -19,6 +20,7 @@ public class FileUploader {
       File selectedFile = fileChooser.showOpenDialog(null);
       if (selectedFile != null) {
         uploaded = selectedFile;
+        Config.readFile(uploaded);
       }
     });
   }
