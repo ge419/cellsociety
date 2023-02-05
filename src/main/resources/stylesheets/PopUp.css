@@ -1,0 +1,11 @@
+#Vbox {
+  -fx-spacing: 1em;
+  -fx-start-margin: 1em;
+  -fx-padding: 1em;
+  -fx-border-insets: 1em;
+  -fx-background-inset: 1em;
+}
+#Hbox{
+  -fx-spacing: 1em;
+  -fx-alignment: Center;
+}
