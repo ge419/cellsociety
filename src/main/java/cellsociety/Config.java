@@ -157,7 +157,7 @@ public class Config {
           TransformerFactory transformerFactory = TransformerFactory.newInstance();
           Transformer transformer = transformerFactory.newTransformer();
           DOMSource source = new DOMSource(doc);
-          StreamResult result = new StreamResult(new File("file.xml")); // assign names?
+          StreamResult result = new StreamResult(new File("*.xml"));
           transformer.transform(source, result);
         } catch (Exception e) {
           e.printStackTrace();
