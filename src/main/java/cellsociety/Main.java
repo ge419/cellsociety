@@ -1,5 +1,6 @@
 package cellsociety;
 
+import cellsociety.GUI.GUIContainer;
 import java.io.File;
 import java.io.IOException;
 import java.util.ResourceBundle;
@@ -19,27 +20,30 @@ import org.xml.sax.SAXException;
  * Feel free to completely change this code or delete it entirely.
  */
 public class Main extends Application {
-    // kind of data files to look for
-    public static final String DATA_FILE_EXTENSION = "*.xml";
-    // default to start in the data folder to make it easy on the user to find
-    public static final String DATA_FILE_FOLDER = System.getProperty("user.dir") + "/data";
-    // NOTE: make ONE chooser since generally accepted behavior is that it remembers
-    // where user left it last
-    private final static FileChooser FILE_CHOOSER = makeChooser(DATA_FILE_EXTENSION);
-    // internal configuration file
-    public static final String INTERNAL_CONFIGURATION = "cellsociety.Version";
+//    // kind of data files to look for
+//    public static final String DATA_FILE_EXTENSION = "*.xml";
+//    // default to start in the data folder to make it easy on the user to find
+//    public static final String DATA_FILE_FOLDER = System.getProperty("user.dir") + "/data";
+//    // NOTE: make ONE chooser since generally accepted behavior is that it remembers
+//    // where user left it last
+//    private final static FileChooser FILE_CHOOSER = makeChooser(DATA_FILE_EXTENSION);
+//    // internal configuration file
+//    public static final String INTERNAL_CONFIGURATION = "cellsociety.Version";
 
     /**
      * @see Application#start(Stage)
      */
     @Override
     public void start(Stage primaryStage) {
-        System.out.println(String.format("Version: %s", getVersion()));
-        File dataFile = FILE_CHOOSER.showOpenDialog(primaryStage);
-        if (dataFile != null) {
-            int numBlocks = calculateNumBlocks(dataFile);
-            showMessage(AlertType.INFORMATION, String.format("Number of Blocks = %d", numBlocks));
-        }
+//        System.out.println(String.format("Version: %s", getVersion()));
+//        File dataFile = FILE_CHOOSER.showOpenDialog(primaryStage);
+//        if (dataFile != null) {
+//            int numBlocks = calculateNumBlocks(dataFile);
+//            showMessage(AlertType.INFORMATION, String.format("Number of Blocks = %d", numBlocks));
+//        }
+        GUIContainer container = new GUIContainer(primaryStage);
+        // load Cells into Grid
+        //
     }
 
     /**
