@@ -1,5 +1,6 @@
 package cellsociety.GUI;
 
+import cellsociety.GUI.Grids.RectangleGrid;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
@@ -37,15 +38,24 @@ public class GUIContainer {
 
     setUpFileSaver();
 
+    setUpGrid();
+
     List<String> FileNames = new ArrayList<>();
     FileNames.add("test");
     FileNames.add("test1");
     setUpDropDown(FileNames);
 
+
     Scene stageScene = new Scene(pane, 1000, 700);
     mainStage.setScene(stageScene);
     stageScene.getStylesheets().add(GUI_CSS);
     mainStage.show();
+  }
+
+  private void setUpGrid() {
+    RectangleGrid grid = new RectangleGrid(10,10);
+    pane.getChildren().add(grid.getGridLayout());
+    pane.setConstraints(grid.getGridLayout(), 0, 0, 3,4);
   }
 
   private void setUpDropDown(List<String> FileNames) {

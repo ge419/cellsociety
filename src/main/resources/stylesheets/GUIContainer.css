@@ -37,5 +37,6 @@
 #drop-button{
   -fx-pref-height: 30;
   -fx-pref-width: 100;
-  -fx-background-color: grey;
+  -fx-background-color: lightgrey;
 }
+
