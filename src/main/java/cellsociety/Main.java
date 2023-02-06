@@ -36,8 +36,9 @@ public class Main extends Application {
    */
   @Override
   public void start(Stage primaryStage) {
-    frameNum = 0;
+    frameNum = 1;
     multiplier = 1;
+    pause = false;
     String english = "english";
     container = new GUIContainer(primaryStage, english);
     Timeline animation = new Timeline();
@@ -48,10 +49,17 @@ public class Main extends Application {
   }
 
   private void step(double secondDelay) {
-    timer(frameNum, multiplier, pause);
+    System.out.println(frameNum);
+    timer(multiplier, pause);
     container.asyncUpdate();
     if(container.getSpeedChanged()){
       multiplier = container.getAnimationSpeed();
+      if(multiplier != 0){
+        multiplier = 1/multiplier;
+      }
+      else{
+        multiplier = 0.0000000001;
+      }
       //TODO make sure this integration is proper with frame number
       System.out.println(multiplier);
     }
@@ -64,13 +72,19 @@ public class Main extends Application {
       if(request.equals("Step")){
         frameNum += FRAMES_PER_SECOND * multiplier;
       }
+      if(request.equals("Reset")){
+        //TODO tell XML Config to reload file
+      }
+      if(request.equals("Clear")){
+
+      }
     }
     //set conditionals for buttons actions here
     //xml
   }
 
 
-  private void timer(int frameNum, double multiplier, boolean pause) {
+  private void timer(double multiplier, boolean pause) {
     if (frameNum >= FRAMES_PER_SECOND * multiplier) {
       frameNum = 0;
       //Grid update inside here
