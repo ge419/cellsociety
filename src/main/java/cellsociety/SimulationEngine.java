@@ -1,5 +1,6 @@
 package cellsociety;
 
+import cellsociety.Cells.Cell;
 import java.util.ResourceBundle;
 
 import cellsociety.simulations.Fire;
@@ -17,13 +18,19 @@ public class SimulationEngine {
     private static final String FIRE_NAME = NAMES_FILE.getString("FireName");
     private static final String LIFE_NAME = NAMES_FILE.getString("LifeName");
 
+
+    //TODO: create List<List<Cell>>, pass grid constructor
+
+    //Potential Bug grid object here is not same grid object
     private Simulation sim;
 
+    //TODO: pass in grid width and height
     public SimulationEngine(String simType, double[] params) {
         init(simType, params);
     }
 
     //TODO: params is not a double[]
+
     public void init(String simType, double[] params) {
         if (simType.equals(LIFE_NAME)) {
             sim = new Life("dead", "alive");
@@ -34,5 +41,9 @@ public class SimulationEngine {
         }
     }
 
-    
+    public List<Cell> findNeighbors(){
+
+    };
+
+
 }
