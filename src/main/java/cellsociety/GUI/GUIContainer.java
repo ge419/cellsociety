@@ -44,7 +44,7 @@ public class GUIContainer {
     setColumnConstraints();
 
     myResources = ResourceBundle.getBundle(INTERNAL_CONFIGURATION + language);
-    pane.setGridLinesVisible(true);
+//    pane.setGridLinesVisible(true);
     pane.setId("pane");
 
     setUpButtons();
@@ -72,7 +72,7 @@ public class GUIContainer {
   }
 
   private void setColumnConstraints() {
-    int[] widths = {10, 10, 10, 30, 30};
+    int[] widths = {16, 16, 16, 21, 21};
     for (int i = 0; i < 4; i++) {
       ColumnConstraints column = new ColumnConstraints();
       column.setPercentWidth(widths[i]);
@@ -108,9 +108,10 @@ public class GUIContainer {
 
   private void SetUpDescriptionBox() {
     TextArea description = new TextArea();
+    description.setId("TextBox");
     VBox descriptionContainer = new VBox();
     descriptionContainer.getChildren().add(description);
-    descriptionContainer.setVgrow(description, Priority.ALWAYS);
+//    descriptionContainer.setVgrow(description, Priority.ALWAYS);
     pane.getChildren().add(descriptionContainer);
     pane.setConstraints(descriptionContainer, 3,3, 2, 1);
   }
