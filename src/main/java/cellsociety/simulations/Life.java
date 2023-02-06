@@ -2,6 +2,7 @@ package cellsociety.simulations;
 
 import java.util.List;
 import cellsociety.Cells.Cell;
+import cellsociety.Cells.LifeCell;
 
 /*
  * @author Brandon Weiss
@@ -12,12 +13,12 @@ public class Life extends Simulation {
         super(deadString, aliveString);
     }
 
-    public String getUpdatedCellStatus(Cell cell, List<Cell> neighbors) {
+    public String getUpdatedCellStatus(LifeCell cell, List<Cell> neighbors) {
         int alive = countNeighbors(neighbors, getAliveString());
         return toggleCell(cell, alive);
     }
 
-    private String toggleCell(Cell cell, int numAlive) {
+    private String toggleCell(LifeCell cell, int numAlive) {
         if (numAlive == 2) {
             return cell.getStatus();
         }
