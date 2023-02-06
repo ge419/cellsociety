@@ -41,6 +41,7 @@ public class Main extends Application {
     pause = false;
     String english = "english";
     container = new GUIContainer(primaryStage, english);
+
     Timeline animation = new Timeline();
     animation.setCycleCount(Timeline.INDEFINITE);
     animation.getKeyFrames()
@@ -58,16 +59,23 @@ public class Main extends Application {
         multiplier = 1/multiplier;
       }
       else{
-        multiplier = 0.0000000001;
+        multiplier = Integer.MAX_VALUE;
       }
       //TODO make sure this integration is proper with frame number
       System.out.println(multiplier);
     }
+    setUpActionButtons();
+
+    //set conditionals for buttons actions here
+    //xml
+  }
+
+  private void setUpActionButtons() {
     if(container.isRequestChanged()){
       String request = container.getRequest();
+      System.out.println(request);
       if(request.equals("Go/Pause")){
         pause = !pause;
-        System.out.println(pause);
       }
       if(request.equals("Step")){
         frameNum += FRAMES_PER_SECOND * multiplier;
@@ -76,11 +84,15 @@ public class Main extends Application {
         //TODO tell XML Config to reload file
       }
       if(request.equals("Clear")){
-
+        //TODO tell engine to clear
+      }
+      if(request.equals("Random")){
+        //TODO tell engine to random
+      }
+      if(request.equals("DropButton")){
+        //TODO, return selection of file chosen and then take the button out
       }
     }
-    //set conditionals for buttons actions here
-    //xml
   }
 
 
@@ -89,6 +101,7 @@ public class Main extends Application {
       frameNum = 0;
       //Grid update inside here
       //Game logic
+      System.out.println("new frame");
     }
     frameNum++;
     if (pause){

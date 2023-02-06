@@ -26,7 +26,6 @@ public class DropDown {
     container.getChildren().add(dropdown);
 
     button = new Button(buttonlabel);
-
     button.setId("drop-button");
 
     container.getChildren().add(button);
@@ -39,6 +38,9 @@ public class DropDown {
   }
   public String getValue(){
     return selected;
+  }
+
+  public Button getButton(){ return button;
   }
   public VBox getContainer(){
     return container;

@@ -89,6 +89,7 @@ public class GUIContainer {
 
   private void setUpDropDown(List<String> FileNames) {
     DropDown drop = new DropDown(FileNames, myResources.getString("DropButton"));
+    drop.getButton().setOnAction(e -> saveCommand(drop.getButton().getText()));
     pane.getChildren().add(drop.getContainer());
     pane.setConstraints(drop.getContainer(), 3,1, 2, 1);
   }
