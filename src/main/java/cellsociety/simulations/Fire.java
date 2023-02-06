@@ -27,7 +27,7 @@ public class Fire extends Simulation {
         return toggleCell(cell, burning);
     }
 
-    public String toggleCell(Cell cell, int numBurning) {
+    private String toggleCell(Cell cell, int numBurning) {
         double randDouble = RAND_NUM_GEN.nextDouble();
         if (!cell.getStatus().equals(getAliveString())) {
             return getDeadString();

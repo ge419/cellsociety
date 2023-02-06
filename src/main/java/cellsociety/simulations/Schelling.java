@@ -33,7 +33,7 @@ public class Schelling extends Simulation {
         return toggleCell(cell, ((double) sameCell) / totalNeighbors);
     }
 
-    public String toggleCell(Cell cell, double ratio) {
+    private String toggleCell(Cell cell, double ratio) {
         if (cell.getStatus().equals(getDeadString()) || ratio >= threshold) {
             return cell.getStatus();
         }
