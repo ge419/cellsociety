@@ -28,6 +28,6 @@ public class TestMain extends Application {
   }
 
   private void step(double secondDelay) {
-    container.update();
+    container.asyncUpdate();
   }
 }

@@ -29,9 +29,13 @@ public class GUIContainer {
   private ResourceBundle myResources;
   private static String GUI_CSS= "stylesheets/GUIContainer.css";
 
+  public static final int GRID_SIZE = 270;
+
   public static final String INTERNAL_CONFIGURATION = "cellsociety.";
 
-  private static boolean changed = false;
+  private static boolean sliderChanged = false;
+
+  private static boolean requestChanged = false;
 
 
   public GUIContainer(Stage primaryStage, String language) {
@@ -40,7 +44,7 @@ public class GUIContainer {
     setColumnConstraints();
 
     myResources = ResourceBundle.getBundle(INTERNAL_CONFIGURATION + language);
-    pane.setGridLinesVisible(true);
+//    pane.setGridLinesVisible(true);
     pane.setId("pane");
 
     setUpButtons();
@@ -68,7 +72,7 @@ public class GUIContainer {
   }
 
   private void setColumnConstraints() {
-    int[] widths = {10, 10, 10, 30, 30};
+    int[] widths = {16, 16, 16, 21, 21};
     for (int i = 0; i < 4; i++) {
       ColumnConstraints column = new ColumnConstraints();
       column.setPercentWidth(widths[i]);
@@ -78,7 +82,7 @@ public class GUIContainer {
   }
 
   private void setUpGrid() {
-    RectangleGrid grid = new RectangleGrid(10,10, 250);
+    RectangleGrid grid = new RectangleGrid(10,10, GRID_SIZE);
     pane.getChildren().add(grid.getGridLayout());
     pane.setConstraints(grid.getGridLayout(), 0, 0, 3,4);
   }
@@ -104,9 +108,10 @@ public class GUIContainer {
 
   private void SetUpDescriptionBox() {
     TextArea description = new TextArea();
+    description.setId("TextBox");
     VBox descriptionContainer = new VBox();
     descriptionContainer.getChildren().add(description);
-    descriptionContainer.setVgrow(description, Priority.ALWAYS);
+//    descriptionContainer.setVgrow(description, Priority.ALWAYS);
     pane.getChildren().add(descriptionContainer);
     pane.setConstraints(descriptionContainer, 3,3, 2, 1);
   }
@@ -132,11 +137,11 @@ public class GUIContainer {
 
   public void saveCommand(String string){
     request = string;
-    changed = true;
+    requestChanged = true;
   }
 
   public void setUpSliderContainer(){
-    slider = new SliderContainer(0, 50, 25, 5, myResources.getString("SliderCaption"));
+    slider = new SliderContainer(0, 4, 1, 1, myResources.getString("SliderCaption"));
     pane.getChildren().add(slider.getContainer());
     pane.setConstraints(slider.getContainer(), 3, 4, 2, 1);
   }
@@ -144,23 +149,31 @@ public class GUIContainer {
   public void updateSliderValue(){
     if(animationSpeed!= slider.getValue()){
       animationSpeed = slider.getValue();
-      changed = true;
+      sliderChanged = true;
     }
-  }
-  public void sendSliderValue(){
-    System.out.println(animationSpeed);
-  }
-  public void sendRequest(){
-    System.out.println(request);
-    changed = true;
   }
 
-  public void update(){
+  public void asyncUpdate(){
     updateSliderValue();
-    if(changed){
-      sendSliderValue();
-      sendRequest();
-    }
-    changed = false;
+  }
+
+  public boolean getSpeedChanged() {
+    boolean holder = sliderChanged;
+    sliderChanged = false;
+    return holder;
+  }
+
+  public double getAnimationSpeed(){
+    return animationSpeed;
+  }
+
+  public static boolean isRequestChanged() {
+    boolean holder = requestChanged;
+    requestChanged = false;
+    return holder;
+  }
+
+  public String getRequest() {
+    return request;
   }
 }
