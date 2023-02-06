@@ -1,11 +1,13 @@
 package cellsociety;
 
 import cellsociety.GUI.PopUp;
+import java.util.ResourceBundle;
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.ResourceBundle;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javax.xml.parsers.DocumentBuilder;
@@ -25,6 +27,8 @@ import org.xml.sax.SAXException;
  */
 
 public class Config {
+  public static final String INTERNAL_CONFIGURATION = "cellsociety.";
+  private ResourceBundle myResources;
 
   private static String simType;
   private static String configName;
@@ -38,14 +42,26 @@ public class Config {
   public static HashMap<String, Double> viewParam;
   public static HashSet<String> simNames;
 
+  public Config() {
+    myResources = ResourceBundle.getBundle(INTERNAL_CONFIGURATION + "english");
+    simNames = new HashSet<>();
+    simNames.add(myResources.getString("LifeName"));
+    simNames.add(myResources.getString("FireName"));
+    simNames.add(myResources.getString("SegName"));
+    simNames.add(myResources.getString("WTName"));
+    simNames.add(myResources.getString("PercolName"));
+  }
+
   /**
    * Reads XML file, if XML file is valid, upload info
    */
   public static void readFile(File xmlFile) {
     if (checkValidXML(xmlFile)) {
-      // code checking if the simType is in the list of simType names
       uploadXML(root);
-      //resetTagValues();
+      if (!simNames.contains(getTextValue(root, "sim_type"))) {
+        showMessage(AlertType.ERROR, "Invalid simulation name");
+        resetTagValues();
+      }
     }
   }
 
