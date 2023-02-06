@@ -1,9 +1,9 @@
 package cellsociety.Cells;
 
-public class SpreadingFireCell extends Cell{
+public class LifeCell extends Cell{
   private static final String DEFAULT_STATUS = "dead";
 
-  public SpreadingFireCell(String cellStatus, int xCoordinate, int yCoordinate) {
+  public LifeCell(int xCoordinate, int yCoordinate) {
     super(xCoordinate, yCoordinate);
     super.setStatus(DEFAULT_STATUS);
   }
