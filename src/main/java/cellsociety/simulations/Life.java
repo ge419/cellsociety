@@ -17,7 +17,7 @@ public class Life extends Simulation {
         return toggleCell(cell, alive);
     }
 
-    public String toggleCell(Cell cell, int numAlive) {
+    private String toggleCell(Cell cell, int numAlive) {
         if (numAlive == 2) {
             return cell.getStatus();
         }
