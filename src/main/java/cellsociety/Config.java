@@ -43,7 +43,7 @@ public class Config {
   public static HashSet<String> simNames;
 
   public Config() {
-    myResources = ResourceBundle.getBundle(INTERNAL_CONFIGURATION + "english");
+    myResources = ResourceBundle.getBundle(INTERNAL_CONFIGURATION + "filesandvariables");
     simNames = new HashSet<>();
     simNames.add(myResources.getString("LifeName"));
     simNames.add(myResources.getString("FireName"));
