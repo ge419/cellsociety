@@ -41,7 +41,7 @@ public class Main extends Application {
 //            int numBlocks = calculateNumBlocks(dataFile);
 //            showMessage(AlertType.INFORMATION, String.format("Number of Blocks = %d", numBlocks));
 //        }
-        GUIContainer container = new GUIContainer(primaryStage);
+        //GUIContainer container = new GUIContainer(primaryStage);
         // load Cells into Grid
         //
     }
