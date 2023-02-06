@@ -29,9 +29,13 @@ public class GUIContainer {
   private ResourceBundle myResources;
   private static String GUI_CSS= "stylesheets/GUIContainer.css";
 
+  public static final int GRID_SIZE = 270;
+
   public static final String INTERNAL_CONFIGURATION = "cellsociety.";
 
-  private static boolean changed = false;
+  private static boolean sliderChanged = false;
+
+  private static boolean requestChanged = false;
 
 
   public GUIContainer(Stage primaryStage, String language) {
@@ -78,7 +82,7 @@ public class GUIContainer {
   }
 
   private void setUpGrid() {
-    RectangleGrid grid = new RectangleGrid(10,10, 250);
+    RectangleGrid grid = new RectangleGrid(10,10, GRID_SIZE);
     pane.getChildren().add(grid.getGridLayout());
     pane.setConstraints(grid.getGridLayout(), 0, 0, 3,4);
   }
@@ -132,11 +136,11 @@ public class GUIContainer {
 
   public void saveCommand(String string){
     request = string;
-    changed = true;
+    requestChanged = true;
   }
 
   public void setUpSliderContainer(){
-    slider = new SliderContainer(0, 50, 25, 5, myResources.getString("SliderCaption"));
+    slider = new SliderContainer(0, 4, 1, 1, myResources.getString("SliderCaption"));
     pane.getChildren().add(slider.getContainer());
     pane.setConstraints(slider.getContainer(), 3, 4, 2, 1);
   }
@@ -144,23 +148,35 @@ public class GUIContainer {
   public void updateSliderValue(){
     if(animationSpeed!= slider.getValue()){
       animationSpeed = slider.getValue();
-      changed = true;
+      sliderChanged = true;
     }
-  }
-  public void sendSliderValue(){
-    System.out.println(animationSpeed);
-  }
-  public void sendRequest(){
-    System.out.println(request);
-    changed = true;
   }
 
-  public void update(){
+  public void asyncUpdate(){
     updateSliderValue();
-    if(changed){
-      sendSliderValue();
-      sendRequest();
+    if(sliderChanged){
+      System.out.println(animationSpeed);
+      sliderChanged = false;
     }
-    changed = false;
+    if(requestChanged){
+      System.out.println(request);
+      requestChanged = false;
+    }
+  }
+
+  public boolean getSpeedChanged() {
+    return sliderChanged;
+  }
+
+  public double getAnimationSpeed(){
+    return animationSpeed;
+  }
+
+  public static boolean isRequestChanged() {
+    return requestChanged;
+  }
+
+  public String getRequest() {
+    return request;
   }
 }

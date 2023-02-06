@@ -1,23 +1,11 @@
 package cellsociety;
 
 import cellsociety.GUI.GUIContainer;
-import java.io.File;
-import java.io.IOException;
-import java.util.ResourceBundle;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Application;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
-import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.NodeList;
-import org.xml.sax.SAXException;
 
 /**
  * Feel free to completely change this code or delete it entirely.
@@ -37,6 +25,7 @@ public class Main extends Application {
   int frameNum;
 
   double multiplier;
+
   public static final int FRAMES_PER_SECOND = 60;
   public static final double SECOND_DELAY = 1.0 / FRAMES_PER_SECOND;
 
@@ -58,8 +47,15 @@ public class Main extends Application {
 
   private void step(double secondDelay) {
     timer(frameNum, multiplier);
-    container.update();
-
+    container.asyncUpdate();
+    if(container.getSpeedChanged()){
+      multiplier = container.getAnimationSpeed();
+      System.out.println(multiplier);
+    }
+    if(container.isRequestChanged()){
+      String request = container.getRequest();
+      System.out.println(request);
+    }
     //set conditionals for buttons actions here
     //xml
   }
