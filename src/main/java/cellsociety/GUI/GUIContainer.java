@@ -155,18 +155,12 @@ public class GUIContainer {
 
   public void asyncUpdate(){
     updateSliderValue();
-    if(sliderChanged){
-      System.out.println(animationSpeed);
-      sliderChanged = false;
-    }
-    if(requestChanged){
-      System.out.println(request);
-      requestChanged = false;
-    }
   }
 
   public boolean getSpeedChanged() {
-    return sliderChanged;
+    boolean holder = sliderChanged;
+    sliderChanged = false;
+    return holder;
   }
 
   public double getAnimationSpeed(){
@@ -174,7 +168,9 @@ public class GUIContainer {
   }
 
   public static boolean isRequestChanged() {
-    return requestChanged;
+    boolean holder = requestChanged;
+    requestChanged = false;
+    return holder;
   }
 
   public String getRequest() {

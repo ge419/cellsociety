@@ -26,6 +26,8 @@ public class Main extends Application {
 
   double multiplier;
 
+  public boolean pause;
+
   public static final int FRAMES_PER_SECOND = 60;
   public static final double SECOND_DELAY = 1.0 / FRAMES_PER_SECOND;
 
@@ -46,28 +48,38 @@ public class Main extends Application {
   }
 
   private void step(double secondDelay) {
-    timer(frameNum, multiplier);
+    timer(frameNum, multiplier, pause);
     container.asyncUpdate();
     if(container.getSpeedChanged()){
       multiplier = container.getAnimationSpeed();
+      //TODO make sure this integration is proper with frame number
       System.out.println(multiplier);
     }
     if(container.isRequestChanged()){
       String request = container.getRequest();
-      System.out.println(request);
+      if(request.equals("Go/Pause")){
+        pause = !pause;
+        System.out.println(pause);
+      }
+      if(request.equals("Step")){
+        frameNum += FRAMES_PER_SECOND * multiplier;
+      }
     }
     //set conditionals for buttons actions here
     //xml
   }
 
 
-  private void timer(int frameNum, double multiplier) {
+  private void timer(int frameNum, double multiplier, boolean pause) {
     if (frameNum >= FRAMES_PER_SECOND * multiplier) {
       frameNum = 0;
       //Grid update inside here
       //Game logic
     }
     frameNum++;
+    if (pause){
+      frameNum = 0;
+    }
   }
 
   /**
