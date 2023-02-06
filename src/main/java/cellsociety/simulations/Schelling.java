@@ -3,13 +3,14 @@ package cellsociety.simulations;
 import java.util.ArrayList;
 import java.util.List;
 import cellsociety.Cells.Cell;
+import cellsociety.Cells.SchellingCell;
 
 /*
  * @author Brandon Weiss
  */
 public class Schelling extends Simulation {
     private double threshold;
-    private List<Cell> empty;
+    private List<SchellingCell> empty;
     private List<String> move;
 
     public Schelling(String emptyString, double threshold) {
@@ -23,17 +24,17 @@ public class Schelling extends Simulation {
         this.threshold = threshold;
     }
 
-    public void addEmptyCell(Cell cell) {
+    public void addEmptyCell(SchellingCell cell) {
         empty.add(cell);
     }
 
-    public String getUpdatedCellStatus(Cell cell, List<Cell> neighbors) {
+    public String getUpdatedCellStatus(SchellingCell cell, List<Cell> neighbors) {
         int sameCell = countNeighbors(neighbors, cell.getStatus());
         int totalNeighbors = neighbors.size() - countNeighbors(neighbors, getDeadString());
         return toggleCell(cell, ((double) sameCell) / totalNeighbors);
     }
 
-    private String toggleCell(Cell cell, double ratio) {
+    private String toggleCell(SchellingCell cell, double ratio) {
         if (cell.getStatus().equals(getDeadString()) || ratio >= threshold) {
             return cell.getStatus();
         }
@@ -46,7 +47,7 @@ public class Schelling extends Simulation {
         if (empty.size() < move.size()) {
             return;
         }
-        Cell hold;
+        SchellingCell hold;
         for (String s : move) {
             hold = empty.get(0);
             hold.setStatus(s);
