@@ -1,6 +1,7 @@
 package cellsociety;
 
 import cellsociety.GUI.GUIContainer;
+import java.io.File;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Application;
@@ -22,6 +23,7 @@ public class Main extends Application {
 //    public static final String INTERNAL_CONFIGURATION = "cellsociety.Version";
 
   GUIContainer container;
+  Config config;
   int frameNum;
 
   double multiplier;
@@ -50,9 +52,22 @@ public class Main extends Application {
   }
 
   private void step(double secondDelay) {
-    System.out.println(frameNum);
     timer(multiplier, pause);
     container.asyncUpdate();
+    animationSpeedUpdate();
+    setUpActionButtons();
+
+    //NOT SURE IF NEED THIS
+//    if(container.isFileUploaded()){
+//      File inputFile = container.getFile();
+//      config.readFile(inputFile);
+//    }
+
+    //set conditionals for buttons actions here
+    //xml
+  }
+
+  private void animationSpeedUpdate() {
     if(container.getSpeedChanged()){
       multiplier = container.getAnimationSpeed();
       if(multiplier != 0){
@@ -61,13 +76,7 @@ public class Main extends Application {
       else{
         multiplier = Integer.MAX_VALUE;
       }
-      //TODO make sure this integration is proper with frame number
-      System.out.println(multiplier);
     }
-    setUpActionButtons();
-
-    //set conditionals for buttons actions here
-    //xml
   }
 
   private void setUpActionButtons() {
@@ -101,7 +110,6 @@ public class Main extends Application {
       frameNum = 0;
       //Grid update inside here
       //Game logic
-      System.out.println("new frame");
     }
     frameNum++;
     if (pause){
