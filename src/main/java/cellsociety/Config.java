@@ -4,6 +4,7 @@ import cellsociety.GUI.PopUp;
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
@@ -33,7 +34,9 @@ public class Config {
   private static int height;
   private static List<Integer> currState;
   private static Element root;
-  public static HashMap<String, Double> params;
+  public static HashMap<String, Double> simParam;
+  public static HashMap<String, Double> viewParam;
+  public static HashSet<String> simNames;
 
   /**
    * Reads XML file, if XML file is valid, upload info
@@ -42,27 +45,11 @@ public class Config {
     if (checkValidXML(xmlFile)) {
       // code checking if the simType is in the list of simType names
       uploadXML(root);
-//      switch (getTextValue(root, "sim_type")) {
-//        case "Game of Life":
-//          // initiate Game of Life
-//          break;
-//        case "Spreading Fire":
-//          // initiate Spreading Fire
-//          break;
-//        case "Schelling's Model of Segregation":
-//          // initiate Schelling's Model of Segregation
-//          break;
-//        case "Wa-Tor World Model of Predator-Prey Relationships":
-//          // initiate Wa-Tor World Model of Predator-Prey Relationships
-//          break;
-//        case "Percolation":
-//          // initiate Percolation
-//          break;
-//        default:
-//          // popup for incorrect sim_type
-//          //PopUp.showPopUp();
-          resetTagValues();
-//      }
+      if (!simNames.contains(getTextValue(root, simType))) {
+        // popup for incorrect sim_type
+        //PopUp.showPopUp()
+        resetTagValues();
+      }
     }
   }
 
@@ -124,6 +111,19 @@ public class Config {
       description = getTextValue(root, "description");
       width = Integer.parseInt(getTextValue(root, "width"));
       height = Integer.parseInt(getTextValue(root, "height"));
+      simParam.put("probCatch", Double.parseDouble(getTextValue(root, "probCatch")));
+      simParam.put("change", Double.parseDouble(getTextValue(root, "change")));
+      simParam.put("energy", Double.parseDouble(getTextValue(root, "energy")));
+      simParam.put("fishBT", Double.parseDouble(getTextValue(root, "fishBT")));
+      simParam.put("sharkBT", Double.parseDouble(getTextValue(root, "sharkBT")));
+      viewParam.put("perAlive", Double.parseDouble(getTextValue(root, "perAlive")));
+      viewParam.put("perTree", Double.parseDouble(getTextValue(root, "perTree")));
+      viewParam.put("perFire", Double.parseDouble(getTextValue(root, "perFire")));
+      viewParam.put("perEmpty", Double.parseDouble(getTextValue(root, "perEmpty")));
+      viewParam.put("perStateOne", Double.parseDouble(getTextValue(root, "perStateOne")));
+      viewParam.put("perShark", Double.parseDouble(getTextValue(root, "perShark")));
+      viewParam.put("perBlocked", Double.parseDouble(getTextValue(root, "perBlocked")));
+
 
       // List of integers(or list of list of integers) for init_state
   }
