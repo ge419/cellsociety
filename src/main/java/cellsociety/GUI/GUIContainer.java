@@ -7,6 +7,7 @@ import java.util.ResourceBundle;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
+import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
@@ -20,17 +21,23 @@ public class GUIContainer {
   private GridPane pane;
 
   private String request;
+
+  private static SliderContainer slider;
   private FileUploader uploader;
 
+  private double animationSpeed;
   private ResourceBundle myResources;
   private static String GUI_CSS= "stylesheets/GUIContainer.css";
 
   public static final String INTERNAL_CONFIGURATION = "cellsociety.";
 
+  private static boolean changed = false;
+
 
   public GUIContainer(Stage primaryStage, String language) {
     mainStage = primaryStage;
     pane = new GridPane();
+    setColumnConstraints();
 
     myResources = ResourceBundle.getBundle(INTERNAL_CONFIGURATION + language);
     pane.setGridLinesVisible(true);
@@ -53,13 +60,25 @@ public class GUIContainer {
 
 
     Scene stageScene = new Scene(pane, 1000, 700);
+
+    pane.setMaxSize(stageScene.getWidth()-50, stageScene.getHeight()-50);
     mainStage.setScene(stageScene);
     stageScene.getStylesheets().add(GUI_CSS);
     mainStage.show();
   }
 
+  private void setColumnConstraints() {
+    int[] widths = {10, 10, 10, 30, 30};
+    for (int i = 0; i < 4; i++) {
+      ColumnConstraints column = new ColumnConstraints();
+      column.setPercentWidth(widths[i]);
+      column.setHgrow(Priority.ALWAYS);
+      pane.getColumnConstraints().add(column);
+    }
+  }
+
   private void setUpGrid() {
-    RectangleGrid grid = new RectangleGrid(10,10);
+    RectangleGrid grid = new RectangleGrid(10,10, 250);
     pane.getChildren().add(grid.getGridLayout());
     pane.setConstraints(grid.getGridLayout(), 0, 0, 3,4);
   }
@@ -113,11 +132,35 @@ public class GUIContainer {
 
   public void saveCommand(String string){
     request = string;
+    changed = true;
   }
 
   public void setUpSliderContainer(){
-    SliderContainer container = new SliderContainer(0, 50, 25, 5, myResources.getString("SliderCaption"));
-    pane.getChildren().add(container.getContainer());
-    pane.setConstraints(container.getContainer(), 3, 4, 2, 1);
+    slider = new SliderContainer(0, 50, 25, 5, myResources.getString("SliderCaption"));
+    pane.getChildren().add(slider.getContainer());
+    pane.setConstraints(slider.getContainer(), 3, 4, 2, 1);
+  }
+
+  public void updateSliderValue(){
+    if(animationSpeed!= slider.getValue()){
+      animationSpeed = slider.getValue();
+      changed = true;
+    }
+  }
+  public void sendSliderValue(){
+    System.out.println(animationSpeed);
+  }
+  public void sendRequest(){
+    System.out.println(request);
+    changed = true;
+  }
+
+  public void update(){
+    updateSliderValue();
+    if(changed){
+      sendSliderValue();
+      sendRequest();
+    }
+    changed = false;
   }
 }
