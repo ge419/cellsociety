@@ -1,5 +1,6 @@
 package cellsociety.simulations;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
 import cellsociety.Cells.Cell;
@@ -36,6 +37,20 @@ public class Fire extends Simulation {
             return burningState;
         }
         return getAliveString();
+    }
+
+    public Cell randomize(HashMap<String, Double> parameters, int xCoordinate, int yCoordinate){
+        double trees = parameters.get("perTree");
+        double burning = parameters.get("perFire");
+        Cell cell = new Cell(xCoordinate, yCoordinate);
+        if (RAND_NUM_GEN.nextDouble() < trees) {
+            cell.setStatus(getDeadString());
+        } else if (RAND_NUM_GEN.nextDouble() < burning) {
+            cell.setStatus(burningState);
+        } else {
+            cell.setStatus(getAliveString());
+        }
+        return cell;
     }
 
     @Override
