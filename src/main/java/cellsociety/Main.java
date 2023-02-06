@@ -1,23 +1,11 @@
 package cellsociety;
 
 import cellsociety.GUI.GUIContainer;
-import java.io.File;
-import java.io.IOException;
-import java.util.ResourceBundle;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Application;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
-import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.NodeList;
-import org.xml.sax.SAXException;
 
 /**
  * Feel free to completely change this code or delete it entirely.
@@ -37,6 +25,9 @@ public class Main extends Application {
   int frameNum;
 
   double multiplier;
+
+  public boolean pause;
+
   public static final int FRAMES_PER_SECOND = 60;
   public static final double SECOND_DELAY = 1.0 / FRAMES_PER_SECOND;
 
@@ -45,8 +36,9 @@ public class Main extends Application {
    */
   @Override
   public void start(Stage primaryStage) {
-    frameNum = 0;
+    frameNum = 1;
     multiplier = 1;
+    pause = false;
     String english = "english";
     container = new GUIContainer(primaryStage, english);
     Timeline animation = new Timeline();
@@ -57,21 +49,51 @@ public class Main extends Application {
   }
 
   private void step(double secondDelay) {
-    timer(frameNum, multiplier);
-    container.update();
+    System.out.println(frameNum);
+    timer(multiplier, pause);
+    container.asyncUpdate();
+    if(container.getSpeedChanged()){
+      multiplier = container.getAnimationSpeed();
+      if(multiplier != 0){
+        multiplier = 1/multiplier;
+      }
+      else{
+        multiplier = 0.0000000001;
+      }
+      //TODO make sure this integration is proper with frame number
+      System.out.println(multiplier);
+    }
+    if(container.isRequestChanged()){
+      String request = container.getRequest();
+      if(request.equals("Go/Pause")){
+        pause = !pause;
+        System.out.println(pause);
+      }
+      if(request.equals("Step")){
+        frameNum += FRAMES_PER_SECOND * multiplier;
+      }
+      if(request.equals("Reset")){
+        //TODO tell XML Config to reload file
+      }
+      if(request.equals("Clear")){
 
+      }
+    }
     //set conditionals for buttons actions here
     //xml
   }
 
 
-  private void timer(int frameNum, double multiplier) {
+  private void timer(double multiplier, boolean pause) {
     if (frameNum >= FRAMES_PER_SECOND * multiplier) {
       frameNum = 0;
       //Grid update inside here
       //Game logic
     }
     frameNum++;
+    if (pause){
+      frameNum = 0;
+    }
   }
 
   /**

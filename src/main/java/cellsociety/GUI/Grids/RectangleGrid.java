@@ -39,4 +39,12 @@ public class RectangleGrid extends Grid {
   public GridPane getGridLayout() {
     return gridLayout;
   }
+
+  public int getHeight() {
+    return height;
+  }
+
+  public int getWidth() {
+    return width;
+  }
 }
