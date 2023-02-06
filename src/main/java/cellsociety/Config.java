@@ -111,6 +111,19 @@ public class Config {
       description = getTextValue(root, "description");
       width = Integer.parseInt(getTextValue(root, "width"));
       height = Integer.parseInt(getTextValue(root, "height"));
+      simParam.put("probCatch", Double.parseDouble(getTextValue(root, "probCatch")));
+      simParam.put("change", Double.parseDouble(getTextValue(root, "change")));
+      simParam.put("energy", Double.parseDouble(getTextValue(root, "energy")));
+      simParam.put("fishBT", Double.parseDouble(getTextValue(root, "fishBT")));
+      simParam.put("sharkBT", Double.parseDouble(getTextValue(root, "sharkBT")));
+      viewParam.put("perAlive", Double.parseDouble(getTextValue(root, "perAlive")));
+      viewParam.put("perTree", Double.parseDouble(getTextValue(root, "perTree")));
+      viewParam.put("perFire", Double.parseDouble(getTextValue(root, "perFire")));
+      viewParam.put("perEmpty", Double.parseDouble(getTextValue(root, "perEmpty")));
+      viewParam.put("perStateOne", Double.parseDouble(getTextValue(root, "perStateOne")));
+      viewParam.put("perShark", Double.parseDouble(getTextValue(root, "perShark")));
+      viewParam.put("perBlocked", Double.parseDouble(getTextValue(root, "perBlocked")));
+
 
       // List of integers(or list of list of integers) for init_state
   }
