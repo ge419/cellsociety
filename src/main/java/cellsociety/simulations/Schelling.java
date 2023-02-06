@@ -1,20 +1,27 @@
 package cellsociety.simulations;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Random;
 import cellsociety.Cells.Cell;
 
 /*
  * @author Brandon Weiss
  */
 public class Schelling extends Simulation {
+    public static final Random RAND_NUM_GEN = new Random();
     private double threshold;
+    private String stateAString;
+    private String stateBString;
     private List<Cell> empty;
     private List<String> move;
 
-    public Schelling(String emptyString, double threshold) {
+    public Schelling(String emptyString, String stateAString, String stateBString, double threshold) {
         super(emptyString, "");
         setThreshold(threshold);
+        this.stateAString = stateAString;
+        this.stateBString = stateBString;
         empty = new ArrayList<>();
         move = new ArrayList<>();
     }
@@ -33,7 +40,7 @@ public class Schelling extends Simulation {
         return toggleCell(cell, ((double) sameCell) / totalNeighbors);
     }
 
-    public String toggleCell(Cell cell, double ratio) {
+    private String toggleCell(Cell cell, double ratio) {
         if (cell.getStatus().equals(getDeadString()) || ratio >= threshold) {
             return cell.getStatus();
         }
@@ -53,6 +60,20 @@ public class Schelling extends Simulation {
             empty.remove(hold);
         }
         move.removeAll(move);
+    }
+
+    public Cell randomize(HashMap<String, Double> parameters, int xCoordinate, int yCoordinate){
+        double empty = parameters.get("perEmpty");
+        double stateA = parameters.get("perStateOne");
+        Cell cell = new Cell(xCoordinate, yCoordinate);
+        if (RAND_NUM_GEN.nextDouble() < empty) {
+            cell.setStatus(getDeadString());
+        } else if (RAND_NUM_GEN.nextDouble() < stateA) {
+            cell.setStatus(stateAString);
+        } else {
+            cell.setStatus(stateBString);
+        }
+        return cell;
     }
 
     @Override

@@ -1,12 +1,15 @@
 package cellsociety.simulations;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Random;
 import cellsociety.Cells.Cell;
 
 /*
  * @author Brandon Weiss
  */
 public class Life extends Simulation {
+    public static final Random RAND_NUM_GEN = new Random();
 
     public Life(String deadString, String aliveString) {
         super(deadString, aliveString);
@@ -17,7 +20,7 @@ public class Life extends Simulation {
         return toggleCell(cell, alive);
     }
 
-    public String toggleCell(Cell cell, int numAlive) {
+    private String toggleCell(Cell cell, int numAlive) {
         if (numAlive == 2) {
             return cell.getStatus();
         }
@@ -25,6 +28,17 @@ public class Life extends Simulation {
             return getAliveString();
         }
         return getDeadString();
+    }
+
+    public Cell randomize(HashMap<String, Double> parameters, int xCoordinate, int yCoordinate) {
+        double alive = parameters.get("perAlive");
+        Cell cell = new Cell(xCoordinate, yCoordinate);
+        if (RAND_NUM_GEN.nextDouble() < alive) {
+            cell.setStatus(getAliveString());
+        } else {
+            cell.setStatus(getDeadString());
+        }
+        return cell;
     }
 
     @Override
