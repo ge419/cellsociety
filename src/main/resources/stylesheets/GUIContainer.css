@@ -1,12 +1,9 @@
 #pane{
-  -fx-hgap: 120;
-  -fx-vgap: 50;
-  -fx-padding: 50;
-  -fx-border-insets: 50;
-  -fx-border-radius: 30;
-}
-#label{
-
+  -fx-min-width: 50;
+  /*-fx-padding: 50;*/
+  -fx-alignment: CENTER;
+  /*-fx-border-insets: 50;*/
+  /*-fx-border-radius: 30;*/
 }
 
 /* Style based on css code taken from http://fxexperience.com/2011/12/styling-fx-buttons-with-css/*/
@@ -17,6 +14,7 @@
   -fx-background-radius: 6, 5;
   -fx-background-insets: 0, 1;
   -fx-text-fill: #395306;
+  -fx-alignment: CENTER;
 }
 #SliderText{
   -fx-font-family: "Times New Roman";
@@ -24,12 +22,16 @@
 }
 #Container-Vbox{
   -fx-alignment: CENTER;
+  -fx-padding: 20;
+  -fx-start-margin: 20;
 }
 .text-area{
+  -fx-alignment: CENTER;
   -fx-pref-height: 200;
   -fx-pref-width: 250;
 }
 #files-button{
+  -fx-alignment: CENTER;
   -fx-pref-height: 50;
   -fx-pref-width: 120;
   -fx-background-color: lightgrey;
@@ -37,6 +39,7 @@
 }
 
 #drop-button{
+  -fx-alignment: CENTER;
   -fx-pref-height: 30;
   -fx-pref-width: 100;
   -fx-background-color: lightgrey;

@@ -37,4 +37,8 @@ public class SliderContainer {
   public VBox getContainer(){
     return container;
   }
+
+  public double getValue() {
+    return slider.getValue();
+  }
 }
