@@ -1,9 +1,9 @@
 package cellsociety.simulations;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
 import cellsociety.Cells.Cell;
-import cellsociety.Cells.FireCell;
 
 /*
  * @author Brandon Weiss
@@ -23,12 +23,12 @@ public class Fire extends Simulation {
         this.probCatch = probCatch;
     }
 
-    public String getUpdatedCellStatus(FireCell cell, List<Cell> neighbors) {
+    public String getUpdatedCellStatus(Cell cell, List<Cell> neighbors) {
         int burning = countNeighbors(neighbors, burningState);
         return toggleCell(cell, burning);
     }
 
-    private String toggleCell(FireCell cell, int numBurning) {
+    private String toggleCell(Cell cell, int numBurning) {
         double randDouble = RAND_NUM_GEN.nextDouble();
         if (!cell.getStatus().equals(getAliveString())) {
             return getDeadString();
@@ -37,6 +37,20 @@ public class Fire extends Simulation {
             return burningState;
         }
         return getAliveString();
+    }
+
+    public Cell randomize(HashMap<String, Double> parameters, int xCoordinate, int yCoordinate){
+        double trees = parameters.get("perTree");
+        double burning = parameters.get("perFire");
+        Cell cell = new Cell(xCoordinate, yCoordinate);
+        if (RAND_NUM_GEN.nextDouble() < trees) {
+            cell.setStatus(getDeadString());
+        } else if (RAND_NUM_GEN.nextDouble() < burning) {
+            cell.setStatus(burningState);
+        } else {
+            cell.setStatus(getAliveString());
+        }
+        return cell;
     }
 
     @Override

@@ -4,7 +4,7 @@ package cellsociety.Cells;
  * @author Changmin Shin, Brandon Weiss
  */
 
-public abstract class Cell {
+public class Cell {
   private String status;
   private int xPos;
   private int yPos;
