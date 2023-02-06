@@ -31,7 +31,7 @@ public class SimulationEngine {
     private Grid grid;
     private int width;
     private int height;
-    private List<List<Cell>> cells;
+    public static List<List<Cell>> cells;
 
     public SimulationEngine(String simType, HashMap<String, Double> params, Grid grid) {
         init(simType, params);
@@ -47,20 +47,27 @@ public class SimulationEngine {
         if (simType.equals(LIFE_NAME)) {
             sim = new Life("dead", "alive");
         } else if (simType.equals(FIRE_NAME)) {
-            sim = new Fire("empty", "tree", "burning", params.get());
+            sim = new Fire("empty", "tree", "burning", params.get("probCatch"));
         } else if (simType.equals(SEG_NAME)) {
-            sim = new Schelling("empty", "a", "b", params.get());
+            sim = new Schelling("empty", "a", "b", params.get("change"));
         } else if (simType.equals(WATOR_NAME)) {
-            sim = new WaTor("sea", "fish", "shark", params.get(),
-                    params.get(), params.get(), params.get());
+            sim = new WaTor("sea", "fish", "shark", params.get("eShark"),
+                    params.get("ePerFish"), params.get("fishBT"), params.get("sharkBT"));
+        } else if (simType.equals(PERC_NAME)) {
+            //sim = new Percolation()
         }
     }
 
     //TODO
     //for each cell, call sim.randomize(parameters, xcoord of cell, ycoord of cell)
     //I dont know what to return
-    public void randomizeStart(HashMap<String, Double> parameters){
-        
+    // Loop through each cell, calls randomize in Simulation class --> which class should this belong to?
+    public void randomizeStart(HashMap<String, Double> parameters, String simType){ // use viewParam in Config
+        for (int i = 0; i < cells.size(); i++) {
+            for (int j = 0; j < cells.get(i).size(); i++) {
+                sim.randomize(parameters, simType, i, j);
+            }
+        }
     }
 
     
@@ -87,7 +94,25 @@ public class SimulationEngine {
     
     //TODO
     public List<Cell> findNeighbors(Cell cell, boolean corners, boolean wrap) {
+        List<Cell> neighbors = new ArrayList<>();
+        Cell currCell = cells.get(cell.getX()).get(cell.getY());
+        if (corners) {
+            // check width and height, see which corner it's in
+        }
+        else if(wrap) {
 
+        }
+        else {
+            neighbors.add(cells.get(currCell.getX() - 1).get(currCell.getY()));
+            neighbors.add(cells.get(currCell.getX()).get(currCell.getY() - 1));
+            neighbors.add(cells.get(currCell.getX() + 1).get(currCell.getY()));
+            neighbors.add(cells.get(currCell.getX()).get(currCell.getY() + 1));
+            neighbors.add(cells.get(currCell.getX() - 1).get(currCell.getY() - 1));
+            neighbors.add(cells.get(currCell.getX() - 1).get(currCell.getY() + 1));
+            neighbors.add(cells.get(currCell.getX() + 1).get(currCell.getY() - 1));
+            neighbors.add(cells.get(currCell.getX() + 1).get(currCell.getY() + 1));
+        }
+        return neighbors;
     };
 
     // In Wator, move each fish and then each shark
