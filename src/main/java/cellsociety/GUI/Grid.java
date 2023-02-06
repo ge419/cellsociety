@@ -17,4 +17,12 @@ public abstract class Grid {
     height = Height;
   }
   public abstract void updateGrid(Cell cell);
+
+  public int getWidth() {
+    return width;
+  }
+
+  public int getHeight() {
+    return height;
+  }
 }
