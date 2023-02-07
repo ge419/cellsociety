@@ -17,8 +17,8 @@ import javafx.util.Duration;
  * Feel free to completely change this code or delete it entirely.
  */
 public class Main extends Application {
-  GUIContainer container;
-  Config config;
+  private GUIContainer container;
+  private Config config;
   int frameNum;
 
   double multiplier;
@@ -30,6 +30,8 @@ public class Main extends Application {
   public static final int FRAMES_PER_SECOND = 60;
   public static final double SECOND_DELAY = 1.0 / FRAMES_PER_SECOND;
 
+  private SimulationEngine engine;
+
   /**
    * @see Application#start(Stage)
    */
@@ -40,8 +42,8 @@ public class Main extends Application {
     pause = false;
     newFile = false;
     String english = "english";
-    container = new GUIContainer(primaryStage, english);
-
+    config= new Config();
+    container = new GUIContainer(primaryStage, english, config);
     Timeline animation = new Timeline();
     animation.setCycleCount(Timeline.INDEFINITE);
     animation.getKeyFrames()
@@ -54,7 +56,6 @@ public class Main extends Application {
     container.asyncUpdate();
     animationSpeedUpdate();
     setUpActionButtons();
-
     if(newFile){
       ResetGridSize();
       newFile = false;
@@ -85,7 +86,7 @@ public class Main extends Application {
       }
     }
   }
-
+  //TODO refactor
   private void setUpActionButtons() {
     if(container.isRequestChanged()){
       String request = container.getRequest();
@@ -97,7 +98,7 @@ public class Main extends Application {
         frameNum += FRAMES_PER_SECOND * multiplier;
       }
       if(request.equals("Reset")){
-        Config.readFile(container.getFile());
+        config.readFile(container.getFile());
       }
       if(request.equals("Clear")){
         //TODO tell engine to clear
@@ -108,6 +109,7 @@ public class Main extends Application {
       }
       if(request.equals("Get Simulation")){
         String fileName = container.getDropDownSelection();
+        System.out.println("sending");
         sendFiletoConfig(fileName);
       }
     }
@@ -127,6 +129,7 @@ public class Main extends Application {
       }
     }
     config.readFile(file);
+    engine = new SimulationEngine(config.getVariant(), config.getSimParam(), container.getGrid());
   }
 
   /**

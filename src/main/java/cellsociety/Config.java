@@ -28,34 +28,36 @@ import org.xml.sax.SAXException;
  */
 
 public class Config {
-  public static final String INTERNAL_CONFIGURATION = "cellsociety.";
-  private static ResourceBundle myResources;
+  public final String INTERNAL_CONFIGURATION = "cellsociety.";
+  private ResourceBundle myResources;
 
-  private static String simType;
-  private static String configName;
-  private static String author;
-  private static String description;
-  private static int width;
-  private static int height;
-  private static String initState;
-  private static List<List<Integer>> currState;
-  private static Element root;
-  public static HashMap<String, Double> simParam;
-  public static HashMap<String, Double> viewParam;
-  public static HashSet<String> simNames;
+  private String simType;
+  private String configName;
+  private String author;
+  private String description;
+  private int width;
+  private int height;
+  private String initState;
+  private List<List<Integer>> currState;
+  private Element root;
+  public HashMap<String, Double> simParam;
+  public HashMap<String, Double> viewParam;
+  public HashSet<String> simNames;
 
   /**
    * Reads XML file, if XML file is valid, upload info
    */
-  public static void readFile(File xmlFile) {
-    myResources = ResourceBundle.getBundle(INTERNAL_CONFIGURATION + "filesandstates");
+
+  public Config(){
     simNames = new HashSet<>();
+  }
+  public void readFile(File xmlFile) {
+    myResources = ResourceBundle.getBundle(INTERNAL_CONFIGURATION + "filesandstates");
     simNames.add(myResources.getString("LifeName"));
     simNames.add(myResources.getString("FireName"));
     simNames.add(myResources.getString("SegName"));
     simNames.add(myResources.getString("WTName"));
     simNames.add(myResources.getString("PercolName"));
-
     if (checkValidXML(xmlFile)) {
       simParam = new HashMap<>();
       viewParam = new HashMap<>();
@@ -67,7 +69,7 @@ public class Config {
     }
   }
 
-  private static void resetTagValues() {
+  private void resetTagValues() {
     simType = "";
     configName = "";
     author = "";
@@ -93,7 +95,7 @@ public class Config {
   /**
    * Checks if the XML file is valid
    */
-  public static boolean checkValidXML(File xmlFile) {
+  public boolean checkValidXML(File xmlFile) {
     try {
       Document xmlDocument =
           DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(xmlFile);
@@ -111,7 +113,7 @@ public class Config {
     return true;
   }
 
-  private static String getTextValue(Element e, String tagName) {
+  private String getTextValue(Element e, String tagName) {
     NodeList nodeList = e.getElementsByTagName(tagName);
     if (nodeList.getLength() > 0) {
       return nodeList.item(0).getTextContent();
@@ -122,7 +124,7 @@ public class Config {
     }
   }
 
-  private static void showMessage(AlertType type, String message) {    // Is PopUp class necessary?
+  private void showMessage(AlertType type, String message) {    // Is PopUp class necessary?
     new Alert(type, message).showAndWait();
   }
 
@@ -131,7 +133,7 @@ public class Config {
    * @param root
    */
 
-  public static void updateXML(Element root) {
+  public void updateXML(Element root) {
       simType = getTextValue(root, "sim_type");
       configName = getTextValue(root,"config_Name");
       author = getTextValue(root, "author");
@@ -172,7 +174,7 @@ public class Config {
       currState = strIntConverter(stateArr);
   }
 
-  private static List<List<Integer>> strIntConverter(List<List<String>> stateList) {
+  private List<List<Integer>> strIntConverter(List<List<String>> stateList) {
     List<List<Integer>> current = new ArrayList<>();
     for (List<String> state : stateList) {
       List<Integer> row = new ArrayList<>();
@@ -230,7 +232,7 @@ public class Config {
         }
   }
 
-  private static String intStrConverter(List<List<Integer>> state) {
+  private String intStrConverter(List<List<Integer>> state) {
     List<List<String>> current = new ArrayList<>();
     for (int i = 0; i < state.size(); i++) {
       for (int j = 0; j < state.get(i).size(); j++) {
@@ -268,4 +270,6 @@ public class Config {
   public String getVariant() {
     return simType;
   }
+
+  public HashMap<String, Double> getSimParam() {return simParam; }
 }
