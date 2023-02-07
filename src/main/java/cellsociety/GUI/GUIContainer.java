@@ -217,7 +217,7 @@ public class GUIContainer {
     return uploader.getUploaded();
   }
 
-  public static RectangleGrid getGrid() {
+  public RectangleGrid getGrid() {
     return grid;
   }
   public String getDropDownSelection(){
