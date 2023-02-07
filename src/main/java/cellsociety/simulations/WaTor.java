@@ -4,9 +4,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
+
+import cellsociety.Cells.Cell;
 import cellsociety.Cells.WatorCell;
 
-/*
+/**
  * @author Brandon Weiss
  */
 public class WaTor extends Simulation {
@@ -19,6 +21,19 @@ public class WaTor extends Simulation {
     private List<WatorCell> fishCells, sharkCells;
     private int energyPerFish;
 
+    /**
+     * @param emptyString       The string representing an empty cell
+     * @param fishString        The string representing a fish cell
+     * @param sharkString       The string representing a shark cell
+     * @param fishBreedingTime  The minimum number of time steps needed for a fish
+     *                          to reproduce
+     * @param sharkBreedingTime The minimum number of time steps needed for a shark
+     *                          to reproduce
+     * @param sharkEnergy       The default number of energy units a shark starts
+     *                          with
+     * @param energyPerFish     The number of energy units a shark gains by eating a
+     *                          fish
+     */
     public WaTor(String emptyString, String fishString, String sharkString,
             double fishBreedingTime, double sharkBreedingTime, double sharkEnergy, double energyPerFish) {
         super(emptyString, "");
@@ -64,6 +79,18 @@ public class WaTor extends Simulation {
         return sharkCells;
     }
 
+    public void moveCell(Cell cell, List<Cell> neighbors) {
+        List<WatorCell> nb = new ArrayList<>();
+        for (Cell c : neighbors) {
+            nb.add((WatorCell)c);
+        }
+        moveCell((WatorCell)cell, nb);
+    }
+
+    /**
+     * @param cell      A cell for which to calculate where to move
+     * @param neighbors A list of neighbor cells that are next to cell
+     */
     public void moveCell(WatorCell cell, List<WatorCell> neighbors) {
         ArrayList<WatorCell> emptyNeighbors = new ArrayList<>();
         ArrayList<WatorCell> fishNeighbors = new ArrayList<>();
@@ -74,6 +101,15 @@ public class WaTor extends Simulation {
                 fishNeighbors.add(n);
             }
         }
+        move(cell, emptyNeighbors, fishNeighbors);
+    }
+
+    /**
+     * @param cell           A cell for which to calculate where to move
+     * @param emptyNeighbors A list of neighbors in the empty state
+     * @param fishNeighbors  A list of neighbors in the fish state
+     */
+    private void move(WatorCell cell, List<WatorCell> emptyNeighbors, List<WatorCell> fishNeighbors) {
         boolean isFish = cell.getStatus().equals(fishString);
         WatorCell hold;
         if (moveToEmpty(isFish, emptyNeighbors, fishNeighbors)) {
@@ -105,21 +141,40 @@ public class WaTor extends Simulation {
         }
     }
 
+    /**
+     * @param isFish boolean if a cell is a fish (true) or shark (false)
+     * @param cell   cell of interest
+     * @return whether or not the cell reproduces
+     */
     private boolean reproducing(boolean isFish, WatorCell cell) {
         return (isFish && cell.reproduce(fishBreedingTime)) ||
                 (!isFish && cell.reproduce(sharkBreedingTime));
     }
 
+    /**
+     * @param isFish boolean if a cell is a fish (true) or shark (false)
+     * @param empty  A list of neighbor cells in the empty state
+     * @param fish   A list of neighbor cells in the fish state
+     * @return Whether a cell is moving into an empty space
+     */
     private boolean moveToEmpty(boolean isFish, List<WatorCell> empty, List<WatorCell> fish) {
         return (isFish && empty.size() > 0) || (!isFish && fish.size() == 0 && empty.size() > 0);
     }
 
+    /**
+     * Swaps the positions of cells A and B
+     */
     private void swapCells(WatorCell a, WatorCell b) {
         int aX = a.getX(), aY = a.getY();
         a.move(b.getX(), b.getY());
         b.move(aX, aY);
     }
 
+    /**
+     * @see cellsociety.simulations.Simulation#randomize(java.util.HashMap, int, int)
+     *      parameters used: perEmpty - fraction of cells to initialize as empty
+     *      perShark - fraction of non-empty cells to initialize as shark
+     */
     public WatorCell randomize(HashMap<String, Double> parameters, int xCoordinate, int yCoordinate) {
         double empty = parameters.get("perEmpty");
         double shark = parameters.get("perShark");
