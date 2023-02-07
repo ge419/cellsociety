@@ -4,13 +4,15 @@
   <sim_type>Spreading of Fire</sim_type>
   <config_Name>Low probCatch Test</config_Name>
   <author>Changmin Shin</author>
-  <description>Testing movement of burning cell when probability to catch fire is low in Spreading of Fire</description>
+  <description>
+    Testing movement of burning cell when probability to catch fire is low in Spreading of Fire.
+    Yellow represents empty space or space already burnt down, red represents burning tree, and dark green represents trees.
+  </description>
   <width>10</width>
   <height>10</height>
   <!--Not Required to have an init_state
     0: empty, 1: tree, 2: burning-->
-  <init_state>
-    1 1 1 1 1 1 1 1 1 1
+  <init_state>1 1 1 1 1 1 1 1 1 1
     1 1 1 1 1 1 1 2 2 1
     1 1 1 1 1 1 1 1 2 1
     1 1 1 1 1 1 1 1 1 1
@@ -19,8 +21,7 @@
     1 1 1 1 1 1 1 1 1 1
     1 1 1 1 1 1 1 1 1 1
     1 1 1 1 1 1 1 1 1 1
-    1 1 1 1 1 1 1 1 1 1
-  </init_state>
+    1 1 1 1 1 1 1 1 1 1</init_state>
   <!--Not Required to have a parameters-->
   <params>
     <probCatch>0.2</probCatch>

@@ -4,13 +4,15 @@
   <sim_type>Spreading of Fire</sim_type>
   <config_Name>Fire at Center</config_Name>
   <author>Angela B. Shiflet</author>
-  <description>Fire starts at the center block. From Spreading of Fire document on class website, Figure 4</description>
+  <description>
+    Fire starts at the center block. From Spreading of Fire document on class website, Figure 4.
+    Yellow represents empty space or space already burnt down, red represents burning tree, and dark green represents trees.
+  </description>
   <width>25</width>
   <height>25</height>
   <!--Not Required to have an init_state
   0: empty, 1: tree, 2: burning-->
-  <init_state>
-    1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
+  <init_state>1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
     1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
     1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
     1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
@@ -34,8 +36,7 @@
     1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
     1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
     1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
-    1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
-  </init_state>
+    1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1</init_state>
   <!--Not Required to have a parameters-->
   <params>
     <probCatch>0.55</probCatch>
