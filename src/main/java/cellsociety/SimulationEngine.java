@@ -143,6 +143,11 @@ public class SimulationEngine {
         }
     }
 
+    /**
+     * @param cell    The cell whose neighbors are desired
+     * @param corners whether to include diagonally adjacent cells as neighbors
+     * @return A list of cells adjacent to cell
+     */
     private List<Cell> findNeighbors(Cell cell, boolean corners) {
         List<Cell> neighbors = new ArrayList<>();
         boolean isWator = simType.equals(WATOR_NAME);
