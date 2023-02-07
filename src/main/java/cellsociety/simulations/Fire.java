@@ -33,7 +33,7 @@ public class Fire extends Simulation {
         if (!cell.getStatus().equals(getAliveString())) {
             return getDeadString();
         }
-        if (randDouble < probCatch) {
+        if (numBurning > 0 && randDouble < probCatch) {
             return burningState;
         }
         return getAliveString();
