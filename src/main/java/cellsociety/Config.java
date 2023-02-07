@@ -148,10 +148,10 @@ public class Config {
         }
         stateArr.add(i, row);
       }
-      currState = converter(stateArr);
+      currState = strIntConverter(stateArr);
   }
 
-  private static List<List<Integer>> converter(List<List<String>> state) {
+  private static List<List<Integer>> strIntConverter(List<List<String>> state) {
     List<List<Integer>> current = new ArrayList<>();
     for (int i = 0; i < state.size(); i++) {
       for (int j = 0; j < state.get(i).size(); j++) {
@@ -166,7 +166,7 @@ public class Config {
    * Refined code from https://www.javaguides.net/2018/10/how-to-create-xml-file-in-java-dom-parser.html
    * @param currState
    */
-  public void saveXML(List<Integer> currState) {
+  public void saveXML(List<List<Integer>> currState) {
     DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
         try {
           DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
@@ -181,11 +181,7 @@ public class Config {
           rootElement.appendChild(addTagStr(doc, "description", description));
           rootElement.appendChild(addTagInt(doc, "width", width));
           rootElement.appendChild(addTagInt(doc, "height", height));
-
-          Element curr_state = doc.createElement("curr_state");
-          //curr_state.appendChild(doc.createTextNode(currState));   --> List<Integer> into String
-          rootElement.appendChild(curr_state);
-
+          rootElement.appendChild(addTagStr(doc, "curr_state", intStrConverter(currState)));
           Element params = doc.createElement("params");
           params.appendChild(addTagParam(doc, "probCatch",simParam));
           params.appendChild(addTagParam(doc, "change",simParam));
@@ -209,6 +205,20 @@ public class Config {
         } catch (Exception e) {
           e.printStackTrace();
         }
+  }
+
+  private static String intStrConverter(List<List<Integer>> state) {
+    List<List<String>> current = new ArrayList<>();
+    for (int i = 0; i < state.size(); i++) {
+      for (int j = 0; j < state.get(i).size(); j++) {
+        current.get(i).add(j, String.valueOf(state.get(i).get(j)));
+      }
+    }
+    List<String> toStringArr = new ArrayList<>();
+    for (int k = 0; k < current.size(); k++) {
+      toStringArr.add(k, String.join(" ", current.get(k)));
+    }
+    return String.join("\n", toStringArr);
   }
 
   private org.w3c.dom.Node addTagStr(Document doc, String tagName, String value) {

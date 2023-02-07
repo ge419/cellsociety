@@ -2,9 +2,9 @@
 
 <data>
   <sim_type>Game of Life</sim_type>
-  <config_Name>Glider</config_Name>
-  <author> Richard Guy</author>
-  <description> The smallest moving object in Conway's Game of Life</description>
+  <config_Name>Corner Test</config_Name>
+  <author>Changmin Shin</author>
+  <description>Testing movement of alive cell in the corner in Conway's Game of Life</description>
   <width>10</width>
   <height>10</height>
   <!--Not Required to have an init_state-->
@@ -12,13 +12,13 @@
     0 0 0 0 0 0 0 0 0 0
     0 0 0 0 0 0 0 0 0 0
     0 0 0 0 0 0 0 0 0 0
-    0 0 0 0 0 1 0 0 0 0
-    0 0 0 0 0 0 1 0 0 0
-    0 0 0 0 1 1 1 0 0 0
     0 0 0 0 0 0 0 0 0 0
     0 0 0 0 0 0 0 0 0 0
     0 0 0 0 0 0 0 0 0 0
     0 0 0 0 0 0 0 0 0 0
+    0 0 0 0 0 0 0 0 0 0
+    1 1 0 0 0 0 0 0 0 0
+    1 0 1 0 0 0 0 0 0 0
   </init_state>
   <!--Not Required to have a parameters-->
   <params>
