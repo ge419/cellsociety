@@ -1,6 +1,7 @@
 package cellsociety;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.ResourceBundle;
 import java.io.File;
 import java.io.IOException;
@@ -151,25 +152,51 @@ public class Config {
       viewParam.put("perShark", Double.parseDouble(getTextValue(root, "perShark")));
       viewParam.put("perBlocked", Double.parseDouble(getTextValue(root, "perBlocked")));
 
-      List<List<String>> stateArr = new ArrayList<>();
+      System.out.println(initState);
+
+      List<List<String>> stateArr = new ArrayList<>(width);
       String[] splitInit = initState.split("\n");
+
       for(int i = 0; i < splitInit.length; i++) {
-        List<String> row = new ArrayList<>();
+        List<String> row = new ArrayList<>(height);
         String[] rowSplit = splitInit[i].split(" ");
-        for(int j = 0; j < rowSplit.length; i++) {
-          row.add(j, rowSplit[j]);
-        }
-        stateArr.add(i, row);
+//        for (int j = 0; j < rowSplit.length; j++) {
+//          row.add(j, rowSplit[j]);
+//        }
+//        stateArr.add(i, row);
+        Collections.addAll(row, rowSplit);
+        row = row.subList(5, row.size());
+        System.out.println(row);
       }
-      currState = strIntConverter(stateArr);
+
+//      for (List<String> l: stateArr) {
+//        for (String s: l) {
+//          System.out.println(s+".");
+//        }
+//      }
+
+      //currState = strIntConverter(stateArr);
   }
 
-  private static List<List<Integer>> strIntConverter(List<List<String>> state) {
+  private static List<List<Integer>> strIntConverter(List<List<String>> stateList) {
+//    List<List<Integer>> current = new ArrayList<>();
+//    for (int i = 0; i < state.size(); i++) {
+//      List<Integer> row = new ArrayList<>();
+//      for (int j = 0; j < state.get(i).size(); j++) {
+//        if (state.get(i).get(j).equals("")) continue;
+//        row.add(j, Integer.parseInt(state.get(i).get(j)));
+//      }
+//      current.add(i, row);
+//    }
+//    return current;
+
     List<List<Integer>> current = new ArrayList<>();
-    for (int i = 0; i < state.size(); i++) {
-      for (int j = 0; j < state.get(i).size(); j++) {
-        current.get(i).add(j, Integer.parseInt(state.get(i).get(j)));
+    for (List<String> state : stateList) {
+      List<Integer> row = new ArrayList<>();
+      for (String s : state) {
+        row.add(Integer.parseInt(s));
       }
+      current.add(row);
     }
     return current;
   }
