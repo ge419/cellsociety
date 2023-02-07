@@ -1,6 +1,7 @@
 package cellsociety;
 
 import cellsociety.GUI.PopUp;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 import java.io.File;
 import java.io.IOException;
@@ -28,7 +29,7 @@ import org.xml.sax.SAXException;
 
 public class Config {
   public static final String INTERNAL_CONFIGURATION = "cellsociety.";
-  private ResourceBundle myResources;
+  private static ResourceBundle myResources;
 
   private static String simType;
   private static String configName;
@@ -36,13 +37,17 @@ public class Config {
   private static String description;
   private static int width;
   private static int height;
-  private static List<Integer> currState;
+  private static String initState;
+  private static List<List<Integer>> currState;
   private static Element root;
   public static HashMap<String, Double> simParam;
   public static HashMap<String, Double> viewParam;
   public static HashSet<String> simNames;
 
-  public Config() {
+  /**
+   * Reads XML file, if XML file is valid, upload info
+   */
+  public static void readFile(File xmlFile) {
     myResources = ResourceBundle.getBundle(INTERNAL_CONFIGURATION + "filesandstates");
     simNames = new HashSet<>();
     simNames.add(myResources.getString("LifeName"));
@@ -50,14 +55,9 @@ public class Config {
     simNames.add(myResources.getString("SegName"));
     simNames.add(myResources.getString("WTName"));
     simNames.add(myResources.getString("PercolName"));
-  }
 
-  /**
-   * Reads XML file, if XML file is valid, upload info
-   */
-  public static void readFile(File xmlFile) {
     if (checkValidXML(xmlFile)) {
-      uploadXML(root);
+      updateXML(root);
       if (!simNames.contains(getTextValue(root, "sim_type"))) {
         showMessage(AlertType.ERROR, "Invalid simulation name");
         resetTagValues();
@@ -116,13 +116,14 @@ public class Config {
    * @param root
    */
 
-  public static void uploadXML(Element root) {
+  public static void updateXML(Element root) {
       simType = getTextValue(root, "sim_type");
       configName = getTextValue(root,"config_Name");
       author = getTextValue(root, "author");
       description = getTextValue(root, "description");
       width = Integer.parseInt(getTextValue(root, "width"));
       height = Integer.parseInt(getTextValue(root, "height"));
+      initState = getTextValue(root, "init_state");
       simParam.put("probCatch", Double.parseDouble(getTextValue(root, "probCatch")));
       simParam.put("change", Double.parseDouble(getTextValue(root, "change")));
       simParam.put("eShark", Double.parseDouble(getTextValue(root, "eShark")));
@@ -137,8 +138,27 @@ public class Config {
       viewParam.put("perShark", Double.parseDouble(getTextValue(root, "perShark")));
       viewParam.put("perBlocked", Double.parseDouble(getTextValue(root, "perBlocked")));
 
+      List<List<String>> stateArr = new ArrayList<>();
+      String[] splitInit = initState.split("\n");
+      for(int i = 0; i < splitInit.length; i++) {
+        List<String> row = new ArrayList<>();
+        String[] rowSplit = splitInit[i].split(" ");
+        for(int j = 0; j < rowSplit.length; i++) {
+          row.add(i, rowSplit[i]);
+        }
+        stateArr.add(i, row);
+      }
+      currState = converter(stateArr);
+  }
 
-      // List of integers(or list of list of integers) for init_state
+  private static List<List<Integer>> converter(List<List<String>> state) {
+    List<List<Integer>> current = new ArrayList<>();
+    for (int i = 0; i < state.size(); i++) {
+      for (int j = 0; j < state.get(i).size(); j++) {
+        current.get(i).add(j, Integer.parseInt(state.get(i).get(j)));
+      }
+    }
+    return current;
   }
 
   /**

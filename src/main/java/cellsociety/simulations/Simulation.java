@@ -1,6 +1,6 @@
 package cellsociety.simulations;
 
-import static cellsociety.SimulationEngine.cells;
+//import static cellsociety.SimulationEngine.cells;
 
 import java.util.HashMap;
 import java.util.List;

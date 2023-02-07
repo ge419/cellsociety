@@ -5,8 +5,8 @@
   <config_Name>Gosper Glider Gun</config_Name>
   <author>Bill Gosper</author>
   <description>Creates the first glider on the 15th step, and another every 30th step</description>
-  <width> 10 </width>
-  <height> 10 </height>
+  <width>10</width>
+  <height>10</height>
   <!--Not Required to have an init_state-->
   <init_state>
     0 0 0 0 0 0 0 0 0 0
@@ -22,18 +22,18 @@
   </init_state>
   <!--Not Required to have a parameters-->
   <params>
-    <probCatch></probCatch>
-    <change></change>
-    <eShark></eShark>
-    <ePerFish></ePerFish>
-    <fishBT></fishBT>
-    <sharkBT></sharkBT>
-    <perAlive></perAlive>
-    <perTree></perTree>
-    <perFire></perFire>
-    <perEmpty></perEmpty>
-    <perStateOne></perStateOne>
-    <perShark></perShark>
-    <perBlocked></perBlocked>
+    <probCatch>0</probCatch>
+    <change>0</change>
+    <eShark>0</eShark>
+    <ePerFish>0</ePerFish>
+    <fishBT>0</fishBT>
+    <sharkBT>0</sharkBT>
+    <perAlive>0</perAlive>
+    <perTree>0</perTree>
+    <perFire>0</perFire>
+    <perEmpty>0</perEmpty>
+    <perStateOne>0</perStateOne>
+    <perShark>0</perShark>
+    <perBlocked>0</perBlocked>
   </params>
 </data>
