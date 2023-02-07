@@ -20,7 +20,7 @@ public class RectangleGrid extends Grid {
   int width;
   int height;
 
-  public static final String INTERNAL_CONFIGURATION = "cellsociety.filesandvariables";
+  public static final String INTERNAL_CONFIGURATION = "cellsociety.filesandstates";
   private static final ResourceBundle NAMES_FILE = ResourceBundle.getBundle(INTERNAL_CONFIGURATION);;
   private static final String LIFE_ALIVE = NAMES_FILE.getString("LifeAlive");
 
