@@ -1,6 +1,7 @@
 package cellsociety.GUI;
 
 import cellsociety.GUI.Grids.RectangleGrid;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -24,18 +25,17 @@ public class GUIContainer {
 
   private static SliderContainer slider;
   private FileUploader uploader;
-
   private double animationSpeed;
+  private static RectangleGrid grid;
   private ResourceBundle myResources;
   private static String GUI_CSS= "stylesheets/GUIContainer.css";
 
-  public static final int GRID_SIZE = 270;
+  public static final int GRID_SIZE = 300;
 
   public static final String INTERNAL_CONFIGURATION = "cellsociety.";
-
   private static boolean sliderChanged = false;
-
   private static boolean requestChanged = false;
+  private static boolean fileUploaded = false;
 
 
   public GUIContainer(Stage primaryStage, String language) {
@@ -82,7 +82,8 @@ public class GUIContainer {
   }
 
   private void setUpGrid() {
-    RectangleGrid grid = new RectangleGrid(10,10, GRID_SIZE);
+    grid = new RectangleGrid(20,20, GRID_SIZE);
+//    grid.updateGrid(5,5);
     pane.getChildren().add(grid.getGridLayout());
     pane.setConstraints(grid.getGridLayout(), 0, 0, 3,4);
   }
@@ -95,16 +96,16 @@ public class GUIContainer {
   }
 
   private void setUpFileSaver() {
-    FileSaver save = new FileSaver(myResources.getString("Save"));
+    FileSaver save = new FileSaver(myResources.getString("Save"), grid);
     pane.getChildren().add(save.getButton());
     pane.setConstraints(save.getButton(), 4, 0);
     save.setFile("Test");
   }
 
   private void setUpFileUploader() {
-    FileUploader upload = new FileUploader(myResources.getString("Upload"));
-    pane.getChildren().add(upload.getButton());
-    pane.setConstraints(upload.getButton(), 3,0);
+    uploader = new FileUploader(myResources.getString("Upload"));
+    pane.getChildren().add(uploader.getButton());
+    pane.setConstraints(uploader.getButton(), 3,0);
   }
 
   private void SetUpDescriptionBox() {
@@ -156,6 +157,7 @@ public class GUIContainer {
 
   public void asyncUpdate(){
     updateSliderValue();
+    fileUploaded = uploader.isFileUploaded();
   }
 
   public boolean getSpeedChanged() {
@@ -174,7 +176,16 @@ public class GUIContainer {
     return holder;
   }
 
+  public static boolean isFileUploaded() {
+    boolean holder = fileUploaded;
+    fileUploaded = false;
+    return holder;
+  }
+
   public String getRequest() {
     return request;
+  }
+  public File getFile(){
+    return uploader.getUploaded();
   }
 }

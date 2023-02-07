@@ -31,10 +31,16 @@ public class RectangleGrid extends Grid {
       }
     }
   }
-  @Override
-  public void updateGrid(Cell cell) {
 
+  public void cellUpdate(Cell cell){
+    updateGrid(cell.getX(), cell.getY());
   }
+  @Override
+  public void updateGrid(int x, int y) {
+    Rectangle rect= (Rectangle) gridLayout.getChildren().get(x*width+y+1);
+    rect.setFill(Color.GREEN);
+  }
+
 
   public GridPane getGridLayout() {
     return gridLayout;
