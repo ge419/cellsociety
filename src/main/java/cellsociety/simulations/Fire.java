@@ -37,6 +37,7 @@ public class Fire extends Simulation {
      * @param neighbors A list of neighbor cells that are next to cell
      * @return The next state of a cell according to the rules of Spreading Fire
      */
+    @Override
     public String getUpdatedCellStatus(Cell cell, List<Cell> neighbors) {
         int burning = countNeighbors(neighbors, burningState);
         return toggleCell(cell, burning);

@@ -49,6 +49,7 @@ public class Schelling extends Simulation {
      * @return The next state of a cell according to the rules of Schelling's model
      *         of segregation
      */
+    @Override
     public String getUpdatedCellStatus(Cell cell, List<Cell> neighbors) {
         int sameCell = countNeighbors(neighbors, cell.getStatus());
         int totalNeighbors = neighbors.size() - countNeighbors(neighbors, getDeadString());

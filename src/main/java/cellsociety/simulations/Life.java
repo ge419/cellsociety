@@ -26,6 +26,7 @@ public class Life extends Simulation {
      * @param neighbors A list of neighbor cells that are next to cell
      * @return The next state of a cell according to the rules of Game of Life
      */
+    @Override
     public String getUpdatedCellStatus(Cell cell, List<Cell> neighbors) {
         int alive = countNeighbors(neighbors, getAliveString());
         return toggleCell(cell, alive);
