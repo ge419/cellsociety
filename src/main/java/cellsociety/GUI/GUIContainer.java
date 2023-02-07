@@ -88,6 +88,11 @@ public class GUIContainer {
             }
           }
       ));
+      for(String name:list){
+        name = dirc + "/" + name;
+        System.out.println(name);
+      }
+
       FileNames.addAll(list);
     }
   }
