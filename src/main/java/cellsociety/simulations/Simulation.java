@@ -34,9 +34,7 @@ public abstract class Simulation {
         return deadState;
     }
 
-    public String toString() {
-        return "Game of " + deadState + " and " + aliveState + " cells.";
-    }
+    
 
     public abstract Cell randomize(HashMap<String, Double> params, int xPos, int yPos);
 }

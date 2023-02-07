@@ -40,10 +40,4 @@ public class Life extends Simulation {
         }
         return cell;
     }
-
-    @Override
-    public String toString() {
-        return "Conway's Game of Life.";
-    }
-
 }

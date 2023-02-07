@@ -52,9 +52,4 @@ public class Fire extends Simulation {
         }
         return cell;
     }
-
-    @Override
-    public String toString() {
-        return "Spreading Fire simulation.";
-    }
 }

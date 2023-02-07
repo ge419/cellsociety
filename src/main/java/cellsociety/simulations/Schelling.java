@@ -76,8 +76,4 @@ public class Schelling extends Simulation {
         return cell;
     }
 
-    @Override
-    public String toString() {
-        return "Schelling's model of segregation.";
-    }
 }
