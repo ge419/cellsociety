@@ -31,7 +31,7 @@ public class SimulationEngine {
     private Grid grid;
     private int width;
     private int height;
-    public static List<List<Cell>> cells;
+    private List<List<Cell>> cells;
 
     public SimulationEngine(String simType, HashMap<String, Double> params, Grid grid) {
         init(simType, params);
@@ -118,5 +118,5 @@ public class SimulationEngine {
         return neighbors;
     };
 
-    // In Wator, move each fish and then each shark
+    //TODO: public String getCellStatus(xCoord, yCoord)
 }
