@@ -26,11 +26,11 @@ public abstract class Simulation {
         return count;
     }
 
-    public String getAliveString(){
+    public String getAliveString() {
         return aliveState;
     }
 
-    public String getDeadString(){
+    public String getDeadString() {
         return deadState;
     }
 

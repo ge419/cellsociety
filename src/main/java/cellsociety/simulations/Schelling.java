@@ -62,7 +62,7 @@ public class Schelling extends Simulation {
         move.removeAll(move);
     }
 
-    public Cell randomize(HashMap<String, Double> parameters, int xCoordinate, int yCoordinate){
+    public Cell randomize(HashMap<String, Double> parameters, int xCoordinate, int yCoordinate) {
         double empty = parameters.get("perEmpty");
         double stateA = parameters.get("perStateOne");
         Cell cell = new Cell(xCoordinate, yCoordinate);

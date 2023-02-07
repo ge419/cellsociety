@@ -39,7 +39,7 @@ public class Fire extends Simulation {
         return getAliveString();
     }
 
-    public Cell randomize(HashMap<String, Double> parameters, int xCoordinate, int yCoordinate){
+    public Cell randomize(HashMap<String, Double> parameters, int xCoordinate, int yCoordinate) {
         double trees = parameters.get("perTree");
         double burning = parameters.get("perFire");
         Cell cell = new Cell(xCoordinate, yCoordinate);
