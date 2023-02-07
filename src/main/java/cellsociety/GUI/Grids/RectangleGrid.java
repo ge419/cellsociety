@@ -29,7 +29,7 @@ public class RectangleGrid extends Grid {
   public void cellUpdate(Cell cell) {
     updateGrid(cell.getX(), cell.getY());
   }
-  public void changeSize(int newWidth, int newHeight){
+  public void changeSize(int newWidth, int newHeight, int gridSize){
     width = newWidth;
     height = newHeight;
     resetGrid(gridSize);

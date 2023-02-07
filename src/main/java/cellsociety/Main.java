@@ -31,6 +31,8 @@ public class Main extends Application {
 
   public boolean pause;
 
+  public boolean newFile;
+
   public static final int FRAMES_PER_SECOND = 60;
   public static final double SECOND_DELAY = 1.0 / FRAMES_PER_SECOND;
 
@@ -42,6 +44,7 @@ public class Main extends Application {
     frameNum = 1;
     multiplier = 1;
     pause = false;
+    newFile = false;
     String english = "english";
     container = new GUIContainer(primaryStage, english);
 
@@ -58,6 +61,11 @@ public class Main extends Application {
     animationSpeedUpdate();
     setUpActionButtons();
 
+    if(newFile){
+      ResetGridSize();
+      newFile = false;
+    }
+
     //NOT SURE IF NEED THIS
 //    if(container.isFileUploaded()){
 //      File inputFile = container.getFile();
@@ -65,6 +73,11 @@ public class Main extends Application {
 //    }
 
     //xml
+  }
+  //TODO put this in Grid class eventually, doesn't belong in main
+  private void ResetGridSize() {
+    container.getGrid().getGridLayout().getChildren().clear();
+    container.getGrid().changeSize(columnNum,rowNum, container.GRID_SIZE);
   }
 
   private void animationSpeedUpdate() {
@@ -91,6 +104,7 @@ public class Main extends Application {
       }
       if(request.equals("Reset")){
         //TODO tell XML Config to reload file
+        newFile = true;
       }
       if(request.equals("Clear")){
         //TODO tell engine to clear
