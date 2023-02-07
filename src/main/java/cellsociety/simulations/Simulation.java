@@ -1,11 +1,8 @@
 package cellsociety.simulations;
 
-//import static cellsociety.SimulationEngine.cells;
-
 import java.util.HashMap;
 import java.util.List;
 import cellsociety.Cells.Cell;
-import java.util.ResourceBundle;
 
 /*
  * @author Brandon Weiss
@@ -40,4 +37,6 @@ public abstract class Simulation {
     public String toString() {
         return "Game of " + deadState + " and " + aliveState + " cells.";
     }
+
+    public abstract Cell randomize(HashMap<String, Double> params, int xPos, int yPos);
 }
