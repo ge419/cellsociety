@@ -1,6 +1,7 @@
 package cellsociety;
 
 import cellsociety.GUI.GUIContainer;
+import java.io.File;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Application;
@@ -22,6 +23,7 @@ public class Main extends Application {
 //    public static final String INTERNAL_CONFIGURATION = "cellsociety.Version";
 
   GUIContainer container;
+  Config config;
   int frameNum;
 
   double multiplier;
@@ -41,6 +43,7 @@ public class Main extends Application {
     pause = false;
     String english = "english";
     container = new GUIContainer(primaryStage, english);
+
     Timeline animation = new Timeline();
     animation.setCycleCount(Timeline.INDEFINITE);
     animation.getKeyFrames()
@@ -49,38 +52,56 @@ public class Main extends Application {
   }
 
   private void step(double secondDelay) {
-    System.out.println(frameNum);
     timer(multiplier, pause);
     container.asyncUpdate();
+    animationSpeedUpdate();
+    setUpActionButtons();
+
+    //NOT SURE IF NEED THIS
+//    if(container.isFileUploaded()){
+//      File inputFile = container.getFile();
+//      config.readFile(inputFile);
+//    }
+
+    //xml
+  }
+
+  private void animationSpeedUpdate() {
     if(container.getSpeedChanged()){
       multiplier = container.getAnimationSpeed();
       if(multiplier != 0){
         multiplier = 1/multiplier;
       }
       else{
-        multiplier = 0.0000000001;
+        multiplier = Integer.MAX_VALUE;
       }
-      //TODO make sure this integration is proper with frame number
-      System.out.println(multiplier);
     }
+  }
+
+  private void setUpActionButtons() {
     if(container.isRequestChanged()){
       String request = container.getRequest();
+      System.out.println(request);
       if(request.equals("Go/Pause")){
         pause = !pause;
-        System.out.println(pause);
       }
       if(request.equals("Step")){
         frameNum += FRAMES_PER_SECOND * multiplier;
       }
       if(request.equals("Reset")){
         //TODO tell XML Config to reload file
+        // --> No need to reload file, simply take the initial state
       }
       if(request.equals("Clear")){
-
+        //TODO tell engine to clear
+      }
+      if(request.equals("Random")){
+        //TODO tell engine to random
+      }
+      if(request.equals("DropButton")){
+        //TODO, return selection of file chosen and then take the button out
       }
     }
-    //set conditionals for buttons actions here
-    //xml
   }
 
 
