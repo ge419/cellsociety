@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
+
+import cellsociety.Cells.Cell;
 import cellsociety.Cells.WatorCell;
 
 /**
@@ -75,6 +77,14 @@ public class WaTor extends Simulation {
 
     public List<WatorCell> getSharkCells() {
         return sharkCells;
+    }
+
+    public void moveCell(Cell cell, List<Cell> neighbors) {
+        List<WatorCell> nb = new ArrayList<>();
+        for (Cell c : neighbors) {
+            nb.add((WatorCell)c);
+        }
+        moveCell((WatorCell)cell, nb);
     }
 
     /**
