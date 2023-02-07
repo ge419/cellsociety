@@ -17,7 +17,7 @@ import cellsociety.simulations.WaTor;
  * @author Brandon Weiss, Changmin Shin
  */
 public class SimulationEngine {
-    public static final String INTERNAL_CONFIGURATION = "cellsociety.filesandvariables";
+    public static final String INTERNAL_CONFIGURATION = "cellsociety.filesandstates";
     public static final ResourceBundle NAMES_FILE = ResourceBundle.getBundle(INTERNAL_CONFIGURATION);
     private static final String SEG_NAME = NAMES_FILE.getString("SegName");
     private static final String FIRE_NAME = NAMES_FILE.getString("FireName");
