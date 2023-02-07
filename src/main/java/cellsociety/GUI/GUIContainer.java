@@ -28,19 +28,19 @@ public class GUIContainer {
   private String request;
 
   private DropDown drop;
-  private static SliderContainer slider;
+  private SliderContainer slider;
   private FileUploader uploader;
   private double animationSpeed;
-  private static RectangleGrid grid;
+  private RectangleGrid grid;
   private ResourceBundle myResources;
-  private static final String GUI_CSS = "stylesheets/GUIContainer.css";
+  private final String GUI_CSS = "stylesheets/GUIContainer.css";
 
-  public static final int GRID_SIZE = 300;
+  public final int GRID_SIZE = 300;
 
-  public static final String INTERNAL_CONFIGURATION = "cellsociety.";
-  private static boolean sliderChanged = false;
-  private static boolean requestChanged = false;
-  private static boolean fileUploaded = false;
+  public final String INTERNAL_CONFIGURATION = "cellsociety.";
+  private boolean sliderChanged = false;
+  private boolean requestChanged = false;
+  private boolean fileUploaded = false;
 
 
   public GUIContainer(Stage primaryStage, String language, Config config) {
@@ -78,7 +78,7 @@ public class GUIContainer {
     mainStage.show();
   }
 
-  private static void extractFileNames(List<String> DirectoryNames, List<String> FileNames) {
+  private void extractFileNames(List<String> DirectoryNames, List<String> FileNames) {
     for(String dirc: DirectoryNames) {
       File dir = new File(dirc);
       List<String> list = Arrays.asList(dir.list(
@@ -112,27 +112,27 @@ public class GUIContainer {
     grid = new RectangleGrid(20, 20, GRID_SIZE);
 //    grid.updateGrid(5,5);
     pane.getChildren().add(grid.getGridLayout());
-    pane.setConstraints(grid.getGridLayout(), 0, 0, 3, 4);
+    GridPane.setConstraints(grid.getGridLayout(), 0, 0, 3, 4);
   }
 
   private void setUpDropDown(List<String> FileNames) {
     drop = new DropDown(FileNames, myResources.getString("DropButton"));
     drop.getButton().setOnAction(e -> saveCommand(drop.getButton().getText()));
     pane.getChildren().add(drop.getContainer());
-    pane.setConstraints(drop.getContainer(), 3, 1, 2, 1);
+    GridPane.setConstraints(drop.getContainer(), 3, 1, 2, 1);
   }
 
   private void setUpFileSaver() {
     FileSaver save = new FileSaver(myResources.getString("Save"), grid);
     pane.getChildren().add(save.getButton());
-    pane.setConstraints(save.getButton(), 4, 0);
+    GridPane.setConstraints(save.getButton(), 4, 0);
     save.setFile("Test");
   }
 
   private void setUpFileUploader(Config config) {
     uploader = new FileUploader(myResources.getString("Upload"), config);
     pane.getChildren().add(uploader.getButton());
-    pane.setConstraints(uploader.getButton(), 3, 0);
+    GridPane.setConstraints(uploader.getButton(), 3, 0);
   }
 
   private void SetUpDescriptionBox() {
@@ -142,7 +142,7 @@ public class GUIContainer {
     descriptionContainer.getChildren().add(description);
 //    descriptionContainer.setVgrow(description, Priority.ALWAYS);
     pane.getChildren().add(descriptionContainer);
-    pane.setConstraints(descriptionContainer, 3, 3, 2, 1);
+    GridPane.setConstraints(descriptionContainer, 3, 3, 2, 1);
   }
 
   private void setUpButtons() {
@@ -160,7 +160,7 @@ public class GUIContainer {
     Button newButton = new Button(word);
     newButton.setId("Button");
     newButton.setOnAction(e -> saveCommand(newButton.getText()));
-    pane.setConstraints(newButton, x, y);
+    GridPane.setConstraints(newButton, x, y);
     return newButton;
   }
 
@@ -172,7 +172,7 @@ public class GUIContainer {
   public void setUpSliderContainer() {
     slider = new SliderContainer(0, 4, 1, 1, myResources.getString("SliderCaption"));
     pane.getChildren().add(slider.getContainer());
-    pane.setConstraints(slider.getContainer(), 3, 4, 2, 1);
+    GridPane.setConstraints(slider.getContainer(), 3, 4, 2, 1);
   }
 
   public void updateSliderValue() {
@@ -203,7 +203,7 @@ public class GUIContainer {
     return holder;
   }
 
-  public static boolean isFileUploaded() {
+  public boolean isFileUploaded() {
     boolean holder = fileUploaded;
     fileUploaded = false;
     return holder;
