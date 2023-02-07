@@ -90,11 +90,11 @@ public class Main extends Application {
         frameNum += FRAMES_PER_SECOND * multiplier;
       }
       if(request.equals("Reset")){
-        //TODO tell XML Config to reload file
-        // --> No need to reload file, simply take the initial state
+        Config.readFile(container.getFile());
       }
       if(request.equals("Clear")){
         //TODO tell engine to clear
+        //Set all Cell colors as white
       }
       if(request.equals("Random")){
         //TODO tell engine to random

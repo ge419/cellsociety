@@ -74,7 +74,20 @@ public class Config {
     description = "";
     width = 0;
     height = 0;
-    //currState = empty list of integers
+    currState = new ArrayList<>();
+    simParam.put("probCatch", 0.0);
+    simParam.put("change", 0.0);
+    simParam.put("eShark", 0.0);
+    simParam.put("ePerFish", 0.0);
+    simParam.put("fishBT", 0.0);
+    simParam.put("sharkBT", 0.0);
+    viewParam.put("perAlive", 0.0);
+    viewParam.put("perTree", 0.0);
+    viewParam.put("perFire", 0.0);
+    viewParam.put("perEmpty", 0.0);
+    viewParam.put("perStateOne", 0.0);
+    viewParam.put("perShark", 0.0);
+    viewParam.put("perBlocked", 0.0);
   }
 
   /**

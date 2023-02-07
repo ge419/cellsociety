@@ -4,7 +4,7 @@
   <sim_type>Schelling's Model of Segregation</sim_type>
   <config_Name>Ending Simulation</config_Name>
   <author>Changmin Shin</author>
-  <description>This simulation will stop to run at 12th step</description>
+  <description>This simulation will stop to run at 12th step.</description>
   <width>10</width>
   <height>10</height>
   <!--Not Required to have an init_state
