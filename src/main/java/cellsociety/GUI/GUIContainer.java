@@ -18,6 +18,7 @@ import javafx.stage.Stage;
  * @Author Han Zhang
  */
 public class GUIContainer {
+
   private Stage mainStage;
   private GridPane pane;
 
@@ -28,7 +29,7 @@ public class GUIContainer {
   private double animationSpeed;
   private static RectangleGrid grid;
   private ResourceBundle myResources;
-  private static String GUI_CSS= "stylesheets/GUIContainer.css";
+  private static String GUI_CSS = "stylesheets/GUIContainer.css";
 
   public static final int GRID_SIZE = 300;
 
@@ -62,10 +63,9 @@ public class GUIContainer {
     FileNames.add("test1");
     setUpDropDown(FileNames);
 
-
     Scene stageScene = new Scene(pane, 1000, 700);
 
-    pane.setMaxSize(stageScene.getWidth()-50, stageScene.getHeight()-50);
+    pane.setMaxSize(stageScene.getWidth() - 50, stageScene.getHeight() - 50);
     mainStage.setScene(stageScene);
     stageScene.getStylesheets().add(GUI_CSS);
     mainStage.show();
@@ -82,17 +82,17 @@ public class GUIContainer {
   }
 
   private void setUpGrid() {
-    grid = new RectangleGrid(20,20, GRID_SIZE);
+    grid = new RectangleGrid(20, 20, GRID_SIZE);
 //    grid.updateGrid(5,5);
     pane.getChildren().add(grid.getGridLayout());
-    pane.setConstraints(grid.getGridLayout(), 0, 0, 3,4);
+    pane.setConstraints(grid.getGridLayout(), 0, 0, 3, 4);
   }
 
   private void setUpDropDown(List<String> FileNames) {
     DropDown drop = new DropDown(FileNames, myResources.getString("DropButton"));
     drop.getButton().setOnAction(e -> saveCommand(drop.getButton().getText()));
     pane.getChildren().add(drop.getContainer());
-    pane.setConstraints(drop.getContainer(), 3,1, 2, 1);
+    pane.setConstraints(drop.getContainer(), 3, 1, 2, 1);
   }
 
   private void setUpFileSaver() {
@@ -105,7 +105,7 @@ public class GUIContainer {
   private void setUpFileUploader() {
     uploader = new FileUploader(myResources.getString("Upload"));
     pane.getChildren().add(uploader.getButton());
-    pane.setConstraints(uploader.getButton(), 3,0);
+    pane.setConstraints(uploader.getButton(), 3, 0);
   }
 
   private void SetUpDescriptionBox() {
@@ -115,13 +115,13 @@ public class GUIContainer {
     descriptionContainer.getChildren().add(description);
 //    descriptionContainer.setVgrow(description, Priority.ALWAYS);
     pane.getChildren().add(descriptionContainer);
-    pane.setConstraints(descriptionContainer, 3,3, 2, 1);
+    pane.setConstraints(descriptionContainer, 3, 3, 2, 1);
   }
 
   private void setUpButtons() {
     Button step = createButton(myResources.getString("Step"), 0, 5);
     Button reset = createButton(myResources.getString("Reset"), 1, 5);
-    Button go = createButton(myResources.getString("Go/Pause"),2, 5);
+    Button go = createButton(myResources.getString("Go/Pause"), 2, 5);
     Button clear = createButton(myResources.getString("Clear"), 3, 5);
     Button random = createButton(myResources.getString("Random"), 4, 5);
 
@@ -129,7 +129,7 @@ public class GUIContainer {
     pane.getChildren().addAll(step, reset, go, clear, random);
   }
 
-  public Button createButton(String word, int x, int y){
+  public Button createButton(String word, int x, int y) {
     Button newButton = new Button(word);
     newButton.setId("Button");
     newButton.setOnAction(e -> saveCommand(newButton.getText()));
@@ -137,25 +137,25 @@ public class GUIContainer {
     return newButton;
   }
 
-  public void saveCommand(String string){
+  public void saveCommand(String string) {
     request = string;
     requestChanged = true;
   }
 
-  public void setUpSliderContainer(){
+  public void setUpSliderContainer() {
     slider = new SliderContainer(0, 4, 1, 1, myResources.getString("SliderCaption"));
     pane.getChildren().add(slider.getContainer());
     pane.setConstraints(slider.getContainer(), 3, 4, 2, 1);
   }
 
-  public void updateSliderValue(){
-    if(animationSpeed!= slider.getValue()){
+  public void updateSliderValue() {
+    if (animationSpeed != slider.getValue()) {
       animationSpeed = slider.getValue();
       sliderChanged = true;
     }
   }
 
-  public void asyncUpdate(){
+  public void asyncUpdate() {
     updateSliderValue();
     fileUploaded = uploader.isFileUploaded();
   }
@@ -166,7 +166,7 @@ public class GUIContainer {
     return holder;
   }
 
-  public double getAnimationSpeed(){
+  public double getAnimationSpeed() {
     return animationSpeed;
   }
 
@@ -185,7 +185,8 @@ public class GUIContainer {
   public String getRequest() {
     return request;
   }
-  public File getFile(){
+
+  public File getFile() {
     return uploader.getUploaded();
   }
 }
