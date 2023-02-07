@@ -6,6 +6,7 @@ import cellsociety.GUI.Grids.RectangleGrid;
 import java.io.File;
 import java.io.FilenameFilter;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -31,6 +32,7 @@ public class Main extends Application {
   public static final double SECOND_DELAY = 1.0 / FRAMES_PER_SECOND;
 
   private SimulationEngine engine;
+  private HashMap<String, Double> param;
 
   /**
    * @see Application#start(Stage)
@@ -44,6 +46,7 @@ public class Main extends Application {
     String english = "english";
     config= new Config();
     container = new GUIContainer(primaryStage, english, config);
+    engine = new SimulationEngine("Game of Life", config.getSimParam(), container.getGrid());
     Timeline animation = new Timeline();
     animation.setCycleCount(Timeline.INDEFINITE);
     animation.getKeyFrames()
@@ -153,6 +156,7 @@ public class Main extends Application {
   private void timer(double multiplier, boolean pause) {
     if (frameNum >= FRAMES_PER_SECOND * multiplier) {
       frameNum = 0;
+      engine.updateGameState();
 
 //      container.getGrid().updateGrid(4,5, "Alive");
 //      container.getGrid().updateGrid(5,7, "StateA");
