@@ -4,7 +4,10 @@
   <sim_type>Game of Life</sim_type>
   <config_Name>Edge Test</config_Name>
   <author>Changmin Shin</author>
-  <description>Testing movement of alive cell in the edge in Conway's Game of Life</description>
+  <description>
+    Testing movement of alive cell in the edge in Conway's Game of Life.
+    Green colored cell represents alive cell, and black colored cell represents a dead cell.
+  </description>
   <width>10</width>
   <height>10</height>
   <!--Not Required to have an init_state-->

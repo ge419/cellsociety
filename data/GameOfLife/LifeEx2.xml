@@ -4,7 +4,10 @@
   <sim_type>Game of Life</sim_type>
   <config_Name>Light-weight Space Ship</config_Name>
   <author>Stephen A. Silver</author>
-  <description>Small form of space ship</description>
+  <description>
+    Small form of spaceship that moves to the right.
+    Green colored cell represents alive cell, and black colored cell represents a dead cell.
+  </description>
   <width>10</width>
   <height>10</height>
   <!--Not Required to have an init_state-->

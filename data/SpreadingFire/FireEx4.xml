@@ -4,7 +4,10 @@
   <sim_type>Spreading of Fire</sim_type>
   <config_Name>Corner Test</config_Name>
   <author>Changmin Shin</author>
-  <description>Testing movement of burning cell in the corner in Spreading of Fire</description>
+  <description>
+    Testing movement of burning cell in the corner in Spreading of Fire.
+    Yellow represents empty space or space already burnt down, red represents burning tree, and green represents trees.
+  </description>
   <width>10</width>
   <height>10</height>
   <!--Not Required to have an init_state

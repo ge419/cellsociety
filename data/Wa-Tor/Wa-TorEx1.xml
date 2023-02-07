@@ -1,17 +1,16 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
 <data>
-  <sim_type>Schelling's Model of Segregation</sim_type>
-  <config_Name>Ending Simulation</config_Name>
+  <sim_type>Wa-Tor World Model of Predator-prey Relationships</sim_type>
+  <config_Name>Similar Number of Sharks and Fish</config_Name>
   <author>Changmin Shin</author>
   <description>
-    This simulation will stop to run at 12th step.
-    White space represents unoccupied area, and red and blue areas represent the two groups.
+    This simulation starts with similar number of sharks and fish to conduct Wa-Tor World model of predator-prey relationships.
   </description>
   <width>10</width>
   <height>10</height>
   <!--Not Required to have an init_state
-    0: empty, 1: red, 2: blue-->
+    0: empty, 1: fish, 2: shark-->
   <init_state>
     1 2 1 2 1 0 2 1 1 2
     2 1 1 0 1 1 2 1 2 0
@@ -27,17 +26,17 @@
   <!--Not Required to have a parameters-->
   <params>
     <probCatch>0</probCatch>
-    <change>0.3</change>
+    <change>0</change>
     <eShark>0</eShark>
     <ePerFish>0</ePerFish>
-    <fishBT>0</fishBT>
-    <sharkBT>0</sharkBT>
+    <fishBT>2</fishBT>
+    <sharkBT>1</sharkBT>
     <perAlive>0</perAlive>
     <perTree>0</perTree>
     <perFire>0</perFire>
-    <perEmpty>0.2</perEmpty>
-    <perStateOne>0.4</perStateOne>
-    <perShark>0</perShark>
-    <perBlocked>0</perBlocked>
+    <perEmpty>0.1</perEmpty>
+    <perStateOne>0</perStateOne>
+    <perShark>0.45</perShark>
+    <perBlocked>45</perBlocked>
   </params>
 </data>

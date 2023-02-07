@@ -4,7 +4,10 @@
   <sim_type>Schelling's Model of Segregation</sim_type>
   <config_Name>Never Ending Simulation</config_Name>
   <author>Changmin Shin</author>
-  <description>This simulation will continue to run infinitely unless stopped or modified</description>
+  <description>
+    This simulation will continue to run infinitely unless stopped or modified.
+    White space represents unoccupied area, and red and blue areas represent the two groups.
+  </description>
   <width>10</width>
   <height>10</height>
   <!--Not Required to have an init_state
