@@ -2,7 +2,9 @@ package cellsociety.GUI;
 
 import cellsociety.GUI.Grids.RectangleGrid;
 import java.io.File;
+import java.io.FilenameFilter;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
 import javafx.scene.Scene;
@@ -29,7 +31,7 @@ public class GUIContainer {
   private double animationSpeed;
   private static RectangleGrid grid;
   private ResourceBundle myResources;
-  private static String GUI_CSS = "stylesheets/GUIContainer.css";
+  private static final String GUI_CSS = "stylesheets/GUIContainer.css";
 
   public static final int GRID_SIZE = 300;
 
@@ -58,9 +60,12 @@ public class GUIContainer {
 
     setUpGrid();
 
+    List<String> DirectoryNames = new ArrayList<>();
     List<String> FileNames = new ArrayList<>();
-    FileNames.add("test");
-    FileNames.add("test1");
+    DirectoryNames.add("data/GameOfLife");
+    DirectoryNames.add("data/SpreadingFire");
+
+    extractFileNames(DirectoryNames, FileNames);
     setUpDropDown(FileNames);
 
     Scene stageScene = new Scene(pane, 1000, 700);
@@ -69,6 +74,21 @@ public class GUIContainer {
     mainStage.setScene(stageScene);
     stageScene.getStylesheets().add(GUI_CSS);
     mainStage.show();
+  }
+
+  private static void extractFileNames(List<String> DirectoryNames, List<String> FileNames) {
+    for(String dirc: DirectoryNames) {
+      File dir = new File(dirc);
+      List<String> list = Arrays.asList(dir.list(
+          new FilenameFilter() {
+            @Override
+            public boolean accept(File dir, String name) {
+              return name.endsWith(".xml");
+            }
+          }
+      ));
+      FileNames.addAll(list);
+    }
   }
 
   private void setColumnConstraints() {
