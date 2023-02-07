@@ -4,7 +4,10 @@
   <sim_type>Wa-Tor World Model of Predator-prey Relationships</sim_type>
   <config_Name>Similar Number of Sharks and Fish</config_Name>
   <author>Changmin Shin</author>
-  <description>This simulation starts with similar number of sharks and fish to conduct Wa-Tor World model of predator-prey relationships</description>
+  <description>
+    This simulation starts with similar number of sharks and fish to conduct Wa-Tor World model of predator-prey relationships
+    Dark blue cells represent the sea, sky blue cells represent sharks, and green yellow cells represent fish.
+  </description>
   <width>10</width>
   <height>10</height>
   <!--Not Required to have an init_state

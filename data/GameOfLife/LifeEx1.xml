@@ -6,7 +6,7 @@
   <author>Conway's Game of Life Wikipedia page</author>
   <description>
     The smallest oscillating object in Conway's Game of Life.
-    Green colored cell represents alive cell, and black colored cell represents a dead cell.
+    Light green cells represent alive cells, and white cells represents dead cells.
   </description>
   <width>10</width>
   <height>10</height>

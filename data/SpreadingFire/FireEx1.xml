@@ -6,7 +6,7 @@
   <author>Angela B. Shiflet</author>
   <description>
     Fire starts at the center block. From Spreading of Fire document on class website, Figure 4.
-    Yellow represents empty space or space already burnt down, red represents burning tree, and green represents trees.
+    Yellow represents empty space or space already burnt down, red represents burning tree, and dark green represents trees.
   </description>
   <width>25</width>
   <height>25</height>

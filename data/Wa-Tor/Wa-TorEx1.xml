@@ -6,6 +6,7 @@
   <author>Changmin Shin</author>
   <description>
     This simulation starts with similar number of sharks and fish to conduct Wa-Tor World model of predator-prey relationships.
+    Dark blue cells represent the sea, sky blue cells represent sharks, and green yellow cells represent fish.
   </description>
   <width>10</width>
   <height>10</height>

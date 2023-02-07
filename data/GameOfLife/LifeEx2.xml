@@ -6,7 +6,7 @@
   <author>Stephen A. Silver</author>
   <description>
     Small form of spaceship that moves to the right.
-    Green colored cell represents alive cell, and black colored cell represents a dead cell.
+    Light green cells represent alive cells, and white cells represents dead cells.
   </description>
   <width>10</width>
   <height>10</height>

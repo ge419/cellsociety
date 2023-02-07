@@ -6,7 +6,7 @@
   <author>Changmin Shin</author>
   <description>
     Testing movement of burning cells when met with empty cells in Spreading of Fire.
-    Yellow represents empty space or space already burnt down, red represents burning tree, and green represents trees.
+    Yellow represents empty space or space already burnt down, red represents burning tree, and dark green represents trees.
   </description>
   <width>12</width>
   <height>12</height>
