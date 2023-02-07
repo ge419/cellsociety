@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<data>
+  <sim_type>Game of Life</sim_type>
+  <config_Name>Glider</config_Name>
+  <author> Richard Guy</author>
+  <description> The smallest moving object in Conway's Game of Life</description>
+  <width> 10 </width>
+  <height> 10 </height>
+  <!--Not Required to have an init_state-->
+  <init_state>
+    0 0 0 0 0 0 0 0 0 0
+    0 0 0 0 0 0 0 0 0 0
+    0 0 0 0 0 0 0 0 0 0
+    0 0 0 0 0 1 0 0 0 0
+    0 0 0 0 0 0 1 0 0 0
+    0 0 0 0 1 1 1 0 0 0
+    0 0 0 0 0 0 0 0 0 0
+    0 0 0 0 0 0 0 0 0 0
+    0 0 0 0 0 0 0 0 0 0
+    0 0 0 0 0 0 0 0 0 0
+  </init_state>
+  <!--Not Required to have a parameters-->
+  <params>
+    <probCatch></probCatch>
+    <change></change>
+    <eShark></eShark>
+    <ePerFish></ePerFish>
+    <fishBT></fishBT>
+    <sharkBT></sharkBT>
+    <perAlive></perAlive>
+    <perTree></perTree>
+    <perFire></perFire>
+    <perEmpty></perEmpty>
+    <perStateOne></perStateOne>
+    <perShark></perShark>
+    <perBlocked></perBlocked>
+  </params>
+</data>
