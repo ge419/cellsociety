@@ -26,10 +26,11 @@ public class GUIContainer {
   private static SliderContainer slider;
   private FileUploader uploader;
   private double animationSpeed;
+  private static RectangleGrid grid;
   private ResourceBundle myResources;
   private static String GUI_CSS= "stylesheets/GUIContainer.css";
 
-  public static final int GRID_SIZE = 270;
+  public static final int GRID_SIZE = 300;
 
   public static final String INTERNAL_CONFIGURATION = "cellsociety.";
   private static boolean sliderChanged = false;
@@ -81,7 +82,8 @@ public class GUIContainer {
   }
 
   private void setUpGrid() {
-    RectangleGrid grid = new RectangleGrid(10,10, GRID_SIZE);
+    grid = new RectangleGrid(20,20, GRID_SIZE);
+//    grid.updateGrid(5,5);
     pane.getChildren().add(grid.getGridLayout());
     pane.setConstraints(grid.getGridLayout(), 0, 0, 3,4);
   }
@@ -94,7 +96,7 @@ public class GUIContainer {
   }
 
   private void setUpFileSaver() {
-    FileSaver save = new FileSaver(myResources.getString("Save"));
+    FileSaver save = new FileSaver(myResources.getString("Save"), grid);
     pane.getChildren().add(save.getButton());
     pane.setConstraints(save.getButton(), 4, 0);
     save.setFile("Test");

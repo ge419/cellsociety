@@ -63,7 +63,6 @@ public class Main extends Application {
 //      config.readFile(inputFile);
 //    }
 
-    //set conditionals for buttons actions here
     //xml
   }
 
