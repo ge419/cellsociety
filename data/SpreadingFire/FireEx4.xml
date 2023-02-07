@@ -12,8 +12,7 @@
   <height>10</height>
   <!--Not Required to have an init_state
     0: empty, 1: tree, 2: burning-->
-  <init_state>
-    1 1 1 1 1 1 1 1 1 2
+  <init_state>1 1 1 1 1 1 1 1 1 2
     1 1 1 1 1 1 1 1 1 1
     1 1 1 1 1 1 1 1 1 1
     1 1 1 1 1 1 1 1 1 1
@@ -22,8 +21,7 @@
     1 1 1 1 1 1 1 1 1 1
     1 1 1 1 1 1 1 1 1 1
     2 2 1 1 1 1 1 1 1 1
-    2 1 2 1 1 1 1 1 1 1
-  </init_state>
+    2 1 2 1 1 1 1 1 1 1</init_state>
   <!--Not Required to have a parameters-->
   <params>
     <probCatch>0.5</probCatch>

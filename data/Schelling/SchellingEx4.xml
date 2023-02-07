@@ -12,8 +12,7 @@
   <height>10</height>
   <!--Not Required to have an init_state
     0: empty, 1: red, 2: blue-->
-  <init_state>
-    1 2 1 2 1 0 2 1 1 2
+  <init_state>1 2 1 2 1 0 2 1 1 2
     2 1 1 0 1 1 2 1 2 0
     1 1 1 1 2 2 0 2 2 1
     1 1 2 2 2 1 1 2 2 2
@@ -22,8 +21,7 @@
     2 2 1 2 0 1 1 1 1 2
     1 2 1 2 2 2 2 1 2 2
     2 2 0 2 2 1 1 2 2 2
-    0 2 2 1 2 1 1 1 1 2
-  </init_state>
+    0 2 2 1 2 1 1 1 1 2</init_state>
   <!--Not Required to have a parameters-->
   <params>
     <probCatch>0</probCatch>

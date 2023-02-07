@@ -11,8 +11,7 @@
   <width>10</width>
   <height>10</height>
   <!--Not Required to have an init_state-->
-  <init_state>
-    0 0 0 0 0 0 0 0 0 0
+  <init_state>0 0 0 0 0 0 0 0 0 0
     0 0 0 0 0 0 0 0 0 0
     0 0 0 0 0 0 0 0 0 0
     0 0 0 0 0 1 0 0 0 0
@@ -21,8 +20,7 @@
     0 0 0 0 0 0 0 0 0 0
     0 0 0 0 0 0 0 0 0 0
     0 0 0 0 0 0 0 0 0 0
-    0 0 0 0 0 0 0 0 0 0
-  </init_state>
+    0 0 0 0 0 0 0 0 0 0</init_state>
   <!--Not Required to have a parameters-->
   <params>
     <probCatch>0</probCatch>
