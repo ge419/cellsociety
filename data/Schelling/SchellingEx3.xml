@@ -5,7 +5,7 @@
   <config_Name>Ending Simulation</config_Name>
   <author>Changmin Shin</author>
   <description>
-    This simulation will stop to run at 12th step as the two groups are fully segregated.
+    This simulation has the same initial state as ex2, but has higher threshold of change.
     White space represents unoccupied area, and red and blue areas represent the two groups.
   </description>
   <width>10</width>
@@ -27,7 +27,7 @@
   <!--Not Required to have a parameters-->
   <params>
     <probCatch>0</probCatch>
-    <change>0.3</change>
+    <change>0.6</change>
     <eShark>0</eShark>
     <ePerFish>0</ePerFish>
     <fishBT>0</fishBT>
