@@ -135,9 +135,9 @@ public class SimulationEngine {
             String next;
             for (int i = 0; i < cells.size(); i++) {
                 for (int j = 0; j < cells.get(i).size(); j++) {
-                    next = nextStates.get(i*cells.get(i).size() + j);
+                    next = nextStates.get(i * cells.get(i).size() + j);
                     cells.get(i).get(j).setStatus(next);
-                    grid.updateGrid(i, j);
+                    grid.updateGrid(i, j, next);
                 }
             }
         }
