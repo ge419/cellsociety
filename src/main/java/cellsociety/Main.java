@@ -1,6 +1,7 @@
 package cellsociety;
 
 import cellsociety.GUI.GUIContainer;
+import cellsociety.GUI.Grids.RectangleGrid;
 import java.io.File;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -102,7 +103,6 @@ public class Main extends Application {
       }
     }
   }
-
 
   private void timer(double multiplier, boolean pause) {
     if (frameNum >= FRAMES_PER_SECOND * multiplier) {

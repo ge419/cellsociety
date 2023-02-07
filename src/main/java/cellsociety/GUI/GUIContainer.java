@@ -189,4 +189,8 @@ public class GUIContainer {
   public File getFile() {
     return uploader.getUploaded();
   }
+
+  public static RectangleGrid getGrid() {
+    return grid;
+  }
 }
