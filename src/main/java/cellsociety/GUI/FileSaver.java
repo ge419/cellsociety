@@ -1,10 +1,12 @@
 package cellsociety.GUI;
 
+import cellsociety.GUI.Grids.RectangleGrid;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import javafx.scene.control.Button;
 import javafx.stage.FileChooser;
+import cellsociety.Config;
 
 public class FileSaver {
 
@@ -13,7 +15,7 @@ public class FileSaver {
   private static String data;
   private static PrintWriter fileWriter;
   private static Button button;
-  public FileSaver(String label) {
+  public FileSaver(String label, RectangleGrid grid) {
     button = new Button(label);
     button.setId("files-button");
     button.setOnAction(e -> {
@@ -24,8 +26,8 @@ public class FileSaver {
       saved = fileChooser.showSaveDialog(button.getScene().getWindow());
       if (saved != null) {
         try (PrintWriter writer = new PrintWriter(saved)) {
-          fileWriter = writer;
-          fileWriter.println(data);
+
+//          saved = Config.saveXML(grid.getStates());
         } catch (FileNotFoundException ex) {
           System.out.println("Error writing to file: " + ex.getMessage());
         }

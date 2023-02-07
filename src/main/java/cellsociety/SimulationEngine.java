@@ -14,7 +14,7 @@ import cellsociety.simulations.Simulation;
 import cellsociety.simulations.WaTor;
 
 /*
- * @author Brandon Weiss
+ * @author Brandon Weiss, Changmin Shin
  */
 public class SimulationEngine {
     public static final String INTERNAL_CONFIGURATION = "cellsociety.filesandvariables";
@@ -70,7 +70,7 @@ public class SimulationEngine {
         }
     }
 
-    
+
     public void evolve(){
         if (simType.equals(WATOR_NAME)){
             for (){
@@ -91,7 +91,7 @@ public class SimulationEngine {
             }
         }
     }
-    
+
     //TODO
     public List<Cell> findNeighbors(Cell cell, boolean corners, boolean wrap) {
         List<Cell> neighbors = new ArrayList<>();

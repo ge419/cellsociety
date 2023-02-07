@@ -1,6 +1,6 @@
 package cellsociety.simulations;
 
-import static cellsociety.SimulationEngine.cells;
+//import static cellsociety.SimulationEngine.cells;
 
 import java.util.HashMap;
 import java.util.List;
@@ -11,14 +11,6 @@ import java.util.ResourceBundle;
  * @author Brandon Weiss
  */
 public abstract class Simulation {
-    public static final String INTERNAL_CONFIGURATION = "cellsociety.filesandvariables";
-    public static final ResourceBundle NAMES_FILE = ResourceBundle.getBundle(INTERNAL_CONFIGURATION);
-    private static final String SEG_NAME = NAMES_FILE.getString("SegName");
-    private static final String FIRE_NAME = NAMES_FILE.getString("FireName");
-    private static final String LIFE_NAME = NAMES_FILE.getString("LifeName");
-    private static final String WATOR_NAME = NAMES_FILE.getString("WTName");
-    private static final String PERC_NAME = NAMES_FILE.getString("PercolName");
-
     private String deadState;
     private String aliveState;
 
@@ -35,47 +27,6 @@ public abstract class Simulation {
             }
         }
         return count;
-    }
-
-    /**
-     * Sets cell status based on the % of certain cell from HashMap params
-     * TODO: finish code for determining state, decide which class this method will go to
-     * @param params
-     * @param simType
-     * @param x
-     * @param y
-     */
-    public void randomize(HashMap<String, Double> params, String simType, int x, int y) {
-        if (simType.equals(LIFE_NAME)) {
-            Double perAlive = params.get("perAlive");
-            // code that determines state using perAlive
-            // String life =
-            //cells.get(x).get(y).setStatus(life);
-        } else if (simType.equals(FIRE_NAME)) {
-            Double perTree = params.get("perTree");
-            Double perFire = params.get("perFire");
-            // code that determines state by perTree, perFire
-            // String fire =
-            //cells.get(x).get(y).setStatus(fire);
-        } else if (simType.equals(SEG_NAME)) {
-            Double perEmpty = params.get("perEmpty");
-            Double perStateOne = params.get("perStateOne");
-            // code that determines state using perEmpty, perStateOne
-            // String seg =
-            //cells.get(x).get(y).setStatus(seg);
-        } else if (simType.equals(WATOR_NAME)) {
-            Double perEmptyWA = params.get("perEmpty");
-            Double perShark = params.get("perShark");
-            // code that determines state using perShark, perEmptyWA
-            // String wator =
-            //cells.get(x).get(y).setStatus(wator);
-        } else if (simType.equals(PERC_NAME)) {
-            Double perBlocked = params.get("perBlocked");
-            // code that determines state using perBlocked
-            // String perc =
-            //cells.get(x).get(y).setStatus(perc);
-        }
-
     }
 
     public String getAliveString(){
