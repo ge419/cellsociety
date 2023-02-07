@@ -57,6 +57,8 @@ public class Config {
     simNames.add(myResources.getString("PercolName"));
 
     if (checkValidXML(xmlFile)) {
+      simParam = new HashMap<>();
+      viewParam = new HashMap<>();
       updateXML(root);
       if (!simNames.contains(getTextValue(root, "sim_type"))) {
         showMessage(AlertType.ERROR, "Invalid simulation name");
@@ -144,7 +146,7 @@ public class Config {
         List<String> row = new ArrayList<>();
         String[] rowSplit = splitInit[i].split(" ");
         for(int j = 0; j < rowSplit.length; i++) {
-          row.add(i, rowSplit[i]);
+          row.add(j, rowSplit[j]);
         }
         stateArr.add(i, row);
       }

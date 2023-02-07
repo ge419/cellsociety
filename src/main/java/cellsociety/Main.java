@@ -1,6 +1,8 @@
 package cellsociety;
 
+import cellsociety.Cells.Cell;
 import cellsociety.GUI.GUIContainer;
+import cellsociety.GUI.Grids.RectangleGrid;
 import java.io.File;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -30,6 +32,8 @@ public class Main extends Application {
 
   public boolean pause;
 
+  public boolean newFile;
+
   public static final int FRAMES_PER_SECOND = 60;
   public static final double SECOND_DELAY = 1.0 / FRAMES_PER_SECOND;
 
@@ -41,6 +45,7 @@ public class Main extends Application {
     frameNum = 1;
     multiplier = 1;
     pause = false;
+    newFile = false;
     String english = "english";
     container = new GUIContainer(primaryStage, english);
 
@@ -57,6 +62,11 @@ public class Main extends Application {
     animationSpeedUpdate();
     setUpActionButtons();
 
+    if(newFile){
+      ResetGridSize();
+      newFile = false;
+    }
+
     //NOT SURE IF NEED THIS
 //    if(container.isFileUploaded()){
 //      File inputFile = container.getFile();
@@ -64,6 +74,11 @@ public class Main extends Application {
 //    }
 
     //xml
+  }
+  //TODO put this in Grid class eventually, doesn't belong in main
+  private void ResetGridSize() {
+    container.getGrid().getGridLayout().getChildren().clear();
+    container.getGrid().changeSize(10,10, container.GRID_SIZE);
   }
 
   private void animationSpeedUpdate() {
@@ -104,10 +119,12 @@ public class Main extends Application {
     }
   }
 
-
   private void timer(double multiplier, boolean pause) {
     if (frameNum >= FRAMES_PER_SECOND * multiplier) {
       frameNum = 0;
+
+//      container.getGrid().updateGrid(4,5, "Alive");
+//      container.getGrid().updateGrid(5,7, "StateA");
       //Grid update inside here
       //Game logic
     }
