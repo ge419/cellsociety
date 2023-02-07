@@ -16,7 +16,7 @@ public abstract class Grid {
     width = Width;
     height = Height;
   }
-  public abstract void updateGrid(int x, int y);
+  public abstract void updateGrid(int x, int y, String state);
 
   public int getHeight() {
     return height;
