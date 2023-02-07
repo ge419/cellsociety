@@ -7,6 +7,7 @@ import java.io.FilenameFilter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 import java.util.ResourceBundle;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -28,19 +29,19 @@ public class GUIContainer {
   private String request;
 
   private DropDown drop;
-  private static SliderContainer slider;
+  private SliderContainer slider;
   private FileUploader uploader;
   private double animationSpeed;
-  private static RectangleGrid grid;
+  private RectangleGrid grid;
   private ResourceBundle myResources;
-  private static final String GUI_CSS = "stylesheets/GUIContainer.css";
+  private final String GUI_CSS = "stylesheets/GUIContainer.css";
 
-  public static final int GRID_SIZE = 300;
+  public final int GRID_SIZE = 300;
 
-  public static final String INTERNAL_CONFIGURATION = "cellsociety.";
-  private static boolean sliderChanged = false;
-  private static boolean requestChanged = false;
-  private static boolean fileUploaded = false;
+  public final String INTERNAL_CONFIGURATION = "cellsociety.";
+  private boolean sliderChanged = false;
+  private boolean requestChanged = false;
+  private boolean fileUploaded = false;
 
 
   public GUIContainer(Stage primaryStage, String language, Config config) {
@@ -64,8 +65,13 @@ public class GUIContainer {
 
     List<String> DirectoryNames = new ArrayList<>();
     List<String> FileNames = new ArrayList<>();
+
+    //TODO figure out a way to refactor the multiple .adds and create a proper Directory Name
+
     DirectoryNames.add("data/GameOfLife");
     DirectoryNames.add("data/SpreadingFire");
+    DirectoryNames.add("data/Schelling");
+    DirectoryNames.add("data/Wa-Tor");
 
     extractFileNames(DirectoryNames, FileNames);
     setUpDropDown(FileNames);
@@ -78,17 +84,17 @@ public class GUIContainer {
     mainStage.show();
   }
 
-  private static void extractFileNames(List<String> DirectoryNames, List<String> FileNames) {
+  private void extractFileNames(List<String> DirectoryNames, List<String> FileNames) {
     for(String dirc: DirectoryNames) {
       File dir = new File(dirc);
-      List<String> list = Arrays.asList(dir.list(
+      List<String> list = Arrays.asList(Objects.requireNonNull(dir.list(
           new FilenameFilter() {
             @Override
             public boolean accept(File dir, String name) {
               return name.endsWith(".xml");
             }
           }
-      ));
+      )));
       for(String name:list){
         name = dirc + "/" + name;
         System.out.println(name);
@@ -203,7 +209,7 @@ public class GUIContainer {
     return holder;
   }
 
-  public static boolean isFileUploaded() {
+  public boolean isFileUploaded() {
     boolean holder = fileUploaded;
     fileUploaded = false;
     return holder;
@@ -217,7 +223,7 @@ public class GUIContainer {
     return uploader.getUploaded();
   }
 
-  public static RectangleGrid getGrid() {
+  public RectangleGrid getGrid() {
     return grid;
   }
   public String getDropDownSelection(){
