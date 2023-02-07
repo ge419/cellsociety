@@ -73,6 +73,24 @@ public class SimulationEngine {
         }
     }
 
+    /**
+     * Set the starting configuration for a blank simulation
+     * 
+     * @param simType The string representing which of the cellular automata to run
+     */
+    public void emptyStart(String simType) {
+        Cell input;
+        cells = new ArrayList<>();
+        for (int i = 0; i < width; i++) {
+            ArrayList<Cell> column = new ArrayList<>();
+            for (int j = 0; j < height; i++) {
+                input = new Cell(i, j);
+                input.setStatus(sim.getDeadString());
+                column.add(input);
+            }
+            cells.add(column);
+        }
+    }
 
     public void evolve(){
         if (simType.equals(WATOR_NAME)){
