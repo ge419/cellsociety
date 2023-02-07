@@ -136,31 +136,58 @@ public class SimulationEngine {
             for (int i = 0; i < cells.size(); i++) {
                 for (int j = 0; j < cells.get(i).size(); j++) {
                     next = nextStates.get(i * cells.get(i).size() + j);
-                    cells.get(i).get(j).setStatus(next);
+                    getCell(i, j).setStatus(next);
                     grid.updateGrid(i, j, next);
                 }
             }
         }
     }
 
-    // TODO
-    public List<Cell> findNeighbors(Cell cell, boolean corners) {
+    private List<Cell> findNeighbors(Cell cell, boolean corners) {
         List<Cell> neighbors = new ArrayList<>();
-        Cell currCell = cells.get(cell.getX()).get(cell.getY());
+        boolean isWator = simType.equals(WATOR_NAME);
+        if (isWator && cell.getX() == 0) {
+            neighbors.add(getCell(width - 1, cell.getY()));
+        }
+        if (isWator && cell.getY() == 0) {
+            neighbors.add(getCell(cell.getX(), height - 1));
+        }
+        if (isWator && cell.getX() == width - 1) {
+            neighbors.add(getCell(0, cell.getY()));
+        }
+        if (isWator && cell.getX() == height - 1) {
+            neighbors.add(getCell(cell.getX(), 0));
+        }
+        if (cell.getX() != 0) {
+            neighbors.add(getCell(cell.getX() - 1, cell.getY()));
+        }
+        if (cell.getX() != width - 1) {
+            neighbors.add(getCell(cell.getX() + 1, cell.getY()));
+        }
+        if (cell.getY() != 0) {
+            neighbors.add(getCell(cell.getX(), cell.getY() - 1));
+        }
+        if (cell.getY() != height - 1) {
+            neighbors.add(getCell(cell.getX(), cell.getY() + 1));
+        }
         if (corners) {
-            // check width and height, see which corner it's in
-        } else if (simType.equals(WATOR_NAME)) {
-
-        } else {
-            neighbors.add(cells.get(currCell.getX() - 1).get(currCell.getY()));
-            neighbors.add(cells.get(currCell.getX()).get(currCell.getY() - 1));
-            neighbors.add(cells.get(currCell.getX() + 1).get(currCell.getY()));
-            neighbors.add(cells.get(currCell.getX()).get(currCell.getY() + 1));
-            neighbors.add(cells.get(currCell.getX() - 1).get(currCell.getY() - 1));
-            neighbors.add(cells.get(currCell.getX() - 1).get(currCell.getY() + 1));
-            neighbors.add(cells.get(currCell.getX() + 1).get(currCell.getY() - 1));
-            neighbors.add(cells.get(currCell.getX() + 1).get(currCell.getY() + 1));
+            if (cell.getX() != 0 && cell.getY() != 0) {
+                neighbors.add(getCell(cell.getX() - 1, cell.getY() - 1));
+            }
+            if (cell.getX() != width - 1 && cell.getY() != 0) {
+                neighbors.add(getCell(cell.getX() + 1, cell.getY() - 1));
+            }
+            if (cell.getX() != 0 && cell.getY() != height - 1) {
+                neighbors.add(getCell(cell.getX() - 1, cell.getY() + 1));
+            }
+            if (cell.getX() != width - 1 && cell.getY() != height - 1) {
+                neighbors.add(getCell(cell.getX() + 1, cell.getY() + 1));
+            }
         }
         return neighbors;
+    }
+
+    private Cell getCell(int x, int y) {
+        return cells.get(x).get(y);
     }
 }
