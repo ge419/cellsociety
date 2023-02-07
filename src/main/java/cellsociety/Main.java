@@ -1,5 +1,6 @@
 package cellsociety;
 
+import cellsociety.Cells.Cell;
 import cellsociety.GUI.GUIContainer;
 import cellsociety.GUI.Grids.RectangleGrid;
 import java.io.File;
@@ -77,7 +78,7 @@ public class Main extends Application {
   //TODO put this in Grid class eventually, doesn't belong in main
   private void ResetGridSize() {
     container.getGrid().getGridLayout().getChildren().clear();
-    container.getGrid().changeSize(columnNum,rowNum, container.GRID_SIZE);
+    container.getGrid().changeSize(10,10, container.GRID_SIZE);
   }
 
   private void animationSpeedUpdate() {
@@ -104,7 +105,6 @@ public class Main extends Application {
       }
       if(request.equals("Reset")){
         //TODO tell XML Config to reload file
-        newFile = true;
       }
       if(request.equals("Clear")){
         //TODO tell engine to clear
@@ -121,6 +121,9 @@ public class Main extends Application {
   private void timer(double multiplier, boolean pause) {
     if (frameNum >= FRAMES_PER_SECOND * multiplier) {
       frameNum = 0;
+
+//      container.getGrid().updateGrid(4,5, "Alive");
+//      container.getGrid().updateGrid(5,7, "StateA");
       //Grid update inside here
       //Game logic
     }
