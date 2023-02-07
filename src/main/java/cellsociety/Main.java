@@ -113,8 +113,9 @@ public class Main extends Application {
       if(request.equals("Random")){
         //TODO tell engine to random
       }
-      if(request.equals("DropButton")){
-        //TODO, return selection of file chosen and then take the button out
+      if(request.equals("Get Simulation")){
+        String fileName = container.getDropDownSelection();
+        System.out.println(fileName);
       }
     }
   }

@@ -26,6 +26,7 @@ public class GUIContainer {
 
   private String request;
 
+  private DropDown drop;
   private static SliderContainer slider;
   private FileUploader uploader;
   private double animationSpeed;
@@ -109,7 +110,7 @@ public class GUIContainer {
   }
 
   private void setUpDropDown(List<String> FileNames) {
-    DropDown drop = new DropDown(FileNames, myResources.getString("DropButton"));
+    drop = new DropDown(FileNames, myResources.getString("DropButton"));
     drop.getButton().setOnAction(e -> saveCommand(drop.getButton().getText()));
     pane.getChildren().add(drop.getContainer());
     pane.setConstraints(drop.getContainer(), 3, 1, 2, 1);
@@ -212,5 +213,8 @@ public class GUIContainer {
 
   public static RectangleGrid getGrid() {
     return grid;
+  }
+  public String getDropDownSelection(){
+    return drop.getValue();
   }
 }
