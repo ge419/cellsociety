@@ -115,9 +115,23 @@ public class Main extends Application {
       }
       if(request.equals("Get Simulation")){
         String fileName = container.getDropDownSelection();
-        System.out.println(fileName);
+        File file = findFile(fileName);
+        config.readFile(file);
       }
     }
+  }
+
+  /**
+   * This method is based on a CHAT GPT conversation, https://sharegpt.com/c/vSTdS6B, finds a file based on inputted fileName
+   * @param fileName
+   * @return
+   */
+  private File findFile(String fileName) {
+    File file = new File(fileName);
+    if (file.exists() && file.isFile()) {
+      return file;
+    }
+    return null;
   }
 
   private void timer(double multiplier, boolean pause) {
