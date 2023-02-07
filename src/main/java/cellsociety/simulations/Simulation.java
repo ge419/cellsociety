@@ -47,30 +47,30 @@ public abstract class Simulation {
      */
     public void randomize(HashMap<String, Double> params, String simType, int x, int y) {
         if (simType.equals(LIFE_NAME)) {
-            Double perAlive = params.get("perAlive");
+            double perAlive = params.get("perAlive");
             // code that determines state using perAlive
             // String life =
             //cells.get(x).get(y).setStatus(life);
         } else if (simType.equals(FIRE_NAME)) {
-            Double perTree = params.get("perTree");
-            Double perFire = params.get("perFire");
+            double perTree = params.get("perTree");
+            double perFire = params.get("perFire");
             // code that determines state by perTree, perFire
             // String fire =
             //cells.get(x).get(y).setStatus(fire);
         } else if (simType.equals(SEG_NAME)) {
-            Double perEmpty = params.get("perEmpty");
-            Double perStateOne = params.get("perStateOne");
+            double perEmpty = params.get("perEmpty");
+            double perStateOne = params.get("perStateOne");
             // code that determines state using perEmpty, perStateOne
             // String seg =
             //cells.get(x).get(y).setStatus(seg);
         } else if (simType.equals(WATOR_NAME)) {
-            Double perEmptyWA = params.get("perEmpty");
-            Double perShark = params.get("perShark");
+            double perEmptyWA = params.get("perEmpty");
+            double perShark = params.get("perShark");
             // code that determines state using perShark, perEmptyWA
             // String wator =
             //cells.get(x).get(y).setStatus(wator);
         } else if (simType.equals(PERC_NAME)) {
-            Double perBlocked = params.get("perBlocked");
+            double perBlocked = params.get("perBlocked");
             // code that determines state using perBlocked
             // String perc =
             //cells.get(x).get(y).setStatus(perc);
