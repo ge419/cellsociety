@@ -85,8 +85,11 @@ public class WaTor extends Simulation {
                 cell.resetLifeCycle();
                 hold.setEnergy(eng - 1);
                 cell.setEnergy(sharkEnergy);
-                if (isFish){ fishCells.add(hold); }
-                else { sharkCells.add(hold); }
+                if (isFish) {
+                    fishCells.add(hold);
+                } else {
+                    sharkCells.add(hold);
+                }
             } else {
                 swapCells(cell, hold);
                 cell.age();
