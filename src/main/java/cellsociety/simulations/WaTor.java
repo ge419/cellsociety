@@ -74,6 +74,10 @@ public class WaTor extends Simulation {
                 fishNeighbors.add(n);
             }
         }
+        move(cell, emptyNeighbors, fishNeighbors);
+    }
+
+    private void move(WatorCell cell, List<WatorCell> emptyNeighbors, List<WatorCell> fishNeighbors){
         boolean isFish = cell.getStatus().equals(fishString);
         WatorCell hold;
         if (moveToEmpty(isFish, emptyNeighbors, fishNeighbors)) {
