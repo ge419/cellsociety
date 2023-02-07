@@ -63,10 +63,13 @@ public class SimulationEngine {
     //I dont know what to return
     // Loop through each cell, calls randomize in Simulation class --> which class should this belong to?
     public void randomizeStart(HashMap<String, Double> parameters, String simType){ // use viewParam in Config
+        cells = new ArrayList<>();
         for (int i = 0; i < cells.size(); i++) {
+            ArrayList<Cell> column = new ArrayList<>();
             for (int j = 0; j < cells.get(i).size(); i++) {
-                sim.randomize(parameters, simType, i, j);
+                column.add(sim.randomize(parameters, i, j));
             }
+            cells.add(column);
         }
     }
 

@@ -62,7 +62,7 @@ public class Schelling extends Simulation {
         move.removeAll(move);
     }
 
-    public Cell randomize(HashMap<String, Double> parameters, int xCoordinate, int yCoordinate){
+    public Cell randomize(HashMap<String, Double> parameters, int xCoordinate, int yCoordinate) {
         double empty = parameters.get("perEmpty");
         double stateA = parameters.get("perStateOne");
         Cell cell = new Cell(xCoordinate, yCoordinate);
@@ -76,8 +76,4 @@ public class Schelling extends Simulation {
         return cell;
     }
 
-    @Override
-    public String toString() {
-        return "Schelling's model of segregation.";
-    }
 }
