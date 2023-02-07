@@ -1,5 +1,6 @@
 package cellsociety.GUI;
 
+import cellsociety.Config;
 import cellsociety.GUI.Grids.RectangleGrid;
 import java.io.File;
 import java.io.FilenameFilter;
@@ -42,7 +43,7 @@ public class GUIContainer {
   private static boolean fileUploaded = false;
 
 
-  public GUIContainer(Stage primaryStage, String language) {
+  public GUIContainer(Stage primaryStage, String language, Config config) {
     mainStage = primaryStage;
     pane = new GridPane();
     setColumnConstraints();
@@ -55,7 +56,7 @@ public class GUIContainer {
     setUpSliderContainer();
     SetUpDescriptionBox();
 
-    setUpFileUploader();
+    setUpFileUploader(config);
 
     setUpFileSaver();
 
@@ -128,8 +129,8 @@ public class GUIContainer {
     save.setFile("Test");
   }
 
-  private void setUpFileUploader() {
-    uploader = new FileUploader(myResources.getString("Upload"));
+  private void setUpFileUploader(Config config) {
+    uploader = new FileUploader(myResources.getString("Upload"), config);
     pane.getChildren().add(uploader.getButton());
     pane.setConstraints(uploader.getButton(), 3, 0);
   }
@@ -196,7 +197,7 @@ public class GUIContainer {
     return animationSpeed;
   }
 
-  public static boolean isRequestChanged() {
+  public boolean isRequestChanged() {
     boolean holder = requestChanged;
     requestChanged = false;
     return holder;

@@ -18,7 +18,6 @@ public class TestMain extends Application {
   }
   public void start (Stage primaryStage) {
     String english = "english";
-    container = new GUIContainer(primaryStage, english);
 
     Timeline animation = new Timeline();
     animation.setCycleCount(Timeline.INDEFINITE);
