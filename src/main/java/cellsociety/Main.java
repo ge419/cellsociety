@@ -58,12 +58,12 @@ public class Main extends Application {
     setUpActionButtons();
 
     //NOT SURE IF NEED THIS
+    //We're reading xml file once it's been uploaded by the user or selected on the dropdown menu
+    //I don't think it's necessary here
 //    if(container.isFileUploaded()){
 //      File inputFile = container.getFile();
 //      config.readFile(inputFile);
 //    }
-
-    //xml
   }
 
   private void animationSpeedUpdate() {
