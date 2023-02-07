@@ -11,7 +11,7 @@ public class FileUploader {
   private boolean fileUploaded;
   private Button button;
   //ChatGPT chat https://chat.openai.com/chat/58c1eb7e-810d-4c1a-b4a6-26be693a9dd4
-  public FileUploader(String label){
+  public FileUploader(String label, Config config){
     Button uploadButton = new Button(label);
     button = uploadButton;
     uploadButton.setId("files-button");
@@ -22,7 +22,7 @@ public class FileUploader {
       if (selectedFile != null) {
         uploaded = selectedFile;
         fileUploaded = true;
-        Config.readFile(uploaded);
+        config.readFile(uploaded);
       }
     });
   }
