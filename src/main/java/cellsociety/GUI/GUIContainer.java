@@ -23,8 +23,7 @@ import javafx.stage.Stage;
  */
 public class GUIContainer {
 
-  private Stage mainStage;
-  private GridPane pane;
+  private final GridPane pane;
 
   private String request;
 
@@ -33,8 +32,8 @@ public class GUIContainer {
   private FileUploader uploader;
   private double animationSpeed;
   private RectangleGrid grid;
-  private ResourceBundle myResources;
-  private final String GUI_CSS = "stylesheets/GUIContainer.css";
+  private final ResourceBundle myResources;
+  public final String GUI_CSS = "stylesheets/GUIContainer.css";
 
   public final int GRID_SIZE = 300;
 
@@ -45,7 +44,6 @@ public class GUIContainer {
 
 
   public GUIContainer(Stage primaryStage, String language, Config config) {
-    mainStage = primaryStage;
     pane = new GridPane();
     setColumnConstraints();
 
@@ -79,21 +77,16 @@ public class GUIContainer {
     Scene stageScene = new Scene(pane, 1000, 700);
 
     pane.setMaxSize(stageScene.getWidth() - 50, stageScene.getHeight() - 50);
-    mainStage.setScene(stageScene);
+    primaryStage.setScene(stageScene);
     stageScene.getStylesheets().add(GUI_CSS);
-    mainStage.show();
+    primaryStage.show();
   }
 
   private void extractFileNames(List<String> DirectoryNames, List<String> FileNames) {
     for(String dirc: DirectoryNames) {
       File dir = new File(dirc);
       List<String> list = Arrays.asList(Objects.requireNonNull(dir.list(
-          new FilenameFilter() {
-            @Override
-            public boolean accept(File dir, String name) {
-              return name.endsWith(".xml");
-            }
-          }
+          (dir1, name) -> name.endsWith(".xml")
       )));
       for(String name:list){
         name = dirc + "/" + name;
