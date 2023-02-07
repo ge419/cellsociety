@@ -1,7 +1,5 @@
 package cellsociety.GUI;
 
-import cellsociety.Cells.Cell;
-
 /**
  * @Author Han Zhang
  */

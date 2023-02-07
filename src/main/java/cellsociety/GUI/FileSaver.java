@@ -6,7 +6,6 @@ import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import javafx.scene.control.Button;
 import javafx.stage.FileChooser;
-import cellsociety.Config;
 
 public class FileSaver {
 
