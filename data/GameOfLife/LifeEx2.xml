@@ -2,24 +2,25 @@
 
 <data>
   <sim_type>Game of Life</sim_type>
-  <config_Name>Gosper Glider Gun</config_Name>
-  <author>Bill Gosper</author>
-  <description>Creates the first glider on the 15th step, and another every 30th step</description>
+  <config_Name>Light-weight Space Ship</config_Name>
+  <author>Stephen A. Silver</author>
+  <description>
+    Small form of spaceship that moves to the right.
+    Light green cells represent alive cells, and white cells represents dead cells.
+  </description>
   <width>10</width>
   <height>10</height>
   <!--Not Required to have an init_state-->
-  <init_state>
+  <init_state>0 0 0 0 0 0 0 0 0 0
     0 0 0 0 0 0 0 0 0 0
     0 0 0 0 0 0 0 0 0 0
-    0 0 0 0 0 0 0 0 0 0
-    0 0 0 0 0 1 0 0 0 0
-    0 0 0 0 0 0 1 0 0 0
-    0 0 0 0 1 1 1 0 0 0
-    0 0 0 0 0 0 0 0 0 0
-    0 0 0 0 0 0 0 0 0 0
+    0 0 0 1 0 0 1 0 0 0
+    0 0 0 0 0 0 0 1 0 0
+    0 0 0 1 0 0 0 1 0 0
+    0 0 0 0 1 1 1 1 0 0
     0 0 0 0 0 0 0 0 0 0
     0 0 0 0 0 0 0 0 0 0
-  </init_state>
+    0 0 0 0 0 0 0 0 0 0</init_state>
   <!--Not Required to have a parameters-->
   <params>
     <probCatch>0</probCatch>

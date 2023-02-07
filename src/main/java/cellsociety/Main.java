@@ -17,16 +17,6 @@ import javafx.util.Duration;
  * Feel free to completely change this code or delete it entirely.
  */
 public class Main extends Application {
-//    // kind of data files to look for
-//    public static final String DATA_FILE_EXTENSION = "*.xml";
-//    // default to start in the data folder to make it easy on the user to find
-//    public static final String DATA_FILE_FOLDER = System.getProperty("user.dir") + "/data";
-//    // NOTE: make ONE chooser since generally accepted behavior is that it remembers
-//    // where user left it last
-//    private final static FileChooser FILE_CHOOSER = makeChooser(DATA_FILE_EXTENSION);
-//    // internal configuration file
-//    public static final String INTERNAL_CONFIGURATION = "cellsociety.Version";
-
   GUIContainer container;
   Config config;
   int frameNum;
@@ -71,12 +61,12 @@ public class Main extends Application {
     }
 
     //NOT SURE IF NEED THIS
+    //We're reading xml file once it's been uploaded by the user or selected on the dropdown menu
+    //I don't think it's necessary here
 //    if(container.isFileUploaded()){
 //      File inputFile = container.getFile();
 //      config.readFile(inputFile);
 //    }
-
-    //xml
   }
   //TODO put this in Grid class eventually, doesn't belong in main
   private void ResetGridSize() {
@@ -107,11 +97,11 @@ public class Main extends Application {
         frameNum += FRAMES_PER_SECOND * multiplier;
       }
       if(request.equals("Reset")){
-        //TODO tell XML Config to reload file
-        // --> No need to reload file, simply take the initial state
+        Config.readFile(container.getFile());
       }
       if(request.equals("Clear")){
         //TODO tell engine to clear
+        //Set all Cell colors as white
       }
       if(request.equals("Random")){
         //TODO tell engine to random
