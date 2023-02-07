@@ -90,6 +90,7 @@ public class Main extends Application {
       }
       if(request.equals("Reset")){
         //TODO tell XML Config to reload file
+        // --> No need to reload file, simply take the initial state
       }
       if(request.equals("Clear")){
         //TODO tell engine to clear
