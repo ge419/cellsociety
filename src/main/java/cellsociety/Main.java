@@ -4,6 +4,9 @@ import cellsociety.Cells.Cell;
 import cellsociety.GUI.GUIContainer;
 import cellsociety.GUI.Grids.RectangleGrid;
 import java.io.File;
+import java.io.FilenameFilter;
+import java.util.ArrayList;
+import java.util.List;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Application;
@@ -113,10 +116,45 @@ public class Main extends Application {
       if(request.equals("Random")){
         //TODO tell engine to random
       }
-      if(request.equals("DropButton")){
-        //TODO, return selection of file chosen and then take the button out
+      if(request.equals("Get Simulation")){
+        String fileName = container.getDropDownSelection();
+        sendFiletoConfig(fileName);
       }
     }
+  }
+
+  private void sendFiletoConfig(String fileName) {
+    List<String> dirctNames = new ArrayList<>();
+    dirctNames.add("data/GameOfLife");
+    dirctNames.add("data/SpreadingFire");
+    File file = new File("");
+    while(!dirctNames.isEmpty()){
+      String dirctName = dirctNames.get(dirctNames.size()-1);
+      dirctNames.remove(dirctNames.size()-1);
+      file = findFile(fileName, dirctName);
+      if(file != null){
+        break;
+      }
+    }
+    config.readFile(file);
+  }
+
+  /**
+   * This method is based on a CHAT GPT conversation, https://sharegpt.com/c/vSTdS6B, finds a file based on inputted fileName
+   * @param fileName
+   * @return
+   */
+  private File findFile(String fileName, String directoryName) {
+    File file = new File(directoryName);
+    File[] matchingFiles = file.listFiles(new FilenameFilter() {
+      public boolean accept(File dir, String name) {
+        return name.endsWith(fileName);
+      }
+    });
+    if(matchingFiles.length == 0){
+      return null;
+    }
+    return matchingFiles[0];
   }
 
   private void timer(double multiplier, boolean pause) {
