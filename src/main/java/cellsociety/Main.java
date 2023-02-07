@@ -4,6 +4,9 @@ import cellsociety.Cells.Cell;
 import cellsociety.GUI.GUIContainer;
 import cellsociety.GUI.Grids.RectangleGrid;
 import java.io.File;
+import java.io.FilenameFilter;
+import java.util.ArrayList;
+import java.util.List;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Application;
@@ -14,16 +17,6 @@ import javafx.util.Duration;
  * Feel free to completely change this code or delete it entirely.
  */
 public class Main extends Application {
-//    // kind of data files to look for
-//    public static final String DATA_FILE_EXTENSION = "*.xml";
-//    // default to start in the data folder to make it easy on the user to find
-//    public static final String DATA_FILE_FOLDER = System.getProperty("user.dir") + "/data";
-//    // NOTE: make ONE chooser since generally accepted behavior is that it remembers
-//    // where user left it last
-//    private final static FileChooser FILE_CHOOSER = makeChooser(DATA_FILE_EXTENSION);
-//    // internal configuration file
-//    public static final String INTERNAL_CONFIGURATION = "cellsociety.Version";
-
   GUIContainer container;
   Config config;
   int frameNum;
@@ -68,12 +61,12 @@ public class Main extends Application {
     }
 
     //NOT SURE IF NEED THIS
+    //We're reading xml file once it's been uploaded by the user or selected on the dropdown menu
+    //I don't think it's necessary here
 //    if(container.isFileUploaded()){
 //      File inputFile = container.getFile();
 //      config.readFile(inputFile);
 //    }
-
-    //xml
   }
   //TODO put this in Grid class eventually, doesn't belong in main
   private void ResetGridSize() {
@@ -104,18 +97,54 @@ public class Main extends Application {
         frameNum += FRAMES_PER_SECOND * multiplier;
       }
       if(request.equals("Reset")){
-        //TODO tell XML Config to reload file
+        Config.readFile(container.getFile());
       }
       if(request.equals("Clear")){
         //TODO tell engine to clear
+        //Set all Cell colors as white
       }
       if(request.equals("Random")){
         //TODO tell engine to random
       }
-      if(request.equals("DropButton")){
-        //TODO, return selection of file chosen and then take the button out
+      if(request.equals("Get Simulation")){
+        String fileName = container.getDropDownSelection();
+        sendFiletoConfig(fileName);
       }
     }
+  }
+
+  private void sendFiletoConfig(String fileName) {
+    List<String> dirctNames = new ArrayList<>();
+    dirctNames.add("data/GameOfLife");
+    dirctNames.add("data/SpreadingFire");
+    File file = new File("");
+    while(!dirctNames.isEmpty()){
+      String dirctName = dirctNames.get(dirctNames.size()-1);
+      dirctNames.remove(dirctNames.size()-1);
+      file = findFile(fileName, dirctName);
+      if(file != null){
+        break;
+      }
+    }
+    config.readFile(file);
+  }
+
+  /**
+   * This method is based on a CHAT GPT conversation, https://sharegpt.com/c/vSTdS6B, finds a file based on inputted fileName
+   * @param fileName
+   * @return
+   */
+  private File findFile(String fileName, String directoryName) {
+    File file = new File(directoryName);
+    File[] matchingFiles = file.listFiles(new FilenameFilter() {
+      public boolean accept(File dir, String name) {
+        return name.endsWith(fileName);
+      }
+    });
+    if(matchingFiles.length == 0){
+      return null;
+    }
+    return matchingFiles[0];
   }
 
   private void timer(double multiplier, boolean pause) {

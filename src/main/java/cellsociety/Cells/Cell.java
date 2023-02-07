@@ -1,14 +1,17 @@
 package cellsociety.Cells;
 
-/*
+/**
  * @author Changmin Shin, Brandon Weiss
  */
-
 public class Cell {
   private String status;
   private int xPos;
   private int yPos;
 
+  /**
+   * @param xCoordinate The column number of the cell
+   * @param yCoordinate The row number of the cell
+   */
   public Cell(int xCoordinate, int yCoordinate) {
     setX(xCoordinate);
     setY(yCoordinate);

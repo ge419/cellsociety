@@ -1,13 +1,14 @@
 package cellsociety;
 
-import cellsociety.GUI.PopUp;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.ResourceBundle;
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
-import java.util.ResourceBundle;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javax.xml.parsers.DocumentBuilder;
@@ -28,7 +29,7 @@ import org.xml.sax.SAXException;
 
 public class Config {
   public static final String INTERNAL_CONFIGURATION = "cellsociety.";
-  private ResourceBundle myResources;
+  private static ResourceBundle myResources;
 
   private static String simType;
   private static String configName;
@@ -36,13 +37,17 @@ public class Config {
   private static String description;
   private static int width;
   private static int height;
-  private static List<Integer> currState;
+  private static String initState;
+  private static List<List<Integer>> currState;
   private static Element root;
   public static HashMap<String, Double> simParam;
   public static HashMap<String, Double> viewParam;
   public static HashSet<String> simNames;
 
-  public Config() {
+  /**
+   * Reads XML file, if XML file is valid, upload info
+   */
+  public static void readFile(File xmlFile) {
     myResources = ResourceBundle.getBundle(INTERNAL_CONFIGURATION + "filesandstates");
     simNames = new HashSet<>();
     simNames.add(myResources.getString("LifeName"));
@@ -50,14 +55,11 @@ public class Config {
     simNames.add(myResources.getString("SegName"));
     simNames.add(myResources.getString("WTName"));
     simNames.add(myResources.getString("PercolName"));
-  }
 
-  /**
-   * Reads XML file, if XML file is valid, upload info
-   */
-  public static void readFile(File xmlFile) {
     if (checkValidXML(xmlFile)) {
-      uploadXML(root);
+      simParam = new HashMap<>();
+      viewParam = new HashMap<>();
+      updateXML(root);
       if (!simNames.contains(getTextValue(root, "sim_type"))) {
         showMessage(AlertType.ERROR, "Invalid simulation name");
         resetTagValues();
@@ -72,7 +74,20 @@ public class Config {
     description = "";
     width = 0;
     height = 0;
-    //currState = empty list of integers
+    currState = new ArrayList<>();
+    simParam.put("probCatch", 0.0);
+    simParam.put("change", 0.0);
+    simParam.put("eShark", 0.0);
+    simParam.put("ePerFish", 0.0);
+    simParam.put("fishBT", 0.0);
+    simParam.put("sharkBT", 0.0);
+    viewParam.put("perAlive", 0.0);
+    viewParam.put("perTree", 0.0);
+    viewParam.put("perFire", 0.0);
+    viewParam.put("perEmpty", 0.0);
+    viewParam.put("perStateOne", 0.0);
+    viewParam.put("perShark", 0.0);
+    viewParam.put("perBlocked", 0.0);
   }
 
   /**
@@ -116,13 +131,14 @@ public class Config {
    * @param root
    */
 
-  public static void uploadXML(Element root) {
+  public static void updateXML(Element root) {
       simType = getTextValue(root, "sim_type");
       configName = getTextValue(root,"config_Name");
       author = getTextValue(root, "author");
       description = getTextValue(root, "description");
       width = Integer.parseInt(getTextValue(root, "width"));
       height = Integer.parseInt(getTextValue(root, "height"));
+      initState = getTextValue(root, "init_state");
       simParam.put("probCatch", Double.parseDouble(getTextValue(root, "probCatch")));
       simParam.put("change", Double.parseDouble(getTextValue(root, "change")));
       simParam.put("eShark", Double.parseDouble(getTextValue(root, "eShark")));
@@ -137,23 +153,43 @@ public class Config {
       viewParam.put("perShark", Double.parseDouble(getTextValue(root, "perShark")));
       viewParam.put("perBlocked", Double.parseDouble(getTextValue(root, "perBlocked")));
 
+      System.out.println(initState);
 
-      // List of integers(or list of list of integers) for init_state
+      List<List<String>> stateArr = new ArrayList<>(width);
+      String[] splitInit = initState.split("\n");
+
+      for(int i = 0; i < splitInit.length; i++) {
+        List<String> row = new ArrayList<>(height);
+        String[] rowSplit = splitInit[i].split(" ");
+        Collections.addAll(row, rowSplit);
+        row.remove("");
+        row.remove("");
+        row.remove("");
+        row.remove("");
+        System.out.println(row);
+        stateArr.add(i, row);
+      }
+      currState = strIntConverter(stateArr);
+  }
+
+  private static List<List<Integer>> strIntConverter(List<List<String>> stateList) {
+    List<List<Integer>> current = new ArrayList<>();
+    for (List<String> state : stateList) {
+      List<Integer> row = new ArrayList<>();
+      for (String s : state) {
+        row.add(Integer.parseInt(s));
+      }
+      current.add(row);
+    }
+    return current;
   }
 
   /**
    * Creates new XML file and saves current state of simulation.
    * Refined code from https://www.javaguides.net/2018/10/how-to-create-xml-file-in-java-dom-parser.html
-   *  --> instead of creating new XML file, update currState?
-   * @param simType
-   * @param configName
-   * @param author
-   * @param description
-   * @param width
-   * @param height
    * @param currState
    */
-  public void saveXML(String simType, String configName, String author, String description, int width, int height, List<Integer> currState) {
+  public void saveXML(List<List<Integer>> currState) {
     DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
         try {
           DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
@@ -162,86 +198,27 @@ public class Config {
           Element rootElement = doc.createElement("data");
           doc.appendChild(rootElement);
 
-          Element sim_type = doc.createElement("sim_type");
-          sim_type.appendChild(doc.createTextNode(simType));
-          rootElement.appendChild(sim_type);
-
-          Element config_name = doc.createElement("config_Name");
-          config_name.appendChild(doc.createTextNode(configName));
-          rootElement.appendChild(config_name);
-
-          Element auth = doc.createElement("author");
-          auth.appendChild(doc.createTextNode(author));
-          rootElement.appendChild(auth);
-
-          Element descript = doc.createElement("description");
-          descript.appendChild(doc.createTextNode(description));
-          rootElement.appendChild(sim_type);
-
-          Element wid = doc.createElement("width");
-          wid.appendChild(doc.createTextNode(String.valueOf(width)));
-          rootElement.appendChild(sim_type);
-
-          Element hei = doc.createElement("height");
-          hei.appendChild(doc.createTextNode(String.valueOf(height)));
-          rootElement.appendChild(sim_type);
-
-          Element curr_state = doc.createElement("curr_state");
-          //curr_state.appendChild(doc.createTextNode(currState));   --> List<Integer> into String
-          rootElement.appendChild(curr_state);
-
+          rootElement.appendChild(addTagStr(doc, "sim_type", simType));
+          rootElement.appendChild(addTagStr(doc, "config_Name", configName));
+          rootElement.appendChild(addTagStr(doc, "author", author));
+          rootElement.appendChild(addTagStr(doc, "description", description));
+          rootElement.appendChild(addTagInt(doc, "width", width));
+          rootElement.appendChild(addTagInt(doc, "height", height));
+          rootElement.appendChild(addTagStr(doc, "curr_state", intStrConverter(currState)));
           Element params = doc.createElement("params");
-          Element probCatch = doc.createElement("probCatch");
-          probCatch.appendChild(doc.createTextNode(String.valueOf("probCatch")));
-          params.appendChild(probCatch);
-
-          Element change = doc.createElement("change");
-          change.appendChild(doc.createTextNode(String.valueOf("change")));
-          params.appendChild(change);
-
-          Element eShark = doc.createElement("eShark");
-          eShark.appendChild(doc.createTextNode(String.valueOf("eShark")));
-          params.appendChild(eShark);
-
-          Element ePerFish = doc.createElement("ePerFish");
-          ePerFish.appendChild(doc.createTextNode(String.valueOf("ePerFish")));
-          params.appendChild(ePerFish);
-
-          Element fishBT = doc.createElement("fishBT");
-          fishBT.appendChild(doc.createTextNode(String.valueOf("fishBT")));
-          params.appendChild(fishBT);
-
-          Element sharkBT = doc.createElement("sharkBT");
-          sharkBT.appendChild(doc.createTextNode(String.valueOf("sharkBT")));
-          params.appendChild(sharkBT);
-
-          Element perAlive = doc.createElement("perAlive");
-          perAlive.appendChild(doc.createTextNode(String.valueOf("perAlive")));
-          params.appendChild(perAlive);
-
-          Element perTree = doc.createElement("perTree");
-          perTree.appendChild(doc.createTextNode(String.valueOf("perTree")));
-          params.appendChild(perTree);
-
-          Element perFire = doc.createElement("perFire");
-          perFire.appendChild(doc.createTextNode(String.valueOf("perFire")));
-          params.appendChild(perFire);
-
-          Element perEmpty = doc.createElement("perEmpty");
-          perEmpty.appendChild(doc.createTextNode(String.valueOf("perEmpty")));
-          params.appendChild(perEmpty);
-
-          Element perStateOne = doc.createElement("perStateOne");
-          perStateOne.appendChild(doc.createTextNode(String.valueOf("perStateOne")));
-          params.appendChild(perStateOne);
-
-          Element perShark = doc.createElement("perShark");
-          perShark.appendChild(doc.createTextNode(String.valueOf("perShark")));
-          params.appendChild(perShark);
-
-          Element perBlocked = doc.createElement("perBlocked");
-          perBlocked.appendChild(doc.createTextNode(String.valueOf("perBlocked")));
-          params.appendChild(perBlocked);
+          params.appendChild(addTagParam(doc, "probCatch",simParam));
+          params.appendChild(addTagParam(doc, "change",simParam));
+          params.appendChild(addTagParam(doc, "eShark",simParam));
+          params.appendChild(addTagParam(doc, "ePerFish",simParam));
+          params.appendChild(addTagParam(doc, "fishBT",simParam));
+          params.appendChild(addTagParam(doc, "sharkBT",simParam));
+          params.appendChild(addTagParam(doc, "perAlive",viewParam));
+          params.appendChild(addTagParam(doc, "perTree",viewParam));
+          params.appendChild(addTagParam(doc, "perFire",viewParam));
+          params.appendChild(addTagParam(doc, "perEmpty",viewParam));
+          params.appendChild(addTagParam(doc, "perStateOne",viewParam));
+          params.appendChild(addTagParam(doc, "perShark",viewParam));
+          params.appendChild(addTagParam(doc, "perBlocked",viewParam));
 
           TransformerFactory transformerFactory = TransformerFactory.newInstance();
           Transformer transformer = transformerFactory.newTransformer();
@@ -253,16 +230,38 @@ public class Config {
         }
   }
 
-  /**
-   * Helper method to saveXML(), creates and appends new tag and values to the XML file.
-   * @param doc
-   * @param tagName
-   * @param value
-   */
+  private static String intStrConverter(List<List<Integer>> state) {
+    List<List<String>> current = new ArrayList<>();
+    for (int i = 0; i < state.size(); i++) {
+      for (int j = 0; j < state.get(i).size(); j++) {
+        current.get(i).add(j, String.valueOf(state.get(i).get(j)));
+      }
+    }
+    List<String> toStringArr = new ArrayList<>();
+    for (int k = 0; k < current.size(); k++) {
+      toStringArr.add(k, String.join(" ", current.get(k)));
+    }
+    return String.join("\n", toStringArr);
+  }
 
-  private org.w3c.dom.Node createStatus(Document doc, String tagName, String value) {
+  private org.w3c.dom.Node addTagStr(Document doc, String tagName, String value) {
     Element node = doc.createElement(tagName);
     doc.appendChild(doc.createTextNode(value));
+    return node;
+
+//    Element sim_type = doc.createElement("sim_type");
+//    sim_type.appendChild(doc.createTextNode(simType));
+//    rootElement.appendChild(sim_type);
+  }
+  private org.w3c.dom.Node addTagInt(Document doc, String tagName, int value) {
+    Element node = doc.createElement(tagName);
+    doc.appendChild(doc.createTextNode(String.valueOf(value)));
+    return node;
+  }
+
+  private org.w3c.dom.Node addTagParam(Document doc, String tagName, HashMap<String, Double> param) {
+    Element node = doc.createElement(tagName);
+    doc.appendChild(doc.createTextNode(String.valueOf(param.get("tagName"))));
     return node;
   }
 
