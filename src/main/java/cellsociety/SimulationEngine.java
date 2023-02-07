@@ -13,17 +13,31 @@ import cellsociety.simulations.Schelling;
 import cellsociety.simulations.Simulation;
 import cellsociety.simulations.WaTor;
 
-/*
+/**
  * @author Brandon Weiss, Changmin Shin
  */
 public class SimulationEngine {
-    public static final String INTERNAL_CONFIGURATION = "cellsociety.filesandvariables";
+    public static final String INTERNAL_CONFIGURATION = "cellsociety.filesandstates";
     public static final ResourceBundle NAMES_FILE = ResourceBundle.getBundle(INTERNAL_CONFIGURATION);
     private static final String SEG_NAME = NAMES_FILE.getString("SegName");
     private static final String FIRE_NAME = NAMES_FILE.getString("FireName");
     private static final String LIFE_NAME = NAMES_FILE.getString("LifeName");
     private static final String WATOR_NAME = NAMES_FILE.getString("WTName");
     private static final String PERC_NAME = NAMES_FILE.getString("PercolName");
+    private static final String LIFE_ALIVE = NAMES_FILE.getString("LifeAlive");
+    private static final String LIFE_DEAD = NAMES_FILE.getString("LifeDead");
+    private static final String FIRE_EMPTY = NAMES_FILE.getString("FireEmpty");
+    private static final String FIRE_TREE = NAMES_FILE.getString("FireTree");
+    private static final String FIRE_BURNING = NAMES_FILE.getString("FireBurning");
+    private static final String SEG_EMPTY = NAMES_FILE.getString("SegEmpty");
+    private static final String SEG_A = NAMES_FILE.getString("SegA");
+    private static final String SEG_B = NAMES_FILE.getString("SegB");
+    private static final String WATOR_EMPTY = NAMES_FILE.getString("WTEmpty");
+    private static final String WATOR_SHARK = NAMES_FILE.getString("WTShark");
+    private static final String WATOR_FISH = NAMES_FILE.getString("WTFish");
+    private static final String PERC_BLOCK = NAMES_FILE.getString("PercolBlock");
+    private static final String PERC_OPEN = NAMES_FILE.getString("PercolOpen");
+    private static final String PERC_PERC = NAMES_FILE.getString("PercolPerc");
 
     // Potential Bug grid object here is not same grid object
     private Simulation sim;
@@ -31,92 +45,169 @@ public class SimulationEngine {
     private Grid grid;
     private int width;
     private int height;
-    public static List<List<Cell>> cells;
+    private List<List<Cell>> cells;
+    private boolean corners;
 
+    /**
+     * @param simType The string representing which of the cellular automata to run
+     * @param params  A HashMap of parameters and values for each simulation type
+     * @param grid    The grid object of the view
+     */
     public SimulationEngine(String simType, HashMap<String, Double> params, Grid grid) {
         init(simType, params);
         this.simType = simType;
         this.grid = grid;
         this.width = grid.getWidth();
         this.height = grid.getHeight();
-        cells = new ArrayList<>();
+        blankStart(simType);
     }
 
-    // TODO: replace string literals with strings from filesandstates.properties
+    // TODO: replace string literals in params.get() calls with strings from
+    // properties file
+    /**
+     * @param simType The string representing which of the cellular automata to run
+     * @param params  A HashMap of parameters and values for each simulation type
+     */
     public void init(String simType, HashMap<String, Double> params) {
         if (simType.equals(LIFE_NAME)) {
-            sim = new Life("dead", "alive");
+            sim = new Life(LIFE_DEAD, LIFE_ALIVE);
+            corners = true;
         } else if (simType.equals(FIRE_NAME)) {
-            sim = new Fire("empty", "tree", "burning", params.get("probCatch"));
+            sim = new Fire(FIRE_EMPTY, FIRE_TREE, FIRE_BURNING, params.get("probCatch"));
+            corners = false;
         } else if (simType.equals(SEG_NAME)) {
-            sim = new Schelling("empty", "a", "b", params.get("change"));
+            sim = new Schelling(SEG_EMPTY, SEG_A, SEG_B, params.get("change"));
+            corners = true;
         } else if (simType.equals(WATOR_NAME)) {
-            sim = new WaTor("sea", "fish", "shark", params.get("eShark"),
+            sim = new WaTor(WATOR_EMPTY, WATOR_FISH, WATOR_SHARK, params.get("eShark"),
                     params.get("ePerFish"), params.get("fishBT"), params.get("sharkBT"));
+            corners = false;
         } else if (simType.equals(PERC_NAME)) {
-            //sim = new Percolation()
+            // sim = new Percolation()
+            corners = true;
         }
     }
 
-    //TODO
-    //for each cell, call sim.randomize(parameters, xcoord of cell, ycoord of cell)
-    //I dont know what to return
-    // Loop through each cell, calls randomize in Simulation class --> which class should this belong to?
-    public void randomizeStart(HashMap<String, Double> parameters, String simType){ // use viewParam in Config
+    /**
+     * Randomize the starting configuration for a simulation
+     * 
+     * @param parameters A HashMap of parameters and values for each simulation type
+     * @param simType    The string representing which of the cellular automata to
+     *                   run
+     */
+    public void randomizeStart(HashMap<String, Double> parameters, String simType) {
         cells = new ArrayList<>();
-        for (int i = 0; i < cells.size(); i++) {
+        for (int i = 0; i < width; i++) {
             ArrayList<Cell> column = new ArrayList<>();
-            for (int j = 0; j < cells.get(i).size(); i++) {
+            for (int j = 0; j < height; i++) {
                 column.add(sim.randomize(parameters, i, j));
             }
             cells.add(column);
         }
     }
 
-
-    public void evolve(){
-        if (simType.equals(WATOR_NAME)){
-            for (){
-                sim.moveCell(c, findNeighbors(c, false, true));
+    /**
+     * Set the starting configuration for a blank simulation
+     * 
+     * @param simType The string representing which of the cellular automata to run
+     */
+    public void blankStart(String simType) {
+        Cell input;
+        cells = new ArrayList<>();
+        for (int i = 0; i < width; i++) {
+            ArrayList<Cell> column = new ArrayList<>();
+            for (int j = 0; j < height; i++) {
+                input = new Cell(i, j);
+                input.setStatus(sim.getDeadString());
+                column.add(input);
             }
-            for (){
-                sim.moveCell(c, findNeighbors(c, false, true));
-            }
+            cells.add(column);
         }
-        else{
-            for each cell {
-                new cell state = sim.getUpdatedCellStatus();
-                store new cell state
+    }
+
+    public void updateGameState() {
+        if (simType.equals(WATOR_NAME)) {
+            for (WatorCell fish : ((WaTor) sim).getFishCells()) {
+                ((WaTor) sim).moveCell(fish, findNeighbors(fish, corners));
             }
-            for each cell {
-                cell.setStatus();
-                grid.update();
+            for (WatorCell shark : ((WaTor) sim).getSharkCells()) {
+                ((WaTor) sim).moveCell(shark, findNeighbors(shark, corners));
+            }
+        } else {
+            ArrayList<String> nextStates = new ArrayList<>();
+            List<Cell> column;
+            Cell hold;
+            for (int i = 0; i < cells.size(); i++) {
+                column = cells.get(i);
+                for (int j = 0; j < column.size(); j++) {
+                    hold = column.get(j);
+                    nextStates.add(sim.getUpdatedCellStatus(hold, findNeighbors(hold, corners)));
+                    if (simType.equals(SEG_NAME)) {
+                        ((Schelling) sim).moveCells();
+                    }
+                }
+            }
+            String next;
+            for (int i = 0; i < cells.size(); i++) {
+                for (int j = 0; j < cells.get(i).size(); j++) {
+                    next = nextStates.get(i * cells.get(i).size() + j);
+                    getCell(i, j).setStatus(next);
+                    grid.updateGrid(i, j, next);
+                }
             }
         }
     }
 
-    //TODO
-    public List<Cell> findNeighbors(Cell cell, boolean corners, boolean wrap) {
+    /**
+     * @param cell    The cell whose neighbors are desired
+     * @param corners whether to include diagonally adjacent cells as neighbors
+     * @return A list of cells adjacent to cell
+     */
+    private List<Cell> findNeighbors(Cell cell, boolean corners) {
         List<Cell> neighbors = new ArrayList<>();
-        Cell currCell = cells.get(cell.getX()).get(cell.getY());
+        boolean isWator = simType.equals(WATOR_NAME);
+        if (isWator && cell.getX() == 0) {
+            neighbors.add(getCell(width - 1, cell.getY()));
+        }
+        if (isWator && cell.getY() == 0) {
+            neighbors.add(getCell(cell.getX(), height - 1));
+        }
+        if (isWator && cell.getX() == width - 1) {
+            neighbors.add(getCell(0, cell.getY()));
+        }
+        if (isWator && cell.getX() == height - 1) {
+            neighbors.add(getCell(cell.getX(), 0));
+        }
+        if (cell.getX() != 0) {
+            neighbors.add(getCell(cell.getX() - 1, cell.getY()));
+        }
+        if (cell.getX() != width - 1) {
+            neighbors.add(getCell(cell.getX() + 1, cell.getY()));
+        }
+        if (cell.getY() != 0) {
+            neighbors.add(getCell(cell.getX(), cell.getY() - 1));
+        }
+        if (cell.getY() != height - 1) {
+            neighbors.add(getCell(cell.getX(), cell.getY() + 1));
+        }
         if (corners) {
-            // check width and height, see which corner it's in
-        }
-        else if(wrap) {
-
-        }
-        else {
-            neighbors.add(cells.get(currCell.getX() - 1).get(currCell.getY()));
-            neighbors.add(cells.get(currCell.getX()).get(currCell.getY() - 1));
-            neighbors.add(cells.get(currCell.getX() + 1).get(currCell.getY()));
-            neighbors.add(cells.get(currCell.getX()).get(currCell.getY() + 1));
-            neighbors.add(cells.get(currCell.getX() - 1).get(currCell.getY() - 1));
-            neighbors.add(cells.get(currCell.getX() - 1).get(currCell.getY() + 1));
-            neighbors.add(cells.get(currCell.getX() + 1).get(currCell.getY() - 1));
-            neighbors.add(cells.get(currCell.getX() + 1).get(currCell.getY() + 1));
+            if (cell.getX() != 0 && cell.getY() != 0) {
+                neighbors.add(getCell(cell.getX() - 1, cell.getY() - 1));
+            }
+            if (cell.getX() != width - 1 && cell.getY() != 0) {
+                neighbors.add(getCell(cell.getX() + 1, cell.getY() - 1));
+            }
+            if (cell.getX() != 0 && cell.getY() != height - 1) {
+                neighbors.add(getCell(cell.getX() - 1, cell.getY() + 1));
+            }
+            if (cell.getX() != width - 1 && cell.getY() != height - 1) {
+                neighbors.add(getCell(cell.getX() + 1, cell.getY() + 1));
+            }
         }
         return neighbors;
-    };
+    }
 
-    // In Wator, move each fish and then each shark
+    private Cell getCell(int x, int y) {
+        return cells.get(x).get(y);
+    }
 }

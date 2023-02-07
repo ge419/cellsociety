@@ -44,6 +44,10 @@ public abstract class Simulation {
         return deadState;
     }
 
+    public String getUpdatedCellStatus(Cell hold, List<Cell> findNeighbors) {
+        return hold.getStatus();
+    }
+
     /**
      * @param params A HashMap of parameters for a given simulation
      * @param xPos   An int representing the x position of a cell in the grid
