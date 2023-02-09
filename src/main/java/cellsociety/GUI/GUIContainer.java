@@ -143,16 +143,17 @@ public class GUIContainer {
 
   private void setUpButtons() {
     List<String> commands = new ArrayList<>();
+    //TODO find some way to refactor this
+    commands.add(myResources.getString("Step"));
+    commands.add(myResources.getString("Reset"));
+    commands.add(myResources.getString("Go/Pause"));
+    commands.add(myResources.getString("Clear"));
+    commands.add(myResources.getString("Random"));
+
     ButtonContainer buttons = new ButtonContainer(commands);
     //https://docs.oracle.com/javase/8/javafx/api/javafx/scene/layout/GridPane.html
     pane.getChildren().add(buttons.getContainer());
-  }
-  public Button createButton(String word, int x, int y) {
-    Button newButton = new Button(word);
-    newButton.setId("Button");
-    newButton.setOnAction(e -> saveCommand(newButton.getText()));
-    pane.setConstraints(newButton, x, y);
-    return newButton;
+    pane.setConstraints(buttons.getContainer(), 0,5, 5, 1);
   }
 
   public void saveCommand(String string) {

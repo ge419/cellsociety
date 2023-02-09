@@ -38,6 +38,12 @@
   -fx-border-color: black;
 }
 
+#Container-HBox{
+  -fx-alignment: CENTER;
+  -fx-padding: 10;
+  -fx-spacing: 50;
+}
+
 #drop-button{
   -fx-alignment: CENTER;
   -fx-pref-height: 30;
