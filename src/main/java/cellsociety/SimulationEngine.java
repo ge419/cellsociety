@@ -99,7 +99,7 @@ public class SimulationEngine {
         cells = new ArrayList<>();
         for (int i = 0; i < width; i++) {
             ArrayList<Cell> column = new ArrayList<>();
-            for (int j = 0; j < height; i++) {
+            for (int j = 0; j < height; j++) {
                 column.add(sim.randomize(parameters, i, j));
             }
             cells.add(column);
@@ -111,12 +111,12 @@ public class SimulationEngine {
      * 
      * @param simType The string representing which of the cellular automata to run
      */
-    public void blankStart(String simType) {
+    public void blankStart() {
         Cell input;
         cells = new ArrayList<>();
         for (int i = 0; i < width; i++) {
             ArrayList<Cell> column = new ArrayList<>();
-            for (int j = 0; j < height; i++) {
+            for (int j = 0; j < height; j++) {
                 input = new Cell(i, j);
                 input.setStatus(sim.getDeadString());
                 column.add(input);
