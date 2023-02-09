@@ -22,4 +22,10 @@ public class ButtonContainer {
         return newButton;
     }
 
+    public HBox getContainer() {
+        if(container.getChildren().size()==0){
+            throw new IllegalStateException("Container contains no buttons");
+        }
+        return container;
+    }
 }

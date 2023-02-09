@@ -142,14 +142,10 @@ public class GUIContainer {
   }
 
   private void setUpButtons() {
-    Button step = createButton(myResources.getString("Step"), 0, 5);
-    Button reset = createButton(myResources.getString("Reset"), 1, 5);
-    Button go = createButton(myResources.getString("Go/Pause"), 2, 5);
-    Button clear = createButton(myResources.getString("Clear"), 3, 5);
-    Button random = createButton(myResources.getString("Random"), 4, 5);
-
+    List<String> commands = new ArrayList<>();
+    ButtonContainer buttons = new ButtonContainer(commands);
     //https://docs.oracle.com/javase/8/javafx/api/javafx/scene/layout/GridPane.html
-    pane.getChildren().addAll(step, reset, go, clear, random);
+    pane.getChildren().add(buttons.getContainer());
   }
   public Button createButton(String word, int x, int y) {
     Button newButton = new Button(word);
