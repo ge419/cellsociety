@@ -24,7 +24,7 @@ public class ButtonContainer {
         return newButton;
     }
 
-    public HBox getContainer() {
+    public HBox getContainer() throws IllegalStateException{
         if(container.getChildren().size()==0){
             throw new IllegalStateException("Container contains no buttons");
         }
