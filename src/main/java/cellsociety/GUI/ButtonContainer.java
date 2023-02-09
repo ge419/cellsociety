@@ -30,4 +30,7 @@ public class ButtonContainer {
         }
         return container;
     }
+    public List<Button> getButtons() {
+        return Buttons;
+    }
 }

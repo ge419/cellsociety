@@ -151,6 +151,9 @@ public class GUIContainer {
     commands.add(myResources.getString("Random"));
 
     ButtonContainer buttons = new ButtonContainer(commands);
+    for(Button button: buttons.getButtons()){
+      button.setOnAction(e -> saveCommand(button.getText()));
+    }
     //https://docs.oracle.com/javase/8/javafx/api/javafx/scene/layout/GridPane.html
     pane.getChildren().add(buttons.getContainer());
     pane.setConstraints(buttons.getContainer(), 0,5, 5, 1);
