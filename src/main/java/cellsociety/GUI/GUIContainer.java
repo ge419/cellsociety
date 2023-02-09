@@ -1,7 +1,7 @@
 package cellsociety.GUI;
 
 import cellsociety.Config;
-import cellsociety.GUI.Grids.RectangleGrid;
+import cellsociety.GUI.Grids.RectangleVisualGrid;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -30,7 +30,7 @@ public class GUIContainer {
   private SliderContainer slider;
   private FileUploader uploader;
   private double animationSpeed;
-  private RectangleGrid grid;
+  private RectangleVisualGrid grid;
   private final ResourceBundle myResources;
   public final String GUI_CSS = "stylesheets/GUIContainer.css";
 
@@ -105,7 +105,7 @@ public class GUIContainer {
   }
 
   private void setUpGrid() {
-    grid = new RectangleGrid(20, 20, GRID_SIZE);
+    grid = new RectangleVisualGrid(20, 20, GRID_SIZE);
 //    grid.updateGrid(5,5);
     pane.getChildren().add(grid.getGridLayout());
     pane.setConstraints(grid.getGridLayout(), 0, 0, 3, 4);
@@ -213,7 +213,7 @@ public class GUIContainer {
     return uploader.getUploaded();
   }
 
-  public RectangleGrid getGrid() {
+  public RectangleVisualGrid getGrid() {
     return grid;
   }
   public String getDropDownSelection(){

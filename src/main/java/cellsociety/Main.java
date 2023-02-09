@@ -1,8 +1,6 @@
 package cellsociety;
 
-import cellsociety.Cells.Cell;
 import cellsociety.GUI.GUIContainer;
-import cellsociety.GUI.Grids.RectangleGrid;
 import java.io.File;
 import java.io.FilenameFilter;
 import java.util.ArrayList;
