@@ -151,7 +151,6 @@ public class GUIContainer {
     //https://docs.oracle.com/javase/8/javafx/api/javafx/scene/layout/GridPane.html
     pane.getChildren().addAll(step, reset, go, clear, random);
   }
-
   public Button createButton(String word, int x, int y) {
     Button newButton = new Button(word);
     newButton.setId("Button");
