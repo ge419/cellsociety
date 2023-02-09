@@ -1,12 +1,11 @@
 package cellsociety.GUI;
 
-import cellsociety.GUI.Grids.RectangleGrid;
+import cellsociety.GUI.Grids.RectangleVisualGrid;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import javafx.scene.control.Button;
 import javafx.stage.FileChooser;
-import cellsociety.Config;
 
 public class FileSaver {
 
@@ -15,7 +14,7 @@ public class FileSaver {
   private static String data;
   private static PrintWriter fileWriter;
   private static Button button;
-  public FileSaver(String label, RectangleGrid grid) {
+  public FileSaver(String label, RectangleVisualGrid grid) {
     button = new Button(label);
     button.setId("files-button");
     button.setOnAction(e -> {

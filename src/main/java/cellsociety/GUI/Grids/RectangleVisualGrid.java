@@ -1,15 +1,12 @@
 package cellsociety.GUI.Grids;
 
-import cellsociety.Cells.Cell;
-import cellsociety.GUI.Grid;
-import java.util.ArrayList;
-import java.util.List;
+import cellsociety.GUI.VisualGrid;
 import java.util.ResourceBundle;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
-public class RectangleGrid extends Grid {
+public class RectangleVisualGrid extends VisualGrid {
 
   GridPane gridLayout;
 
@@ -50,7 +47,7 @@ public class RectangleGrid extends Grid {
 
   private static final String PERC_PERC = NAMES_FILE.getString("PercolPerc");
 
-  public RectangleGrid(int columns, int rows, double gridSize) {
+  public RectangleVisualGrid(int columns, int rows, double gridSize) {
     super(columns, rows);
     width = columns;
     height = rows;
