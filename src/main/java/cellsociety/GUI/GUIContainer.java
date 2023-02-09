@@ -3,7 +3,6 @@ package cellsociety.GUI;
 import cellsociety.Config;
 import cellsociety.GUI.Grids.RectangleGrid;
 import java.io.File;
-import java.io.FilenameFilter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -48,7 +47,7 @@ public class GUIContainer {
     setColumnConstraints();
 
     myResources = ResourceBundle.getBundle(INTERNAL_CONFIGURATION + language);
-//    pane.setGridLinesVisible(true);
+    pane.setGridLinesVisible(true);
     pane.setId("pane");
 
     setUpButtons();
@@ -56,9 +55,7 @@ public class GUIContainer {
     SetUpDescriptionBox();
 
     setUpFileUploader(config);
-
     setUpFileSaver();
-
     setUpGrid();
 
     List<String> DirectoryNames = new ArrayList<>();
@@ -202,11 +199,11 @@ public class GUIContainer {
     return holder;
   }
 
-  public boolean isFileUploaded() {
-    boolean holder = fileUploaded;
-    fileUploaded = false;
-    return holder;
-  }
+//  public boolean isFileUploaded() {
+//    boolean holder = fileUploaded;
+//    fileUploaded = false;
+//    return holder;
+//  }
 
   public String getRequest() {
     return request;
