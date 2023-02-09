@@ -96,9 +96,9 @@ public class GUIContainer {
   }
 
   private void setColumnConstraints() {
-    for (int i = 0; i < COLUMN_PERCENT.length; i++) {
+    for (int j : COLUMN_PERCENT) {
       ColumnConstraints column = new ColumnConstraints();
-      column.setPercentWidth(COLUMN_PERCENT[i]);
+      column.setPercentWidth(j);
       column.setHgrow(Priority.ALWAYS);
       pane.getColumnConstraints().add(column);
     }

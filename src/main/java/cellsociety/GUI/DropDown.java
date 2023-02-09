@@ -1,8 +1,6 @@
 package cellsociety.GUI;
 
 import java.util.List;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.layout.VBox;
@@ -10,8 +8,6 @@ import javafx.scene.layout.VBox;
 public class DropDown {
 
   private static ComboBox<String> dropdown;
-
-  private static String selected;
 
   private static Button button;
 
@@ -31,7 +27,6 @@ public class DropDown {
 //    button.setOnAction(e -> selected = dropdown.getValue());
 
     container.getChildren().add(button);
-
 
   }
   public String getValue(){

@@ -10,15 +10,11 @@ public class RectangleVisualGrid extends VisualGrid {
 
   GridPane gridLayout;
 
-  private int cellSize;
-
-  int gridSize;
-
   int width;
   int height;
 
   public static final String INTERNAL_CONFIGURATION = "cellsociety.filesandstates";
-  private static final ResourceBundle NAMES_FILE = ResourceBundle.getBundle(INTERNAL_CONFIGURATION);;
+  private static final ResourceBundle NAMES_FILE = ResourceBundle.getBundle(INTERNAL_CONFIGURATION);
   private static final String LIFE_ALIVE = NAMES_FILE.getString("LifeAlive");
 
   private static final String LIFE_DEAD = NAMES_FILE.getString("LifeDead");
@@ -55,10 +51,7 @@ public class RectangleVisualGrid extends VisualGrid {
     gridLayout.setGridLinesVisible(true);
     resetGrid(gridSize);
   }
-//
-//  public void cellUpdate(Cell cell) {
-//    updateGrid(cell.getX(), cell.getY());
-//  }
+
   public void changeSize(int newWidth, int newHeight, int gridSize){
     width = newWidth;
     height = newHeight;
