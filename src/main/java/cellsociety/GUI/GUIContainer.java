@@ -22,6 +22,8 @@ import javafx.stage.Stage;
  */
 public class GUIContainer {
 
+  public final int[] COLUMN_PERCENT = {16,16,16,21,21};
+
   private final GridPane pane;
 
   private String request;
@@ -89,16 +91,14 @@ public class GUIContainer {
         name = dirc + "/" + name;
         System.out.println(name);
       }
-
       FileNames.addAll(list);
     }
   }
 
   private void setColumnConstraints() {
-    int[] widths = {16, 16, 16, 21, 21};
-    for (int i = 0; i < 4; i++) {
+    for (int i = 0; i < COLUMN_PERCENT.length; i++) {
       ColumnConstraints column = new ColumnConstraints();
-      column.setPercentWidth(widths[i]);
+      column.setPercentWidth(COLUMN_PERCENT[i]);
       column.setHgrow(Priority.ALWAYS);
       pane.getColumnConstraints().add(column);
     }
