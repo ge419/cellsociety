@@ -83,7 +83,7 @@ public class Config {
     width = 0;
     height = 0;
     currState = new ArrayList<>();
-    for (String s: paramName) {
+    for (String s : paramName) {
       simParam.put(s, 0.0);
     }
   }
@@ -130,7 +130,6 @@ public class Config {
    *
    * @param root
    */
-
   public void updateXML(Element root) {
     simType = getTextValue(root, "sim_type");
     configName = getTextValue(root, "config_Name");
@@ -139,7 +138,7 @@ public class Config {
     width = Integer.parseInt(getTextValue(root, "width"));
     height = Integer.parseInt(getTextValue(root, "height"));
     initState = getTextValue(root, "init_state");
-    for (String s: paramName) {
+    for (String s : paramName) {
       simParam.put(s, Double.parseDouble(getTextValue(root, s)));
     }
     //System.out.println(initState);
@@ -157,22 +156,7 @@ public class Config {
     try {
       DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
       Document doc = docBuilder.newDocument();
-
-      Element rootElement = doc.createElement("data");
-      doc.appendChild(rootElement);
-
-      rootElement.appendChild(addTagStr(doc, "sim_type", simType));
-      rootElement.appendChild(addTagStr(doc, "config_Name", configName));
-      rootElement.appendChild(addTagStr(doc, "author", author));
-      rootElement.appendChild(addTagStr(doc, "description", description));
-      rootElement.appendChild(addTagInt(doc, "width", width));
-      rootElement.appendChild(addTagInt(doc, "height", height));
-      rootElement.appendChild(addTagStr(doc, "curr_state", intStrConverter(currState)));
-      Element params = doc.createElement("params");
-      for (String s: paramName) {
-        params.appendChild(addTagParam(doc, s, simParam));
-      }
-
+      addElements(doc);
       TransformerFactory transformerFactory = TransformerFactory.newInstance();
       Transformer transformer = transformerFactory.newTransformer();
       DOMSource source = new DOMSource(doc);
@@ -181,6 +165,28 @@ public class Config {
     } catch (Exception e) {
       //TODO: figure out the exception
       e.printStackTrace();
+    }
+  }
+
+  /**
+   * Creates Elements rootElement and params, and appends corresponding tag names and values to the
+   * XML file
+   *
+   * @param doc
+   */
+  private void addElements(Document doc) {
+    Element rootElement = doc.createElement("data");
+    doc.appendChild(rootElement);
+    rootElement.appendChild(addTagStr(doc, "sim_type", simType));
+    rootElement.appendChild(addTagStr(doc, "config_Name", configName));
+    rootElement.appendChild(addTagStr(doc, "author", author));
+    rootElement.appendChild(addTagStr(doc, "description", description));
+    rootElement.appendChild(addTagInt(doc, "width", width));
+    rootElement.appendChild(addTagInt(doc, "height", height));
+    rootElement.appendChild(addTagStr(doc, "curr_state", intStrConverter(currState)));
+    Element params = doc.createElement("params");
+    for (String s : paramName) {
+      params.appendChild(addTagParam(doc, s, simParam));
     }
   }
 
