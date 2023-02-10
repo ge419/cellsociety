@@ -169,19 +169,9 @@ public class Config {
       rootElement.appendChild(addTagInt(doc, "height", height));
       rootElement.appendChild(addTagStr(doc, "curr_state", intStrConverter(currState)));
       Element params = doc.createElement("params");
-      params.appendChild(addTagParam(doc, "probCatch", simParam));
-      params.appendChild(addTagParam(doc, "change", simParam));
-      params.appendChild(addTagParam(doc, "eShark", simParam));
-      params.appendChild(addTagParam(doc, "ePerFish", simParam));
-      params.appendChild(addTagParam(doc, "fishBT", simParam));
-      params.appendChild(addTagParam(doc, "sharkBT", simParam));
-      params.appendChild(addTagParam(doc, "perAlive", simParam));
-      params.appendChild(addTagParam(doc, "perTree", simParam));
-      params.appendChild(addTagParam(doc, "perFire", simParam));
-      params.appendChild(addTagParam(doc, "perEmpty", simParam));
-      params.appendChild(addTagParam(doc, "perStateOne", simParam));
-      params.appendChild(addTagParam(doc, "perShark", simParam));
-      params.appendChild(addTagParam(doc, "perBlocked", simParam));
+      for (String s: paramName) {
+        params.appendChild(addTagParam(doc, s, simParam));
+      }
 
       TransformerFactory transformerFactory = TransformerFactory.newInstance();
       Transformer transformer = transformerFactory.newTransformer();
