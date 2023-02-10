@@ -1,6 +1,7 @@
 package cellsociety;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -46,6 +47,7 @@ public class SimulationEngine {
   private VisualGrid visualGrid;
   private int width;
   private int height;
+  private String initState;
   private List<List<Cell>> cells;
   private boolean corners;
 
@@ -54,13 +56,15 @@ public class SimulationEngine {
    * @param params     A HashMap of parameters and values for each simulation type
    * @param visualGrid The grid object of the view
    */
-  public SimulationEngine(String simType, HashMap<String, Double> params, VisualGrid visualGrid) {
+  public SimulationEngine(String simType, HashMap<String, Double> params, VisualGrid visualGrid, String state) {
     init(simType, params);
     this.simType = simType;
     this.visualGrid = visualGrid;
     this.width = visualGrid.getWidth();
     this.height = visualGrid.getHeight();
-    blankStart(simType);
+    this.initState = state;
+    blankStart();
+    strToGrid(state);
   }
 
   // TODO: replace string literals in params.get() calls with strings from
@@ -74,6 +78,7 @@ public class SimulationEngine {
     if (simType.equals(LIFE_NAME)) {
       sim = new Life(LIFE_DEAD, LIFE_ALIVE);
       corners = true;
+      // cells =
     } else if (simType.equals(FIRE_NAME)) {
       sim = new Fire(FIRE_EMPTY, FIRE_TREE, FIRE_BURNING, params.get("probCatch"));
       corners = false;
@@ -110,7 +115,7 @@ public class SimulationEngine {
   /**
    * Set the starting configuration for a blank simulation
    *
-   * @param simType The string representing which of the cellular automata to run
+   * //@param simType The string representing which of the cellular automata to run
    */
   public void blankStart() {
     Cell input;
@@ -207,6 +212,45 @@ public class SimulationEngine {
     }
     return neighbors;
   }
+
+  private List<List<Integer>> strToGrid(String initState) {
+    List<List<String>> stateArr = new ArrayList<>(width);
+    String[] splitInit = initState.split("\n");
+
+    for (int i = 0; i < splitInit.length; i++) {
+      List<String> row = new ArrayList<>(height);
+      String[] rowSplit = splitInit[i].split(" ");
+      Collections.addAll(row, rowSplit);
+      row.remove("");
+      row.remove("");
+      row.remove("");
+      row.remove("");
+      //System.out.println(row);
+      stateArr.add(i, row);
+    }
+    return strIntConverter(stateArr);
+  }
+
+  private List<List<Integer>> strIntConverter(List<List<String>> stateList) {
+    List<List<Integer>> current = new ArrayList<>();
+    for (List<String> state : stateList) {
+      List<Integer> row = new ArrayList<>();
+      for (String s : state) {
+        row.add(Integer.parseInt(s));
+      }
+      current.add(row);
+    }
+    return current;
+  }
+
+//  private List<List<Cell>> toGrid(List<List<Integer>> intGrid) {
+//    for (int i = 0; i < intGrid.size(); i++) {
+//      for (int j = 0; j < intGrid.get(0).size(); j++) {
+//        cells =
+//      }
+//    }
+//    return
+//  }
 
   private Cell getCell(int x, int y) {
     return cells.get(x).get(y);

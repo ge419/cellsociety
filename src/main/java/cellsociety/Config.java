@@ -1,5 +1,6 @@
 package cellsociety;
 
+import cellsociety.Cells.Cell;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -27,7 +28,7 @@ import org.xml.sax.SAXException;
  * @Author Changmin Shin
  */
 
-//TODO: simParam + simParam --> simParam
+//TODO: use for loops and the arraylist for repeating lines of code.
 public class Config {
 
   public static final String INTERNAL_CONFIGURATION = "cellsociety.";
@@ -61,7 +62,6 @@ public class Config {
     simNames.add(myResources.getString("WTName"));
     simNames.add(myResources.getString("PercolName"));
     if (checkValidXML(xmlFile)) {
-      simParam = new HashMap<>();
       simParam = new HashMap<>();
       updateXML(root);
       if (!simNames.contains(getTextValue(root, "sim_type"))) {
@@ -97,6 +97,7 @@ public class Config {
   /**
    * Checks if the XML file is valid
    */
+  //TODO: Check exceptions
   public boolean checkValidXML(File xmlFile) {
     try {
       Document xmlDocument =
@@ -158,35 +159,8 @@ public class Config {
     simParam.put("perShark", Double.parseDouble(getTextValue(root, "perShark")));
     simParam.put("perBlocked", Double.parseDouble(getTextValue(root, "perBlocked")));
 
-    System.out.println(initState);
-
-    List<List<String>> stateArr = new ArrayList<>(width);
-    String[] splitInit = initState.split("\n");
-
-    for (int i = 0; i < splitInit.length; i++) {
-      List<String> row = new ArrayList<>(height);
-      String[] rowSplit = splitInit[i].split(" ");
-      Collections.addAll(row, rowSplit);
-      row.remove("");
-      row.remove("");
-      row.remove("");
-      row.remove("");
-      System.out.println(row);
-      stateArr.add(i, row);
-    }
-    currState = strIntConverter(stateArr);
-  }
-
-  private List<List<Integer>> strIntConverter(List<List<String>> stateList) {
-    List<List<Integer>> current = new ArrayList<>();
-    for (List<String> state : stateList) {
-      List<Integer> row = new ArrayList<>();
-      for (String s : state) {
-        row.add(Integer.parseInt(s));
-      }
-      current.add(row);
-    }
-    return current;
+    //System.out.println(initState);
+    //currState = strToGrid();
   }
 
   /**
@@ -232,9 +206,16 @@ public class Config {
       StreamResult result = new StreamResult(new File("*.xml"));
       transformer.transform(source, result);
     } catch (Exception e) {
+      //TODO: figure out the exception
       e.printStackTrace();
     }
   }
+
+//  private void addToElement(Element e) {
+//    List<String> strNames = new ArrayList<>(); // How to set up basic arraylist
+//    strNames.add("sim_type");
+//    e.appendChild(addTagStr());
+//  }
 
   private String intStrConverter(List<List<Integer>> state) {
     List<List<String>> current = new ArrayList<>();
@@ -279,5 +260,13 @@ public class Config {
 
   public HashMap<String, Double> getSimParam() {
     return simParam;
+  }
+
+  public List<List<Integer>> getIntGrid() {
+    return currState;
+  }
+
+  public String getInitState() {
+    return initState;
   }
 }
