@@ -59,7 +59,8 @@ public class SimulationEngine {
    * @param params     A HashMap of parameters and values for each simulation type
    * @param visualGrid The grid object of the view
    */
-  public SimulationEngine(String simType, HashMap<String, Double> params, VisualGrid visualGrid, String state) {
+  public SimulationEngine(String simType, HashMap<String, Double> params, VisualGrid visualGrid,
+      String state) {
     init(simType, params);
     this.simType = simType;
     this.visualGrid = visualGrid;
@@ -118,7 +119,7 @@ public class SimulationEngine {
 
   /**
    * Set the starting configuration for a blank simulation
-   *
+   * <p>
    * //@param simType The string representing which of the cellular automata to run
    */
   public void blankStart() {
@@ -246,7 +247,7 @@ public class SimulationEngine {
     return current;
   }
 
-  private Grid listToGrid(List<List<Integer>> intGrid) {
+  private void listToGrid(List<List<Integer>> intGrid) {
     grid = new Grid();
     for (int i = 0; i < intGrid.size(); i++) {
       for (int j = 0; j < intGrid.get(0).size(); j++) {
@@ -254,9 +255,16 @@ public class SimulationEngine {
         grid.setCell(i, j, status);
       }
     }
-
   }
 
+  //TODO: Refactor code --> create interface of simulation engine, create engine for each simulation
+
+  /**
+   * Takes integer value of status, returns the Cell state string according to the simType
+   * @param simType The type of simulation
+   * @param status  Integer value of status(read from matrix of integers)
+   * @return
+   */
   private String statusIntToStr(String simType, int status) {
     switch (simType) {
       case LIFE_NAME -> {
@@ -272,14 +280,11 @@ public class SimulationEngine {
       case FIRE_NAME -> {
         if (status == 0) {
           return FIRE_EMPTY;
-        }
-        else if (status == 1){
+        } else if (status == 1) {
           return FIRE_TREE;
-        }
-        else if (status == 2) {
+        } else if (status == 2) {
           return FIRE_BURNING;
-        }
-        else {
+        } else {
           //TODO: define exception here, change code accordingly
           throw new Exception(showMessage(AlertType.ERROR, "Invalid Status"), e);
         }
@@ -287,14 +292,11 @@ public class SimulationEngine {
       case SEG_NAME -> {
         if (status == 0) {
           return SEG_EMPTY;
-        }
-        else if (status == 1){
+        } else if (status == 1) {
           return SEG_A;
-        }
-        else if (status == 2) {
+        } else if (status == 2) {
           return SEG_B;
-        }
-        else {
+        } else {
           //TODO: define exception here, change code accordingly
           throw new Exception(showMessage(AlertType.ERROR, "Invalid Status"), e);
         }
@@ -316,9 +318,15 @@ public class SimulationEngine {
     }
 
   }
-    private void showMessage(AlertType type, String message) {
-      new Alert(type, message).showAndWait();
-    }
+
+  /**
+   * Creates an alert with custom message
+   * @param type
+   * @param message
+   */
+  private void showMessage(AlertType type, String message) {
+    new Alert(type, message).showAndWait();
+  }
 
   private Cell getCell(int x, int y) {
     return cells.get(x).get(y);
