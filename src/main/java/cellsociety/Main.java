@@ -45,7 +45,7 @@ public class Main extends Application {
     String english = "english";
     config = new Config();
     container = new GUIContainer(primaryStage, english, config);
-    engine = new SimulationEngine("Game of Life", config.getSimParam(), container.getGrid());
+    engine = new SimulationEngine("Game of Life", config.getSimParam(), container.getGrid(), config.getInitState());
     Timeline animation = new Timeline();
     animation.setCycleCount(Timeline.INDEFINITE);
     animation.getKeyFrames()
@@ -132,7 +132,7 @@ public class Main extends Application {
       }
     }
     config.readFile(file);
-    engine = new SimulationEngine(config.getVariant(), config.getSimParam(), container.getGrid());
+    engine = new SimulationEngine(config.getVariant(), config.getSimParam(), container.getGrid(), config.getInitState());
   }
 
   /**

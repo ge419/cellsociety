@@ -1,5 +1,6 @@
 package cellsociety;
 
+import cellsociety.Cells.Cell;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -9,6 +10,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javax.xml.parsers.DocumentBuilder;
@@ -27,11 +29,15 @@ import org.xml.sax.SAXException;
  * @Author Changmin Shin
  */
 
-//TODO: simParam + simParam --> simParam
+//TODO: use for loops and the arraylist for repeating lines of code.
 public class Config {
 
   public static final String INTERNAL_CONFIGURATION = "cellsociety.";
-  private ResourceBundle myResources;
+  public static final List<String> paramName = new ArrayList<>(
+      Arrays.asList("probCatch", "change", "eShark", "ePerFish", "fishBT", "sharkBT", "perAlive",
+          "perTree", "perFire", "perEmpty", "perStateOne", "perShark", "perBlocked"));
+  private static final ResourceBundle myResources = ResourceBundle.getBundle(
+      INTERNAL_CONFIGURATION + "filesandstates");
 
   private String simType;
   private String configName;
@@ -42,8 +48,8 @@ public class Config {
   private String initState;
   private List<List<Integer>> currState;
   private Element root;
-  public HashMap<String, Double> simParam;
-  public HashSet<String> simNames;
+  private HashMap<String, Double> simParam;
+  private HashSet<String> simNames;
 
   /**
    * Reads XML file, if XML file is valid, upload info
@@ -54,14 +60,12 @@ public class Config {
   }
 
   public void readFile(File xmlFile) {
-    myResources = ResourceBundle.getBundle(INTERNAL_CONFIGURATION + "filesandstates");
     simNames.add(myResources.getString("LifeName"));
     simNames.add(myResources.getString("FireName"));
     simNames.add(myResources.getString("SegName"));
     simNames.add(myResources.getString("WTName"));
     simNames.add(myResources.getString("PercolName"));
     if (checkValidXML(xmlFile)) {
-      simParam = new HashMap<>();
       simParam = new HashMap<>();
       updateXML(root);
       if (!simNames.contains(getTextValue(root, "sim_type"))) {
@@ -79,24 +83,15 @@ public class Config {
     width = 0;
     height = 0;
     currState = new ArrayList<>();
-    simParam.put("probCatch", 0.0);
-    simParam.put("change", 0.0);
-    simParam.put("eShark", 0.0);
-    simParam.put("ePerFish", 0.0);
-    simParam.put("fishBT", 0.0);
-    simParam.put("sharkBT", 0.0);
-    simParam.put("perAlive", 0.0);
-    simParam.put("perTree", 0.0);
-    simParam.put("perFire", 0.0);
-    simParam.put("perEmpty", 0.0);
-    simParam.put("perStateOne", 0.0);
-    simParam.put("perShark", 0.0);
-    simParam.put("perBlocked", 0.0);
+    for (String s : paramName) {
+      simParam.put(s, 0.0);
+    }
   }
 
   /**
    * Checks if the XML file is valid
    */
+  //TODO: Check exceptions
   public boolean checkValidXML(File xmlFile) {
     try {
       Document xmlDocument =
@@ -126,7 +121,7 @@ public class Config {
     }
   }
 
-  private void showMessage(AlertType type, String message) {    // Is PopUp class necessary?
+  private void showMessage(AlertType type, String message) {
     new Alert(type, message).showAndWait();
   }
 
@@ -135,7 +130,6 @@ public class Config {
    *
    * @param root
    */
-
   public void updateXML(Element root) {
     simType = getTextValue(root, "sim_type");
     configName = getTextValue(root, "config_Name");
@@ -144,49 +138,11 @@ public class Config {
     width = Integer.parseInt(getTextValue(root, "width"));
     height = Integer.parseInt(getTextValue(root, "height"));
     initState = getTextValue(root, "init_state");
-    simParam.put("probCatch", Double.parseDouble(getTextValue(root, "probCatch")));
-    simParam.put("change", Double.parseDouble(getTextValue(root, "change")));
-    simParam.put("eShark", Double.parseDouble(getTextValue(root, "eShark")));
-    simParam.put("ePerFish", Double.parseDouble(getTextValue(root, "ePerFish")));
-    simParam.put("fishBT", Double.parseDouble(getTextValue(root, "fishBT")));
-    simParam.put("sharkBT", Double.parseDouble(getTextValue(root, "sharkBT")));
-    simParam.put("perAlive", Double.parseDouble(getTextValue(root, "perAlive")));
-    simParam.put("perTree", Double.parseDouble(getTextValue(root, "perTree")));
-    simParam.put("perFire", Double.parseDouble(getTextValue(root, "perFire")));
-    simParam.put("perEmpty", Double.parseDouble(getTextValue(root, "perEmpty")));
-    simParam.put("perStateOne", Double.parseDouble(getTextValue(root, "perStateOne")));
-    simParam.put("perShark", Double.parseDouble(getTextValue(root, "perShark")));
-    simParam.put("perBlocked", Double.parseDouble(getTextValue(root, "perBlocked")));
-
-    System.out.println(initState);
-
-    List<List<String>> stateArr = new ArrayList<>(width);
-    String[] splitInit = initState.split("\n");
-
-    for (int i = 0; i < splitInit.length; i++) {
-      List<String> row = new ArrayList<>(height);
-      String[] rowSplit = splitInit[i].split(" ");
-      Collections.addAll(row, rowSplit);
-      row.remove("");
-      row.remove("");
-      row.remove("");
-      row.remove("");
-      System.out.println(row);
-      stateArr.add(i, row);
+    for (String s : paramName) {
+      simParam.put(s, Double.parseDouble(getTextValue(root, s)));
     }
-    currState = strIntConverter(stateArr);
-  }
-
-  private List<List<Integer>> strIntConverter(List<List<String>> stateList) {
-    List<List<Integer>> current = new ArrayList<>();
-    for (List<String> state : stateList) {
-      List<Integer> row = new ArrayList<>();
-      for (String s : state) {
-        row.add(Integer.parseInt(s));
-      }
-      current.add(row);
-    }
-    return current;
+    //System.out.println(initState);
+    //currState = strToGrid();
   }
 
   /**
@@ -200,41 +156,45 @@ public class Config {
     try {
       DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
       Document doc = docBuilder.newDocument();
-
-      Element rootElement = doc.createElement("data");
-      doc.appendChild(rootElement);
-
-      rootElement.appendChild(addTagStr(doc, "sim_type", simType));
-      rootElement.appendChild(addTagStr(doc, "config_Name", configName));
-      rootElement.appendChild(addTagStr(doc, "author", author));
-      rootElement.appendChild(addTagStr(doc, "description", description));
-      rootElement.appendChild(addTagInt(doc, "width", width));
-      rootElement.appendChild(addTagInt(doc, "height", height));
-      rootElement.appendChild(addTagStr(doc, "curr_state", intStrConverter(currState)));
-      Element params = doc.createElement("params");
-      params.appendChild(addTagParam(doc, "probCatch", simParam));
-      params.appendChild(addTagParam(doc, "change", simParam));
-      params.appendChild(addTagParam(doc, "eShark", simParam));
-      params.appendChild(addTagParam(doc, "ePerFish", simParam));
-      params.appendChild(addTagParam(doc, "fishBT", simParam));
-      params.appendChild(addTagParam(doc, "sharkBT", simParam));
-      params.appendChild(addTagParam(doc, "perAlive", simParam));
-      params.appendChild(addTagParam(doc, "perTree", simParam));
-      params.appendChild(addTagParam(doc, "perFire", simParam));
-      params.appendChild(addTagParam(doc, "perEmpty", simParam));
-      params.appendChild(addTagParam(doc, "perStateOne", simParam));
-      params.appendChild(addTagParam(doc, "perShark", simParam));
-      params.appendChild(addTagParam(doc, "perBlocked", simParam));
-
+      addElements(doc);
       TransformerFactory transformerFactory = TransformerFactory.newInstance();
       Transformer transformer = transformerFactory.newTransformer();
       DOMSource source = new DOMSource(doc);
       StreamResult result = new StreamResult(new File("*.xml"));
       transformer.transform(source, result);
     } catch (Exception e) {
+      //TODO: figure out the exception
       e.printStackTrace();
     }
   }
+
+  /**
+   * Creates Elements rootElement and params, and appends corresponding tag names and values to the
+   * XML file
+   *
+   * @param doc
+   */
+  private void addElements(Document doc) {
+    Element rootElement = doc.createElement("data");
+    doc.appendChild(rootElement);
+    rootElement.appendChild(addTagStr(doc, "sim_type", simType));
+    rootElement.appendChild(addTagStr(doc, "config_Name", configName));
+    rootElement.appendChild(addTagStr(doc, "author", author));
+    rootElement.appendChild(addTagStr(doc, "description", description));
+    rootElement.appendChild(addTagInt(doc, "width", width));
+    rootElement.appendChild(addTagInt(doc, "height", height));
+    rootElement.appendChild(addTagStr(doc, "curr_state", intStrConverter(currState)));
+    Element params = doc.createElement("params");
+    for (String s : paramName) {
+      params.appendChild(addTagParam(doc, s, simParam));
+    }
+  }
+
+//  private void addToElement(Element e) {
+//    List<String> strNames = new ArrayList<>(); // How to set up basic arraylist
+//    strNames.add("sim_type");
+//    e.appendChild(addTagStr());
+//  }
 
   private String intStrConverter(List<List<Integer>> state) {
     List<List<String>> current = new ArrayList<>();
@@ -279,5 +239,13 @@ public class Config {
 
   public HashMap<String, Double> getSimParam() {
     return simParam;
+  }
+
+  public List<List<Integer>> getIntGrid() {
+    return currState;
+  }
+
+  public String getInitState() {
+    return initState;
   }
 }

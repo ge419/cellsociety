@@ -1,6 +1,7 @@
 package cellsociety;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -12,6 +13,8 @@ import cellsociety.simulations.Life;
 import cellsociety.simulations.Schelling;
 import cellsociety.simulations.Simulation;
 import cellsociety.simulations.WaTor;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 
 /**
  * @author Brandon Weiss, Changmin Shin
@@ -46,21 +49,27 @@ public class SimulationEngine {
   private VisualGrid visualGrid;
   private int width;
   private int height;
+  private String initState;
   private List<List<Cell>> cells;
   private boolean corners;
+  private Grid grid;
 
   /**
    * @param simType    The string representing which of the cellular automata to run
    * @param params     A HashMap of parameters and values for each simulation type
    * @param visualGrid The grid object of the view
    */
-  public SimulationEngine(String simType, HashMap<String, Double> params, VisualGrid visualGrid) {
+  public SimulationEngine(String simType, HashMap<String, Double> params, VisualGrid visualGrid,
+      String state) {
     init(simType, params);
     this.simType = simType;
     this.visualGrid = visualGrid;
     this.width = visualGrid.getWidth();
     this.height = visualGrid.getHeight();
-    blankStart(simType);
+    this.initState = state;
+    blankStart();
+    // Decodes String status and creates Grid
+    listToGrid(strToGrid(state));
   }
 
   // TODO: replace string literals in params.get() calls with strings from
@@ -74,6 +83,7 @@ public class SimulationEngine {
     if (simType.equals(LIFE_NAME)) {
       sim = new Life(LIFE_DEAD, LIFE_ALIVE);
       corners = true;
+      // cells = Grid
     } else if (simType.equals(FIRE_NAME)) {
       sim = new Fire(FIRE_EMPTY, FIRE_TREE, FIRE_BURNING, params.get("probCatch"));
       corners = false;
@@ -109,8 +119,8 @@ public class SimulationEngine {
 
   /**
    * Set the starting configuration for a blank simulation
-   *
-   * @param simType The string representing which of the cellular automata to run
+   * <p>
+   * //@param simType The string representing which of the cellular automata to run
    */
   public void blankStart() {
     Cell input;
@@ -152,7 +162,7 @@ public class SimulationEngine {
       for (int i = 0; i < cells.size(); i++) {
         for (int j = 0; j < cells.get(i).size(); j++) {
           next = nextStates.get(i * cells.get(i).size() + j);
-          getCell(i, j).setStatus(next);
+          //getCell(i, j).setStatus(next);
           visualGrid.updateGrid(i, j, next);
         }
       }
@@ -206,6 +216,116 @@ public class SimulationEngine {
       }
     }
     return neighbors;
+  }
+
+  private List<List<Integer>> strToGrid(String initState) {
+    List<List<String>> stateArr = new ArrayList<>(width);
+    String[] splitInit = initState.split("\n");
+
+    for (int i = 0; i < splitInit.length; i++) {
+      List<String> row = new ArrayList<>(height);
+      String[] rowSplit = splitInit[i].split(" ");
+      Collections.addAll(row, rowSplit);
+      for (int j = 0; j < 4; j++) {
+        row.remove("");
+      }
+      //System.out.println(row);
+      stateArr.add(i, row);
+    }
+    return strIntConverter(stateArr);
+  }
+
+  private List<List<Integer>> strIntConverter(List<List<String>> stateList) {
+    List<List<Integer>> current = new ArrayList<>();
+    for (List<String> state : stateList) {
+      List<Integer> row = new ArrayList<>();
+      for (String s : state) {
+        row.add(Integer.parseInt(s));
+      }
+      current.add(row);
+    }
+    return current;
+  }
+
+  private void listToGrid(List<List<Integer>> intGrid) {
+    grid = new Grid();
+    for (int i = 0; i < intGrid.size(); i++) {
+      for (int j = 0; j < intGrid.get(0).size(); j++) {
+        String status = statusIntToStr(simType, intGrid.get(i).get(j));
+        grid.setCell(i, j, status);
+      }
+    }
+  }
+
+  //TODO: Refactor code --> create interface of simulation engine, create engine for each simulation
+
+  /**
+   * Takes integer value of status, returns the Cell state string according to the simType
+   * @param simType The type of simulation
+   * @param status  Integer value of status(read from matrix of integers)
+   * @return
+   */
+  private String statusIntToStr(String simType, int status) {
+    switch (simType) {
+      case LIFE_NAME -> {
+        if (status == 0) {
+          return LIFE_DEAD;
+        } else if (status == 1) {
+          return LIFE_ALIVE;
+        } else {
+          //TODO: define exception here, change code accordingly
+          throw new Exception(showMessage(AlertType.ERROR, "Invalid Status"), e);
+        }
+      }
+      case FIRE_NAME -> {
+        if (status == 0) {
+          return FIRE_EMPTY;
+        } else if (status == 1) {
+          return FIRE_TREE;
+        } else if (status == 2) {
+          return FIRE_BURNING;
+        } else {
+          //TODO: define exception here, change code accordingly
+          throw new Exception(showMessage(AlertType.ERROR, "Invalid Status"), e);
+        }
+      }
+      case SEG_NAME -> {
+        if (status == 0) {
+          return SEG_EMPTY;
+        } else if (status == 1) {
+          return SEG_A;
+        } else if (status == 2) {
+          return SEG_B;
+        } else {
+          //TODO: define exception here, change code accordingly
+          throw new Exception(showMessage(AlertType.ERROR, "Invalid Status"), e);
+        }
+      }
+      case WATOR_NAME -> {
+        if (status == 0) {
+          return WATOR_EMPTY;
+        } else if (status == 1) {
+          return WATOR_FISH;
+        } else if (status == 2) {
+          return WATOR_SHARK;
+        } else {
+          //TODO: define exception here, change code accordingly
+          throw new Exception(showMessage(AlertType.ERROR, "Invalid Status"), e)
+        }
+      }
+      //TODO: define exception here, change code accordingly
+      default -> throw new Exception(showMessage(AlertType.ERROR, "Invalid Simulation Name"), e)
+    }
+
+  }
+
+  /**
+   * Creates an alert with custom message
+   * @param type
+   * @param message
+   */
+  private void showMessage(AlertType type, String message) {
+    new Alert(type, message).showAndWait();
   }
 
   private Cell getCell(int x, int y) {
