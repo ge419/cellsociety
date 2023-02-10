@@ -13,6 +13,8 @@ import cellsociety.simulations.Life;
 import cellsociety.simulations.Schelling;
 import cellsociety.simulations.Simulation;
 import cellsociety.simulations.WaTor;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 
 /**
  * @author Brandon Weiss, Changmin Shin
@@ -50,6 +52,7 @@ public class SimulationEngine {
   private String initState;
   private List<List<Cell>> cells;
   private boolean corners;
+  private Grid grid;
 
   /**
    * @param simType    The string representing which of the cellular automata to run
@@ -64,7 +67,8 @@ public class SimulationEngine {
     this.height = visualGrid.getHeight();
     this.initState = state;
     blankStart();
-    strToGrid(state);
+    // Decodes String status and creates Grid
+    listToGrid(strToGrid(state));
   }
 
   // TODO: replace string literals in params.get() calls with strings from
@@ -78,7 +82,7 @@ public class SimulationEngine {
     if (simType.equals(LIFE_NAME)) {
       sim = new Life(LIFE_DEAD, LIFE_ALIVE);
       corners = true;
-      // cells =
+      // cells = Grid
     } else if (simType.equals(FIRE_NAME)) {
       sim = new Fire(FIRE_EMPTY, FIRE_TREE, FIRE_BURNING, params.get("probCatch"));
       corners = false;
@@ -157,7 +161,7 @@ public class SimulationEngine {
       for (int i = 0; i < cells.size(); i++) {
         for (int j = 0; j < cells.get(i).size(); j++) {
           next = nextStates.get(i * cells.get(i).size() + j);
-          getCell(i, j).setStatus(next);
+          //getCell(i, j).setStatus(next);
           visualGrid.updateGrid(i, j, next);
         }
       }
@@ -221,10 +225,9 @@ public class SimulationEngine {
       List<String> row = new ArrayList<>(height);
       String[] rowSplit = splitInit[i].split(" ");
       Collections.addAll(row, rowSplit);
-      row.remove("");
-      row.remove("");
-      row.remove("");
-      row.remove("");
+      for (int j = 0; j < 4; j++) {
+        row.remove("");
+      }
       //System.out.println(row);
       stateArr.add(i, row);
     }
@@ -243,14 +246,79 @@ public class SimulationEngine {
     return current;
   }
 
-//  private List<List<Cell>> toGrid(List<List<Integer>> intGrid) {
-//    for (int i = 0; i < intGrid.size(); i++) {
-//      for (int j = 0; j < intGrid.get(0).size(); j++) {
-//        cells =
-//      }
-//    }
-//    return
-//  }
+  private Grid listToGrid(List<List<Integer>> intGrid) {
+    grid = new Grid();
+    for (int i = 0; i < intGrid.size(); i++) {
+      for (int j = 0; j < intGrid.get(0).size(); j++) {
+        String status = statusIntToStr(simType, intGrid.get(i).get(j));
+        grid.setCell(i, j, status);
+      }
+    }
+
+  }
+
+  private String statusIntToStr(String simType, int status) {
+    switch (simType) {
+      case LIFE_NAME -> {
+        if (status == 0) {
+          return LIFE_DEAD;
+        } else if (status == 1) {
+          return LIFE_ALIVE;
+        } else {
+          //TODO: define exception here, change code accordingly
+          throw new Exception(showMessage(AlertType.ERROR, "Invalid Status"), e);
+        }
+      }
+      case FIRE_NAME -> {
+        if (status == 0) {
+          return FIRE_EMPTY;
+        }
+        else if (status == 1){
+          return FIRE_TREE;
+        }
+        else if (status == 2) {
+          return FIRE_BURNING;
+        }
+        else {
+          //TODO: define exception here, change code accordingly
+          throw new Exception(showMessage(AlertType.ERROR, "Invalid Status"), e);
+        }
+      }
+      case SEG_NAME -> {
+        if (status == 0) {
+          return SEG_EMPTY;
+        }
+        else if (status == 1){
+          return SEG_A;
+        }
+        else if (status == 2) {
+          return SEG_B;
+        }
+        else {
+          //TODO: define exception here, change code accordingly
+          throw new Exception(showMessage(AlertType.ERROR, "Invalid Status"), e);
+        }
+      }
+      case WATOR_NAME -> {
+        if (status == 0) {
+          return WATOR_EMPTY;
+        } else if (status == 1) {
+          return WATOR_FISH;
+        } else if (status == 2) {
+          return WATOR_SHARK;
+        } else {
+          //TODO: define exception here, change code accordingly
+          throw new Exception(showMessage(AlertType.ERROR, "Invalid Status"), e)
+        }
+      }
+      //TODO: define exception here, change code accordingly
+      default -> throw new Exception(showMessage(AlertType.ERROR, "Invalid Simulation Name"), e)
+    }
+
+  }
+    private void showMessage(AlertType type, String message) {
+      new Alert(type, message).showAndWait();
+    }
 
   private Cell getCell(int x, int y) {
     return cells.get(x).get(y);

@@ -121,7 +121,7 @@ public class Config {
     }
   }
 
-  private void showMessage(AlertType type, String message) {    // Is PopUp class necessary?
+  private void showMessage(AlertType type, String message) {
     new Alert(type, message).showAndWait();
   }
 
