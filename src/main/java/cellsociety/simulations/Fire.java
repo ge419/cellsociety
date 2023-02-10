@@ -7,7 +7,7 @@ import cellsociety.Cells.Cell;
 
 /**
  * Spreading Fire simulation
- * 
+ *
  * @author Brandon Weiss
  */
 public class Fire extends Simulation {

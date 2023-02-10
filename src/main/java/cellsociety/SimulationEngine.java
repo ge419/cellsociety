@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 import cellsociety.Cells.Cell;
 import cellsociety.Cells.WatorCell;
-import cellsociety.GUI.Grid;
+import cellsociety.GUI.VisualGrid;
 import cellsociety.simulations.Fire;
 import cellsociety.simulations.Life;
 import cellsociety.simulations.Schelling;
@@ -42,24 +42,24 @@ public class SimulationEngine {
   // Potential Bug grid object here is not same grid object
   private Simulation sim;
   private String simType;
-  private Grid grid;
+  private VisualGrid visualGrid;
   private int width;
   private int height;
   private List<List<Cell>> cells;
   private boolean corners;
 
   /**
-   * @param simType The string representing which of the cellular automata to run
-   * @param params  A HashMap of parameters and values for each simulation type
-   * @param grid    The grid object of the view
+   * @param simType    The string representing which of the cellular automata to run
+   * @param params     A HashMap of parameters and values for each simulation type
+   * @param visualGrid The grid object of the view
    */
-  public SimulationEngine(String simType, HashMap<String, Double> params, Grid grid) {
+  public SimulationEngine(String simType, HashMap<String, Double> params, VisualGrid visualGrid) {
     init(simType, params);
     this.simType = simType;
-    this.grid = grid;
-    this.width = grid.getWidth();
-    this.height = grid.getHeight();
-    blankStart();
+    this.visualGrid = visualGrid;
+    this.width = visualGrid.getWidth();
+    this.height = visualGrid.getHeight();
+    blankStart(simType);
   }
 
   // TODO: replace string literals in params.get() calls with strings from
@@ -90,10 +90,9 @@ public class SimulationEngine {
 
   /**
    * Randomize the starting configuration for a simulation
-   * 
+   *
    * @param parameters A HashMap of parameters and values for each simulation type
-   * @param simType    The string representing which of the cellular automata to
-   *                   run
+   * @param simType    The string representing which of the cellular automata to run
    */
   public void randomizeStart(HashMap<String, Double> parameters, String simType) {
     cells = new ArrayList<>();
@@ -152,7 +151,7 @@ public class SimulationEngine {
         for (int j = 0; j < cells.get(i).size(); j++) {
           next = nextStates.get(i * cells.get(i).size() + j);
           getCell(i, j).setStatus(next);
-          grid.updateGrid(i, j, next);
+          visualGrid.updateGrid(i, j, next);
         }
       }
     }

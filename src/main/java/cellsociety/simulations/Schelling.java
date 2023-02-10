@@ -8,7 +8,7 @@ import cellsociety.Cells.Cell;
 
 /**
  * Schelling's model of segregation
- * 
+ *
  * @author Brandon Weiss
  */
 public class Schelling extends Simulation {
@@ -77,8 +77,7 @@ public class Schelling extends Simulation {
   }
 
   /**
-   * Update the statuses of empty cells that have another cell "move into" that
-   * space
+   * Update the statuses of empty cells that have another cell "move into" that space
    */
   public void moveCells() {
     if (empty.size() < move.size()) {

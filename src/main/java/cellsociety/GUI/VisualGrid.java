@@ -5,12 +5,12 @@ package cellsociety.GUI;
  */
 
 
-public abstract class Grid {
+public abstract class VisualGrid {
 
   int width;
   int height;
 
-  public Grid(int Width, int Height) {
+  public VisualGrid(int Width, int Height) {
     width = Width;
     height = Height;
   }

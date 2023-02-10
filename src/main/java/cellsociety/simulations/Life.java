@@ -7,7 +7,7 @@ import cellsociety.Cells.Cell;
 
 /**
  * Conway's Game of Life
- * 
+ *
  * @author Brandon Weiss
  */
 public class Life extends Simulation {

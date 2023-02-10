@@ -9,8 +9,6 @@ public class DropDown {
 
   private static ComboBox<String> dropdown;
 
-  private static String selected;
-
   private static Button button;
 
   private static VBox container;
@@ -29,7 +27,6 @@ public class DropDown {
 //    button.setOnAction(e -> selected = dropdown.getValue());
 
     container.getChildren().add(button);
-
 
   }
   public String getValue(){

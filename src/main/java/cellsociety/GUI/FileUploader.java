@@ -31,10 +31,6 @@ public class FileUploader {
     return fileUploaded;
   }
 
-  public void setFileUploaded(boolean state){
-    fileUploaded = state;
-  }
-
   public File getUploaded() {
     return uploaded;
   }
