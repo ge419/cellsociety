@@ -83,7 +83,7 @@ public class Config {
     width = 0;
     height = 0;
     currState = new ArrayList<>();
-    for (String s: simNames) {
+    for (String s: paramName) {
       simParam.put(s, 0.0);
     }
   }
@@ -139,20 +139,9 @@ public class Config {
     width = Integer.parseInt(getTextValue(root, "width"));
     height = Integer.parseInt(getTextValue(root, "height"));
     initState = getTextValue(root, "init_state");
-    simParam.put("probCatch", Double.parseDouble(getTextValue(root, "probCatch")));
-    simParam.put("change", Double.parseDouble(getTextValue(root, "change")));
-    simParam.put("eShark", Double.parseDouble(getTextValue(root, "eShark")));
-    simParam.put("ePerFish", Double.parseDouble(getTextValue(root, "ePerFish")));
-    simParam.put("fishBT", Double.parseDouble(getTextValue(root, "fishBT")));
-    simParam.put("sharkBT", Double.parseDouble(getTextValue(root, "sharkBT")));
-    simParam.put("perAlive", Double.parseDouble(getTextValue(root, "perAlive")));
-    simParam.put("perTree", Double.parseDouble(getTextValue(root, "perTree")));
-    simParam.put("perFire", Double.parseDouble(getTextValue(root, "perFire")));
-    simParam.put("perEmpty", Double.parseDouble(getTextValue(root, "perEmpty")));
-    simParam.put("perStateOne", Double.parseDouble(getTextValue(root, "perStateOne")));
-    simParam.put("perShark", Double.parseDouble(getTextValue(root, "perShark")));
-    simParam.put("perBlocked", Double.parseDouble(getTextValue(root, "perBlocked")));
-
+    for (String s: paramName) {
+      simParam.put(s, Double.parseDouble(getTextValue(root, s)));
+    }
     //System.out.println(initState);
     //currState = strToGrid();
   }
