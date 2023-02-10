@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javax.xml.parsers.DocumentBuilder;
@@ -32,7 +33,11 @@ import org.xml.sax.SAXException;
 public class Config {
 
   public static final String INTERNAL_CONFIGURATION = "cellsociety.";
-  private ResourceBundle myResources;
+  public static final List<String> paramName = new ArrayList<>(
+      Arrays.asList("probCatch", "change", "eShark", "ePerFish", "fishBT", "sharkBT", "perAlive",
+          "perTree", "perFire", "perEmpty", "perStateOne", "perShark", "perBlocked"));
+  private static final ResourceBundle myResources = ResourceBundle.getBundle(
+      INTERNAL_CONFIGURATION + "filesandstates");
 
   private String simType;
   private String configName;
@@ -43,8 +48,8 @@ public class Config {
   private String initState;
   private List<List<Integer>> currState;
   private Element root;
-  public HashMap<String, Double> simParam;
-  public HashSet<String> simNames;
+  private HashMap<String, Double> simParam;
+  private HashSet<String> simNames;
 
   /**
    * Reads XML file, if XML file is valid, upload info
@@ -55,7 +60,6 @@ public class Config {
   }
 
   public void readFile(File xmlFile) {
-    myResources = ResourceBundle.getBundle(INTERNAL_CONFIGURATION + "filesandstates");
     simNames.add(myResources.getString("LifeName"));
     simNames.add(myResources.getString("FireName"));
     simNames.add(myResources.getString("SegName"));
@@ -79,19 +83,9 @@ public class Config {
     width = 0;
     height = 0;
     currState = new ArrayList<>();
-    simParam.put("probCatch", 0.0);
-    simParam.put("change", 0.0);
-    simParam.put("eShark", 0.0);
-    simParam.put("ePerFish", 0.0);
-    simParam.put("fishBT", 0.0);
-    simParam.put("sharkBT", 0.0);
-    simParam.put("perAlive", 0.0);
-    simParam.put("perTree", 0.0);
-    simParam.put("perFire", 0.0);
-    simParam.put("perEmpty", 0.0);
-    simParam.put("perStateOne", 0.0);
-    simParam.put("perShark", 0.0);
-    simParam.put("perBlocked", 0.0);
+    for (String s: simNames) {
+      simParam.put(s, 0.0);
+    }
   }
 
   /**
