@@ -59,11 +59,12 @@ public class SimulationEngine {
     this.visualGrid = visualGrid;
     this.width = visualGrid.getWidth();
     this.height = visualGrid.getHeight();
-    blankStart(simType);
+    blankStart();
   }
 
   // TODO: replace string literals in params.get() calls with strings from
   // properties file
+  
   /**
    * @param simType The string representing which of the cellular automata to run
    * @param params  A HashMap of parameters and values for each simulation type
@@ -92,9 +93,8 @@ public class SimulationEngine {
    * Randomize the starting configuration for a simulation
    *
    * @param parameters A HashMap of parameters and values for each simulation type
-   * @param simType    The string representing which of the cellular automata to run
    */
-  public void randomizeStart(HashMap<String, Double> parameters, String simType) {
+  public void randomizeStart(HashMap<String, Double> parameters) {
     cells = new ArrayList<>();
     for (int i = 0; i < width; i++) {
       ArrayList<Cell> column = new ArrayList<>();
@@ -107,8 +107,6 @@ public class SimulationEngine {
 
   /**
    * Set the starting configuration for a blank simulation
-   * 
-   * @param simType The string representing which of the cellular automata to run
    */
   public void blankStart() {
     Cell input;

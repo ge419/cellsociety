@@ -68,7 +68,7 @@ public class Fire extends Simulation {
 
   /**
    * @see cellsociety.simulations.Simulation#randomize(HashMap, int, int)
-   *      parameters used: perTree - fraction of cells to initialize as not empty
+   *      perTree - fraction of cells to initialize as not empty
    *      perFire - of non-empty cells, fraction that should be burning
    */
   public Cell randomize(HashMap<String, Double> parameters, int xCoordinate, int yCoordinate) {

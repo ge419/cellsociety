@@ -77,7 +77,8 @@ public class Schelling extends Simulation {
   }
 
   /**
-   * Update the statuses of empty cells that have another cell "move into" that space
+   * Update the statuses of empty cells that have another cell "move into" that
+   * space
    */
   public void moveCells() {
     if (empty.size() < move.size()) {
@@ -94,7 +95,7 @@ public class Schelling extends Simulation {
 
   /**
    * @see cellsociety.simulations.Simulation#randomize(HashMap, int, int)
-   *      parameters used: perEmpty - fraction of cells to initialize as empty
+   *      perEmpty - fraction of cells to initialize as empty
    *      perStateOne - of non-empty cells, fraction that should be in stateA
    */
   public Cell randomize(HashMap<String, Double> parameters, int xCoordinate, int yCoordinate) {

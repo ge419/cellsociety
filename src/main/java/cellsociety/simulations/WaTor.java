@@ -29,10 +29,8 @@ public class WaTor extends Simulation {
    *                          to reproduce
    * @param sharkBreedingTime The minimum number of time steps needed for a shark
    *                          to reproduce
-   * @param sharkEnergy       The default number of energy units a shark starts
-   *                          with
-   * @param energyPerFish     The number of energy units a shark gains by eating a
-   *                          fish
+   * @param sharkEnergy       Default number of energy units a shark starts with
+   * @param energyPerFish     Number of energy units a shark gains by eating fish
    */
   public WaTor(String emptyString, String fishString, String sharkString,
       double fishBreedingTime, double sharkBreedingTime, double sharkEnergy, double energyPerFish) {
@@ -171,8 +169,7 @@ public class WaTor extends Simulation {
   }
 
   /**
-   * @see cellsociety.simulations.Simulation#randomize(java.util.HashMap, int,
-   *      int)
+   * @see cellsociety.simulations.Simulation#randomize(HashMap, int, int)
    *      parameters used: perEmpty - fraction of cells to initialize as empty
    *      perShark - fraction of non-empty cells to initialize as shark
    */
