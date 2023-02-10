@@ -1,8 +1,6 @@
 package cellsociety;
 
-import cellsociety.Cells.Cell;
 import cellsociety.GUI.GUIContainer;
-import cellsociety.GUI.Grids.RectangleGrid;
 import java.io.File;
 import java.io.FilenameFilter;
 import java.util.ArrayList;
@@ -18,6 +16,7 @@ import javafx.util.Duration;
  * Feel free to completely change this code or delete it entirely.
  */
 public class Main extends Application {
+
   private GUIContainer container;
   private Config config;
   int frameNum;
@@ -44,7 +43,7 @@ public class Main extends Application {
     pause = false;
     newFile = false;
     String english = "english";
-    config= new Config();
+    config = new Config();
     container = new GUIContainer(primaryStage, english, config);
     engine = new SimulationEngine("Game of Life", config.getSimParam(), container.getGrid());
     Timeline animation = new Timeline();
@@ -59,7 +58,7 @@ public class Main extends Application {
     container.asyncUpdate();
     animationSpeedUpdate();
     setUpActionButtons();
-    if(newFile){
+    if (newFile) {
       ResetGridSize();
       newFile = false;
     }
@@ -72,45 +71,46 @@ public class Main extends Application {
 //      config.readFile(inputFile);
 //    }
   }
+
   //TODO put this in Grid class eventually, doesn't belong in main
   private void ResetGridSize() {
     container.getGrid().getGridLayout().getChildren().clear();
-    container.getGrid().changeSize(10,10, container.GRID_SIZE);
+    container.getGrid().changeSize(10, 10, container.GRID_SIZE);
   }
 
   private void animationSpeedUpdate() {
-    if(container.getSpeedChanged()){
+    if (container.getSpeedChanged()) {
       multiplier = container.getAnimationSpeed();
-      if(multiplier != 0){
-        multiplier = 1/multiplier;
-      }
-      else{
+      if (multiplier != 0) {
+        multiplier = 1 / multiplier;
+      } else {
         multiplier = Integer.MAX_VALUE;
       }
     }
   }
+
   //TODO refactor
   private void setUpActionButtons() {
-    if(container.isRequestChanged()){
+    if (container.isRequestChanged()) {
       String request = container.getRequest();
       System.out.println(request);
-      if(request.equals("Go/Pause")){
+      if (request.equals("Go/Pause")) {
         pause = !pause;
       }
-      if(request.equals("Step")){
+      if (request.equals("Step")) {
         frameNum += FRAMES_PER_SECOND * multiplier;
       }
-      if(request.equals("Reset")){
+      if (request.equals("Reset")) {
         config.readFile(container.getFile());
       }
-      if(request.equals("Clear")){
+      if (request.equals("Clear")) {
         //TODO tell engine to clear
         //Set all Cell colors as white
       }
-      if(request.equals("Random")){
+      if (request.equals("Random")) {
         //TODO tell engine to random
       }
-      if(request.equals("Get Simulation")){
+      if (request.equals("Get Simulation")) {
         String fileName = container.getDropDownSelection();
         System.out.println("sending");
         sendFiletoConfig(fileName);
@@ -123,11 +123,11 @@ public class Main extends Application {
     dirctNames.add("data/GameOfLife");
     dirctNames.add("data/SpreadingFire");
     File file = new File("");
-    while(!dirctNames.isEmpty()){
-      String dirctName = dirctNames.get(dirctNames.size()-1);
-      dirctNames.remove(dirctNames.size()-1);
+    while (!dirctNames.isEmpty()) {
+      String dirctName = dirctNames.get(dirctNames.size() - 1);
+      dirctNames.remove(dirctNames.size() - 1);
       file = findFile(fileName, dirctName);
-      if(file != null){
+      if (file != null) {
         break;
       }
     }
@@ -136,7 +136,9 @@ public class Main extends Application {
   }
 
   /**
-   * This method is based on a CHAT GPT conversation, https://sharegpt.com/c/vSTdS6B, finds a file based on inputted fileName
+   * This method is based on a CHAT GPT conversation, https://sharegpt.com/c/vSTdS6B, finds a file
+   * based on inputted fileName
+   *
    * @param fileName
    * @return
    */
@@ -147,7 +149,7 @@ public class Main extends Application {
         return name.endsWith(fileName);
       }
     });
-    if(matchingFiles.length == 0){
+    if (matchingFiles.length == 0) {
       return null;
     }
     return matchingFiles[0];
@@ -164,7 +166,7 @@ public class Main extends Application {
       //Game logic
     }
     frameNum++;
-    if (pause){
+    if (pause) {
       frameNum = 0;
     }
   }

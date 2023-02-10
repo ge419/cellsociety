@@ -1,27 +1,20 @@
 package cellsociety.GUI.Grids;
 
-import cellsociety.Cells.Cell;
-import cellsociety.GUI.Grid;
-import java.util.ArrayList;
-import java.util.List;
+import cellsociety.GUI.VisualGrid;
 import java.util.ResourceBundle;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
-public class RectangleGrid extends Grid {
+public class RectangleVisualGrid extends VisualGrid {
 
   GridPane gridLayout;
-
-  private int cellSize;
-
-  int gridSize;
 
   int width;
   int height;
 
   public static final String INTERNAL_CONFIGURATION = "cellsociety.filesandstates";
-  private static final ResourceBundle NAMES_FILE = ResourceBundle.getBundle(INTERNAL_CONFIGURATION);;
+  private static final ResourceBundle NAMES_FILE = ResourceBundle.getBundle(INTERNAL_CONFIGURATION);
   private static final String LIFE_ALIVE = NAMES_FILE.getString("LifeAlive");
 
   private static final String LIFE_DEAD = NAMES_FILE.getString("LifeDead");
@@ -50,7 +43,7 @@ public class RectangleGrid extends Grid {
 
   private static final String PERC_PERC = NAMES_FILE.getString("PercolPerc");
 
-  public RectangleGrid(int columns, int rows, double gridSize) {
+  public RectangleVisualGrid(int columns, int rows, double gridSize) {
     super(columns, rows);
     width = columns;
     height = rows;
@@ -58,10 +51,7 @@ public class RectangleGrid extends Grid {
     gridLayout.setGridLinesVisible(true);
     resetGrid(gridSize);
   }
-//
-//  public void cellUpdate(Cell cell) {
-//    updateGrid(cell.getX(), cell.getY());
-//  }
+
   public void changeSize(int newWidth, int newHeight, int gridSize){
     width = newWidth;
     height = newHeight;
