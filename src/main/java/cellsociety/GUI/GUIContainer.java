@@ -53,6 +53,8 @@ public class GUIContainer {
     pane = new GridPane();
     setColumnConstraints();
 
+    Scene stageScene = new Scene(pane, WINDOW_WIDTH, WINDOW_HEIGHT);
+
     myResources = ResourceBundle.getBundle(INTERNAL_CONFIGURATION + language);
     pane.setGridLinesVisible(true);
     pane.setId("pane");
@@ -63,7 +65,7 @@ public class GUIContainer {
 
     setUpFileUploader(config);
     setUpFileSaver();
-    setUpGrid();
+    setUpGrid(stageScene);
 
     List<String> DirectoryNames = new ArrayList<>();
     List<String> FileNames = new ArrayList<>();
@@ -77,8 +79,6 @@ public class GUIContainer {
 
     extractFileNames(DirectoryNames, FileNames);
     setUpDropDown(FileNames);
-
-    Scene stageScene = new Scene(pane, WINDOW_WIDTH, WINDOW_HEIGHT);
 
     pane.setMaxSize(stageScene.getWidth(), stageScene.getHeight());
     primaryStage.setScene(stageScene);
@@ -109,8 +109,8 @@ public class GUIContainer {
     }
   }
 
-  private void setUpGrid() {
-    grid = new RectangleVisualGrid(DEFAULT_GRID_SIZE, DEFAULT_GRID_SIZE, GRID_SIZE);
+  private void setUpGrid(Scene scene) {
+    grid = new RectangleVisualGrid(DEFAULT_GRID_SIZE, DEFAULT_GRID_SIZE, GRID_SIZE, scene);
 //    grid.updateGrid(5,5);
     pane.getChildren().add(grid.getGridLayout());
     pane.setConstraints(grid.getGridLayout(), 0, 0, 3, 4);

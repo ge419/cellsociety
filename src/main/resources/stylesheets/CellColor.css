@@ -2,7 +2,64 @@
   -fx-fill: GREEN;
 }
 
-
 #Dead{
   -fx-fill: WHITE;
 }
+#Empty{
+  -fx-fill: GOLD;
+}
+#Tree{
+  -fx-fill: DARKGREEN;
+}
+#Burning{
+  -fx-fill: RED;
+}
+#Unoccupied{
+  -fx-fill: WHITE;
+}
+#StateA{
+  -fx-fill: RED;
+}
+#StateB{
+  -fx-fill: BLUE;
+}
+#Sea{
+  -fx-fill: DARKBLUE;
+}
+
+#Shark{
+  -fx-fill: GREENYELLOW;
+}
+
+#Fish{
+  -fx-fill: SKYBLUE;
+}
+
+#Block{
+  -fx-fill: WHITE;
+}
+
+#Open{
+  -fx-fill: BLACK;
+}
+
+#Perc{
+  -fx-fill: LIGHTBLUE;
+}
+
+/*if(state.equals(LIFE_ALIVE)) {return Color.LIGHTGREEN;}*/
+/*if(state.equals(LIFE_DEAD)) {return Color.WHITE;}*/
+/*if(state.equals(FIRE_EMPTY)) {return Color.YELLOW;}*/
+/*if(state.equals(FIRE_TREE)) {return Color.DARKGREEN;*/
+/*if(state.equals(FIRE_BURNING)) {return Color.RED;}*/
+/*if(state.equals(SEG_EMPTY)) {return Color.WHITE;}*/
+/*if(state.equals(SEG_A)) {return Color.RED;}*/
+/*if(state.equals(SEG_B)) {return Color.BLUE;}*/
+/*if(state.equals(WATOR_EMPTY)) {return Color.DARKBLUE;}*/
+/*if(state.equals(WATOR_FISH)) {return Color.GREENYELLOW;}*/
+/*if(state.equals(WATOR_SHARK)) {return Color.SKYBLUE;}*/
+/*if(state.equals(PERC_OPEN)) {return Color.WHITE;}*/
+/*if(state.equals(PERC_BLOCK)) {return Color.BLACK;}*/
+/*if(state.equals(PERC_PERC)) {return Color.LIGHTBLUE;}*/
+
+/*return Color.PURPLE;*/
