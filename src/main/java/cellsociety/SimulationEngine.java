@@ -46,6 +46,7 @@ public class SimulationEngine implements SimulationController{
   // Potential Bug grid object here is not same grid object
   private Simulation sim;
   private String simType;
+  private VisualGrid visualGrid;
   private int width;
   private int height;
   private String initState;
@@ -62,9 +63,9 @@ public class SimulationEngine implements SimulationController{
       String state) {
     init(simType, params);
     this.simType = simType;
-    this.grid = grid;
-    this.width = grid.getWidth();
-    this.height = grid.getHeight();
+    this.visualGrid = visualGrid;
+    this.width = visualGrid.getWidth();
+    this.height = visualGrid.getHeight();
     this.initState = state;
     blankStart();
     // Decodes String status and creates Grid
