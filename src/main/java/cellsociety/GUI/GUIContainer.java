@@ -2,6 +2,7 @@ package cellsociety.GUI;
 
 import cellsociety.Config;
 import cellsociety.GUI.Grids.RectangleVisualGrid;
+import cellsociety.GameLoopController;
 import cellsociety.SimulationController;
 import java.io.File;
 import java.util.ArrayList;
@@ -78,7 +79,7 @@ public class GUIContainer {
   public final static int SLIDER_COLUMN_SPAN = 2;
   public final static int SLIDER_ROW_SPAN = 1;
 
-  public GUIContainer(Stage primaryStage, String language, Config config, SimulationController simulationEngine) {
+  public GUIContainer(Stage primaryStage, String language, Config config, SimulationController simulationEngine, GameLoopController controller) {
     pane = new GridPane();
     setColumnConstraints();
 
@@ -88,7 +89,7 @@ public class GUIContainer {
     pane.setGridLinesVisible(true);
     pane.setId("pane");
 
-    setUpButtons(simulationEngine);
+    setUpButtons(simulationEngine, controller, myResources);
     setUpSliderContainer();
     SetUpDescriptionBox();
 
@@ -174,17 +175,8 @@ public class GUIContainer {
     GridPane.setConstraints(descriptionContainer, DESCRIPTION_BOX_COLUMN, DESCRIPTION_BOX_ROW, DESCRIPTION_BOX_COLUMN_SPAN, DESCRIPTION_BOX_ROW_SPAN);
   }
 
-  private void setUpButtons(SimulationController simulationEngine) {
-    List<String> commands = new ArrayList<>();
-    //TODO move all the commands into runnable methods in SimulationEngine
-    commands.add(myResources.getString("Step"));
-    commands.add(myResources.getString("Reset"));
-    commands.add(myResources.getString("Go/Pause"));
-    commands.add(myResources.getString("Clear"));
-    commands.add(myResources.getString("Random"));
-
-    ButtonContainer buttons = new ButtonContainer(commands, simulationEngine);
-
+  private void setUpButtons(SimulationController simulationEngine, GameLoopController controller, ResourceBundle bundle) {
+    ButtonContainer buttons = new ButtonContainer(simulationEngine, controller, bundle);
     //https://docs.oracle.com/javase/8/javafx/api/javafx/scene/layout/GridPane.html
     pane.getChildren().add(buttons.getContainer());
     GridPane.setConstraints(buttons.getContainer(), BUTTONS_COLUMN,BUTTONS_ROW, BUTTONS_COLUMN_SPAN, BUTTONS_ROW_SPAN);
