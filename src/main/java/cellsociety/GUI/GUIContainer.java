@@ -59,7 +59,7 @@ public class GUIContainer {
     pane.setGridLinesVisible(true);
     pane.setId("pane");
 
-    setUpButtons();
+    setUpButtons(simulationEngine);
     setUpSliderContainer();
     SetUpDescriptionBox();
 
@@ -146,7 +146,7 @@ public class GUIContainer {
     GridPane.setConstraints(descriptionContainer, 3, 3, 2, 1);
   }
 
-  private void setUpButtons() {
+  private void setUpButtons(SimulationController simulationEngine) {
     List<String> commands = new ArrayList<>();
     //TODO move all the commands into runnable methods in SimulationEngine
     commands.add(myResources.getString("Step"));
@@ -155,10 +155,7 @@ public class GUIContainer {
     commands.add(myResources.getString("Clear"));
     commands.add(myResources.getString("Random"));
 
-    ButtonContainer buttons = new ButtonContainer(commands);
-    for(Button button: buttons.getButtons()){
-      button.setOnAction(e -> saveCommand(button.getText()));
-    }
+    ButtonContainer buttons = new ButtonContainer(commands, simulationEngine);
 
     //https://docs.oracle.com/javase/8/javafx/api/javafx/scene/layout/GridPane.html
     pane.getChildren().add(buttons.getContainer());
