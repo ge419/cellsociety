@@ -1,6 +1,9 @@
 package cellsociety.GUI;
 
 import cellsociety.Config;
+import cellsociety.Grid;
+import cellsociety.SimulationController;
+import cellsociety.SimulationEngine;
 import java.util.ResourceBundle;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -19,13 +22,18 @@ public class TestMain extends Application {
 
   private GUIContainer container;
 
+  private SimulationController engine;
+
   public static void main(String[] args) {
     launch(args);
   }
   public void start (Stage primaryStage) {
+    Grid grid = new Grid();
+
     String english = "english";
     Config config = new Config();
-    container = new GUIContainer(primaryStage, "english", config);
+    engine = new SimulationEngine("Game of Life", config.getSimParam(), grid, config.getInitState());
+    container = new GUIContainer(primaryStage, "english", config, engine);
     Timeline animation = new Timeline();
     animation.setCycleCount(Timeline.INDEFINITE);
     animation.getKeyFrames()
@@ -36,5 +44,6 @@ public class TestMain extends Application {
   private void step(double secondDelay) {
     container.asyncUpdate();
     container.getGrid().updateGrid(2,4, "StateA");
+    container.getGrid().updateGrid(3,7, "Shark");
   }
 }

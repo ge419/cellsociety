@@ -44,8 +44,9 @@ public class Main extends Application {
     newFile = false;
     String english = "english";
     config = new Config();
-    container = new GUIContainer(primaryStage, english, config);
-    engine = new SimulationEngine("Game of Life", config.getSimParam(), container.getGrid(), config.getInitState());
+    Grid grid = new Grid();
+    engine = new SimulationEngine("Game of Life", config.getSimParam(), grid, config.getInitState());
+    container = new GUIContainer(primaryStage, english, config, engine);
     Timeline animation = new Timeline();
     animation.setCycleCount(Timeline.INDEFINITE);
     animation.getKeyFrames()
@@ -62,14 +63,6 @@ public class Main extends Application {
       ResetGridSize();
       newFile = false;
     }
-
-    //NOT SURE IF NEED THIS
-    //We're reading xml file once it's been uploaded by the user or selected on the dropdown menu
-    //I don't think it's necessary here
-//    if(container.isFileUploaded()){
-//      File inputFile = container.getFile();
-//      config.readFile(inputFile);
-//    }
   }
 
   //TODO put this in Grid class eventually, doesn't belong in main
@@ -132,7 +125,7 @@ public class Main extends Application {
       }
     }
     config.readFile(file);
-    engine = new SimulationEngine(config.getVariant(), config.getSimParam(), container.getGrid(), config.getInitState());
+    engine = new SimulationEngine(config.getVariant(), config.getSimParam(), new Grid(), config.getInitState());
   }
 
   /**
@@ -158,7 +151,7 @@ public class Main extends Application {
   private void timer(double multiplier, boolean pause) {
     if (frameNum >= FRAMES_PER_SECOND * multiplier) {
       frameNum = 0;
-      engine.updateGameState();
+//      engine.updateGameState();
 
 //      container.getGrid().updateGrid(4,5, "Alive");
 //      container.getGrid().updateGrid(5,7, "StateA");
