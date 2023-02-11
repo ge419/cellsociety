@@ -102,13 +102,9 @@ public class GUIContainer {
 
     //TODO figure out a way to refactor the multiple .adds and create a proper Directory Name
 
-    DirectoryNames.add("data/GameOfLife");
-    DirectoryNames.add("data/SpreadingFire");
-    DirectoryNames.add("data/Schelling");
-    DirectoryNames.add("data/Wa-Tor");
-
+    DirectoryNames.add("data/Preloaded_Files");
     extractFileNames(DirectoryNames, FileNames);
-    setUpDropDown(FileNames);
+    setUpDropDown(FileNames, config);
 
     pane.setMaxSize(stageScene.getWidth(), stageScene.getHeight());
     primaryStage.setScene(stageScene);
@@ -146,9 +142,8 @@ public class GUIContainer {
     GridPane.setConstraints(grid.getGridLayout(), GRID_COLUMN, GRID_ROW, GRID_COLUMN_SPAN, GRID_ROW_SPAN);
   }
 
-  private void setUpDropDown(List<String> FileNames) {
-    drop = new DropDown(FileNames, myResources.getString("DropButton"));
-    drop.getButton().setOnAction(e -> saveCommand(drop.getButton().getText()));
+  private void setUpDropDown(List<String> FileNames, Config config) {
+    drop = new DropDown(FileNames, myResources.getString("DropButton"), config);
     pane.getChildren().add(drop.getContainer());
     GridPane.setConstraints(drop.getContainer(), DROP_DOWN_COLUMN, DROP_DOWN_ROW, DROP_DOWN_COLUMN_SPAN, DROP_DOWN_ROW_SPAN);
   }

@@ -1,5 +1,6 @@
 package cellsociety.GUI;
 
+import cellsociety.Config;
 import java.util.List;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
@@ -12,7 +13,7 @@ public class DropDown {
   private static Button button;
 
   private static VBox container;
-  public DropDown(List<String> list, String buttonlabel) {
+  public DropDown(List<String> list, String buttonlabel, Config config) {
 
     container = new VBox();
     container.setId("Container-Vbox");
@@ -24,11 +25,15 @@ public class DropDown {
 
     button = new Button(buttonlabel);
     button.setId("drop-button");
-//    button.setOnAction(e -> selected = dropdown.getValue());
+    button.setOnAction(e -> loadFile());
 
     container.getChildren().add(button);
 
   }
+
+  private void loadFile() {
+  }
+
   public String getValue(){
     return dropdown.getValue();
   }
