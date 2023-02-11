@@ -116,6 +116,11 @@ public class SimulationEngine implements SimulationController{
       cells.add(column);
     }
   }
+  //TODO implement a reset back to starting condition
+  @Override
+  public void reset() {
+
+  }
 
   /**
    * Set the starting configuration for a blank simulation
