@@ -9,7 +9,10 @@ public class ButtonContainer {
 
     HBox container;
     List<Button> Buttons;
-    public ButtonContainer(List<String> Commands){
+    public ButtonContainer(List<String> Commands) throws IllegalStateException{
+        if(Commands.size()==0){
+            throw new IllegalStateException("Container contains no buttons");
+        }
         container = new HBox();
         Buttons = new ArrayList<>();
         container.setId("Container-HBox");
@@ -25,9 +28,6 @@ public class ButtonContainer {
     }
 
     public HBox getContainer() {
-        if(container.getChildren().size()==0){
-            throw new IllegalStateException("Container contains no buttons");
-        }
         return container;
     }
     public List<Button> getButtons() {

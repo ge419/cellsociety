@@ -36,12 +36,17 @@ public class GUIContainer {
   private final ResourceBundle myResources;
   public final String GUI_CSS = "stylesheets/GUIContainer.css";
 
-  public final int GRID_SIZE = 300;
+  public static final int GRID_SIZE = 300;
 
   public final String INTERNAL_CONFIGURATION = "cellsociety.";
   private boolean sliderChanged = false;
   private boolean requestChanged = false;
   private boolean fileUploaded = false;
+
+  public final static int WINDOW_WIDTH = 1000;
+  public final static int WINDOW_HEIGHT = 700;
+
+  public final static int DEFAULT_GRID_SIZE = 20;
 
 
   public GUIContainer(Stage primaryStage, String language, Config config) {
@@ -73,9 +78,9 @@ public class GUIContainer {
     extractFileNames(DirectoryNames, FileNames);
     setUpDropDown(FileNames);
 
-    Scene stageScene = new Scene(pane, 1000, 700);
+    Scene stageScene = new Scene(pane, WINDOW_WIDTH, WINDOW_HEIGHT);
 
-    pane.setMaxSize(stageScene.getWidth() - 50, stageScene.getHeight() - 50);
+    pane.setMaxSize(stageScene.getWidth(), stageScene.getHeight());
     primaryStage.setScene(stageScene);
     stageScene.getStylesheets().add(GUI_CSS);
     primaryStage.show();
@@ -105,7 +110,7 @@ public class GUIContainer {
   }
 
   private void setUpGrid() {
-    grid = new RectangleVisualGrid(20, 20, GRID_SIZE);
+    grid = new RectangleVisualGrid(DEFAULT_GRID_SIZE, DEFAULT_GRID_SIZE, GRID_SIZE);
 //    grid.updateGrid(5,5);
     pane.getChildren().add(grid.getGridLayout());
     pane.setConstraints(grid.getGridLayout(), 0, 0, 3, 4);
@@ -143,7 +148,7 @@ public class GUIContainer {
 
   private void setUpButtons() {
     List<String> commands = new ArrayList<>();
-    //TODO find some way to refactor this
+    //TODO move all the commands into runnable methods in SimulationEngine
     commands.add(myResources.getString("Step"));
     commands.add(myResources.getString("Reset"));
     commands.add(myResources.getString("Go/Pause"));
