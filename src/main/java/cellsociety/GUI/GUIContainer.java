@@ -35,14 +35,13 @@ public class GUIContainer {
   private double animationSpeed;
   private RectangleVisualGrid grid;
   private final ResourceBundle myResources;
-  public final String GUI_CSS = "stylesheets/GUIContainer.css";
+  public final static String GUI_CSS = "stylesheets/GUIContainer.css";
 
   public static final int GRID_SIZE = 300;
 
-  public final String INTERNAL_CONFIGURATION = "cellsociety.";
+  public final static String INTERNAL_CONFIGURATION = "cellsociety.";
   private boolean sliderChanged = false;
   private boolean requestChanged = false;
-  private boolean fileUploaded = false;
 
   public final static int WINDOW_WIDTH = 1000;
   public final static int WINDOW_HEIGHT = 700;
@@ -186,7 +185,6 @@ public class GUIContainer {
 
   public void asyncUpdate() {
     updateSliderValue();
-    fileUploaded = uploader.isFileUploaded();
   }
 
   public boolean getSpeedChanged() {
@@ -204,12 +202,6 @@ public class GUIContainer {
     requestChanged = false;
     return holder;
   }
-
-//  public boolean isFileUploaded() {
-//    boolean holder = fileUploaded;
-//    fileUploaded = false;
-//    return holder;
-//  }
 
   public String getRequest() {
     return request;
