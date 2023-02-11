@@ -25,7 +25,6 @@ public class RectangleVisualGrid extends VisualGrid {
     width = columns;
     height = rows;
     gridLayout = new GridPane();
-    gridLayout.setGridLinesVisible(true);
     resetGrid(gridSize);
   }
 

@@ -2,6 +2,7 @@ package cellsociety.GUI;
 
 import cellsociety.Config;
 import cellsociety.GUI.Grids.RectangleVisualGrid;
+import cellsociety.SimulationController;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -49,7 +50,7 @@ public class GUIContainer {
   public final static int DEFAULT_GRID_SIZE = 20;
 
 
-  public GUIContainer(Stage primaryStage, String language, Config config) {
+  public GUIContainer(Stage primaryStage, String language, Config config, SimulationController simulationEngine) {
     pane = new GridPane();
     setColumnConstraints();
 
@@ -113,27 +114,27 @@ public class GUIContainer {
     grid = new RectangleVisualGrid(DEFAULT_GRID_SIZE, DEFAULT_GRID_SIZE, GRID_SIZE, scene);
 //    grid.updateGrid(5,5);
     pane.getChildren().add(grid.getGridLayout());
-    pane.setConstraints(grid.getGridLayout(), 0, 0, 3, 4);
+    GridPane.setConstraints(grid.getGridLayout(), 0, 0, 3, 4);
   }
 
   private void setUpDropDown(List<String> FileNames) {
     drop = new DropDown(FileNames, myResources.getString("DropButton"));
     drop.getButton().setOnAction(e -> saveCommand(drop.getButton().getText()));
     pane.getChildren().add(drop.getContainer());
-    pane.setConstraints(drop.getContainer(), 3, 1, 2, 1);
+    GridPane.setConstraints(drop.getContainer(), 3, 1, 2, 1);
   }
 
   private void setUpFileSaver() {
     FileSaver save = new FileSaver(myResources.getString("Save"), grid);
     pane.getChildren().add(save.getButton());
-    pane.setConstraints(save.getButton(), 4, 0);
+    GridPane.setConstraints(save.getButton(), 4, 0);
     save.setFile("Test");
   }
 
   private void setUpFileUploader(Config config) {
     uploader = new FileUploader(myResources.getString("Upload"), config);
     pane.getChildren().add(uploader.getButton());
-    pane.setConstraints(uploader.getButton(), 3, 0);
+    GridPane.setConstraints(uploader.getButton(), 3, 0);
   }
 
   private void SetUpDescriptionBox() {
@@ -143,7 +144,7 @@ public class GUIContainer {
     descriptionContainer.getChildren().add(description);
 //    descriptionContainer.setVgrow(description, Priority.ALWAYS);
     pane.getChildren().add(descriptionContainer);
-    pane.setConstraints(descriptionContainer, 3, 3, 2, 1);
+    GridPane.setConstraints(descriptionContainer, 3, 3, 2, 1);
   }
 
   private void setUpButtons() {
@@ -159,9 +160,10 @@ public class GUIContainer {
     for(Button button: buttons.getButtons()){
       button.setOnAction(e -> saveCommand(button.getText()));
     }
+
     //https://docs.oracle.com/javase/8/javafx/api/javafx/scene/layout/GridPane.html
     pane.getChildren().add(buttons.getContainer());
-    pane.setConstraints(buttons.getContainer(), 0,5, 5, 1);
+    GridPane.setConstraints(buttons.getContainer(), 0,5, 5, 1);
   }
 
   public void saveCommand(String string) {
@@ -172,7 +174,7 @@ public class GUIContainer {
   public void setUpSliderContainer() {
     slider = new SliderContainer(0, 4, 1, 1, myResources.getString("SliderCaption"));
     pane.getChildren().add(slider.getContainer());
-    pane.setConstraints(slider.getContainer(), 3, 4, 2, 1);
+    GridPane.setConstraints(slider.getContainer(), 3, 4, 2, 1);
   }
 
   public void updateSliderValue() {
