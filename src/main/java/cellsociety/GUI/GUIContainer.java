@@ -19,7 +19,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 /**
- * @Author Han Zhang
+ * @author Han Zhang
  */
 public class GUIContainer {
 
@@ -33,7 +33,7 @@ public class GUIContainer {
   private SliderContainer slider;
   private FileUploader uploader;
   private double animationSpeed;
-  private RectangleVisualGrid grid;
+  private VisualGrid grid;
   private final ResourceBundle myResources;
   public final static String GUI_CSS = "stylesheets/GUIContainer.css";
 
@@ -211,7 +211,7 @@ public class GUIContainer {
     return uploader.getUploaded();
   }
 
-  public RectangleVisualGrid getGrid() {
+  public VisualGrid getGrid() {
     return grid;
   }
   public String getDropDownSelection(){
