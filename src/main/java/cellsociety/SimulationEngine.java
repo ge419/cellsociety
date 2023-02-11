@@ -19,7 +19,7 @@ import javafx.scene.control.Alert.AlertType;
 /**
  * @author Brandon Weiss, Changmin Shin
  */
-public class SimulationEngine {
+public class SimulationEngine implements SimulationController{
 
   public static final String INTERNAL_CONFIGURATION = "cellsociety.filesandstates";
   public static final ResourceBundle NAMES_FILE = ResourceBundle.getBundle(INTERNAL_CONFIGURATION);
@@ -57,9 +57,9 @@ public class SimulationEngine {
   /**
    * @param simType    The string representing which of the cellular automata to run
    * @param params     A HashMap of parameters and values for each simulation type
-   * @param visualGrid The grid object of the view
+   * @param grid       The class that contains grid data
    */
-  public SimulationEngine(String simType, HashMap<String, Double> params, VisualGrid visualGrid,
+  public SimulationEngine(String simType, HashMap<String, Double> params, Grid grid,
       String state) {
     init(simType, params);
     this.simType = simType;

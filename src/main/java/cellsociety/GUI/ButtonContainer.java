@@ -23,7 +23,7 @@ public class ButtonContainer {
     public Button createButton(String word) {
         Button newButton = new Button(word);
         Buttons.add(newButton);
-        newButton.setId("Button");
+        newButton.setId(word);
         return newButton;
     }
 
