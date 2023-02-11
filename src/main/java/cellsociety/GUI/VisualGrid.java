@@ -1,5 +1,7 @@
 package cellsociety.GUI;
 
+import javafx.scene.Node;
+import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 
 /**
@@ -30,4 +32,8 @@ public abstract class VisualGrid {
   public int getWidth() {
     return width;
   }
+
+  public abstract Pane getGridLayout();
+
+  public abstract void changeSize(int i, int i1, int gridSize);
 }

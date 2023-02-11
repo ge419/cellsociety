@@ -7,4 +7,6 @@ public interface SimulationController {
   public void randomizeStart(HashMap<String, Double> parameters, String simType);
 
   public void blankStart();
+
+  public void reset();
 }

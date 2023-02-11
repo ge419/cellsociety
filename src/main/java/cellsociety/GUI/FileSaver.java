@@ -1,6 +1,5 @@
 package cellsociety.GUI;
 
-import cellsociety.GUI.Grids.RectangleVisualGrid;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
@@ -14,7 +13,7 @@ public class FileSaver {
   private static String data;
   private static PrintWriter fileWriter;
   private static Button button;
-  public FileSaver(String label, RectangleVisualGrid grid) {
+  public FileSaver(String label, VisualGrid grid) {
     button = new Button(label);
     button.setId("files-button");
     button.setOnAction(e -> {

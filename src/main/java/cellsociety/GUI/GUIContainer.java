@@ -19,7 +19,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 /**
- * @Author Han Zhang
+ * @author Han Zhang
  */
 public class GUIContainer {
 
@@ -33,16 +33,15 @@ public class GUIContainer {
   private SliderContainer slider;
   private FileUploader uploader;
   private double animationSpeed;
-  private RectangleVisualGrid grid;
+  private VisualGrid grid;
   private final ResourceBundle myResources;
-  public final String GUI_CSS = "stylesheets/GUIContainer.css";
+  public final static String GUI_CSS = "stylesheets/GUIContainer.css";
 
   public static final int GRID_SIZE = 300;
 
-  public final String INTERNAL_CONFIGURATION = "cellsociety.";
+  public final static String INTERNAL_CONFIGURATION = "cellsociety.";
   private boolean sliderChanged = false;
   private boolean requestChanged = false;
-  private boolean fileUploaded = false;
 
   public final static int WINDOW_WIDTH = 1000;
   public final static int WINDOW_HEIGHT = 700;
@@ -60,7 +59,7 @@ public class GUIContainer {
     pane.setGridLinesVisible(true);
     pane.setId("pane");
 
-    setUpButtons();
+    setUpButtons(simulationEngine);
     setUpSliderContainer();
     SetUpDescriptionBox();
 
@@ -147,7 +146,7 @@ public class GUIContainer {
     GridPane.setConstraints(descriptionContainer, 3, 3, 2, 1);
   }
 
-  private void setUpButtons() {
+  private void setUpButtons(SimulationController simulationEngine) {
     List<String> commands = new ArrayList<>();
     //TODO move all the commands into runnable methods in SimulationEngine
     commands.add(myResources.getString("Step"));
@@ -156,10 +155,7 @@ public class GUIContainer {
     commands.add(myResources.getString("Clear"));
     commands.add(myResources.getString("Random"));
 
-    ButtonContainer buttons = new ButtonContainer(commands);
-    for(Button button: buttons.getButtons()){
-      button.setOnAction(e -> saveCommand(button.getText()));
-    }
+    ButtonContainer buttons = new ButtonContainer(commands, simulationEngine);
 
     //https://docs.oracle.com/javase/8/javafx/api/javafx/scene/layout/GridPane.html
     pane.getChildren().add(buttons.getContainer());
@@ -186,7 +182,6 @@ public class GUIContainer {
 
   public void asyncUpdate() {
     updateSliderValue();
-    fileUploaded = uploader.isFileUploaded();
   }
 
   public boolean getSpeedChanged() {
@@ -205,12 +200,6 @@ public class GUIContainer {
     return holder;
   }
 
-//  public boolean isFileUploaded() {
-//    boolean holder = fileUploaded;
-//    fileUploaded = false;
-//    return holder;
-//  }
-
   public String getRequest() {
     return request;
   }
@@ -219,7 +208,7 @@ public class GUIContainer {
     return uploader.getUploaded();
   }
 
-  public RectangleVisualGrid getGrid() {
+  public VisualGrid getGrid() {
     return grid;
   }
   public String getDropDownSelection(){
