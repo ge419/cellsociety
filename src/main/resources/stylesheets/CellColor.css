@@ -1,0 +1,8 @@
+#Alive{
+  -fx-fill: GREEN;
+}
+
+
+#Dead{
+  -fx-fill: WHITE;
+}

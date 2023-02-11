@@ -2,17 +2,19 @@ package cellsociety.GUI.Grids;
 
 import cellsociety.GUI.VisualGrid;
 import java.util.ResourceBundle;
+import javafx.scene.Scene;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
 public class RectangleVisualGrid extends VisualGrid {
 
-  GridPane gridLayout;
+  public static final String CELL_COLOR_PATH = "stylesheets/CellColor.css";
+  private GridPane gridLayout;
 
-  int width;
-  int height;
-
+  private int width;
+  private int height;
+  private Scene parentScene;
   public static final String INTERNAL_CONFIGURATION = "cellsociety.filesandstates";
   private static final ResourceBundle NAMES_FILE = ResourceBundle.getBundle(INTERNAL_CONFIGURATION);
   private static final String LIFE_ALIVE = NAMES_FILE.getString("LifeAlive");
@@ -43,8 +45,10 @@ public class RectangleVisualGrid extends VisualGrid {
 
   private static final String PERC_PERC = NAMES_FILE.getString("PercolPerc");
 
-  public RectangleVisualGrid(int columns, int rows, double gridSize) {
+  public RectangleVisualGrid(int columns, int rows, double gridSize, Scene baseScene) {
     super(columns, rows);
+    parentScene = baseScene;
+    parentScene.getStylesheets().add(CELL_COLOR_PATH);
     width = columns;
     height = rows;
     gridLayout = new GridPane();
@@ -60,34 +64,12 @@ public class RectangleVisualGrid extends VisualGrid {
   @Override
   public void updateGrid(int x, int y, String state) {
     Rectangle rect = (Rectangle) gridLayout.getChildren().get(x * width + y + 1);
-    rect.setFill(chooseColor(state));
-  }
-
-  public Color chooseColor(String state){
-    //TODO change to resource bundle for different languages later or move to property file, very ugly
-
-      if(state.equals(LIFE_ALIVE)) {return Color.LIGHTGREEN;}
-      if(state.equals(LIFE_DEAD)) {return Color.WHITE;}
-      if(state.equals(FIRE_EMPTY)) {return Color.YELLOW;}
-      if(state.equals(FIRE_TREE)) {return Color.DARKGREEN;}
-      if(state.equals(FIRE_BURNING)) {return Color.RED;}
-      if(state.equals(SEG_EMPTY)) {return Color.WHITE;}
-      if(state.equals(SEG_A)) {return Color.RED;}
-      if(state.equals(SEG_B)) {return Color.BLUE;}
-      if(state.equals(WATOR_EMPTY)) {return Color.DARKBLUE;}
-      if(state.equals(WATOR_FISH)) {return Color.GREENYELLOW;}
-      if(state.equals(WATOR_SHARK)) {return Color.SKYBLUE;}
-      if(state.equals(PERC_OPEN)) {return Color.WHITE;}
-      if(state.equals(PERC_BLOCK)) {return Color.BLACK;}
-      if(state.equals(PERC_PERC)) {return Color.LIGHTBLUE;}
-
-    return Color.PURPLE;
+    rect.setId("Alive");
   }
   public void resetGrid(double gridSize){
     for (int i = 0; i < width; i++) {
       for (int j = 0; j < height; j++) {
         Rectangle cell = new Rectangle(gridSize / width, gridSize / height);
-        cell.setStroke(Color.BLACK);
         cell.setFill(Color.WHITE);
         gridLayout.add(cell, i, j);
       }
