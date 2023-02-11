@@ -15,8 +15,6 @@ public class RectangleVisualGrid extends VisualGrid {
   private int width;
   private int height;
   private Scene parentScene;
-  public static final String INTERNAL_CONFIGURATION = "cellsociety.filesandstates";
-  private static final ResourceBundle NAMES_FILE = ResourceBundle.getBundle(INTERNAL_CONFIGURATION);
 
   public RectangleVisualGrid(int columns, int rows, double gridSize, Scene baseScene) {
     super(columns, rows);
