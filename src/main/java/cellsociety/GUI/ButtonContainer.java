@@ -28,7 +28,7 @@ public class ButtonContainer {
         btn = createButton(bundle.getString("Clear"));
         btn.setOnAction(e -> simulationEngine.blankStart());
         btn = createButton(bundle.getString("Random"));
-//        btn.setOnAction(e -> simulationEngine.randomizeStart());
+        btn.setOnAction(e -> simulationEngine.randomizeStart());
     }
     public Button createButton(String word) {
         Button newButton = new Button(word);
