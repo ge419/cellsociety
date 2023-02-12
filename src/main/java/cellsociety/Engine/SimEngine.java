@@ -1,6 +1,7 @@
 package cellsociety.Engine;
 
 import cellsociety.Cells.Cell;
+import cellsociety.Controller.SimulationController;
 import cellsociety.GUI.VisualGrid;
 import cellsociety.Grid;
 import cellsociety.simulations.Simulation;
@@ -15,7 +16,7 @@ import java.util.ResourceBundle;
  * @author Changmin Shin, Brandon Weiss
  */
 
-public abstract class SimEngine {
+public abstract class SimEngine implements SimulationController {
 
   public static final String INTERNAL_CONFIGURATION = "cellsociety.filesandstates";
   public static final ResourceBundle NAMES_FILE = ResourceBundle.getBundle(INTERNAL_CONFIGURATION);
@@ -180,7 +181,7 @@ public abstract class SimEngine {
   /**
    * Resets the backend Grid, (simulation configuration) to its initial state
    */
-  public void resetToInit() {
+  public void reset() {
     grid = initGrid;
     //TODO: determine if grid.reset() should be used instead
     // --> is Grid the only thing being reset?
@@ -200,9 +201,8 @@ public abstract class SimEngine {
 
   /**
    * Randomize the starting configuration for a simulation
-   * @param params A HashMap of parameters and values for each simulation type
    */
-  public void randomizeStart(Map<String, Double> params) {
+  public void randomizeStart() {
     for (int i = 0; i < width; i++) {
       for (int j = 0; j < height; j++) {
         //TODO: Change sim.randomize to return String status, not Cell itself after discussing with Brandon
