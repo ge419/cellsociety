@@ -2,7 +2,7 @@ package cellsociety.GUI;
 
 import cellsociety.Config;
 import cellsociety.GUI.Grids.RectangleVisualGrid;
-import cellsociety.GameLoopController;
+import cellsociety.AnimationInterface;
 import cellsociety.SimulationController;
 import java.io.File;
 import java.util.ArrayList;
@@ -74,7 +74,7 @@ public class GUIContainer {
   public final static int SLIDER_COLUMN_SPAN = 2;
   public final static int SLIDER_ROW_SPAN = 1;
 
-  public GUIContainer(Stage primaryStage, String language, Config config, SimulationController simulationEngine, GameLoopController controller, GridPane grid) {
+  public GUIContainer(Stage primaryStage, String language, Config config, SimulationController simulationEngine, AnimationInterface controller, GridPane grid) {
     pane = new GridPane();
     setColumnConstraints();
 
@@ -162,7 +162,7 @@ public class GUIContainer {
     GridPane.setConstraints(descriptionContainer, DESCRIPTION_BOX_COLUMN, DESCRIPTION_BOX_ROW, DESCRIPTION_BOX_COLUMN_SPAN, DESCRIPTION_BOX_ROW_SPAN);
   }
 
-  private void setUpButtons(SimulationController simulationEngine, GameLoopController controller, ResourceBundle bundle) {
+  private void setUpButtons(SimulationController simulationEngine, AnimationInterface controller, ResourceBundle bundle) {
     ButtonContainer buttons = new ButtonContainer(simulationEngine, controller, bundle);
     //https://docs.oracle.com/javase/8/javafx/api/javafx/scene/layout/GridPane.html
     pane.getChildren().add(buttons.getContainer());
