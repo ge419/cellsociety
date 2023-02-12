@@ -1,15 +1,8 @@
 package cellsociety;
 
-public class GameLoopManager implements GameLoopController {
+public class GameLoopManager {
 
-
-  @Override
-  public void stepAnimation() {
-
-  }
-
-  @Override
-  public void pauseToggle() {
+  public GameLoopManager(){
 
   }
 }

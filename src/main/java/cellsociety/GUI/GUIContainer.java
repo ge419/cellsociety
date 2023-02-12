@@ -2,7 +2,7 @@ package cellsociety.GUI;
 
 import cellsociety.Config;
 import cellsociety.GUI.Grids.RectangleVisualGrid;
-import cellsociety.GameLoopController;
+import cellsociety.AnimationInterface;
 import cellsociety.SimulationController;
 import java.io.File;
 import java.util.ArrayList;
@@ -27,11 +27,7 @@ public class GUIContainer {
 
   private final GridPane pane;
 
-  private String request;
-
-  private DropDown drop;
   private SliderContainer slider;
-  private FileUploader uploader;
   private double animationSpeed;
   private VisualGrid grid;
   private final ResourceBundle myResources;
@@ -41,7 +37,6 @@ public class GUIContainer {
 
   public final static String INTERNAL_CONFIGURATION = "cellsociety.";
   private boolean sliderChanged = false;
-  private boolean requestChanged = false;
 
   public final static int WINDOW_WIDTH = 1000;
   public final static int WINDOW_HEIGHT = 700;
@@ -79,7 +74,7 @@ public class GUIContainer {
   public final static int SLIDER_COLUMN_SPAN = 2;
   public final static int SLIDER_ROW_SPAN = 1;
 
-  public GUIContainer(Stage primaryStage, String language, Config config, SimulationController simulationEngine, GameLoopController controller) {
+  public GUIContainer(Stage primaryStage, String language, Config config, SimulationController simulationEngine, AnimationInterface controller, GridPane grid) {
     pane = new GridPane();
     setColumnConstraints();
 
@@ -94,13 +89,11 @@ public class GUIContainer {
     SetUpDescriptionBox();
 
     setUpFileUploader(config);
-    setUpFileSaver();
+    setUpFileSaver(config);
     setUpGrid(stageScene);
 
     List<String> DirectoryNames = new ArrayList<>();
     List<String> FileNames = new ArrayList<>();
-
-    //TODO figure out a way to refactor the multiple .adds and create a proper Directory Name
 
     DirectoryNames.add("data/Preloaded_Files");
     extractFileNames(DirectoryNames, FileNames);
@@ -137,26 +130,25 @@ public class GUIContainer {
 
   private void setUpGrid(Scene scene) {
     grid = new RectangleVisualGrid(DEFAULT_GRID_SIZE, DEFAULT_GRID_SIZE, GRID_SIZE, scene);
-//    grid.updateGrid(5,5);
     pane.getChildren().add(grid.getGridLayout());
     GridPane.setConstraints(grid.getGridLayout(), GRID_COLUMN, GRID_ROW, GRID_COLUMN_SPAN, GRID_ROW_SPAN);
   }
 
   private void setUpDropDown(List<String> FileNames, Config config) {
-    drop = new DropDown(FileNames, myResources.getString("DropButton"), config);
+    DropDown drop = new DropDown(FileNames, myResources.getString("DropButton"), config);
     pane.getChildren().add(drop.getContainer());
     GridPane.setConstraints(drop.getContainer(), DROP_DOWN_COLUMN, DROP_DOWN_ROW, DROP_DOWN_COLUMN_SPAN, DROP_DOWN_ROW_SPAN);
   }
 
-  private void setUpFileSaver() {
-    FileSaver save = new FileSaver(myResources.getString("Save"), grid);
+  private void setUpFileSaver(Config config) {
+    FileSaver save = new FileSaver(myResources.getString("Save"), config);
     pane.getChildren().add(save.getButton());
     GridPane.setConstraints(save.getButton(), FILE_SAVER_COLUMN, FILE_SAVER_ROW);
     save.setFile("Test");
   }
 
   private void setUpFileUploader(Config config) {
-    uploader = new FileUploader(myResources.getString("Upload"), config);
+    FileUploader uploader = new FileUploader(myResources.getString("Upload"), config);
     pane.getChildren().add(uploader.getButton());
     GridPane.setConstraints(uploader.getButton(), FILE_UPLOADER_COLUMN, FILE_UPLOADER_ROW);
   }
@@ -170,16 +162,11 @@ public class GUIContainer {
     GridPane.setConstraints(descriptionContainer, DESCRIPTION_BOX_COLUMN, DESCRIPTION_BOX_ROW, DESCRIPTION_BOX_COLUMN_SPAN, DESCRIPTION_BOX_ROW_SPAN);
   }
 
-  private void setUpButtons(SimulationController simulationEngine, GameLoopController controller, ResourceBundle bundle) {
+  private void setUpButtons(SimulationController simulationEngine, AnimationInterface controller, ResourceBundle bundle) {
     ButtonContainer buttons = new ButtonContainer(simulationEngine, controller, bundle);
     //https://docs.oracle.com/javase/8/javafx/api/javafx/scene/layout/GridPane.html
     pane.getChildren().add(buttons.getContainer());
     GridPane.setConstraints(buttons.getContainer(), BUTTONS_COLUMN,BUTTONS_ROW, BUTTONS_COLUMN_SPAN, BUTTONS_ROW_SPAN);
-  }
-
-  public void saveCommand(String string) {
-    request = string;
-    requestChanged = true;
   }
 
   public void setUpSliderContainer() {
@@ -208,25 +195,7 @@ public class GUIContainer {
   public double getAnimationSpeed() {
     return animationSpeed;
   }
-
-  public boolean isRequestChanged() {
-    boolean holder = requestChanged;
-    requestChanged = false;
-    return holder;
-  }
-
-  public String getRequest() {
-    return request;
-  }
-
-  public File getFile() {
-    return uploader.getUploaded();
-  }
-
   public VisualGrid getGrid() {
     return grid;
-  }
-  public String getDropDownSelection(){
-    return drop.getValue();
   }
 }

@@ -33,7 +33,7 @@ public class TestMain extends Application {
     String english = "english";
     Config config = new Config();
     engine = new SimulationEngine("Game of Life", config.getSimParam(), grid, config.getInitState());
-    container = new GUIContainer(primaryStage, "english", config, engine);
+//    container = new GUIContainer(primaryStage, "english", config, engine);
     Timeline animation = new Timeline();
     animation.setCycleCount(Timeline.INDEFINITE);
     animation.getKeyFrames()

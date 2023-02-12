@@ -1,10 +1,9 @@
 package cellsociety.GUI;
 
-import cellsociety.GameLoopController;
+import cellsociety.AnimationInterface;
 import cellsociety.SimulationController;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 import java.util.ResourceBundle;
 import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
@@ -14,7 +13,7 @@ public class ButtonContainer {
     HBox container;
     List<Button> Buttons;
 
-    public ButtonContainer(SimulationController simulationEngine, GameLoopController controller, ResourceBundle bundle){
+    public ButtonContainer(SimulationController simulationEngine, AnimationInterface controller, ResourceBundle bundle){
         container = new HBox();
         Buttons = new ArrayList<>();
         container.setId("Container-HBox");
