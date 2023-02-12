@@ -1,9 +1,7 @@
 package cellsociety.GUI;
 
 import cellsociety.Config;
-import cellsociety.Grid;
-import cellsociety.Controller.SimulationController;
-import cellsociety.Engine.SimulationEngine;
+import cellsociety.Engine.EngineInterface;
 import java.util.ResourceBundle;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -22,7 +20,7 @@ public class TestMain extends Application {
 
   private GUIContainer container;
 
-  private SimulationController engine;
+  private EngineInterface engine;
 
   public static void main(String[] args) {
     launch(args);

@@ -2,7 +2,7 @@ package cellsociety.Controller;
 
 import cellsociety.Config;
 import cellsociety.Engine.LifeEngine;
-import cellsociety.Engine.SimEngine;
+import cellsociety.Engine.EngineInterface;
 import cellsociety.GUI.GUIContainer;
 import cellsociety.GUI.Grids.RectangleVisualGrid;
 import cellsociety.GUI.VisualGrid;
@@ -25,7 +25,7 @@ public class GameLoopManager extends Application {
   private AnimationInterface animationManager;
   private int width;
   private int height;
-  private SimulationController engine;
+  private EngineInterface engine;
   private GUIContainer container;
   public static final int FRAMES_PER_SECOND = 60;
   public static final double SECOND_DELAY = 1.0 / FRAMES_PER_SECOND;

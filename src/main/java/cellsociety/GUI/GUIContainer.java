@@ -2,7 +2,7 @@ package cellsociety.GUI;
 
 import cellsociety.Config;
 import cellsociety.Controller.AnimationInterface;
-import cellsociety.Controller.SimulationController;
+import cellsociety.Engine.EngineInterface;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -67,7 +67,7 @@ public class GUIContainer {
   public final static int SLIDER_ROW_SPAN = 1;
 
   public static final String CELL_COLOR = "stylesheets/CellColor.css";
-  public GUIContainer(Stage primaryStage, String language, Config config, SimulationController simulationEngine, AnimationInterface controller, VisualGrid grid) {
+  public GUIContainer(Stage primaryStage, String language, Config config, EngineInterface simulationEngine, AnimationInterface controller, VisualGrid grid) {
     pane = new GridPane();
     setColumnConstraints();
 
@@ -156,7 +156,7 @@ public class GUIContainer {
     GridPane.setConstraints(descriptionContainer, DESCRIPTION_BOX_COLUMN, DESCRIPTION_BOX_ROW, DESCRIPTION_BOX_COLUMN_SPAN, DESCRIPTION_BOX_ROW_SPAN);
   }
 
-  private void setUpButtons(SimulationController simulationEngine, AnimationInterface controller, ResourceBundle bundle) {
+  private void setUpButtons(EngineInterface simulationEngine, AnimationInterface controller, ResourceBundle bundle) {
     ButtonContainer buttons = new ButtonContainer(simulationEngine, controller, bundle);
     //https://docs.oracle.com/javase/8/javafx/api/javafx/scene/layout/GridPane.html
     pane.getChildren().add(buttons.getContainer());
