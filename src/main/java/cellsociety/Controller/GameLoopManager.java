@@ -22,8 +22,8 @@ public class GameLoopManager {
     //TODO: Need to read in XML file before initializing new Grid and VisualGrid
     width = config.getWidth();
     height = config.getHeight();
-    this.grid = new Grid();
-    this.grid = new Grid();
+    this.grid = new Grid(width, height);
+    this.grid = new Grid(width, height);
     this.visualGrid = new VisualGrid(); //
   }
 }

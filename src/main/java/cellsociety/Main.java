@@ -44,7 +44,7 @@ public class Main extends Application {
     newFile = false;
     String english = "english";
     config = new Config();
-    Grid grid = new Grid();
+    Grid grid = new Grid(config.getWidth(), config.getHeight());
     engine = new SimulationEngine("Game of Life", config.getSimParam(), grid, config.getInitState());
 //    container = new GUIContainer(primaryStage, english, config, engine);
     Timeline animation = new Timeline();

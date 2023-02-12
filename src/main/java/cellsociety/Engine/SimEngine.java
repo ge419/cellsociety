@@ -10,6 +10,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.ResourceBundle;
 
+/**
+ * @author Changmin Shin, Brandon Weiss
+ */
+
 public abstract class SimEngine {
 
   public static final String INTERNAL_CONFIGURATION = "cellsociety.filesandstates";

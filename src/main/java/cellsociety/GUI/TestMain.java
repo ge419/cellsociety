@@ -28,7 +28,7 @@ public class TestMain extends Application {
     launch(args);
   }
   public void start (Stage primaryStage) {
-    Grid grid = new Grid();
+    //Grid grid = new Grid();
 
     String english = "english";
     Config config = new Config();
