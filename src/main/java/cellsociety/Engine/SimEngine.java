@@ -94,6 +94,18 @@ public abstract class SimEngine {
 
   // blankStart method
 
+  /**
+   * Sets the backend Grid to have Dead/Empty state in all Cells
+   * TODO: make getDeadString() an abstract method in Simulation, each simulations will implement differently
+   */
+  public void blankStart() {
+    for (int i = 0; i < width; i++) {
+      for (int j = 0; j < height; j++) {
+        grid.setCell(i, j, sim.getDeadString());
+      }
+    }
+  }
+
   // randomizeStart method
 
 }

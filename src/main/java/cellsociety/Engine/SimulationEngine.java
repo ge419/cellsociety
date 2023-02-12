@@ -61,7 +61,7 @@ public abstract class SimulationEngine implements SimulationController {
    */
   public SimulationEngine(String simType, HashMap<String, Double> params, Grid grid,
       String state) {
-    init(simType, params);
+    //init(simType, params);
     this.simType = simType;
     this.visualGrid = visualGrid;
     this.width = visualGrid.getWidth();
@@ -79,25 +79,25 @@ public abstract class SimulationEngine implements SimulationController {
    * @param simType The string representing which of the cellular automata to run
    * @param params  A HashMap of parameters and values for each simulation type
    */
-  public void init(String simType, HashMap<String, Double> params) {
-    if (simType.equals(LIFE_NAME)) {
-      sim = new Life(LIFE_DEAD, LIFE_ALIVE);
-      corners = true;
-    } else if (simType.equals(FIRE_NAME)) {
-      sim = new Fire(FIRE_EMPTY, FIRE_TREE, FIRE_BURNING, params.get("probCatch"));
-      corners = false;
-    } else if (simType.equals(SEG_NAME)) {
-      sim = new Schelling(SEG_EMPTY, SEG_A, SEG_B, params.get("change"));
-      corners = true;
-    } else if (simType.equals(WATOR_NAME)) {
-      sim = new WaTor(WATOR_EMPTY, WATOR_FISH, WATOR_SHARK, params.get("eShark"),
-          params.get("ePerFish"), params.get("fishBT"), params.get("sharkBT"));
-      corners = false;
-    } else if (simType.equals(PERC_NAME)) {
-      // sim = new Percolation()
-      corners = true;
-    }
-  }
+//  public void init(String simType, HashMap<String, Double> params) {
+//    if (simType.equals(LIFE_NAME)) {
+//      sim = new Life(LIFE_DEAD, LIFE_ALIVE);
+//      corners = true;
+//    } else if (simType.equals(FIRE_NAME)) {
+//      sim = new Fire(FIRE_EMPTY, FIRE_TREE, FIRE_BURNING, params.get("probCatch"));
+//      corners = false;
+//    } else if (simType.equals(SEG_NAME)) {
+//      sim = new Schelling(SEG_EMPTY, SEG_A, SEG_B, params.get("change"));
+//      corners = true;
+//    } else if (simType.equals(WATOR_NAME)) {
+//      sim = new WaTor(WATOR_EMPTY, WATOR_FISH, WATOR_SHARK, params.get("eShark"),
+//          params.get("ePerFish"), params.get("fishBT"), params.get("sharkBT"));
+//      corners = false;
+//    } else if (simType.equals(PERC_NAME)) {
+//      // sim = new Percolation()
+//      corners = true;
+//    }
+//  }
 
   /**
    * Randomize the starting configuration for a simulation

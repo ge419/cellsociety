@@ -26,6 +26,8 @@ public class WatorEngine extends SimEngine {
     // setup initial state grid for both updating grid and initial grid
     listToGrid(strToGrid(initState), grid);
     listToGrid(strToGrid(initState), initGrid);
+    // initialize simulation
+    init(params);
   }
 
   @Override
