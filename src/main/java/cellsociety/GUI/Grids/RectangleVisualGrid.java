@@ -9,7 +9,6 @@ import javafx.scene.shape.Rectangle;
 
 public class RectangleVisualGrid extends VisualGrid {
 
-  public static final String CELL_COLOR_PATH = "stylesheets/CellColor.css";
   private GridPane gridLayout;
 
   public static final int GRID_SIZE = 300;

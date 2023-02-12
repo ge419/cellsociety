@@ -72,7 +72,8 @@ public class GUIContainer {
   public final static int SLIDER_COLUMN_SPAN = 2;
   public final static int SLIDER_ROW_SPAN = 1;
 
-  public GUIContainer(Stage primaryStage, String language, Config config, SimulationController simulationEngine, AnimationInterface controller, GridPane grid) {
+  public static final String CELL_COLOR = "stylesheets/CellColor.css";
+  public GUIContainer(Stage primaryStage, String language, Config config, SimulationController simulationEngine, AnimationInterface controller, VisualGrid grid) {
     pane = new GridPane();
     setColumnConstraints();
 
@@ -88,7 +89,7 @@ public class GUIContainer {
 
     setUpFileUploader(config);
     setUpFileSaver(config);
-    setUpGrid(stageScene);
+    setUpGrid(grid);
 
     List<String> DirectoryNames = new ArrayList<>();
     List<String> FileNames = new ArrayList<>();
@@ -100,6 +101,7 @@ public class GUIContainer {
     pane.setMaxSize(stageScene.getWidth(), stageScene.getHeight());
     primaryStage.setScene(stageScene);
     stageScene.getStylesheets().add(GUI_CSS);
+    stageScene.getStylesheets().add(CELL_COLOR);
     primaryStage.show();
   }
 
@@ -126,8 +128,8 @@ public class GUIContainer {
     }
   }
 
-  private void setUpGrid(Scene scene) {
-    grid = new RectangleVisualGrid(DEFAULT_GRID_SIZE, DEFAULT_GRID_SIZE);
+  private void setUpGrid(VisualGrid Grid) {
+    grid = Grid;
     pane.getChildren().add(grid.getGridLayout());
     GridPane.setConstraints(grid.getGridLayout(), GRID_COLUMN, GRID_ROW, GRID_COLUMN_SPAN, GRID_ROW_SPAN);
   }

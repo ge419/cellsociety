@@ -27,7 +27,7 @@ public class GameLoopManager {
     width = config.getWidth();
     height = config.getHeight();
     this.grid = new Grid(width, height);
-    this.grid = new Grid(width, height);
+    this.initGrid = new Grid(width, height);
     this.visualGrid = new RectangleVisualGrid(width, height);
     // initialize AnimationManager
     // initialize SimEngine
