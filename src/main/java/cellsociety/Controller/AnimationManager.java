@@ -17,8 +17,14 @@ public class AnimationManager implements AnimationInterface{
   }
 
   public boolean isNewFrame(){
-    return (frameNum >= FRAMES_PER_SECOND*multiplier);
+    return (frameNum >= FRAMES_PER_SECOND*multiplier && !pause);
   }
+
+  @Override
+  public void incrementFrame() {
+    frameNum++;
+  }
+
   @Override
   public void pauseToggle() {
     pause = !pause;

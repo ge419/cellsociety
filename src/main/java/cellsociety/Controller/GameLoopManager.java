@@ -61,6 +61,10 @@ public class GameLoopManager extends Application {
     animation.play();
   }
   private void step(double secondDelay){
-
+    if(animationManager.isNewFrame()){
+      animationManager.incrementFrame();
+      this.engine.updateGameState();
+      this.visualGrid.updateEntireGrid(grid);
+    }
   }
 }

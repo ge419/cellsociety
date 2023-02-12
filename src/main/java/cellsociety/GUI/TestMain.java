@@ -40,8 +40,7 @@ public class TestMain extends Application {
   }
 
   private void step(double secondDelay) {
-    container.asyncUpdate();
-    container.getGrid().updateGrid(2,4, "StateA");
-    container.getGrid().updateGrid(3,7, "Shark");
+    container.getGrid().updateCell(2,4, "StateA");
+    container.getGrid().updateCell(3,7, "Shark");
   }
 }

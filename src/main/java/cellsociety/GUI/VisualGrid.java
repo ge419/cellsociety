@@ -1,8 +1,7 @@
 package cellsociety.GUI;
 
-import javafx.scene.Node;
+import cellsociety.Grid;
 import javafx.scene.layout.Pane;
-import javafx.scene.paint.Color;
 
 /**
  * @Author Han Zhang
@@ -18,12 +17,7 @@ public abstract class VisualGrid {
     width = Width;
     height = Height;
   }
-  public abstract void updateGrid(int x, int y, String state);
-
-//  public String chooseColor(String State){
-//    //TODO change to resource bundle for different languages later or move to property file, very ugly
-//
-//  }
+  public abstract void updateCell(int x, int y, String state);
 
   public int getHeight() {
     return height;
@@ -36,4 +30,6 @@ public abstract class VisualGrid {
   public abstract Pane getGridLayout();
 
   public abstract void changeSize(int i, int i1, int gridSize);
+
+  public abstract void updateEntireGrid(Grid grid);
 }
