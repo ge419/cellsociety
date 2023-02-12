@@ -36,6 +36,8 @@ public class SliderContainer {
     slider.setBlockIncrement(INCREMENT);
     slider.setShowTickLabels(true);
     slider.setShowTickMarks(true);
+
+    //Taken inspiration from the Ed post by Jason Fitzpatrick on post "Question about magic numbers!" #27
     slider.setOnMouseReleased(e -> animation.setAnimationSpeed(slider.getValue()));
   }
   private void setText(String caption){
