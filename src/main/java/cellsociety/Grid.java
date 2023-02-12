@@ -41,7 +41,7 @@ public class Grid{
   }
 
   private void initializeGrid(int width, int height) {
-    grid = new ArrayList<List<Cell>>();
+    grid = new ArrayList<>();
     for (int r = 0; r < width; r++) {
       List<Cell> row = new ArrayList<>();
       for (int c = 0; c < height; c++) {

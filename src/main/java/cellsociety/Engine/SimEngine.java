@@ -20,14 +20,14 @@ public abstract class SimEngine {
   public static final String INTERNAL_CONFIGURATION = "cellsociety.filesandstates";
   public static final ResourceBundle NAMES_FILE = ResourceBundle.getBundle(INTERNAL_CONFIGURATION);
 
-  private VisualGrid visualGrid;
-  private int width;
-  private int height;
-  private Grid grid;
-  private Grid initGrid;
-  private Map<String, Double> params;
-  private Simulation sim;
-  private List<String> nextStates;
+  VisualGrid visualGrid;
+  int width;
+  int height;
+  Grid grid;
+  Grid initGrid;
+  Map<String, Double> params;
+  Simulation sim;
+  List<String> nextStates;
 
   /**
    *

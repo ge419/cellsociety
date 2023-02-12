@@ -20,7 +20,7 @@ public class SegEngine extends SimEngine {
   private static final String SEG_A = NAMES_FILE.getString("SegA");
   private static final String SEG_B = NAMES_FILE.getString("SegB");
 
-  private Simulation sim;
+  Simulation sim;
 
   public SegEngine(VisualGrid visualGrid, String initState, Grid grid, Grid initGrid,
       HashMap<String, Double> params)

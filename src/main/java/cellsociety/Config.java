@@ -4,6 +4,7 @@ import cellsociety.Cells.Cell;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Map;
 import java.util.ResourceBundle;
 import java.io.File;
 import java.io.IOException;
@@ -39,17 +40,17 @@ public class Config {
   private static final ResourceBundle myResources = ResourceBundle.getBundle(
       INTERNAL_CONFIGURATION + "filesandstates");
 
-  private String simType;
-  private String configName;
-  private String author;
-  private String description;
-  private int width;
-  private int height;
-  private String initState;
-  private List<List<Integer>> currState;
-  private Element root;
-  private HashMap<String, Double> simParam;
-  private HashSet<String> simNames;
+  String simType;
+  String configName;
+  String author;
+  String description;
+  int width;
+  int height;
+  String initState;
+  List<List<Integer>> currState;
+  Element root;
+  Map<String, Double> simParam;
+  Set<String> simNames;
 
   /**
    * Reads XML file, if XML file is valid, upload info
