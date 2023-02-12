@@ -1,11 +1,13 @@
 package cellsociety.GUI;
 
+import cellsociety.Controller.AnimationInterface;
+import cellsociety.Controller.AnimationManager;
 import javafx.scene.control.Slider;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
 /**
- * @Author Han Zhang
+ * @author Han Zhang
  */
 
 public class SliderContainer {
@@ -13,22 +15,30 @@ public class SliderContainer {
   VBox container;
   Slider slider;
   Text text;
-  public SliderContainer(int min, int max, int current, int increment, String caption){
+  public static final int MIN = 0;
+  public static final int MAX = 4;
+  public static final int CURRENT = 1;
 
-    sliderInit(min, max, current, increment);
+  public static final int INCREMENT = 1;
+  public SliderContainer(String caption, AnimationInterface animation){
+
+    sliderInit(animation);
     setText(caption);
     container = new VBox(slider, text);
     container.setId("Container-Vbox");
   }
 
-  private void sliderInit(int min, int max, int current, int increment) {
+  private void sliderInit(AnimationInterface animation) {
     slider = new Slider();
-    slider.setMin(min);
-    slider.setMax(max);
-    slider.setValue(current);
-    slider.setBlockIncrement(increment);
+    slider.setMin(MIN);
+    slider.setMax(MAX);
+    slider.setValue(CURRENT);
+    slider.setBlockIncrement(INCREMENT);
     slider.setShowTickLabels(true);
     slider.setShowTickMarks(true);
+
+    //Taken inspiration from the Ed post by Jason Fitzpatrick on post "Question about magic numbers!" #27
+    slider.setOnMouseReleased(e -> animation.setAnimationSpeed(slider.getValue()));
   }
   private void setText(String caption){
     text = new Text(caption);
@@ -36,9 +46,5 @@ public class SliderContainer {
   }
   public VBox getContainer(){
     return container;
-  }
-
-  public double getValue() {
-    return slider.getValue();
   }
 }

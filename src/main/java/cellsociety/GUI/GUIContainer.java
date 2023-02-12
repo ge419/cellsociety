@@ -1,7 +1,8 @@
 package cellsociety.GUI;
 
 import cellsociety.Config;
-import cellsociety.GUI.Grids.RectangleVisualGrid;
+import cellsociety.Controller.AnimationInterface;
+import cellsociety.Engine.EngineInterface;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -9,7 +10,6 @@ import java.util.List;
 import java.util.Objects;
 import java.util.ResourceBundle;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
@@ -18,66 +18,84 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 /**
- * @Author Han Zhang
+ * @author Han Zhang
  */
 public class GUIContainer {
-
   public final int[] COLUMN_PERCENT = {16,16,16,21,21};
 
   private final GridPane pane;
-
-  private String request;
-
-  private DropDown drop;
-  private SliderContainer slider;
-  private FileUploader uploader;
-  private double animationSpeed;
-  private RectangleVisualGrid grid;
+  private VisualGrid grid;
   private final ResourceBundle myResources;
-  public final String GUI_CSS = "stylesheets/GUIContainer.css";
+  public final static String GUI_CSS = "stylesheets/GUIContainer.css";
 
-  public final int GRID_SIZE = 300;
-
-  public final String INTERNAL_CONFIGURATION = "cellsociety.";
+  public final static String INTERNAL_CONFIGURATION = "cellsociety.";
   private boolean sliderChanged = false;
-  private boolean requestChanged = false;
-  private boolean fileUploaded = false;
 
+  public final static int WINDOW_WIDTH = 1000;
+  public final static int WINDOW_HEIGHT = 700;
 
-  public GUIContainer(Stage primaryStage, String language, Config config) {
+  //TODO say that decided to use this deisng choice, should be css, but can't figure out how to do it
+  public final static int GRID_COLUMN = 0;
+  public final static int GRID_ROW = 0;
+  public final static int GRID_COLUMN_SPAN = 3;
+  public final static int GRID_ROW_SPAN = 4;
+
+  public final static int DROP_DOWN_COLUMN= 3;
+  public final static int DROP_DOWN_ROW = 2;
+  public final static int DROP_DOWN_COLUMN_SPAN = 2;
+  public final static int DROP_DOWN_ROW_SPAN = 1;
+
+  public final static int FILE_UPLOADER_COLUMN = 3;
+  public final static int FILE_UPLOADER_ROW = 0;
+  public final static int FILE_SAVER_COLUMN = 4;
+  public final static int FILE_SAVER_ROW = 0;
+
+  public final static int DESCRIPTION_BOX_COLUMN = 3;
+  public final static int DESCRIPTION_BOX_ROW = 3;
+  public final static int DESCRIPTION_BOX_COLUMN_SPAN = 2;
+  public final static int DESCRIPTION_BOX_ROW_SPAN = 1;
+
+  public final static int BUTTONS_COLUMN = 0;
+  public final static int BUTTONS_ROW = 5;
+  public final static int BUTTONS_COLUMN_SPAN = 5;
+  public final static int BUTTONS_ROW_SPAN = 1;
+
+  public final static int SLIDER_COLUMN = 3;
+  public final static int SLIDER_ROW = 4;
+
+  public final static int SLIDER_COLUMN_SPAN = 2;
+  public final static int SLIDER_ROW_SPAN = 1;
+
+  public static final String CELL_COLOR = "stylesheets/CellColor.css";
+  public GUIContainer(Stage primaryStage, String language, Config config, EngineInterface simulationEngine, AnimationInterface controller, VisualGrid grid) {
     pane = new GridPane();
     setColumnConstraints();
+
+    Scene stageScene = new Scene(pane, WINDOW_WIDTH, WINDOW_HEIGHT);
 
     myResources = ResourceBundle.getBundle(INTERNAL_CONFIGURATION + language);
     pane.setGridLinesVisible(true);
     pane.setId("pane");
 
-    setUpButtons();
-    setUpSliderContainer();
+    setUpButtons(simulationEngine, controller, myResources);
+    setUpSliderContainer(controller);
     SetUpDescriptionBox();
 
     setUpFileUploader(config);
-    setUpFileSaver();
-    setUpGrid();
+    setUpFileSaver(config);
+    setUpGrid(grid);
 
     List<String> DirectoryNames = new ArrayList<>();
     List<String> FileNames = new ArrayList<>();
 
-    //TODO figure out a way to refactor the multiple .adds and create a proper Directory Name
-
-    DirectoryNames.add("data/GameOfLife");
-    DirectoryNames.add("data/SpreadingFire");
-    DirectoryNames.add("data/Schelling");
-    DirectoryNames.add("data/Wa-Tor");
-
+    DirectoryNames.add("data/Preloaded_Files");
     extractFileNames(DirectoryNames, FileNames);
-    setUpDropDown(FileNames);
+    setUpDropDown(FileNames, config);
 
-    Scene stageScene = new Scene(pane, 1000, 700);
-
-    pane.setMaxSize(stageScene.getWidth() - 50, stageScene.getHeight() - 50);
+    pane.setMaxSize(stageScene.getWidth(), stageScene.getHeight());
     primaryStage.setScene(stageScene);
     stageScene.getStylesheets().add(GUI_CSS);
+    stageScene.getStylesheets().add(CELL_COLOR);
     primaryStage.show();
   }
 
@@ -104,31 +122,29 @@ public class GUIContainer {
     }
   }
 
-  private void setUpGrid() {
-    grid = new RectangleVisualGrid(20, 20, GRID_SIZE);
-//    grid.updateGrid(5,5);
+  private void setUpGrid(VisualGrid Grid) {
+    grid = Grid;
     pane.getChildren().add(grid.getGridLayout());
-    GridPane.setConstraints(grid.getGridLayout(), 0, 0, 3, 4);
+    GridPane.setConstraints(grid.getGridLayout(), GRID_COLUMN, GRID_ROW, GRID_COLUMN_SPAN, GRID_ROW_SPAN);
   }
 
-  private void setUpDropDown(List<String> FileNames) {
-    drop = new DropDown(FileNames, myResources.getString("DropButton"));
-    drop.getButton().setOnAction(e -> saveCommand(drop.getButton().getText()));
+  private void setUpDropDown(List<String> FileNames, Config config) {
+    DropDown drop = new DropDown(FileNames, myResources.getString("DropButton"), config);
     pane.getChildren().add(drop.getContainer());
-    GridPane.setConstraints(drop.getContainer(), 3, 1, 2, 1);
+    GridPane.setConstraints(drop.getContainer(), DROP_DOWN_COLUMN, DROP_DOWN_ROW, DROP_DOWN_COLUMN_SPAN, DROP_DOWN_ROW_SPAN);
   }
 
-  private void setUpFileSaver() {
-    FileSaver save = new FileSaver(myResources.getString("Save"), grid);
+  private void setUpFileSaver(Config config) {
+    FileSaver save = new FileSaver(myResources.getString("Save"), config);
     pane.getChildren().add(save.getButton());
-    GridPane.setConstraints(save.getButton(), 4, 0);
+    GridPane.setConstraints(save.getButton(), FILE_SAVER_COLUMN, FILE_SAVER_ROW);
     save.setFile("Test");
   }
 
   private void setUpFileUploader(Config config) {
-    uploader = new FileUploader(myResources.getString("Upload"), config);
+    FileUploader uploader = new FileUploader(myResources.getString("Upload"), config);
     pane.getChildren().add(uploader.getButton());
-    GridPane.setConstraints(uploader.getButton(), 3, 0);
+    GridPane.setConstraints(uploader.getButton(), FILE_UPLOADER_COLUMN, FILE_UPLOADER_ROW);
   }
 
   private void SetUpDescriptionBox() {
@@ -136,86 +152,23 @@ public class GUIContainer {
     description.setId("TextBox");
     VBox descriptionContainer = new VBox();
     descriptionContainer.getChildren().add(description);
-//    descriptionContainer.setVgrow(description, Priority.ALWAYS);
     pane.getChildren().add(descriptionContainer);
-    GridPane.setConstraints(descriptionContainer, 3, 3, 2, 1);
+    GridPane.setConstraints(descriptionContainer, DESCRIPTION_BOX_COLUMN, DESCRIPTION_BOX_ROW, DESCRIPTION_BOX_COLUMN_SPAN, DESCRIPTION_BOX_ROW_SPAN);
   }
 
-  private void setUpButtons() {
-    List<String> commands = new ArrayList<>();
-    //TODO find some way to refactor this
-    commands.add(myResources.getString("Step"));
-    commands.add(myResources.getString("Reset"));
-    commands.add(myResources.getString("Go/Pause"));
-    commands.add(myResources.getString("Clear"));
-    commands.add(myResources.getString("Random"));
-
-    ButtonContainer buttons = new ButtonContainer(commands);
-    for(Button button: buttons.getButtons()){
-      button.setOnAction(e -> saveCommand(button.getText()));
-    }
+  private void setUpButtons(EngineInterface simulationEngine, AnimationInterface controller, ResourceBundle bundle) {
+    ButtonContainer buttons = new ButtonContainer(simulationEngine, controller, bundle);
     //https://docs.oracle.com/javase/8/javafx/api/javafx/scene/layout/GridPane.html
     pane.getChildren().add(buttons.getContainer());
-    pane.setConstraints(buttons.getContainer(), 0,5, 5, 1);
+    GridPane.setConstraints(buttons.getContainer(), BUTTONS_COLUMN,BUTTONS_ROW, BUTTONS_COLUMN_SPAN, BUTTONS_ROW_SPAN);
   }
 
-  public void saveCommand(String string) {
-    request = string;
-    requestChanged = true;
-  }
-
-  public void setUpSliderContainer() {
-    slider = new SliderContainer(0, 4, 1, 1, myResources.getString("SliderCaption"));
+  public void setUpSliderContainer(AnimationInterface animation) {
+    SliderContainer slider = new SliderContainer(myResources.getString("SliderCaption"), animation);
     pane.getChildren().add(slider.getContainer());
-    GridPane.setConstraints(slider.getContainer(), 3, 4, 2, 1);
+    GridPane.setConstraints(slider.getContainer(), SLIDER_COLUMN, SLIDER_ROW, SLIDER_COLUMN_SPAN, SLIDER_ROW_SPAN);
   }
-
-  public void updateSliderValue() {
-    if (animationSpeed != slider.getValue()) {
-      animationSpeed = slider.getValue();
-      sliderChanged = true;
-    }
-  }
-
-  public void asyncUpdate() {
-    updateSliderValue();
-    fileUploaded = uploader.isFileUploaded();
-  }
-
-  public boolean getSpeedChanged() {
-    boolean holder = sliderChanged;
-    sliderChanged = false;
-    return holder;
-  }
-
-  public double getAnimationSpeed() {
-    return animationSpeed;
-  }
-
-  public boolean isRequestChanged() {
-    boolean holder = requestChanged;
-    requestChanged = false;
-    return holder;
-  }
-
-//  public boolean isFileUploaded() {
-//    boolean holder = fileUploaded;
-//    fileUploaded = false;
-//    return holder;
-//  }
-
-  public String getRequest() {
-    return request;
-  }
-
-  public File getFile() {
-    return uploader.getUploaded();
-  }
-
-  public RectangleVisualGrid getGrid() {
+  public VisualGrid getGrid() {
     return grid;
-  }
-  public String getDropDownSelection(){
-    return drop.getValue();
   }
 }
