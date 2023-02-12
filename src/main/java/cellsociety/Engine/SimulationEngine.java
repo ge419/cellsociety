@@ -1,7 +1,7 @@
 package cellsociety.Engine;
 
 import cellsociety.Grid;
-import cellsociety.SimulationController;
+import cellsociety.Controller.SimulationController;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
