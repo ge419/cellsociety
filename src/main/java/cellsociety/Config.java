@@ -245,6 +245,14 @@ public class Config {
     return currState;
   }
 
+  public int getWidth() {
+    return width;
+  }
+
+  public int getHeight() {
+    return height;
+  }
+
   public String getInitState() {
     return initState;
   }
