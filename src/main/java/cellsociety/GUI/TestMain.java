@@ -3,7 +3,7 @@ package cellsociety.GUI;
 import cellsociety.Config;
 import cellsociety.Grid;
 import cellsociety.SimulationController;
-import cellsociety.SimulationEngine;
+import cellsociety.Engine.SimulationEngine;
 import java.util.ResourceBundle;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;

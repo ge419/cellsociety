@@ -1,5 +1,6 @@
 package cellsociety;
 
+import cellsociety.Engine.SimulationEngine;
 import cellsociety.GUI.GUIContainer;
 import java.io.File;
 import java.io.FilenameFilter;

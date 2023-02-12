@@ -148,10 +148,10 @@ public class Config {
   /**
    * Creates new XML file and saves current state of simulation. Refined code from
    * https://www.javaguides.net/2018/10/how-to-create-xml-file-in-java-dom-parser.html
-   *
+   * TODO: Change parameter to Grid, work on integrating this method with FileSaver
    * @param currState
    */
-  public void saveXML(List<List<Integer>> currState) {
+  public File saveXML(List<List<Integer>> currState) {
     DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
     try {
       DocumentBuilder docBuilder = docFactory.newDocumentBuilder();

@@ -1,5 +1,7 @@
-package cellsociety;
+package cellsociety.Engine;
 
+import cellsociety.Grid;
+import cellsociety.SimulationController;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -19,7 +21,7 @@ import javafx.scene.control.Alert.AlertType;
 /**
  * @author Brandon Weiss, Changmin Shin
  */
-public class SimulationEngine implements SimulationController{
+public abstract class SimulationEngine implements SimulationController {
 
   public static final String INTERNAL_CONFIGURATION = "cellsociety.filesandstates";
   public static final ResourceBundle NAMES_FILE = ResourceBundle.getBundle(INTERNAL_CONFIGURATION);
@@ -28,8 +30,6 @@ public class SimulationEngine implements SimulationController{
   private static final String LIFE_NAME = NAMES_FILE.getString("LifeName");
   private static final String WATOR_NAME = NAMES_FILE.getString("WTName");
   private static final String PERC_NAME = NAMES_FILE.getString("PercolName");
-  private static final String LIFE_ALIVE = NAMES_FILE.getString("LifeAlive");
-  private static final String LIFE_DEAD = NAMES_FILE.getString("LifeDead");
   private static final String FIRE_EMPTY = NAMES_FILE.getString("FireEmpty");
   private static final String FIRE_TREE = NAMES_FILE.getString("FireTree");
   private static final String FIRE_BURNING = NAMES_FILE.getString("FireBurning");
