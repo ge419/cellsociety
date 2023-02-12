@@ -150,9 +150,8 @@ public class Config {
    * Creates new XML file and saves current state of simulation. Refined code from
    * https://www.javaguides.net/2018/10/how-to-create-xml-file-in-java-dom-parser.html
    * TODO: Change parameter to Grid, work on integrating this method with FileSaver
-   * @param currState
    */
-  public File saveXML(List<List<Integer>> currState) {
+  public File saveXML() {
     DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
     try {
       DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
@@ -228,7 +227,7 @@ public class Config {
   }
 
   private org.w3c.dom.Node addTagParam(Document doc, String tagName,
-      HashMap<String, Double> param) {
+      Map<String, Double> param) {
     Element node = doc.createElement(tagName);
     doc.appendChild(doc.createTextNode(String.valueOf(param.get("tagName"))));
     return node;
@@ -238,7 +237,7 @@ public class Config {
     return simType;
   }
 
-  public HashMap<String, Double> getSimParam() {
+  public Map<String, Double> getSimParam() {
     return simParam;
   }
 
