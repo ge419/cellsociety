@@ -107,5 +107,14 @@ public abstract class SimEngine {
   }
 
   // randomizeStart method
+  public void randomizeStart(HashMap<String, Double> params) {
+    for (int i = 0; i < width; i++) {
+      for (int j = 0; j < height; j++) {
+        //TODO: Change sim.randomize to return String status, not Cell itself after discussing with Brandon
+        Cell random = sim.randomize(params, i, j);
+        grid.setCell(i, j, random.getStatus());
+      }
+    }
+  }
 
 }
