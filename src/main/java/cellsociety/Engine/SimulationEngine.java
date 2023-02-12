@@ -69,7 +69,7 @@ public abstract class SimulationEngine implements SimulationController {
     this.initState = state;
     blankStart();
     // Decodes String status and creates Grid
-    listToGrid(strToGrid(state));
+    //listToGrid(strToGrid(state));
   }
 
   // TODO: replace string literals in params.get() calls with strings from

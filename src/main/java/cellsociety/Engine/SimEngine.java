@@ -41,7 +41,7 @@ public abstract class SimEngine {
 
   abstract String statusIntoStr(int status) throws Exception;
 
-  private List<List<Integer>> strToGrid(String initState) {
+  public List<List<Integer>> strToGrid(String initState) {
     List<List<String>> stateArr = new ArrayList<>(width);
     String[] splitInit = initState.split("\n");
 
@@ -52,13 +52,12 @@ public abstract class SimEngine {
       for (int j = 0; j < 4; j++) {
         row.remove("");
       }
-      //System.out.println(row);
       stateArr.add(i, row);
     }
     return strIntConverter(stateArr);
   }
 
-  private List<List<Integer>> strIntConverter(List<List<String>> stateList) {
+  public List<List<Integer>> strIntConverter(List<List<String>> stateList) {
     List<List<Integer>> current = new ArrayList<>();
     for (List<String> state : stateList) {
       List<Integer> row = new ArrayList<>();
@@ -70,14 +69,13 @@ public abstract class SimEngine {
     return current;
   }
 
-  private void listToGrid(List<List<Integer>> intGrid) {
-    grid = new Grid();
-    for (int i = 0; i < intGrid.size(); i++) {
-      for (int j = 0; j < intGrid.get(0).size(); j++) {
+  // TODO: Solve statusIntToStr abstraction issue
+  public void listToGrid(List<List<Integer>> intGrid, Grid grid) {
+    for (int i = 0; i < grid.getRowNum(); i++) {
+      for (int j = 0; j < grid.getColNum(); j++) {
         String status = statusIntToStr(intGrid.get(i).get(j));
         grid.setCell(i, j, status);
       }
     }
   }
-
 }
