@@ -23,7 +23,6 @@ public class AnimationManager implements AnimationInterface{
   public void pauseToggle() {
     pause = !pause;
   }
-
   @Override
   public void setAnimationSpeed(double value) {
     multiplier = value;
