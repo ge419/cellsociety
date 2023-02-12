@@ -8,6 +8,7 @@ import cellsociety.simulations.Simulation;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author Changmin Shin
@@ -19,8 +20,7 @@ public class FireEngine extends SimEngine {
   private static final String FIRE_TREE = NAMES_FILE.getString("FireTree");
   private static final String FIRE_BURNING = NAMES_FILE.getString("FireBurning");
 
-  private Simulation sim;
-  private boolean corners;
+  Simulation sim;
 
   public FireEngine(VisualGrid visualGrid, String initState, Grid grid, Grid initGrid,
       HashMap<String, Double> params)
@@ -47,9 +47,8 @@ public class FireEngine extends SimEngine {
   }
 
   @Override
-  void init(HashMap<String, Double> params) {
+  void init(Map<String, Double> params) {
     sim = new Fire(FIRE_EMPTY, FIRE_TREE, FIRE_BURNING, params.get("probCatch"));
-    corners = false;
   }
 
   @Override

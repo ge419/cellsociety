@@ -9,6 +9,7 @@ import cellsociety.simulations.WaTor;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author Changmin Shin
@@ -20,8 +21,7 @@ public class WatorEngine extends SimEngine {
   private static final String WATOR_SHARK = NAMES_FILE.getString("WTShark");
   private static final String WATOR_FISH = NAMES_FILE.getString("WTFish");
 
-  private Simulation sim;
-  private boolean corners;
+  Simulation sim;
 
   public WatorEngine(VisualGrid visualGrid, String initState, Grid grid, Grid initGrid,
       HashMap<String, Double> params)
@@ -49,10 +49,9 @@ public class WatorEngine extends SimEngine {
   }
 
   @Override
-  void init(HashMap<String, Double> params) {
+  void init(Map<String, Double> params) {
     sim = new WaTor(WATOR_EMPTY, WATOR_FISH, WATOR_SHARK, params.get("eShark"),
         params.get("ePerFish"), params.get("fishBT"), params.get("sharkBT"));
-    corners = false;
   }
 
   @Override
