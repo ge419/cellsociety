@@ -41,22 +41,22 @@ public class Main extends Application {
    */
   @Override
   public void start(Stage primaryStage) throws Exception {
-    frameNum = 1;
-    multiplier = 1;
-    pause = false;
-    newFile = false;
-    String english = "english";
-    config = new Config();
-    VisualGrid visualGrid = new RectangleVisualGrid();
-    Grid grid = new Grid(config.getWidth(), config.getHeight());
-    Grid initGrid = new Grid(config.getWidth(), config.getHeight());
-    engine = new LifeEngine(visualGrid, config.getInitState(), grid, initGrid, config.getSimParam());
-//    container = new GUIContainer(primaryStage, english, config, engine);
-    Timeline animation = new Timeline();
-    animation.setCycleCount(Timeline.INDEFINITE);
-    animation.getKeyFrames()
-        .add(new KeyFrame(Duration.seconds(SECOND_DELAY), e -> step(SECOND_DELAY)));
-    animation.play();
+//    frameNum = 1;
+//    multiplier = 1;
+//    pause = false;
+//    newFile = false;
+//    String english = "english";
+//    config = new Config();
+////    VisualGrid visualGrid = new RectangleVisualGrid();
+//    Grid grid = new Grid(config.getWidth(), config.getHeight());
+//    Grid initGrid = new Grid(config.getWidth(), config.getHeight());
+//    engine = new LifeEngine(visualGrid, config.getInitState(), grid, initGrid, config.getSimParam());
+////    container = new GUIContainer(primaryStage, english, config, engine);
+//    Timeline animation = new Timeline();
+//    animation.setCycleCount(Timeline.INDEFINITE);
+//    animation.getKeyFrames()
+//        .add(new KeyFrame(Duration.seconds(SECOND_DELAY), e -> step(SECOND_DELAY)));
+//    animation.play();
   }
 
   private void step(double secondDelay) {
@@ -71,8 +71,8 @@ public class Main extends Application {
 
   //TODO put this in Grid class eventually, doesn't belong in main
   private void ResetGridSize() {
-    container.getGrid().getGridLayout().getChildren().clear();
-    container.getGrid().changeSize(10, 10, container.GRID_SIZE);
+//    container.getGrid().getGridLayout().getChildren().clear();
+//    container.getGrid().changeSize(10, 10, container.GRID_SIZE);
   }
 
   private void animationSpeedUpdate() {

@@ -33,8 +33,6 @@ public class GUIContainer {
   private final ResourceBundle myResources;
   public final static String GUI_CSS = "stylesheets/GUIContainer.css";
 
-  public static final int GRID_SIZE = 300;
-
   public final static String INTERNAL_CONFIGURATION = "cellsociety.";
   private boolean sliderChanged = false;
 
@@ -129,7 +127,7 @@ public class GUIContainer {
   }
 
   private void setUpGrid(Scene scene) {
-    grid = new RectangleVisualGrid(DEFAULT_GRID_SIZE, DEFAULT_GRID_SIZE, GRID_SIZE, scene);
+    grid = new RectangleVisualGrid(DEFAULT_GRID_SIZE, DEFAULT_GRID_SIZE);
     pane.getChildren().add(grid.getGridLayout());
     GridPane.setConstraints(grid.getGridLayout(), GRID_COLUMN, GRID_ROW, GRID_COLUMN_SPAN, GRID_ROW_SPAN);
   }

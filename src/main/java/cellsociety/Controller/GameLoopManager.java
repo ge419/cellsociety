@@ -3,6 +3,7 @@ package cellsociety.Controller;
 import cellsociety.Config;
 import cellsociety.Engine.LifeEngine;
 import cellsociety.Engine.SimEngine;
+import cellsociety.GUI.Grids.RectangleVisualGrid;
 import cellsociety.GUI.VisualGrid;
 import cellsociety.Grid;
 
@@ -27,7 +28,7 @@ public class GameLoopManager {
     height = config.getHeight();
     this.grid = new Grid(width, height);
     this.grid = new Grid(width, height);
-    this.visualGrid = new VisualGrid();
+    this.visualGrid = new RectangleVisualGrid(width, height);
     // initialize AnimationManager
     // initialize SimEngine
     startEngine(config.getVariant());
