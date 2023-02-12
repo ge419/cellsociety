@@ -1,7 +1,6 @@
 package cellsociety.Engine;
 
 import cellsociety.Cells.Cell;
-import cellsociety.Controller.SimulationController;
 import cellsociety.GUI.VisualGrid;
 import cellsociety.Grid;
 import cellsociety.simulations.Simulation;
@@ -136,7 +135,7 @@ public abstract class SimEngine implements EngineInterface {
   }
 
   /**
-   * Helper method for updateGameState(), loops through the grid and updates Grid and VisualGrid
+   * Helper method for updateGameState(), loops through the grid and updates Grid
    */
   public void updateNextState() {
     String next;
@@ -144,7 +143,7 @@ public abstract class SimEngine implements EngineInterface {
       for (int c = 0; c < grid.getColNum(); c++) {
         next = nextStates.get(r * grid.getColNum() + c);
         getCell(r, c).setStatus(next);
-        visualGrid.updateGrid(r, c, next);
+//        visualGrid.updateGrid(r, c, next);
       }
     }
   }
@@ -197,14 +196,6 @@ public abstract class SimEngine implements EngineInterface {
         grid.setCell(i, j, sim.getDeadString());
       }
     }
-  }
-  public void reset(){
-
-  }
-
-  @Override
-  public void randomizeStart() {
-
   }
 
   /**

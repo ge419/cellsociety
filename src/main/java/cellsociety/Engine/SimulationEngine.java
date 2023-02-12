@@ -163,7 +163,7 @@ public abstract class SimulationEngine implements EngineInterface {
         for (int j = 0; j < cells.get(i).size(); j++) {
           next = nextStates.get(i * cells.get(i).size() + j);
           //getCell(i, j).setStatus(next);
-          visualGrid.updateGrid(i, j, next);
+//          visualGrid.updateCell(i, j, next);
         }
       }
     }
