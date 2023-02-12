@@ -53,18 +53,37 @@ public class SegEngine extends SimEngine {
   }
 
   @Override
+  public void updateGameState() {
+    saveNextState();
+    updateNextState();
+  }
+
+  @Override
+  public void saveNextState() {
+    ArrayList<String> nextStates = new ArrayList<>();
+    Cell hold;
+    for (int r = 0; r < getGrid().getRowNum(); r++) {
+      for (int c = 0; c < getGrid().getColNum(); c++) {
+        hold = getGrid().getCell(r, c);
+        nextStates.add(sim.getUpdatedCellStatus(hold, findNeighbors(hold)));
+        ((Schelling) sim).moveCells();
+      }
+    }
+  }
+
+  @Override
   public List<Cell> findNeighbors(Cell cell) {
     List<Cell> neighbors = new ArrayList<>();
     if (cell.getX() != 0) {
       neighbors.add(getCell(cell.getX() - 1, cell.getY()));
     }
-    if (cell.getX() != getWidth() - 1) {
+    if (cell.getX() != getGrid().getRowNum() - 1) {
       neighbors.add(getCell(cell.getX() + 1, cell.getY()));
     }
     if (cell.getY() != 0) {
       neighbors.add(getCell(cell.getX(), cell.getY() - 1));
     }
-    if (cell.getY() != getHeight() - 1) {
+    if (cell.getY() != getGrid().getColNum() - 1) {
       neighbors.add(getCell(cell.getX(), cell.getY() + 1));
     }
     neighbors.addAll(findCornerNeighbors(cell));

@@ -1,6 +1,7 @@
 package cellsociety.Engine;
 
 import cellsociety.Cells.Cell;
+import cellsociety.Cells.WatorCell;
 import cellsociety.GUI.VisualGrid;
 import cellsociety.Grid;
 import cellsociety.simulations.Simulation;
@@ -55,30 +56,40 @@ public class WatorEngine extends SimEngine {
   }
 
   @Override
+  public void updateGameState() {
+    for (WatorCell fish : ((WaTor) sim).getFishCells()) {
+      ((WaTor) sim).moveCell(fish, findNeighbors(fish));
+    }
+    for (WatorCell shark : ((WaTor) sim).getSharkCells()) {
+      ((WaTor) sim).moveCell(shark, findNeighbors(shark));
+    }
+  }
+
+  @Override
   public List<Cell> findNeighbors(Cell cell) {
     List<Cell> neighbors = new ArrayList<>();
     if (cell.getX() == 0) {
-      neighbors.add(getCell(getWidth() - 1, cell.getY()));
+      neighbors.add(getCell(getGrid().getRowNum() - 1, cell.getY()));
     }
     if (cell.getY() == 0) {
-      neighbors.add(getCell(cell.getX(), getHeight() - 1));
+      neighbors.add(getCell(cell.getX(), getGrid().getColNum() - 1));
     }
-    if (cell.getX() == getWidth() - 1) {
+    if (cell.getX() == getGrid().getRowNum() - 1) {
       neighbors.add(getCell(0, cell.getY()));
     }
-    if (cell.getX() == getHeight() - 1) {
+    if (cell.getX() == getGrid().getColNum() - 1) {
       neighbors.add(getCell(cell.getX(), 0));
     }
     if (cell.getX() != 0) {
       neighbors.add(getCell(cell.getX() - 1, cell.getY()));
     }
-    if (cell.getX() != getWidth() - 1) {
+    if (cell.getX() != getGrid().getRowNum() - 1) {
       neighbors.add(getCell(cell.getX() + 1, cell.getY()));
     }
     if (cell.getY() != 0) {
       neighbors.add(getCell(cell.getX(), cell.getY() - 1));
     }
-    if (cell.getY() != getHeight() - 1) {
+    if (cell.getY() != getGrid().getColNum() - 1) {
       neighbors.add(getCell(cell.getX(), cell.getY() + 1));
     }
     return neighbors;

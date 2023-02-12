@@ -50,18 +50,24 @@ public class LifeEngine extends SimEngine {
   }
 
   @Override
+  public void updateGameState() {
+    saveNextState();
+    updateNextState();
+  }
+
+  @Override
   public List<Cell> findNeighbors(Cell cell) {
     List<Cell> neighbors = new ArrayList<>();
     if (cell.getX() != 0) {
       neighbors.add(getCell(cell.getX() - 1, cell.getY()));
     }
-    if (cell.getX() != getWidth() - 1) {
+    if (cell.getX() != getGrid().getRowNum() - 1) {
       neighbors.add(getCell(cell.getX() + 1, cell.getY()));
     }
     if (cell.getY() != 0) {
       neighbors.add(getCell(cell.getX(), cell.getY() - 1));
     }
-    if (cell.getY() != getHeight() - 1) {
+    if (cell.getY() != getGrid().getColNum() - 1) {
       neighbors.add(getCell(cell.getX(), cell.getY() + 1));
     }
     neighbors.addAll(findCornerNeighbors(cell));

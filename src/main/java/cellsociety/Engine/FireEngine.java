@@ -1,10 +1,13 @@
 package cellsociety.Engine;
 
+import cellsociety.Cells.Cell;
 import cellsociety.GUI.VisualGrid;
 import cellsociety.Grid;
 import cellsociety.simulations.Fire;
 import cellsociety.simulations.Simulation;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 /**
  * @author Changmin Shin
@@ -47,6 +50,30 @@ public class FireEngine extends SimEngine {
   void init(HashMap<String, Double> params) {
     sim = new Fire(FIRE_EMPTY, FIRE_TREE, FIRE_BURNING, params.get("probCatch"));
     corners = false;
+  }
+
+  @Override
+  public void updateGameState() {
+    saveNextState();
+    updateNextState();
+  }
+
+  @Override
+  public List<Cell> findNeighbors(Cell cell) {
+    List<Cell> neighbors = new ArrayList<>();
+    if (cell.getX() != 0) {
+      neighbors.add(getCell(cell.getX() - 1, cell.getY()));
+    }
+    if (cell.getX() != getGrid().getRowNum() - 1) {
+      neighbors.add(getCell(cell.getX() + 1, cell.getY()));
+    }
+    if (cell.getY() != 0) {
+      neighbors.add(getCell(cell.getX(), cell.getY() - 1));
+    }
+    if (cell.getY() != getGrid().getColNum() - 1) {
+      neighbors.add(getCell(cell.getX(), cell.getY() + 1));
+    }
+    return neighbors;
   }
 }
 

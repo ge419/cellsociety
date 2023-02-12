@@ -3,6 +3,7 @@ package cellsociety.Engine;
 import cellsociety.Cells.Cell;
 import cellsociety.GUI.VisualGrid;
 import cellsociety.Grid;
+import cellsociety.simulations.Schelling;
 import cellsociety.simulations.Simulation;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -27,7 +28,7 @@ public abstract class SimEngine {
   private Grid initGrid;
   private HashMap<String, Double> params;
   private Simulation sim;
-  private boolean corners;
+  private List<String> nextStates;
 
   /**
    * @param visualGrid
@@ -87,8 +88,37 @@ public abstract class SimEngine {
     }
   }
 
-  public void updateGameState() {
+  /**
+   * Updates the backend Grid and VisualGrid to next generation
+   */
+  public abstract void updateGameState();
 
+  /**
+   * Helper method for updateGameState(), loops through the grid and saves the updated cell status to nextStates
+   */
+  public void saveNextState() {
+    nextStates = new ArrayList<>();
+    Cell hold;
+    for (int r = 0; r < grid.getRowNum(); r++) {
+      for (int c = 0; c < grid.getColNum(); c++) {
+        hold = grid.getCell(r, c);
+        nextStates.add(sim.getUpdatedCellStatus(hold, findNeighbors(hold)));
+      }
+    }
+  }
+
+  /**
+   * Helper method for updateGameState(), loops through the grid and updates Grid and VisualGrid
+   */
+  public void updateNextState() {
+    String next;
+    for (int r = 0; r < grid.getRowNum(); r++) {
+      for (int c = 0; c < grid.getColNum(); c++) {
+        next = nextStates.get(r * grid.getColNum() + c);
+        getCell(r, c).setStatus(next);
+        visualGrid.updateGrid(r, c, next);
+      }
+    }
   }
 
   //TODO: REFACTOR --> removed parameter corners as this methods gets implemented
@@ -150,14 +180,6 @@ public abstract class SimEngine {
 
   public Cell getCell(int x, int y) {
     return grid.getCell(x, y);
-  }
-
-  public int getWidth() {
-    return width;
-  }
-
-  public int getHeight() {
-    return height;
   }
 
   public Grid getGrid() {
