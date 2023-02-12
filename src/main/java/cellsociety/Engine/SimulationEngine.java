@@ -223,44 +223,44 @@ public abstract class SimulationEngine implements SimulationController {
     return neighbors;
   }
 
-  private List<List<Integer>> strToGrid(String initState) {
-    List<List<String>> stateArr = new ArrayList<>(width);
-    String[] splitInit = initState.split("\n");
-
-    for (int i = 0; i < splitInit.length; i++) {
-      List<String> row = new ArrayList<>(height);
-      String[] rowSplit = splitInit[i].split(" ");
-      Collections.addAll(row, rowSplit);
-      for (int j = 0; j < 4; j++) {
-        row.remove("");
-      }
-      //System.out.println(row);
-      stateArr.add(i, row);
-    }
-    return strIntConverter(stateArr);
-  }
-
-  private List<List<Integer>> strIntConverter(List<List<String>> stateList) {
-    List<List<Integer>> current = new ArrayList<>();
-    for (List<String> state : stateList) {
-      List<Integer> row = new ArrayList<>();
-      for (String s : state) {
-        row.add(Integer.parseInt(s));
-      }
-      current.add(row);
-    }
-    return current;
-  }
-
-  private void listToGrid(List<List<Integer>> intGrid) {
-    grid = new Grid();
-    for (int i = 0; i < intGrid.size(); i++) {
-      for (int j = 0; j < intGrid.get(0).size(); j++) {
-        String status = statusIntToStr(simType, intGrid.get(i).get(j));
-        grid.setCell(i, j, status);
-      }
-    }
-  }
+//  private List<List<Integer>> strToGrid(String initState) {
+//    List<List<String>> stateArr = new ArrayList<>(width);
+//    String[] splitInit = initState.split("\n");
+//
+//    for (int i = 0; i < splitInit.length; i++) {
+//      List<String> row = new ArrayList<>(height);
+//      String[] rowSplit = splitInit[i].split(" ");
+//      Collections.addAll(row, rowSplit);
+//      for (int j = 0; j < 4; j++) {
+//        row.remove("");
+//      }
+//      //System.out.println(row);
+//      stateArr.add(i, row);
+//    }
+//    return strIntConverter(stateArr);
+//  }
+//
+//  private List<List<Integer>> strIntConverter(List<List<String>> stateList) {
+//    List<List<Integer>> current = new ArrayList<>();
+//    for (List<String> state : stateList) {
+//      List<Integer> row = new ArrayList<>();
+//      for (String s : state) {
+//        row.add(Integer.parseInt(s));
+//      }
+//      current.add(row);
+//    }
+//    return current;
+//  }
+//
+//  private void listToGrid(List<List<Integer>> intGrid) {
+//    grid = new Grid();
+//    for (int i = 0; i < intGrid.size(); i++) {
+//      for (int j = 0; j < intGrid.get(0).size(); j++) {
+//        String status = statusIntToStr(simType, intGrid.get(i).get(j));
+//        grid.setCell(i, j, status);
+//      }
+//    }
+//  }
 
 
 
