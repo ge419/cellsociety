@@ -1,20 +1,17 @@
 package cellsociety.GUI.Grids;
 
 import cellsociety.GUI.VisualGrid;
-import java.util.ResourceBundle;
-import javafx.scene.Scene;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
 public class RectangleVisualGrid extends VisualGrid {
 
-  private GridPane gridLayout;
+  private final GridPane gridLayout;
 
   public static final int GRID_SIZE = 300;
   private int width;
   private int height;
-  private Scene parentScene;
 
   public RectangleVisualGrid(int columns, int rows) {
     super(columns, rows);

@@ -1,5 +1,7 @@
 package cellsociety.GUI;
 
+import cellsociety.Controller.AnimationInterface;
+import cellsociety.Controller.AnimationManager;
 import javafx.scene.control.Slider;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
@@ -18,15 +20,15 @@ public class SliderContainer {
   public static final int CURRENT = 1;
 
   public static final int INCREMENT = 1;
-  public SliderContainer(String caption){
+  public SliderContainer(String caption, AnimationInterface animation){
 
-    sliderInit();
+    sliderInit(animation);
     setText(caption);
     container = new VBox(slider, text);
     container.setId("Container-Vbox");
   }
 
-  private void sliderInit() {
+  private void sliderInit(AnimationInterface animation) {
     slider = new Slider();
     slider.setMin(MIN);
     slider.setMax(MAX);
@@ -34,6 +36,7 @@ public class SliderContainer {
     slider.setBlockIncrement(INCREMENT);
     slider.setShowTickLabels(true);
     slider.setShowTickMarks(true);
+    slider.setOnMouseReleased(e -> animation.setAnimationSpeed(slider.getValue()));
   }
   private void setText(String caption){
     text = new Text(caption);
@@ -41,9 +44,5 @@ public class SliderContainer {
   }
   public VBox getContainer(){
     return container;
-  }
-
-  public double getValue() {
-    return slider.getValue();
   }
 }
