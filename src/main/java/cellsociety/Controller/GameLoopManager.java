@@ -7,13 +7,16 @@ import cellsociety.GUI.GUIContainer;
 import cellsociety.GUI.Grids.RectangleVisualGrid;
 import cellsociety.GUI.VisualGrid;
 import cellsociety.Grid;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+import javafx.application.Application;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 /**
  * @author Han Zhang, Changmin Shin
  */
-public class GameLoopManager {
-
+public class GameLoopManager extends Application {
   private Config config;
   private Grid grid;
   private Grid initGrid; // stores initial state of Grid
@@ -24,6 +27,9 @@ public class GameLoopManager {
   private int height;
   private SimulationController engine;
   private GUIContainer container;
+  public static final int FRAMES_PER_SECOND = 60;
+  public static final double SECOND_DELAY = 1.0 / FRAMES_PER_SECOND;
+
   public GameLoopManager(Stage primaryStage, String language) throws Exception {
     this.config = new Config();
     //TODO: Need to read in XML file before initializing new Grid and VisualGrid
@@ -44,5 +50,17 @@ public class GameLoopManager {
       engine = new LifeEngine(visualGrid, config.getInitState(), grid, initGrid,
           config.getSimParam());
     }
+  }
+
+  @Override
+  public void start(Stage primaryStage) throws Exception {
+    Timeline animation = new Timeline();
+    animation.setCycleCount(Timeline.INDEFINITE);
+    animation.getKeyFrames()
+        .add(new KeyFrame(Duration.seconds(SECOND_DELAY), e -> step(SECOND_DELAY)));
+    animation.play();
+  }
+  private void step(double secondDelay){
+
   }
 }
