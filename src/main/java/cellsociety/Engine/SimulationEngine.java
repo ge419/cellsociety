@@ -1,5 +1,6 @@
-package cellsociety;
+package cellsociety.Engine;
 
+import cellsociety.Grid;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -7,16 +8,16 @@ import java.util.ResourceBundle;
 import cellsociety.Cells.Cell;
 import cellsociety.Cells.WatorCell;
 import cellsociety.GUI.VisualGrid;
-import cellsociety.simulations.Fire;
-import cellsociety.simulations.Life;
 import cellsociety.simulations.Schelling;
 import cellsociety.simulations.Simulation;
 import cellsociety.simulations.WaTor;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 
 /**
  * @author Brandon Weiss, Changmin Shin
  */
-public class SimulationEngine {
+public abstract class SimulationEngine implements EngineInterface {
 
   public static final String INTERNAL_CONFIGURATION = "cellsociety.filesandstates";
   public static final ResourceBundle NAMES_FILE = ResourceBundle.getBundle(INTERNAL_CONFIGURATION);
@@ -25,8 +26,6 @@ public class SimulationEngine {
   private static final String LIFE_NAME = NAMES_FILE.getString("LifeName");
   private static final String WATOR_NAME = NAMES_FILE.getString("WTName");
   private static final String PERC_NAME = NAMES_FILE.getString("PercolName");
-  private static final String LIFE_ALIVE = NAMES_FILE.getString("LifeAlive");
-  private static final String LIFE_DEAD = NAMES_FILE.getString("LifeDead");
   private static final String FIRE_EMPTY = NAMES_FILE.getString("FireEmpty");
   private static final String FIRE_TREE = NAMES_FILE.getString("FireTree");
   private static final String FIRE_BURNING = NAMES_FILE.getString("FireBurning");
@@ -46,21 +45,27 @@ public class SimulationEngine {
   private VisualGrid visualGrid;
   private int width;
   private int height;
+  private String initState;
   private List<List<Cell>> cells;
   private boolean corners;
+  private Grid grid;
 
   /**
    * @param simType    The string representing which of the cellular automata to run
    * @param params     A HashMap of parameters and values for each simulation type
-   * @param visualGrid The grid object of the view
+   * @param grid       The class that contains grid data
    */
-  public SimulationEngine(String simType, HashMap<String, Double> params, VisualGrid visualGrid) {
-    init(simType, params);
+  public SimulationEngine(String simType, HashMap<String, Double> params, Grid grid,
+      String state) {
+    //init(simType, params);
     this.simType = simType;
     this.visualGrid = visualGrid;
     this.width = visualGrid.getWidth();
     this.height = visualGrid.getHeight();
-    blankStart(simType);
+    this.initState = state;
+    blankStart();
+    // Decodes String status and creates Grid
+    //listToGrid(strToGrid(state));
   }
 
   // TODO: replace string literals in params.get() calls with strings from
@@ -70,25 +75,25 @@ public class SimulationEngine {
    * @param simType The string representing which of the cellular automata to run
    * @param params  A HashMap of parameters and values for each simulation type
    */
-  public void init(String simType, HashMap<String, Double> params) {
-    if (simType.equals(LIFE_NAME)) {
-      sim = new Life(LIFE_DEAD, LIFE_ALIVE);
-      corners = true;
-    } else if (simType.equals(FIRE_NAME)) {
-      sim = new Fire(FIRE_EMPTY, FIRE_TREE, FIRE_BURNING, params.get("probCatch"));
-      corners = false;
-    } else if (simType.equals(SEG_NAME)) {
-      sim = new Schelling(SEG_EMPTY, SEG_A, SEG_B, params.get("change"));
-      corners = true;
-    } else if (simType.equals(WATOR_NAME)) {
-      sim = new WaTor(WATOR_EMPTY, WATOR_FISH, WATOR_SHARK, params.get("eShark"),
-          params.get("ePerFish"), params.get("fishBT"), params.get("sharkBT"));
-      corners = false;
-    } else if (simType.equals(PERC_NAME)) {
-      // sim = new Percolation()
-      corners = true;
-    }
-  }
+//  public void init(String simType, HashMap<String, Double> params) {
+//    if (simType.equals(LIFE_NAME)) {
+//      sim = new Life(LIFE_DEAD, LIFE_ALIVE);
+//      corners = true;
+//    } else if (simType.equals(FIRE_NAME)) {
+//      sim = new Fire(FIRE_EMPTY, FIRE_TREE, FIRE_BURNING, params.get("probCatch"));
+//      corners = false;
+//    } else if (simType.equals(SEG_NAME)) {
+//      sim = new Schelling(SEG_EMPTY, SEG_A, SEG_B, params.get("change"));
+//      corners = true;
+//    } else if (simType.equals(WATOR_NAME)) {
+//      sim = new WaTor(WATOR_EMPTY, WATOR_FISH, WATOR_SHARK, params.get("eShark"),
+//          params.get("ePerFish"), params.get("fishBT"), params.get("sharkBT"));
+//      corners = false;
+//    } else if (simType.equals(PERC_NAME)) {
+//      // sim = new Percolation()
+//      corners = true;
+//    }
+//  }
 
   /**
    * Randomize the starting configuration for a simulation
@@ -106,11 +111,16 @@ public class SimulationEngine {
       cells.add(column);
     }
   }
+  //TODO implement a reset back to starting condition
+  @Override
+  public void reset() {
+
+  }
 
   /**
    * Set the starting configuration for a blank simulation
-   *
-   * @param simType The string representing which of the cellular automata to run
+   * <p>
+   * //@param simType The string representing which of the cellular automata to run
    */
   public void blankStart() {
     Cell input;
@@ -152,8 +162,8 @@ public class SimulationEngine {
       for (int i = 0; i < cells.size(); i++) {
         for (int j = 0; j < cells.get(i).size(); j++) {
           next = nextStates.get(i * cells.get(i).size() + j);
-          getCell(i, j).setStatus(next);
-          visualGrid.updateGrid(i, j, next);
+          //getCell(i, j).setStatus(next);
+//          visualGrid.updateCell(i, j, next);
         }
       }
     }
@@ -206,6 +216,15 @@ public class SimulationEngine {
       }
     }
     return neighbors;
+  }
+
+  /**
+   * Creates an alert with custom message
+   * @param type
+   * @param message
+   */
+  private void showMessage(AlertType type, String message) {
+    new Alert(type, message).showAndWait();
   }
 
   private Cell getCell(int x, int y) {

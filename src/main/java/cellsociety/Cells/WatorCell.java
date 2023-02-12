@@ -11,7 +11,7 @@ public class WatorCell extends Cell {
      * @param xCoordinate The column number of the cell
      * @param yCoordinate The row number of the cell
      */
-    public WatorCell(int xCoordinate, int yCoordinate) {
+    public WatorCell(int xCoordinate, int yCoordinate) { // Position position
         super(xCoordinate, yCoordinate);
         resetLifeCycle();
     }

@@ -1,5 +1,8 @@
 package cellsociety.GUI;
 
+import cellsociety.Grid;
+import javafx.scene.layout.Pane;
+
 /**
  * @Author Han Zhang
  */
@@ -14,7 +17,7 @@ public abstract class VisualGrid {
     width = Width;
     height = Height;
   }
-  public abstract void updateGrid(int x, int y, String state);
+  public abstract void updateCell(int x, int y, String state);
 
   public int getHeight() {
     return height;
@@ -23,4 +26,10 @@ public abstract class VisualGrid {
   public int getWidth() {
     return width;
   }
+
+  public abstract Pane getGridLayout();
+
+  public abstract void changeSize(int i, int i1, int gridSize);
+
+  public abstract void updateEntireGrid(Grid grid);
 }
