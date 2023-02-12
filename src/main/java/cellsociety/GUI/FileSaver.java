@@ -1,5 +1,6 @@
 package cellsociety.GUI;
 
+import cellsociety.Config;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
@@ -13,7 +14,7 @@ public class FileSaver {
   private static String data;
   private static PrintWriter fileWriter;
   private static Button button;
-  public FileSaver(String label, VisualGrid grid) {
+  public FileSaver(String label, Config config) {
     button = new Button(label);
     button.setId("files-button");
     button.setOnAction(e -> {
@@ -25,7 +26,7 @@ public class FileSaver {
       if (saved != null) {
         try (PrintWriter writer = new PrintWriter(saved)) {
 
-//          saved = Config.saveXML(grid.getStates());
+          saved = config.saveXML();
         } catch (FileNotFoundException ex) {
           System.out.println("Error writing to file: " + ex.getMessage());
         }

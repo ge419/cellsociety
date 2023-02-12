@@ -1,6 +1,6 @@
 package cellsociety;
 
-public interface GameLoopInterface {
+public interface GameLoopController {
   public void stepAnimation();
   public void pauseToggle();
 

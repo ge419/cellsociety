@@ -1,8 +1,11 @@
 package cellsociety.GUI;
 
+import cellsociety.GameLoopController;
 import cellsociety.SimulationController;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
+import java.util.ResourceBundle;
 import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
 
@@ -10,22 +13,28 @@ public class ButtonContainer {
 
     HBox container;
     List<Button> Buttons;
-    public ButtonContainer(List<String> Commands, SimulationController simulationEngine) throws IllegalStateException{
-        if(Commands.size()==0){
-            throw new IllegalStateException("Container contains no buttons");
-        }
+
+    public ButtonContainer(SimulationController simulationEngine, GameLoopController controller, ResourceBundle bundle){
         container = new HBox();
         Buttons = new ArrayList<>();
         container.setId("Container-HBox");
-        for(String Command: Commands){
-            container.getChildren().add(createButton(Command));
-        }
-        Buttons.get(0).setOnAction(e -> );
+
+        Button btn = createButton(bundle.getString("Step"));
+        btn.setOnAction(e -> controller.stepAnimation());
+        btn = createButton(bundle.getString("Reset"));
+        btn.setOnAction(e -> simulationEngine.reset());
+        btn = createButton(bundle.getString("Go/Pause"));
+        btn.setOnAction(e -> controller.pauseToggle());
+        btn = createButton(bundle.getString("Clear"));
+        btn.setOnAction(e -> simulationEngine.blankStart());
+        btn = createButton(bundle.getString("Random"));
+        btn.setOnAction(e -> simulationEngine.randomizeStart());
     }
     public Button createButton(String word) {
         Button newButton = new Button(word);
+        container.getChildren().add(newButton);
         Buttons.add(newButton);
-        newButton.setId(word);
+        newButton.setId("Button");
         return newButton;
     }
 
