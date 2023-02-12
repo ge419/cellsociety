@@ -1,7 +1,7 @@
 package cellsociety.GUI;
 
 import cellsociety.Controller.AnimationInterface;
-import cellsociety.Controller.SimulationController;
+import cellsociety.Engine.EngineInterface;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -13,7 +13,7 @@ public class ButtonContainer {
     HBox container;
     List<Button> Buttons;
 
-    public ButtonContainer(SimulationController simulationEngine, AnimationInterface controller, ResourceBundle bundle){
+    public ButtonContainer(EngineInterface simulationEngine, AnimationInterface controller, ResourceBundle bundle){
         container = new HBox();
         Buttons = new ArrayList<>();
         container.setId("Container-HBox");

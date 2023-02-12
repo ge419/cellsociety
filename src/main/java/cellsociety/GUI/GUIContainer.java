@@ -1,9 +1,8 @@
 package cellsociety.GUI;
 
 import cellsociety.Config;
-import cellsociety.GUI.Grids.RectangleVisualGrid;
 import cellsociety.Controller.AnimationInterface;
-import cellsociety.Controller.SimulationController;
+import cellsociety.Engine.EngineInterface;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -22,25 +21,18 @@ import javafx.stage.Stage;
  * @author Han Zhang
  */
 public class GUIContainer {
-
   public final int[] COLUMN_PERCENT = {16,16,16,21,21};
 
   private final GridPane pane;
-
-  private SliderContainer slider;
-  private double animationSpeed;
   private VisualGrid grid;
   private final ResourceBundle myResources;
   public final static String GUI_CSS = "stylesheets/GUIContainer.css";
-
-  public static final int GRID_SIZE = 300;
 
   public final static String INTERNAL_CONFIGURATION = "cellsociety.";
   private boolean sliderChanged = false;
 
   public final static int WINDOW_WIDTH = 1000;
   public final static int WINDOW_HEIGHT = 700;
-  public final static int DEFAULT_GRID_SIZE = 20;
 
   //TODO say that decided to use this deisng choice, should be css, but can't figure out how to do it
   public final static int GRID_COLUMN = 0;
@@ -74,7 +66,8 @@ public class GUIContainer {
   public final static int SLIDER_COLUMN_SPAN = 2;
   public final static int SLIDER_ROW_SPAN = 1;
 
-  public GUIContainer(Stage primaryStage, String language, Config config, SimulationController simulationEngine, AnimationInterface controller, GridPane grid) {
+  public static final String CELL_COLOR = "stylesheets/CellColor.css";
+  public GUIContainer(Stage primaryStage, String language, Config config, EngineInterface simulationEngine, AnimationInterface controller, VisualGrid grid) {
     pane = new GridPane();
     setColumnConstraints();
 
@@ -85,12 +78,12 @@ public class GUIContainer {
     pane.setId("pane");
 
     setUpButtons(simulationEngine, controller, myResources);
-    setUpSliderContainer();
+    setUpSliderContainer(controller);
     SetUpDescriptionBox();
 
     setUpFileUploader(config);
     setUpFileSaver(config);
-    setUpGrid(stageScene);
+    setUpGrid(grid);
 
     List<String> DirectoryNames = new ArrayList<>();
     List<String> FileNames = new ArrayList<>();
@@ -102,6 +95,7 @@ public class GUIContainer {
     pane.setMaxSize(stageScene.getWidth(), stageScene.getHeight());
     primaryStage.setScene(stageScene);
     stageScene.getStylesheets().add(GUI_CSS);
+    stageScene.getStylesheets().add(CELL_COLOR);
     primaryStage.show();
   }
 
@@ -128,8 +122,8 @@ public class GUIContainer {
     }
   }
 
-  private void setUpGrid(Scene scene) {
-    grid = new RectangleVisualGrid(DEFAULT_GRID_SIZE, DEFAULT_GRID_SIZE, GRID_SIZE, scene);
+  private void setUpGrid(VisualGrid Grid) {
+    grid = Grid;
     pane.getChildren().add(grid.getGridLayout());
     GridPane.setConstraints(grid.getGridLayout(), GRID_COLUMN, GRID_ROW, GRID_COLUMN_SPAN, GRID_ROW_SPAN);
   }
@@ -162,38 +156,17 @@ public class GUIContainer {
     GridPane.setConstraints(descriptionContainer, DESCRIPTION_BOX_COLUMN, DESCRIPTION_BOX_ROW, DESCRIPTION_BOX_COLUMN_SPAN, DESCRIPTION_BOX_ROW_SPAN);
   }
 
-  private void setUpButtons(SimulationController simulationEngine, AnimationInterface controller, ResourceBundle bundle) {
+  private void setUpButtons(EngineInterface simulationEngine, AnimationInterface controller, ResourceBundle bundle) {
     ButtonContainer buttons = new ButtonContainer(simulationEngine, controller, bundle);
     //https://docs.oracle.com/javase/8/javafx/api/javafx/scene/layout/GridPane.html
     pane.getChildren().add(buttons.getContainer());
     GridPane.setConstraints(buttons.getContainer(), BUTTONS_COLUMN,BUTTONS_ROW, BUTTONS_COLUMN_SPAN, BUTTONS_ROW_SPAN);
   }
 
-  public void setUpSliderContainer() {
-    slider = new SliderContainer(myResources.getString("SliderCaption"));
+  public void setUpSliderContainer(AnimationInterface animation) {
+    SliderContainer slider = new SliderContainer(myResources.getString("SliderCaption"), animation);
     pane.getChildren().add(slider.getContainer());
     GridPane.setConstraints(slider.getContainer(), SLIDER_COLUMN, SLIDER_ROW, SLIDER_COLUMN_SPAN, SLIDER_ROW_SPAN);
-  }
-
-  public void updateSliderValue() {
-    if (animationSpeed != slider.getValue()) {
-      animationSpeed = slider.getValue();
-      sliderChanged = true;
-    }
-  }
-
-  public void asyncUpdate() {
-    updateSliderValue();
-  }
-
-  public boolean getSpeedChanged() {
-    boolean holder = sliderChanged;
-    sliderChanged = false;
-    return holder;
-  }
-
-  public double getAnimationSpeed() {
-    return animationSpeed;
   }
   public VisualGrid getGrid() {
     return grid;

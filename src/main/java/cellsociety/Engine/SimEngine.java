@@ -16,7 +16,7 @@ import java.util.ResourceBundle;
  * @author Changmin Shin, Brandon Weiss
  */
 
-public abstract class SimEngine implements SimulationController {
+public abstract class SimEngine implements EngineInterface {
 
   public static final String INTERNAL_CONFIGURATION = "cellsociety.filesandstates";
   public static final ResourceBundle NAMES_FILE = ResourceBundle.getBundle(INTERNAL_CONFIGURATION);
@@ -197,6 +197,14 @@ public abstract class SimEngine implements SimulationController {
         grid.setCell(i, j, sim.getDeadString());
       }
     }
+  }
+  public void reset(){
+
+  }
+
+  @Override
+  public void randomizeStart() {
+
   }
 
   /**
