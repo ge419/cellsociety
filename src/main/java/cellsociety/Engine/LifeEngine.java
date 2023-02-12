@@ -2,6 +2,7 @@ package cellsociety.Engine;
 
 import cellsociety.GUI.VisualGrid;
 import cellsociety.Grid;
+import cellsociety.simulations.Simulation;
 import java.util.HashMap;
 
 /**
@@ -13,7 +14,8 @@ public class LifeEngine extends SimEngine {
   private static final String LIFE_ALIVE = NAMES_FILE.getString("LifeAlive");
   private static final String LIFE_DEAD = NAMES_FILE.getString("LifeDead");
 
-  public LifeEngine(VisualGrid visualGrid, String initState, Grid grid, Grid initGrid, HashMap<String, Double> params) {
+  public LifeEngine(VisualGrid visualGrid, String initState, Grid grid, Grid initGrid, HashMap<String, Double> params)
+      throws Exception {
     super(visualGrid, initState, grid, initGrid, params);
     // setup initial state grid for both updating grid and initial grid
     listToGrid(strToGrid(initState), grid);
@@ -21,7 +23,7 @@ public class LifeEngine extends SimEngine {
   }
 
   @Override
-  String statusIntoStr(int status) throws Exception {
+  String statusIntToStr(int status) throws Exception {
     if (status == 0) {
       return LIFE_DEAD;
     } else if (status == 1) {

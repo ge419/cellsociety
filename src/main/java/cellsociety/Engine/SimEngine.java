@@ -39,7 +39,7 @@ public abstract class SimEngine {
     this.initGrid = initGrid;
   }
 
-  abstract String statusIntoStr(int status) throws Exception;
+  abstract String statusIntToStr(int status) throws Exception;
 
   public List<List<Integer>> strToGrid(String initState) {
     List<List<String>> stateArr = new ArrayList<>(width);
@@ -69,8 +69,7 @@ public abstract class SimEngine {
     return current;
   }
 
-  // TODO: Solve statusIntToStr abstraction issue
-  public void listToGrid(List<List<Integer>> intGrid, Grid grid) {
+  public void listToGrid(List<List<Integer>> intGrid, Grid grid) throws Exception {
     for (int i = 0; i < grid.getRowNum(); i++) {
       for (int j = 0; j < grid.getColNum(); j++) {
         String status = statusIntToStr(intGrid.get(i).get(j));
