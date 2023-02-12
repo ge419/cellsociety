@@ -8,6 +8,7 @@ import cellsociety.simulations.Simulation;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author Changmin Shin
@@ -19,7 +20,6 @@ public class LifeEngine extends SimEngine {
   private static final String LIFE_DEAD = NAMES_FILE.getString("LifeDead");
 
   private Simulation sim;
-  private boolean corners;
 
   public LifeEngine(VisualGrid visualGrid, String initState, Grid grid, Grid initGrid,
       HashMap<String, Double> params)
@@ -44,9 +44,8 @@ public class LifeEngine extends SimEngine {
   }
 
   @Override
-  void init(HashMap<String, Double> params) {
+  void init(Map<String, Double> params) {
     sim = new Life(LIFE_DEAD, LIFE_ALIVE);
-    corners = true;
   }
 
   @Override

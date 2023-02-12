@@ -8,6 +8,7 @@ import cellsociety.simulations.Simulation;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author Changmin Shin
@@ -20,7 +21,6 @@ public class SegEngine extends SimEngine {
   private static final String SEG_B = NAMES_FILE.getString("SegB");
 
   private Simulation sim;
-  private boolean corners;
 
   public SegEngine(VisualGrid visualGrid, String initState, Grid grid, Grid initGrid,
       HashMap<String, Double> params)
@@ -47,9 +47,8 @@ public class SegEngine extends SimEngine {
   }
 
   @Override
-  void init(HashMap<String, Double> params) {
+  void init(Map<String, Double> params) {
     sim = new Schelling(SEG_EMPTY, SEG_A, SEG_B, params.get("change"));
-    corners = true;
   }
 
   @Override
