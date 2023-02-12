@@ -1,6 +1,7 @@
 package cellsociety;
 
-public class GameLoopManager implements GameLoopInterface{
+public class GameLoopManager implements GameLoopController {
+
 
   @Override
   public void stepAnimation() {

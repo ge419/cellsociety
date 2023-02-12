@@ -21,7 +21,6 @@ public class Main extends Application {
   private GUIContainer container;
   private Config config;
   int frameNum;
-
   double multiplier;
 
   public boolean pause;
@@ -47,7 +46,7 @@ public class Main extends Application {
     config = new Config();
     Grid grid = new Grid();
     engine = new SimulationEngine("Game of Life", config.getSimParam(), grid, config.getInitState());
-    container = new GUIContainer(primaryStage, english, config, engine);
+//    container = new GUIContainer(primaryStage, english, config, engine);
     Timeline animation = new Timeline();
     animation.setCycleCount(Timeline.INDEFINITE);
     animation.getKeyFrames()
@@ -59,7 +58,6 @@ public class Main extends Application {
     timer(multiplier, pause);
     container.asyncUpdate();
     animationSpeedUpdate();
-    setUpActionButtons();
     if (newFile) {
       ResetGridSize();
       newFile = false;
@@ -81,72 +79,6 @@ public class Main extends Application {
         multiplier = Integer.MAX_VALUE;
       }
     }
-  }
-
-  //TODO refactor
-  private void setUpActionButtons() {
-    if (container.isRequestChanged()) {
-      String request = container.getRequest();
-      System.out.println(request);
-      if (request.equals("Go/Pause")) {
-        pause = !pause;
-      }
-      if (request.equals("Step")) {
-        frameNum += FRAMES_PER_SECOND * multiplier;
-      }
-      if (request.equals("Reset")) {
-        config.readFile(container.getFile());
-      }
-      if (request.equals("Clear")) {
-        //TODO tell engine to clear
-        //Set all Cell colors as white
-      }
-      if (request.equals("Random")) {
-        //TODO tell engine to random
-      }
-      if (request.equals("Get Simulation")) {
-        String fileName = container.getDropDownSelection();
-        System.out.println("sending");
-        sendFiletoConfig(fileName);
-      }
-    }
-  }
-
-  private void sendFiletoConfig(String fileName) {
-    List<String> dirctNames = new ArrayList<>();
-    dirctNames.add("data/GameOfLife");
-    dirctNames.add("data/SpreadingFire");
-    File file = new File("");
-    while (!dirctNames.isEmpty()) {
-      String dirctName = dirctNames.get(dirctNames.size() - 1);
-      dirctNames.remove(dirctNames.size() - 1);
-      file = findFile(fileName, dirctName);
-      if (file != null) {
-        break;
-      }
-    }
-    config.readFile(file);
-    engine = new SimulationEngine(config.getVariant(), config.getSimParam(), new Grid(), config.getInitState());
-  }
-
-  /**
-   * This method is based on a CHAT GPT conversation, https://sharegpt.com/c/vSTdS6B, finds a file
-   * based on inputted fileName
-   *
-   * @param fileName
-   * @return
-   */
-  private File findFile(String fileName, String directoryName) {
-    File file = new File(directoryName);
-    File[] matchingFiles = file.listFiles(new FilenameFilter() {
-      public boolean accept(File dir, String name) {
-        return name.endsWith(fileName);
-      }
-    });
-    if (matchingFiles.length == 0) {
-      return null;
-    }
-    return matchingFiles[0];
   }
 
   private void timer(double multiplier, boolean pause) {
