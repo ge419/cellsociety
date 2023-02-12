@@ -262,67 +262,72 @@ public abstract class SimulationEngine implements SimulationController {
     }
   }
 
+
+  public abstract String statusIntoStr(int status) {
+    return "";
+  }
+
   //TODO: Refactor code --> create interface of simulation engine, create engine for each simulation
 
-  /**
-   * Takes integer value of status, returns the Cell state string according to the simType
-   * @param simType The type of simulation
-   * @param status  Integer value of status(read from matrix of integers)
-   * @return
-   */
-  private String statusIntToStr(String simType, int status) {
-    switch (simType) {
-      case LIFE_NAME -> {
-        if (status == 0) {
-          return LIFE_DEAD;
-        } else if (status == 1) {
-          return LIFE_ALIVE;
-        } else {
-          //TODO: define exception here, change code accordingly
-          throw new Exception(showMessage(AlertType.ERROR, "Invalid Status"), e);
-        }
-      }
-      case FIRE_NAME -> {
-        if (status == 0) {
-          return FIRE_EMPTY;
-        } else if (status == 1) {
-          return FIRE_TREE;
-        } else if (status == 2) {
-          return FIRE_BURNING;
-        } else {
-          //TODO: define exception here, change code accordingly
-          throw new Exception(showMessage(AlertType.ERROR, "Invalid Status"), e);
-        }
-      }
-      case SEG_NAME -> {
-        if (status == 0) {
-          return SEG_EMPTY;
-        } else if (status == 1) {
-          return SEG_A;
-        } else if (status == 2) {
-          return SEG_B;
-        } else {
-          //TODO: define exception here, change code accordingly
-          throw new Exception(showMessage(AlertType.ERROR, "Invalid Status"), e);
-        }
-      }
-      case WATOR_NAME -> {
-        if (status == 0) {
-          return WATOR_EMPTY;
-        } else if (status == 1) {
-          return WATOR_FISH;
-        } else if (status == 2) {
-          return WATOR_SHARK;
-        } else {
-          //TODO: define exception here, change code accordingly
-          throw new Exception(showMessage(AlertType.ERROR, "Invalid Status"), e)
-        }
-      }
-      //TODO: define exception here, change code accordingly
-      default -> throw new Exception(showMessage(AlertType.ERROR, "Invalid Simulation Name"), e)
-    }
-
-  }
+//  /**
+//   * Takes integer value of status, returns the Cell state string according to the simType
+//   * @param simType The type of simulation
+//   * @param status  Integer value of status(read from matrix of integers)
+//   * @return
+//   */
+//  private String statusIntToStr(String simType, int status) {
+//    switch (simType) {
+//      case LIFE_NAME -> {
+//        if (status == 0) {
+//          return LIFE_DEAD;
+//        } else if (status == 1) {
+//          return LIFE_ALIVE;
+//        } else {
+//          //TODO: define exception here, change code accordingly
+//          throw new Exception(showMessage(AlertType.ERROR, "Invalid Status"), e);
+//        }
+//      }
+//      case FIRE_NAME -> {
+//        if (status == 0) {
+//          return FIRE_EMPTY;
+//        } else if (status == 1) {
+//          return FIRE_TREE;
+//        } else if (status == 2) {
+//          return FIRE_BURNING;
+//        } else {
+//          //TODO: define exception here, change code accordingly
+//          throw new Exception(showMessage(AlertType.ERROR, "Invalid Status"), e);
+//        }
+//      }
+//      case SEG_NAME -> {
+//        if (status == 0) {
+//          return SEG_EMPTY;
+//        } else if (status == 1) {
+//          return SEG_A;
+//        } else if (status == 2) {
+//          return SEG_B;
+//        } else {
+//          //TODO: define exception here, change code accordingly
+//          throw new Exception(showMessage(AlertType.ERROR, "Invalid Status"), e);
+//        }
+//      }
+//      case WATOR_NAME -> {
+//        if (status == 0) {
+//          return WATOR_EMPTY;
+//        } else if (status == 1) {
+//          return WATOR_FISH;
+//        } else if (status == 2) {
+//          return WATOR_SHARK;
+//        } else {
+//          //TODO: define exception here, change code accordingly
+//          throw new Exception(showMessage(AlertType.ERROR, "Invalid Status"), e)
+//        }
+//      }
+//      //TODO: define exception here, change code accordingly
+//      default -> throw new Exception(showMessage(AlertType.ERROR, "Invalid Simulation Name"), e)
+//    }
+//
+//  }
 
   /**
    * Creates an alert with custom message

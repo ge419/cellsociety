@@ -3,7 +3,7 @@ package cellsociety.Engine;
 import cellsociety.Grid;
 import java.util.HashMap;
 
-public class LifeEngine extends SimulationEngine{
+public class LifeEngine extends SimEngine{
 
   private static final String LIFE_ALIVE = NAMES_FILE.getString("LifeAlive");
   private static final String LIFE_DEAD = NAMES_FILE.getString("LifeDead");
@@ -19,4 +19,6 @@ public class LifeEngine extends SimulationEngine{
     super(simType, params, grid, state);
 
   }
+
+  public String status
 }
