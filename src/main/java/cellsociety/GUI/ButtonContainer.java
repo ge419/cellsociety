@@ -1,7 +1,7 @@
 package cellsociety.GUI;
 
-import cellsociety.AnimationInterface;
-import cellsociety.SimulationController;
+import cellsociety.Controller.AnimationInterface;
+import cellsociety.Controller.SimulationController;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;

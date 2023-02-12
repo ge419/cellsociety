@@ -4,6 +4,7 @@ import cellsociety.Cells.Cell;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Map;
 import java.util.ResourceBundle;
 import java.io.File;
 import java.io.IOException;
@@ -33,23 +34,23 @@ import org.xml.sax.SAXException;
 public class Config {
 
   public static final String INTERNAL_CONFIGURATION = "cellsociety.";
-  public static final List<String> paramName = new ArrayList<>(
+  public final List<String> paramName = new ArrayList<>(
       Arrays.asList("probCatch", "change", "eShark", "ePerFish", "fishBT", "sharkBT", "perAlive",
           "perTree", "perFire", "perEmpty", "perStateOne", "perShark", "perBlocked"));
   private static final ResourceBundle myResources = ResourceBundle.getBundle(
       INTERNAL_CONFIGURATION + "filesandstates");
 
-  private String simType;
-  private String configName;
-  private String author;
-  private String description;
-  private int width;
-  private int height;
-  private String initState;
-  private List<List<Integer>> currState;
-  private Element root;
-  private HashMap<String, Double> simParam;
-  private HashSet<String> simNames;
+  String simType;
+  String configName;
+  String author;
+  String description;
+  int width;
+  int height;
+  String initState;
+  List<List<Integer>> currState;
+  Element root;
+  Map<String, Double> simParam;
+  Set<String> simNames;
 
   /**
    * Reads XML file, if XML file is valid, upload info
@@ -148,10 +149,10 @@ public class Config {
   /**
    * Creates new XML file and saves current state of simulation. Refined code from
    * https://www.javaguides.net/2018/10/how-to-create-xml-file-in-java-dom-parser.html
-   *
+   * TODO: Change parameter to Grid, work on integrating this method with FileSaver
    * @param currState
    */
-  public void saveXML(List<List<Integer>> currState) {
+  public File saveXML(List<List<Integer>> currState) {
     DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
     try {
       DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
@@ -243,6 +244,14 @@ public class Config {
 
   public List<List<Integer>> getIntGrid() {
     return currState;
+  }
+
+  public int getWidth() {
+    return width;
+  }
+
+  public int getHeight() {
+    return height;
   }
 
   public String getInitState() {

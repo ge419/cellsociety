@@ -1,4 +1,4 @@
-package cellsociety;
+package cellsociety.Controller;
 
 public class AnimationManager implements AnimationInterface{
   private int frameNum;

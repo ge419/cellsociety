@@ -2,8 +2,8 @@ package cellsociety.GUI;
 
 import cellsociety.Config;
 import cellsociety.GUI.Grids.RectangleVisualGrid;
-import cellsociety.AnimationInterface;
-import cellsociety.SimulationController;
+import cellsociety.Controller.AnimationInterface;
+import cellsociety.Controller.SimulationController;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;

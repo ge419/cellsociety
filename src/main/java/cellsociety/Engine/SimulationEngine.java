@@ -1,5 +1,7 @@
-package cellsociety;
+package cellsociety.Engine;
 
+import cellsociety.Grid;
+import cellsociety.Controller.SimulationController;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -19,7 +21,7 @@ import javafx.scene.control.Alert.AlertType;
 /**
  * @author Brandon Weiss, Changmin Shin
  */
-public class SimulationEngine implements SimulationController{
+public abstract class SimulationEngine implements SimulationController {
 
   public static final String INTERNAL_CONFIGURATION = "cellsociety.filesandstates";
   public static final ResourceBundle NAMES_FILE = ResourceBundle.getBundle(INTERNAL_CONFIGURATION);
@@ -28,8 +30,6 @@ public class SimulationEngine implements SimulationController{
   private static final String LIFE_NAME = NAMES_FILE.getString("LifeName");
   private static final String WATOR_NAME = NAMES_FILE.getString("WTName");
   private static final String PERC_NAME = NAMES_FILE.getString("PercolName");
-  private static final String LIFE_ALIVE = NAMES_FILE.getString("LifeAlive");
-  private static final String LIFE_DEAD = NAMES_FILE.getString("LifeDead");
   private static final String FIRE_EMPTY = NAMES_FILE.getString("FireEmpty");
   private static final String FIRE_TREE = NAMES_FILE.getString("FireTree");
   private static final String FIRE_BURNING = NAMES_FILE.getString("FireBurning");
@@ -61,7 +61,7 @@ public class SimulationEngine implements SimulationController{
    */
   public SimulationEngine(String simType, HashMap<String, Double> params, Grid grid,
       String state) {
-    init(simType, params);
+    //init(simType, params);
     this.simType = simType;
     this.visualGrid = visualGrid;
     this.width = visualGrid.getWidth();
@@ -69,7 +69,7 @@ public class SimulationEngine implements SimulationController{
     this.initState = state;
     blankStart();
     // Decodes String status and creates Grid
-    listToGrid(strToGrid(state));
+    //listToGrid(strToGrid(state));
   }
 
   // TODO: replace string literals in params.get() calls with strings from
@@ -79,26 +79,25 @@ public class SimulationEngine implements SimulationController{
    * @param simType The string representing which of the cellular automata to run
    * @param params  A HashMap of parameters and values for each simulation type
    */
-  public void init(String simType, HashMap<String, Double> params) {
-    if (simType.equals(LIFE_NAME)) {
-      sim = new Life(LIFE_DEAD, LIFE_ALIVE);
-      corners = true;
-      // cells = Grid
-    } else if (simType.equals(FIRE_NAME)) {
-      sim = new Fire(FIRE_EMPTY, FIRE_TREE, FIRE_BURNING, params.get("probCatch"));
-      corners = false;
-    } else if (simType.equals(SEG_NAME)) {
-      sim = new Schelling(SEG_EMPTY, SEG_A, SEG_B, params.get("change"));
-      corners = true;
-    } else if (simType.equals(WATOR_NAME)) {
-      sim = new WaTor(WATOR_EMPTY, WATOR_FISH, WATOR_SHARK, params.get("eShark"),
-          params.get("ePerFish"), params.get("fishBT"), params.get("sharkBT"));
-      corners = false;
-    } else if (simType.equals(PERC_NAME)) {
-      // sim = new Percolation()
-      corners = true;
-    }
-  }
+//  public void init(String simType, HashMap<String, Double> params) {
+//    if (simType.equals(LIFE_NAME)) {
+//      sim = new Life(LIFE_DEAD, LIFE_ALIVE);
+//      corners = true;
+//    } else if (simType.equals(FIRE_NAME)) {
+//      sim = new Fire(FIRE_EMPTY, FIRE_TREE, FIRE_BURNING, params.get("probCatch"));
+//      corners = false;
+//    } else if (simType.equals(SEG_NAME)) {
+//      sim = new Schelling(SEG_EMPTY, SEG_A, SEG_B, params.get("change"));
+//      corners = true;
+//    } else if (simType.equals(WATOR_NAME)) {
+//      sim = new WaTor(WATOR_EMPTY, WATOR_FISH, WATOR_SHARK, params.get("eShark"),
+//          params.get("ePerFish"), params.get("fishBT"), params.get("sharkBT"));
+//      corners = false;
+//    } else if (simType.equals(PERC_NAME)) {
+//      // sim = new Percolation()
+//      corners = true;
+//    }
+//  }
 
   /**
    * Randomize the starting configuration for a simulation
@@ -221,107 +220,6 @@ public class SimulationEngine implements SimulationController{
       }
     }
     return neighbors;
-  }
-
-  private List<List<Integer>> strToGrid(String initState) {
-    List<List<String>> stateArr = new ArrayList<>(width);
-    String[] splitInit = initState.split("\n");
-
-    for (int i = 0; i < splitInit.length; i++) {
-      List<String> row = new ArrayList<>(height);
-      String[] rowSplit = splitInit[i].split(" ");
-      Collections.addAll(row, rowSplit);
-      for (int j = 0; j < 4; j++) {
-        row.remove("");
-      }
-      //System.out.println(row);
-      stateArr.add(i, row);
-    }
-    return strIntConverter(stateArr);
-  }
-
-  private List<List<Integer>> strIntConverter(List<List<String>> stateList) {
-    List<List<Integer>> current = new ArrayList<>();
-    for (List<String> state : stateList) {
-      List<Integer> row = new ArrayList<>();
-      for (String s : state) {
-        row.add(Integer.parseInt(s));
-      }
-      current.add(row);
-    }
-    return current;
-  }
-
-  private void listToGrid(List<List<Integer>> intGrid) {
-    grid = new Grid();
-    for (int i = 0; i < intGrid.size(); i++) {
-      for (int j = 0; j < intGrid.get(0).size(); j++) {
-        String status = statusIntToStr(simType, intGrid.get(i).get(j));
-        grid.setCell(i, j, status);
-      }
-    }
-  }
-
-  //TODO: Refactor code --> create interface of simulation engine, create engine for each simulation
-
-  /**
-   * Takes integer value of status, returns the Cell state string according to the simType
-   * @param simType The type of simulation
-   * @param status  Integer value of status(read from matrix of integers)
-   * @return
-   */
-  private String statusIntToStr(String simType, int status) {
-    switch (simType) {
-      case LIFE_NAME -> {
-        if (status == 0) {
-          return LIFE_DEAD;
-        } else if (status == 1) {
-          return LIFE_ALIVE;
-        } else {
-          //TODO: define exception here, change code accordingly
-          throw new Exception(showMessage(AlertType.ERROR, "Invalid Status"), e);
-        }
-      }
-      case FIRE_NAME -> {
-        if (status == 0) {
-          return FIRE_EMPTY;
-        } else if (status == 1) {
-          return FIRE_TREE;
-        } else if (status == 2) {
-          return FIRE_BURNING;
-        } else {
-          //TODO: define exception here, change code accordingly
-          throw new Exception(showMessage(AlertType.ERROR, "Invalid Status"), e);
-        }
-      }
-      case SEG_NAME -> {
-        if (status == 0) {
-          return SEG_EMPTY;
-        } else if (status == 1) {
-          return SEG_A;
-        } else if (status == 2) {
-          return SEG_B;
-        } else {
-          //TODO: define exception here, change code accordingly
-          throw new Exception(showMessage(AlertType.ERROR, "Invalid Status"), e);
-        }
-      }
-      case WATOR_NAME -> {
-        if (status == 0) {
-          return WATOR_EMPTY;
-        } else if (status == 1) {
-          return WATOR_FISH;
-        } else if (status == 2) {
-          return WATOR_SHARK;
-        } else {
-          //TODO: define exception here, change code accordingly
-          throw new Exception(showMessage(AlertType.ERROR, "Invalid Status"), e)
-        }
-      }
-      //TODO: define exception here, change code accordingly
-      default -> throw new Exception(showMessage(AlertType.ERROR, "Invalid Simulation Name"), e)
-    }
-
   }
 
   /**

@@ -4,13 +4,15 @@ import cellsociety.Cells.Cell;
 import java.util.ArrayList;
 import java.util.List;
 
-// extend ArrayList?
-public class Grid extends ArrayList{
+/**
+ * @author Changmin Shin
+ */
+public class Grid{
 
   private List<List<Cell>> grid;
 
-  public Grid() {
-    grid = new ArrayList<>();
+  public Grid(int width, int height) {
+    initializeGrid(width, height);
   }
 
   public Cell getCell(int x, int y) {
@@ -26,14 +28,27 @@ public class Grid extends ArrayList{
 
   public int getColNum() {
     return grid.size();
+    //return height;
+  }
+
+  public int getRowNum() {
+    return grid.get(0).size();
+    //return width;
   }
 
   public List<List<Cell>> getGrid() {
     return grid;
   }
 
-  public int getRowNum() {
-    return grid.get(0).size();
+  private void initializeGrid(int width, int height) {
+    grid = new ArrayList<>();
+    for (int r = 0; r < width; r++) {
+      List<Cell> row = new ArrayList<>();
+      for (int c = 0; c < height; c++) {
+        row.add(c, new Cell(r, c));
+      }
+      grid.add(r, row);
+    }
   }
 }
 
