@@ -2,6 +2,7 @@ package cellsociety.Engine;
 
 import cellsociety.GUI.VisualGrid;
 import cellsociety.Grid;
+import cellsociety.simulations.Life;
 import cellsociety.simulations.Simulation;
 import java.util.HashMap;
 
@@ -13,6 +14,9 @@ public class LifeEngine extends SimEngine {
 
   private static final String LIFE_ALIVE = NAMES_FILE.getString("LifeAlive");
   private static final String LIFE_DEAD = NAMES_FILE.getString("LifeDead");
+
+  private Simulation sim;
+  private boolean corners;
 
   public LifeEngine(VisualGrid visualGrid, String initState, Grid grid, Grid initGrid, HashMap<String, Double> params)
       throws Exception {
@@ -32,5 +36,11 @@ public class LifeEngine extends SimEngine {
       //TODO: create a new exception class, also return e
       throw new Exception("Invalid input for status");
     }
+  }
+
+  @Override
+  void init(HashMap<String, Double> params) {
+    sim = new Life(LIFE_DEAD, LIFE_ALIVE);
+    corners = true;
   }
 }

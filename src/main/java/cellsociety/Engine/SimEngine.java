@@ -26,6 +26,8 @@ public abstract class SimEngine {
   private Grid grid;
   private Grid initGrid;
   private HashMap<String, Double> params;
+  private Simulation sim;
+  private boolean corners;
 
   /**
    *
@@ -41,9 +43,11 @@ public abstract class SimEngine {
     this.initState = initState;
     this.grid = grid;
     this.initGrid = initGrid;
+    this.params = params;
   }
 
   abstract String statusIntToStr(int status) throws Exception;
+  abstract void init(HashMap<String, Double> params);
 
   public List<List<Integer>> strToGrid(String initState) {
     List<List<String>> stateArr = new ArrayList<>(width);
@@ -81,4 +85,15 @@ public abstract class SimEngine {
       }
     }
   }
+
+  public List<Cell> findNeighbors() {
+    return null;
+  }
+
+  // reset method
+
+  // blankStart method
+
+  // randomizeStart method
+
 }
