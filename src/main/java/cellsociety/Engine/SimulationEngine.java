@@ -263,9 +263,6 @@ public abstract class SimulationEngine implements SimulationController {
   }
 
 
-  public abstract String statusIntoStr(int status) {
-    return "";
-  }
 
   //TODO: Refactor code --> create interface of simulation engine, create engine for each simulation
 
