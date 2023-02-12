@@ -23,7 +23,7 @@ public class FireEngine extends SimEngine {
   Simulation sim;
 
   public FireEngine(VisualGrid visualGrid, String initState, Grid grid, Grid initGrid,
-      HashMap<String, Double> params)
+      Map<String, Double> params)
       throws Exception {
     super(visualGrid, initState, grid, initGrid, params);
     // setup initial state grid for both updating grid and initial grid
