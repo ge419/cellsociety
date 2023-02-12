@@ -1,6 +1,8 @@
 package cellsociety.Controller;
 
 import cellsociety.Config;
+import cellsociety.Engine.LifeEngine;
+import cellsociety.Engine.SimEngine;
 import cellsociety.GUI.VisualGrid;
 import cellsociety.Grid;
 
@@ -15,8 +17,9 @@ public class GameLoopManager {
   private VisualGrid visualGrid;
   private int width;
   private int height;
+  private SimEngine engine;
 
-  public GameLoopManager() {
+  public GameLoopManager() throws Exception {
     this.config = new Config();
 
     //TODO: Need to read in XML file before initializing new Grid and VisualGrid
@@ -24,6 +27,18 @@ public class GameLoopManager {
     height = config.getHeight();
     this.grid = new Grid(width, height);
     this.grid = new Grid(width, height);
-    this.visualGrid = new VisualGrid(); //
+    this.visualGrid = new VisualGrid();
+    // initialize AnimationManager
+    // initialize SimEngine
+    startEngine(config.getVariant());
+  }
+
+  //TODO: Create a method that determines the simulation type and starts the corresponding engine
+  // REFACTOR --> not using if/switch statements?
+  public void startEngine(String simType) throws Exception {
+    if (simType.equals("Game of Life")) {
+      engine = new LifeEngine(visualGrid, config.getInitState(), grid, initGrid,
+          config.getSimParam());
+    }
   }
 }
