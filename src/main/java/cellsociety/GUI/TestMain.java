@@ -28,11 +28,11 @@ public class TestMain extends Application {
     launch(args);
   }
   public void start (Stage primaryStage) {
-    Grid grid = new Grid();
+    //Grid grid = new Grid();
 
     String english = "english";
     Config config = new Config();
-    engine = new SimulationEngine("Game of Life", config.getSimParam(), grid, config.getInitState());
+    //engine = new SimulationEngine("Game of Life", config.getSimParam(), grid, config.getInitState());
 //    container = new GUIContainer(primaryStage, "english", config, engine);
     Timeline animation = new Timeline();
     animation.setCycleCount(Timeline.INDEFINITE);

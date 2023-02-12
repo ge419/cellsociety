@@ -3,7 +3,7 @@ package cellsociety.Engine;
 import cellsociety.Cells.Cell;
 import cellsociety.GUI.VisualGrid;
 import cellsociety.Grid;
-import cellsociety.simulations.Life;
+import cellsociety.simulations.Schelling;
 import cellsociety.simulations.Simulation;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -13,15 +13,16 @@ import java.util.List;
  * @author Changmin Shin
  */
 
-public class LifeEngine extends SimEngine {
+public class SegEngine extends SimEngine {
 
-  private static final String LIFE_ALIVE = NAMES_FILE.getString("LifeAlive");
-  private static final String LIFE_DEAD = NAMES_FILE.getString("LifeDead");
+  private static final String SEG_EMPTY = NAMES_FILE.getString("SegEmpty");
+  private static final String SEG_A = NAMES_FILE.getString("SegA");
+  private static final String SEG_B = NAMES_FILE.getString("SegB");
 
   private Simulation sim;
   private boolean corners;
 
-  public LifeEngine(VisualGrid visualGrid, String initState, Grid grid, Grid initGrid,
+  public SegEngine(VisualGrid visualGrid, String initState, Grid grid, Grid initGrid,
       HashMap<String, Double> params)
       throws Exception {
     super(visualGrid, initState, grid, initGrid, params);
@@ -34,9 +35,11 @@ public class LifeEngine extends SimEngine {
   @Override
   String statusIntToStr(int status) throws Exception {
     if (status == 0) {
-      return LIFE_DEAD;
+      return SEG_EMPTY;
     } else if (status == 1) {
-      return LIFE_ALIVE;
+      return SEG_A;
+    } else if (status == 2) {
+      return SEG_B;
     } else {
       //TODO: create a new exception class, also return e
       throw new Exception("Invalid input for status");
@@ -45,7 +48,7 @@ public class LifeEngine extends SimEngine {
 
   @Override
   void init(HashMap<String, Double> params) {
-    sim = new Life(LIFE_DEAD, LIFE_ALIVE);
+    sim = new Schelling(SEG_EMPTY, SEG_A, SEG_B, params.get("change"));
     corners = true;
   }
 
@@ -53,6 +56,19 @@ public class LifeEngine extends SimEngine {
   public void updateGameState() {
     saveNextState();
     updateNextState();
+  }
+
+  @Override
+  public void saveNextState() {
+    ArrayList<String> nextStates = new ArrayList<>();
+    Cell hold;
+    for (int r = 0; r < getGrid().getRowNum(); r++) {
+      for (int c = 0; c < getGrid().getColNum(); c++) {
+        hold = getGrid().getCell(r, c);
+        nextStates.add(sim.getUpdatedCellStatus(hold, findNeighbors(hold)));
+        ((Schelling) sim).moveCells();
+      }
+    }
   }
 
   @Override
@@ -74,3 +90,4 @@ public class LifeEngine extends SimEngine {
     return neighbors;
   }
 }
+

@@ -3,7 +3,7 @@ package cellsociety.Engine;
 import cellsociety.Cells.Cell;
 import cellsociety.GUI.VisualGrid;
 import cellsociety.Grid;
-import cellsociety.simulations.Life;
+import cellsociety.simulations.Fire;
 import cellsociety.simulations.Simulation;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -13,15 +13,16 @@ import java.util.List;
  * @author Changmin Shin
  */
 
-public class LifeEngine extends SimEngine {
+public class FireEngine extends SimEngine {
 
-  private static final String LIFE_ALIVE = NAMES_FILE.getString("LifeAlive");
-  private static final String LIFE_DEAD = NAMES_FILE.getString("LifeDead");
+  private static final String FIRE_EMPTY = NAMES_FILE.getString("FireEmpty");
+  private static final String FIRE_TREE = NAMES_FILE.getString("FireTree");
+  private static final String FIRE_BURNING = NAMES_FILE.getString("FireBurning");
 
   private Simulation sim;
   private boolean corners;
 
-  public LifeEngine(VisualGrid visualGrid, String initState, Grid grid, Grid initGrid,
+  public FireEngine(VisualGrid visualGrid, String initState, Grid grid, Grid initGrid,
       HashMap<String, Double> params)
       throws Exception {
     super(visualGrid, initState, grid, initGrid, params);
@@ -34,9 +35,11 @@ public class LifeEngine extends SimEngine {
   @Override
   String statusIntToStr(int status) throws Exception {
     if (status == 0) {
-      return LIFE_DEAD;
+      return FIRE_EMPTY;
     } else if (status == 1) {
-      return LIFE_ALIVE;
+      return FIRE_TREE;
+    } else if (status == 2) {
+      return FIRE_BURNING;
     } else {
       //TODO: create a new exception class, also return e
       throw new Exception("Invalid input for status");
@@ -45,8 +48,8 @@ public class LifeEngine extends SimEngine {
 
   @Override
   void init(HashMap<String, Double> params) {
-    sim = new Life(LIFE_DEAD, LIFE_ALIVE);
-    corners = true;
+    sim = new Fire(FIRE_EMPTY, FIRE_TREE, FIRE_BURNING, params.get("probCatch"));
+    corners = false;
   }
 
   @Override
@@ -70,7 +73,7 @@ public class LifeEngine extends SimEngine {
     if (cell.getY() != getGrid().getColNum() - 1) {
       neighbors.add(getCell(cell.getX(), cell.getY() + 1));
     }
-    neighbors.addAll(findCornerNeighbors(cell));
     return neighbors;
   }
 }
+
