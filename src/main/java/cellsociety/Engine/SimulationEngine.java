@@ -1,5 +1,7 @@
-package cellsociety;
+package cellsociety.Engine;
 
+import cellsociety.Grid;
+import cellsociety.Controller.SimulationController;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -19,7 +21,7 @@ import javafx.scene.control.Alert.AlertType;
 /**
  * @author Brandon Weiss, Changmin Shin
  */
-public class SimulationEngine implements SimulationController{
+public abstract class SimulationEngine implements SimulationController {
 
   public static final String INTERNAL_CONFIGURATION = "cellsociety.filesandstates";
   public static final ResourceBundle NAMES_FILE = ResourceBundle.getBundle(INTERNAL_CONFIGURATION);
@@ -28,8 +30,6 @@ public class SimulationEngine implements SimulationController{
   private static final String LIFE_NAME = NAMES_FILE.getString("LifeName");
   private static final String WATOR_NAME = NAMES_FILE.getString("WTName");
   private static final String PERC_NAME = NAMES_FILE.getString("PercolName");
-  private static final String LIFE_ALIVE = NAMES_FILE.getString("LifeAlive");
-  private static final String LIFE_DEAD = NAMES_FILE.getString("LifeDead");
   private static final String FIRE_EMPTY = NAMES_FILE.getString("FireEmpty");
   private static final String FIRE_TREE = NAMES_FILE.getString("FireTree");
   private static final String FIRE_BURNING = NAMES_FILE.getString("FireBurning");
@@ -262,67 +262,69 @@ public class SimulationEngine implements SimulationController{
     }
   }
 
+
+
   //TODO: Refactor code --> create interface of simulation engine, create engine for each simulation
 
-  /**
-   * Takes integer value of status, returns the Cell state string according to the simType
-   * @param simType The type of simulation
-   * @param status  Integer value of status(read from matrix of integers)
-   * @return
-   */
-  private String statusIntToStr(String simType, int status) {
-    switch (simType) {
-      case LIFE_NAME -> {
-        if (status == 0) {
-          return LIFE_DEAD;
-        } else if (status == 1) {
-          return LIFE_ALIVE;
-        } else {
-          //TODO: define exception here, change code accordingly
-          throw new Exception(showMessage(AlertType.ERROR, "Invalid Status"), e);
-        }
-      }
-      case FIRE_NAME -> {
-        if (status == 0) {
-          return FIRE_EMPTY;
-        } else if (status == 1) {
-          return FIRE_TREE;
-        } else if (status == 2) {
-          return FIRE_BURNING;
-        } else {
-          //TODO: define exception here, change code accordingly
-          throw new Exception(showMessage(AlertType.ERROR, "Invalid Status"), e);
-        }
-      }
-      case SEG_NAME -> {
-        if (status == 0) {
-          return SEG_EMPTY;
-        } else if (status == 1) {
-          return SEG_A;
-        } else if (status == 2) {
-          return SEG_B;
-        } else {
-          //TODO: define exception here, change code accordingly
-          throw new Exception(showMessage(AlertType.ERROR, "Invalid Status"), e);
-        }
-      }
-      case WATOR_NAME -> {
-        if (status == 0) {
-          return WATOR_EMPTY;
-        } else if (status == 1) {
-          return WATOR_FISH;
-        } else if (status == 2) {
-          return WATOR_SHARK;
-        } else {
-          //TODO: define exception here, change code accordingly
-          throw new Exception(showMessage(AlertType.ERROR, "Invalid Status"), e)
-        }
-      }
-      //TODO: define exception here, change code accordingly
-      default -> throw new Exception(showMessage(AlertType.ERROR, "Invalid Simulation Name"), e)
-    }
-
-  }
+//  /**
+//   * Takes integer value of status, returns the Cell state string according to the simType
+//   * @param simType The type of simulation
+//   * @param status  Integer value of status(read from matrix of integers)
+//   * @return
+//   */
+//  private String statusIntToStr(String simType, int status) {
+//    switch (simType) {
+//      case LIFE_NAME -> {
+//        if (status == 0) {
+//          return LIFE_DEAD;
+//        } else if (status == 1) {
+//          return LIFE_ALIVE;
+//        } else {
+//          //TODO: define exception here, change code accordingly
+//          throw new Exception(showMessage(AlertType.ERROR, "Invalid Status"), e);
+//        }
+//      }
+//      case FIRE_NAME -> {
+//        if (status == 0) {
+//          return FIRE_EMPTY;
+//        } else if (status == 1) {
+//          return FIRE_TREE;
+//        } else if (status == 2) {
+//          return FIRE_BURNING;
+//        } else {
+//          //TODO: define exception here, change code accordingly
+//          throw new Exception(showMessage(AlertType.ERROR, "Invalid Status"), e);
+//        }
+//      }
+//      case SEG_NAME -> {
+//        if (status == 0) {
+//          return SEG_EMPTY;
+//        } else if (status == 1) {
+//          return SEG_A;
+//        } else if (status == 2) {
+//          return SEG_B;
+//        } else {
+//          //TODO: define exception here, change code accordingly
+//          throw new Exception(showMessage(AlertType.ERROR, "Invalid Status"), e);
+//        }
+//      }
+//      case WATOR_NAME -> {
+//        if (status == 0) {
+//          return WATOR_EMPTY;
+//        } else if (status == 1) {
+//          return WATOR_FISH;
+//        } else if (status == 2) {
+//          return WATOR_SHARK;
+//        } else {
+//          //TODO: define exception here, change code accordingly
+//          throw new Exception(showMessage(AlertType.ERROR, "Invalid Status"), e)
+//        }
+//      }
+//      //TODO: define exception here, change code accordingly
+//      default -> throw new Exception(showMessage(AlertType.ERROR, "Invalid Simulation Name"), e)
+//    }
+//
+//  }
 
   /**
    * Creates an alert with custom message

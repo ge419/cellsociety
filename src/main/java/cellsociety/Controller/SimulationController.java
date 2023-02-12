@@ -1,4 +1,4 @@
-package cellsociety;
+package cellsociety.Controller;
 
 import java.util.HashMap;
 

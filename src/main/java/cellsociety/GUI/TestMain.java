@@ -2,8 +2,8 @@ package cellsociety.GUI;
 
 import cellsociety.Config;
 import cellsociety.Grid;
-import cellsociety.SimulationController;
-import cellsociety.SimulationEngine;
+import cellsociety.Controller.SimulationController;
+import cellsociety.Engine.SimulationEngine;
 import java.util.ResourceBundle;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
