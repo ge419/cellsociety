@@ -31,10 +31,12 @@ public abstract class SimEngine {
   private List<String> nextStates;
 
   /**
-   * @param visualGrid
-   * @param initState
-   * @param grid
-   * @param params
+   *
+   * @param visualGrid  VisualGrid object that displays the simulation
+   * @param initState   String that stores the initial status of each Cell
+   * @param grid        Grid data structure that stores the state of each cell as it is updated
+   * @param initGrid    Grid date structure that stores the initial status of each Cell
+   * @param params      HashMap that contains parameters
    */
   public SimEngine(VisualGrid visualGrid, String initState, Grid grid, Grid initGrid,
       HashMap<String, Double> params) {
@@ -47,10 +49,19 @@ public abstract class SimEngine {
     this.params = params;
   }
 
+  /**
+   *
+   * @param status      The status of a Cell in integer
+   * @return            The String status of the corresponding integer
+   * @throws Exception  If the parameter status is not within the scope of possible values
+   */
   abstract String statusIntToStr(int status) throws Exception;
 
-  abstract void init(HashMap<String, Double> params);
-
+  /**
+   * Converts initial state that is read as String into a matrix of integers
+   * @param initState   Initial state of Cells read from the XML file
+   * @return            Matrix of integers that represent Cell status
+   */
   public List<List<Integer>> strToGrid(String initState) {
     List<List<String>> stateArr = new ArrayList<>(width);
     String[] splitInit = initState.split("\n");
@@ -67,6 +78,11 @@ public abstract class SimEngine {
     return strIntConverter(stateArr);
   }
 
+  /**
+   * Converts the matrix of Strings that represent Cell status into matrix of Integers
+   * @param stateList   Matrix of Strings that represent the Cell status, generated in strToGrid()
+   * @return            Matrix of Integers that represent the Cell status
+   */
   public List<List<Integer>> strIntConverter(List<List<String>> stateList) {
     List<List<Integer>> current = new ArrayList<>();
     for (List<String> state : stateList) {
@@ -79,6 +95,13 @@ public abstract class SimEngine {
     return current;
   }
 
+  /**
+   * Converts the matrix of Integers representing Cell status into a Grid data structure
+   * @param intGrid     Matrix of Integers representing Cell status
+   * @param grid        Grid data structure that is being modified
+   * @throws Exception  If the given status is not within the scope of possible values
+   *                    This is thrown at statusIntToStr()
+   */
   public void listToGrid(List<List<Integer>> intGrid, Grid grid) throws Exception {
     for (int i = 0; i < grid.getRowNum(); i++) {
       for (int j = 0; j < grid.getColNum(); j++) {
@@ -87,6 +110,12 @@ public abstract class SimEngine {
       }
     }
   }
+
+  /**
+   * Initializes simulation
+   * @param params  HashMap that contains parameters
+   */
+  abstract void init(HashMap<String, Double> params);
 
   /**
    * Updates the backend Grid and VisualGrid to next generation
@@ -121,10 +150,18 @@ public abstract class SimEngine {
     }
   }
 
+  /**
+   * @param cell  The cell whose neighbors are to be found
+   * @return      ArrayList of Cells that are corner neighbors of the given cell
+   */
   //TODO: REFACTOR --> removed parameter corners as this methods gets implemented
   // --> possible issue: duplicate code in multiple
   public abstract List<Cell> findNeighbors(Cell cell);
 
+  /**
+   * @param cell  The cell whose corner neighbors are to be found
+   * @return      ArrayList of Cells that are corner neighbors of the given cell
+   */
   public List<Cell> findCornerNeighbors(Cell cell) {
     List<Cell> corner = new ArrayList<>();
     if (cell.getX() != 0 && cell.getY() != 0) {
