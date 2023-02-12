@@ -3,12 +3,12 @@ package cellsociety.Engine;
 import cellsociety.Cells.Cell;
 import cellsociety.GUI.VisualGrid;
 import cellsociety.Grid;
-import cellsociety.simulations.Schelling;
 import cellsociety.simulations.Simulation;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.ResourceBundle;
 
 /**
@@ -23,10 +23,9 @@ public abstract class SimEngine {
   private VisualGrid visualGrid;
   private int width;
   private int height;
-  private String initState;
   private Grid grid;
   private Grid initGrid;
-  private HashMap<String, Double> params;
+  private Map<String, Double> params;
   private Simulation sim;
   private List<String> nextStates;
 
@@ -39,11 +38,10 @@ public abstract class SimEngine {
    * @param params      HashMap that contains parameters
    */
   public SimEngine(VisualGrid visualGrid, String initState, Grid grid, Grid initGrid,
-      HashMap<String, Double> params) {
+      Map<String, Double> params) {
     this.visualGrid = visualGrid;
     this.width = visualGrid.getWidth();
     this.height = visualGrid.getHeight();
-    this.initState = initState;
     this.grid = grid;
     this.initGrid = initGrid;
     this.params = params;
@@ -115,7 +113,7 @@ public abstract class SimEngine {
    * Initializes simulation
    * @param params  HashMap that contains parameters
    */
-  abstract void init(HashMap<String, Double> params);
+  abstract void init(Map<String, Double> params);
 
   /**
    * Updates the backend Grid and VisualGrid to next generation
@@ -202,14 +200,13 @@ public abstract class SimEngine {
 
   /**
    * Randomize the starting configuration for a simulation
-   *
    * @param params A HashMap of parameters and values for each simulation type
    */
-  public void randomizeStart(HashMap<String, Double> params) {
+  public void randomizeStart(Map<String, Double> params) {
     for (int i = 0; i < width; i++) {
       for (int j = 0; j < height; j++) {
         //TODO: Change sim.randomize to return String status, not Cell itself after discussing with Brandon
-        Cell random = sim.randomize(params, i, j);
+        Cell random = sim.randomize((HashMap<String, Double>) params, i, j);
         grid.setCell(i, j, random.getStatus());
       }
     }
@@ -223,7 +220,7 @@ public abstract class SimEngine {
     return grid;
   }
 
-  public HashMap<String, Double> getParams() {
+  public Map<String, Double> getParams() {
     return params;
   }
 }

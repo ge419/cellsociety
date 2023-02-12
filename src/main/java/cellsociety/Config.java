@@ -33,7 +33,7 @@ import org.xml.sax.SAXException;
 public class Config {
 
   public static final String INTERNAL_CONFIGURATION = "cellsociety.";
-  public static final List<String> paramName = new ArrayList<>(
+  public final List<String> paramName = new ArrayList<>(
       Arrays.asList("probCatch", "change", "eShark", "ePerFish", "fishBT", "sharkBT", "perAlive",
           "perTree", "perFire", "perEmpty", "perStateOne", "perShark", "perBlocked"));
   private static final ResourceBundle myResources = ResourceBundle.getBundle(

@@ -1,7 +1,10 @@
 package cellsociety;
 
+import cellsociety.Engine.LifeEngine;
 import cellsociety.Engine.SimulationEngine;
 import cellsociety.GUI.GUIContainer;
+import cellsociety.GUI.Grids.RectangleVisualGrid;
+import cellsociety.GUI.VisualGrid;
 import java.io.File;
 import java.io.FilenameFilter;
 import java.util.ArrayList;
@@ -30,22 +33,24 @@ public class Main extends Application {
   public static final int FRAMES_PER_SECOND = 60;
   public static final double SECOND_DELAY = 1.0 / FRAMES_PER_SECOND;
 
-  private SimulationEngine engine;
+  private LifeEngine engine;
   private HashMap<String, Double> param;
 
   /**
    * @see Application#start(Stage)
    */
   @Override
-  public void start(Stage primaryStage) {
+  public void start(Stage primaryStage) throws Exception {
     frameNum = 1;
     multiplier = 1;
     pause = false;
     newFile = false;
     String english = "english";
     config = new Config();
+    VisualGrid visualGrid = new RectangleVisualGrid();
     Grid grid = new Grid(config.getWidth(), config.getHeight());
-    engine = new SimulationEngine("Game of Life", config.getSimParam(), grid, config.getInitState());
+    Grid initGrid = new Grid(config.getWidth(), config.getHeight());
+    engine = new LifeEngine(visualGrid, config.getInitState(), grid, initGrid, config.getSimParam());
 //    container = new GUIContainer(primaryStage, english, config, engine);
     Timeline animation = new Timeline();
     animation.setCycleCount(Timeline.INDEFINITE);
