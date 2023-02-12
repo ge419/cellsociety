@@ -1,10 +1,13 @@
 package cellsociety.Engine;
 
+import cellsociety.Cells.Cell;
 import cellsociety.GUI.VisualGrid;
 import cellsociety.Grid;
 import cellsociety.simulations.Schelling;
 import cellsociety.simulations.Simulation;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 /**
  * @author Changmin Shin
@@ -47,6 +50,25 @@ public class SegEngine extends SimEngine {
   void init(HashMap<String, Double> params) {
     sim = new Schelling(SEG_EMPTY, SEG_A, SEG_B, params.get("change"));
     corners = true;
+  }
+
+  @Override
+  public List<Cell> findNeighbors(Cell cell) {
+    List<Cell> neighbors = new ArrayList<>();
+    if (cell.getX() != 0) {
+      neighbors.add(getCell(cell.getX() - 1, cell.getY()));
+    }
+    if (cell.getX() != getWidth() - 1) {
+      neighbors.add(getCell(cell.getX() + 1, cell.getY()));
+    }
+    if (cell.getY() != 0) {
+      neighbors.add(getCell(cell.getX(), cell.getY() - 1));
+    }
+    if (cell.getY() != getHeight() - 1) {
+      neighbors.add(getCell(cell.getX(), cell.getY() + 1));
+    }
+    neighbors.addAll(findCornerNeighbors(cell));
+    return neighbors;
   }
 }
 

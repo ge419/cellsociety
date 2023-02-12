@@ -1,10 +1,13 @@
 package cellsociety.Engine;
 
+import cellsociety.Cells.Cell;
 import cellsociety.GUI.VisualGrid;
 import cellsociety.Grid;
 import cellsociety.simulations.Simulation;
 import cellsociety.simulations.WaTor;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 /**
  * @author Changmin Shin
@@ -49,6 +52,36 @@ public class WatorEngine extends SimEngine {
     sim = new WaTor(WATOR_EMPTY, WATOR_FISH, WATOR_SHARK, params.get("eShark"),
         params.get("ePerFish"), params.get("fishBT"), params.get("sharkBT"));
     corners = false;
+  }
+
+  @Override
+  public List<Cell> findNeighbors(Cell cell) {
+    List<Cell> neighbors = new ArrayList<>();
+    if (cell.getX() == 0) {
+      neighbors.add(getCell(getWidth() - 1, cell.getY()));
+    }
+    if (cell.getY() == 0) {
+      neighbors.add(getCell(cell.getX(), getHeight() - 1));
+    }
+    if (cell.getX() == getWidth() - 1) {
+      neighbors.add(getCell(0, cell.getY()));
+    }
+    if (cell.getX() == getHeight() - 1) {
+      neighbors.add(getCell(cell.getX(), 0));
+    }
+    if (cell.getX() != 0) {
+      neighbors.add(getCell(cell.getX() - 1, cell.getY()));
+    }
+    if (cell.getX() != getWidth() - 1) {
+      neighbors.add(getCell(cell.getX() + 1, cell.getY()));
+    }
+    if (cell.getY() != 0) {
+      neighbors.add(getCell(cell.getX(), cell.getY() - 1));
+    }
+    if (cell.getY() != getHeight() - 1) {
+      neighbors.add(getCell(cell.getX(), cell.getY() + 1));
+    }
+    return neighbors;
   }
 }
 

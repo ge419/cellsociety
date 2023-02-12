@@ -30,13 +30,13 @@ public abstract class SimEngine {
   private boolean corners;
 
   /**
-   *
    * @param visualGrid
    * @param initState
    * @param grid
    * @param params
    */
-  public SimEngine(VisualGrid visualGrid, String initState, Grid grid, Grid initGrid, HashMap<String, Double> params) {
+  public SimEngine(VisualGrid visualGrid, String initState, Grid grid, Grid initGrid,
+      HashMap<String, Double> params) {
     this.visualGrid = visualGrid;
     this.width = visualGrid.getWidth();
     this.height = visualGrid.getHeight();
@@ -47,6 +47,7 @@ public abstract class SimEngine {
   }
 
   abstract String statusIntToStr(int status) throws Exception;
+
   abstract void init(HashMap<String, Double> params);
 
   public List<List<Integer>> strToGrid(String initState) {
@@ -86,16 +87,42 @@ public abstract class SimEngine {
     }
   }
 
-  public List<Cell> findNeighbors() {
-    return null;
+  public void updateGameState() {
+
   }
 
-  // reset method
+  //TODO: REFACTOR --> removed parameter corners as this methods gets implemented
+  // --> possible issue: duplicate code in multiple
+  public abstract List<Cell> findNeighbors(Cell cell);
 
-  // blankStart method
+  public List<Cell> findCornerNeighbors(Cell cell) {
+    List<Cell> corner = new ArrayList<>();
+    if (cell.getX() != 0 && cell.getY() != 0) {
+      corner.add(getCell(cell.getX() - 1, cell.getY() - 1));
+    }
+    if (cell.getX() != width - 1 && cell.getY() != 0) {
+      corner.add(getCell(cell.getX() + 1, cell.getY() - 1));
+    }
+    if (cell.getX() != 0 && cell.getY() != height - 1) {
+      corner.add(getCell(cell.getX() - 1, cell.getY() + 1));
+    }
+    if (cell.getX() != width - 1 && cell.getY() != height - 1) {
+      corner.add(getCell(cell.getX() + 1, cell.getY() + 1));
+    }
+    return corner;
+  }
 
   /**
-   * Sets the backend Grid to have Dead/Empty state in all Cells
+   * Resets the backend Grid, (simulation configuration) to its initial state
+   */
+  public void resetToInit() {
+    grid = initGrid;
+    //TODO: determine if grid.reset() should be used instead
+    // --> is Grid the only thing being reset?
+  }
+
+  /**
+   * Sets the backend Grid to have Dead/Empty state in all Cells as starting configuration
    * TODO: make getDeadString() an abstract method in Simulation, each simulations will implement differently
    */
   public void blankStart() {
@@ -106,7 +133,11 @@ public abstract class SimEngine {
     }
   }
 
-  // randomizeStart method
+  /**
+   * Randomize the starting configuration for a simulation
+   *
+   * @param params A HashMap of parameters and values for each simulation type
+   */
   public void randomizeStart(HashMap<String, Double> params) {
     for (int i = 0; i < width; i++) {
       for (int j = 0; j < height; j++) {
@@ -117,4 +148,23 @@ public abstract class SimEngine {
     }
   }
 
+  public Cell getCell(int x, int y) {
+    return grid.getCell(x, y);
+  }
+
+  public int getWidth() {
+    return width;
+  }
+
+  public int getHeight() {
+    return height;
+  }
+
+  public Grid getGrid() {
+    return grid;
+  }
+
+  public HashMap<String, Double> getParams() {
+    return params;
+  }
 }

@@ -1,10 +1,13 @@
 package cellsociety.Engine;
 
+import cellsociety.Cells.Cell;
 import cellsociety.GUI.VisualGrid;
 import cellsociety.Grid;
 import cellsociety.simulations.Life;
 import cellsociety.simulations.Simulation;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 /**
  * @author Changmin Shin
@@ -18,7 +21,8 @@ public class LifeEngine extends SimEngine {
   private Simulation sim;
   private boolean corners;
 
-  public LifeEngine(VisualGrid visualGrid, String initState, Grid grid, Grid initGrid, HashMap<String, Double> params)
+  public LifeEngine(VisualGrid visualGrid, String initState, Grid grid, Grid initGrid,
+      HashMap<String, Double> params)
       throws Exception {
     super(visualGrid, initState, grid, initGrid, params);
     // setup initial state grid for both updating grid and initial grid
@@ -43,5 +47,24 @@ public class LifeEngine extends SimEngine {
   void init(HashMap<String, Double> params) {
     sim = new Life(LIFE_DEAD, LIFE_ALIVE);
     corners = true;
+  }
+
+  @Override
+  public List<Cell> findNeighbors(Cell cell) {
+    List<Cell> neighbors = new ArrayList<>();
+    if (cell.getX() != 0) {
+      neighbors.add(getCell(cell.getX() - 1, cell.getY()));
+    }
+    if (cell.getX() != getWidth() - 1) {
+      neighbors.add(getCell(cell.getX() + 1, cell.getY()));
+    }
+    if (cell.getY() != 0) {
+      neighbors.add(getCell(cell.getX(), cell.getY() - 1));
+    }
+    if (cell.getY() != getHeight() - 1) {
+      neighbors.add(getCell(cell.getX(), cell.getY() + 1));
+    }
+    neighbors.addAll(findCornerNeighbors(cell));
+    return neighbors;
   }
 }
