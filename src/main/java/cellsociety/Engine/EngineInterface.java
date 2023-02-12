@@ -6,4 +6,5 @@ public interface EngineInterface {
   public void blankStart();
 
   public void reset();
+  void updateGameState();
 }
