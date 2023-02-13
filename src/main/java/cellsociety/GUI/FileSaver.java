@@ -1,6 +1,5 @@
 package cellsociety.GUI;
 
-import cellsociety.Config;
 import cellsociety.ConfigInterface;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -9,19 +8,16 @@ import javafx.scene.control.Button;
 import javafx.stage.FileChooser;
 
 /**
- * @Author Han Zhang
+ * @author Han Zhang
  */
 
 public class FileSaver {
 
   private File saved;
-
-  private static String data;
-  private static PrintWriter fileWriter;
   private static Button button;
 
   /**
-   * Used this Chat GPT chat to help me build the constructor https://shareg.pt/dhJrFWq,
+   * Used this Chat GPT chat to help me build the constructor <a href="https://shareg.pt/dhJrFWq">...</a>,
    * @param label Text to be displayed on upload button
    * @param config The config object that is passed through the GUIContainer
    */
@@ -35,11 +31,7 @@ public class FileSaver {
       fileChooser.setSelectedExtensionFilter(xmlFilter);
       saved = fileChooser.showSaveDialog(button.getScene().getWindow());
       if (saved != null) {
-        try (PrintWriter writer = new PrintWriter(saved)) {
           saved = config.saveXML(saved);
-        } catch (FileNotFoundException ex) {
-          System.out.println("Error writing to file: " + ex.getMessage());
-        }
       }
     });
   }

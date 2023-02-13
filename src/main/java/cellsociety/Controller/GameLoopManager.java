@@ -36,7 +36,7 @@ public class GameLoopManager extends Application {
   private Grid grid;
   private Grid initGrid; // stores initial state of Grid
   private VisualGrid visualGrid;
-  private AnimationInterface animationManager;
+  private SimulationController animationManager;
   private int width;
   private int height;
   private EngineInterface engine;
@@ -69,7 +69,7 @@ public class GameLoopManager extends Application {
     this.grid = new Grid(width, height, config.getVariant());
     this.initGrid = new Grid(width, height, config.getVariant());
     this.visualGrid = new RectangleVisualGrid(width, height);
-    this.animationManager = new AnimationManager();
+    this.animationManager = new SimulationManager();
     startEngine(config.getVariant());
     new GUIContainer(primaryStage, language, config, engine, animationManager,
         visualGrid);
@@ -100,7 +100,6 @@ public class GameLoopManager extends Application {
       animationManager.resetFrameNum();
     }
     animationManager.incrementFrame();
-    System.out.println(animationManager.getFrame());
   }
 
   //TODO: REFACTOR --> not using if/switch statements?
