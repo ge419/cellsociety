@@ -8,13 +8,13 @@ import cellsociety.Cells.Cell;
  * @author Brandon Weiss
  */
 public abstract class Simulation {
-
   private String deadState;
   private String aliveState;
 
   /**
    * @param deadString  A String to represent a dead/empty cell
-   * @param aliveString A String to represent a living cell when only one kind exists
+   * @param aliveString A String to represent a living cell when only one kind
+   *                    exists
    */
   public Simulation(String deadString, String aliveString) {
     deadState = deadString;

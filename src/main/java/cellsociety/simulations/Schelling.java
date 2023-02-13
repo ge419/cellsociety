@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
 import cellsociety.Cells.Cell;
+import cellsociety.Cells.SchellingCell;
 
 /**
  * Schelling's model of segregation
@@ -12,7 +13,6 @@ import cellsociety.Cells.Cell;
  * @author Brandon Weiss
  */
 public class Schelling extends Simulation {
-
   public static final Random RAND_NUM_GEN = new Random();
   private double threshold;
   private String stateAString;
@@ -24,8 +24,8 @@ public class Schelling extends Simulation {
    * @param emptyString  The string representing an empty cell
    * @param stateAString The string representing a cell in state A
    * @param stateBString The string representing a cell in state B
-   * @param threshold    The minimum fraction of neighbors needed to be the same type for a cell to
-   *                     not move
+   * @param threshold    The minimum fraction of neighbors needed to be the same
+   *                     type for a cell to not move
    */
   public Schelling(String emptyString, String stateAString, String stateBString, double threshold) {
     super(emptyString, "");
@@ -47,7 +47,8 @@ public class Schelling extends Simulation {
   /**
    * @param cell      A cell for which to calculate the next state
    * @param neighbors A list of neighbor cells that are next to cell
-   * @return The next state of a cell according to the rules of Schelling's model of segregation
+   * @return The next state of a cell according to the rules of Schelling's model
+   *         of segregation
    */
   @Override
   public String getUpdatedCellStatus(Cell cell, List<Cell> neighbors) {
@@ -57,12 +58,14 @@ public class Schelling extends Simulation {
   }
 
   /**
-   * Schelling's model of segregation rules: if the ratio of neighbor cells that are the same type
-   * as a given cell to the total number of neighbors is less than the threshold value, then the
-   * cell moves to an empty space.
-   *
+   * Schelling's model of segregation rules:
+   * if the ratio of neighbor cells that are the same type as a given cell to the
+   * total number of neighbors is less than the threshold value, then the cell
+   * moves to an empty space.
+   * 
    * @param cell  A cell for which to calculate the next state
-   * @param ratio The ratio of occupied neighbor cells that are the same type as cell
+   * @param ratio The ratio of occupied neighbor cells that are the same type as
+   *              cell
    * @return The next state of a cell
    */
   private String toggleCell(Cell cell, double ratio) {
@@ -75,7 +78,8 @@ public class Schelling extends Simulation {
   }
 
   /**
-   * Update the statuses of empty cells that have another cell "move into" that space
+   * Update the statuses of empty cells that have another cell "move into" that
+   * space
    */
   public void moveCells() {
     if (empty.size() < move.size()) {
@@ -91,14 +95,14 @@ public class Schelling extends Simulation {
   }
 
   /**
-   * @see cellsociety.simulations.Simulation#randomize(java.util.HashMap, int, int) parameters used:
-   * perEmpty - fraction of cells to initialize as empty perStateOne - of non-empty cells, fraction
-   * that should be in stateA
+   * @see cellsociety.simulations.Simulation#randomize(HashMap, int, int)
+   *      perEmpty - fraction of cells to initialize as empty
+   *      perStateOne - of non-empty cells, fraction that should be in stateA
    */
   public Cell randomize(HashMap<String, Double> parameters, int xCoordinate, int yCoordinate) {
     double empty = parameters.get("perEmpty");
     double stateA = parameters.get("perStateOne");
-    Cell cell = new Cell(xCoordinate, yCoordinate);
+    Cell cell = new SchellingCell(xCoordinate, yCoordinate);
     if (RAND_NUM_GEN.nextDouble() < empty) {
       cell.setStatus(getDeadString());
     } else if (RAND_NUM_GEN.nextDouble() < stateA) {
@@ -108,5 +112,4 @@ public class Schelling extends Simulation {
     }
     return cell;
   }
-
 }

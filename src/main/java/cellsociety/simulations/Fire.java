@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
 import cellsociety.Cells.Cell;
+import cellsociety.Cells.FireCell;
 
 /**
  * Spreading Fire simulation
@@ -11,7 +12,6 @@ import cellsociety.Cells.Cell;
  * @author Brandon Weiss
  */
 public class Fire extends Simulation {
-
   public static final Random RAND_NUM_GEN = new Random();
   private String burningState;
   private double probCatch;
@@ -20,7 +20,8 @@ public class Fire extends Simulation {
    * @param emptyString   The string representing a cell in the empty state
    * @param treeString    The string representing a cell in the tree state
    * @param burningString The string representing a cell in the burning state
-   * @param probCatch     The probability of a tree catching fire if at least 1 neighbor is burning
+   * @param probCatch     The probability of a tree catching fire if at least 1
+   *                      neighbor is burning
    */
   public Fire(String emptyString, String treeString, String burningString, double probCatch) {
     super(emptyString, treeString);
@@ -44,10 +45,13 @@ public class Fire extends Simulation {
   }
 
   /**
-   * Spreading Fire rules: An empty cell stays empty A burning cell becomes empty If a living cell
-   * has at least 1 burning neighbor, then it burns with a probability according to probCatch A
-   * living cell with no burning neighbors will stay living
-   *
+   * Spreading Fire rules:
+   * An empty cell stays empty
+   * A burning cell becomes empty
+   * If a living cell has at least 1 burning neighbor,
+   * then it burns with a probability according to probCatch
+   * A living cell with no burning neighbors will stay living
+   * 
    * @param cell       A cell for which to calculate the next state
    * @param numBurning The number of neighbors that are in the burning state
    * @return The next state of a cell
@@ -64,14 +68,14 @@ public class Fire extends Simulation {
   }
 
   /**
-   * @see cellsociety.simulations.Simulation#randomize(java.util.HashMap, int, int) parameters used:
-   * perTree - fraction of cells to initialize as not empty perFire - of non-empty cells, fraction
-   * that should be burning
+   * @see cellsociety.simulations.Simulation#randomize(HashMap, int, int)
+   *      perTree - fraction of cells to initialize as not empty
+   *      perFire - of non-empty cells, fraction that should be burning
    */
   public Cell randomize(HashMap<String, Double> parameters, int xCoordinate, int yCoordinate) {
     double trees = parameters.get("perTree");
     double burning = parameters.get("perFire");
-    Cell cell = new Cell(xCoordinate, yCoordinate);
+    Cell cell = new FireCell(xCoordinate, yCoordinate);
     if (RAND_NUM_GEN.nextDouble() < trees) {
       cell.setStatus(getDeadString());
     } else if (RAND_NUM_GEN.nextDouble() < burning) {
