@@ -128,9 +128,9 @@ public abstract class SimulationEngine implements EngineInterface {
     for (int i = 0; i < width; i++) {
       ArrayList<Cell> column = new ArrayList<>();
       for (int j = 0; j < height; j++) {
-        input = new Cell(i, j);
-        input.setStatus(sim.getDeadString());
-        column.add(input);
+        //input = new Cell(i, j);
+        //input.setStatus(sim.getDeadString());
+        //column.add(input);
       }
       cells.add(column);
     }
