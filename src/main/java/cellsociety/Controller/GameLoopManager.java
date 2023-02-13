@@ -7,6 +7,7 @@ import cellsociety.GUI.GUIContainer;
 import cellsociety.GUI.Grids.RectangleVisualGrid;
 import cellsociety.GUI.VisualGrid;
 import cellsociety.Grid;
+import cellsociety.simulations.Life;
 import java.io.File;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
