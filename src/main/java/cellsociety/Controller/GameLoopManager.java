@@ -48,6 +48,7 @@ public class GameLoopManager extends Application {
   public void start(Stage primaryStage) throws Exception {
     this.language = "english";
     this.config = new Config();
+    //Test
     File file = new File(INIT_FILE_LOCATION);
     config.readFile(file);
     setUpFromConfig(primaryStage);
