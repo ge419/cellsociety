@@ -47,6 +47,7 @@ public abstract class SimEngine implements EngineInterface {
     this.grid = grid;
     this.initGrid = initGrid;
     this.params = params;
+    this.sim = sim;
   }
 
   /**
@@ -141,7 +142,7 @@ public abstract class SimEngine implements EngineInterface {
     for (int r = 0; r < grid.getRowNum(); r++) {
       for (int c = 0; c < grid.getColNum(); c++) {
         hold = grid.getCell(r, c);
-        nextStates.add(this.sim.getUpdatedCellStatus(hold, findNeighbors(hold)));
+        nextStates.add(sim.getUpdatedCellStatus(hold, findNeighbors(hold)));
       }
     }
   }
