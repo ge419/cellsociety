@@ -1,5 +1,8 @@
 package cellsociety.Controller;
 
+import cellsociety.GUI.DropDown;
+import cellsociety.GUI.SliderContainer;
+
 /**
  * @Author Han Zhang
  */
@@ -10,10 +13,12 @@ public class AnimationManager implements AnimationInterface{
   private boolean pause;
 
   private boolean step;
+  private boolean newFile;
   public static final double FRAMES_PER_SECOND = 60;
+  public static final double STARTING_MULTIPLIER = 1/SliderContainer.CURRENT;
   public AnimationManager() {
-    frameNum = 0;
-    multiplier = 1;
+    frameNum = Integer.MAX_VALUE;
+    multiplier = STARTING_MULTIPLIER;
     pause = true;
   }
   @Override
@@ -49,6 +54,21 @@ public class AnimationManager implements AnimationInterface{
   public void setStep() {
     step = false;
   }
+
+  @Override
+  public void setNewFile(boolean state) {
+    newFile = state;
+    System.out.println(newFile);
+  }
+  public boolean isNewFile(){
+    return newFile;
+  }
+
+  @Override
+  public int getFrame() {
+    return frameNum;
+  }
+
   public boolean isStep(){
     return step;
   }
