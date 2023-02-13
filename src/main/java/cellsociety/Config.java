@@ -151,7 +151,7 @@ public class Config {
    * https://www.javaguides.net/2018/10/how-to-create-xml-file-in-java-dom-parser.html
    * TODO: Change parameter to Grid, work on integrating this method with FileSaver
    */
-  public File saveXML() {
+  public File saveXML(Grid grid) {
     DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
     try {
       DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
