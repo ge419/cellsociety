@@ -53,7 +53,13 @@ public class GameLoopManager extends Application {
     setUpFromConfig(primaryStage);
     Timeline animation = new Timeline();
     animation.setCycleCount(Timeline.INDEFINITE);
-    animation.getKeyFrames().add(new KeyFrame(Duration.seconds(SECOND_DELAY), e -> step()));
+    animation.getKeyFrames().add(new KeyFrame(Duration.seconds(SECOND_DELAY), e -> {
+      try {
+        step(primaryStage);
+      } catch (Exception ex) {
+        throw new RuntimeException(ex);
+      }
+    }));
     animation.play();
   }
 
@@ -69,26 +75,32 @@ public class GameLoopManager extends Application {
         visualGrid);
   }
 
-  private void step() {
+  private void step(Stage primaryStage) throws Exception {
     gameStateUpdates();
-
+    checkNewFiles(primaryStage);
   }
 
+  private void checkNewFiles(Stage primaryStage) throws Exception {
+    if(animationManager.isNewFile()){
+      setUpFromConfig(primaryStage);
+    }
+  }
   private void gameStateUpdates() {
     if (animationManager.isNewFrame()) {
       if (animationManager.isPaused()){
-        animationManager.resetFrameNum();
         if(animationManager.isStep()){
-          animationManager.setStep();
           this.engine.updateGameState();
         }
       }
       else {
-        animationManager.incrementFrame();
         this.engine.updateGameState();
       }
+      animationManager.setStep();
       this.visualGrid.updateEntireGrid(grid);
+      animationManager.resetFrameNum();
     }
+    animationManager.incrementFrame();
+    System.out.println(animationManager.getFrame());
   }
 
   //TODO: REFACTOR --> not using if/switch statements?
