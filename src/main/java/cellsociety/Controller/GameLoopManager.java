@@ -29,7 +29,7 @@ public class GameLoopManager extends Application {
   private static final String FIRE_NAME = NAMES_FILE.getString("FireName");
   private static final String LIFE_NAME = NAMES_FILE.getString("LifeName");
   private static final String WATOR_NAME = NAMES_FILE.getString("WTName");
-  private static final String PERC_NAME = NAMES_FILE.getString("PercolName");
+  //private static final String PERC_NAME = NAMES_FILE.getString("PercolName");
 
   private String language;
   private Config config;
@@ -40,7 +40,6 @@ public class GameLoopManager extends Application {
   private int width;
   private int height;
   private EngineInterface engine;
-  private GUIContainer container;
   public static final int FRAMES_PER_SECOND = 60;
   public static final double SECOND_DELAY = 10.0 / FRAMES_PER_SECOND;
 
@@ -66,7 +65,7 @@ public class GameLoopManager extends Application {
     this.visualGrid = new RectangleVisualGrid(width, height);
     this.animationManager = new AnimationManager();
     startEngine(config.getVariant());
-    this.container = new GUIContainer(primaryStage, language, config, engine, animationManager,
+    new GUIContainer(primaryStage, language, config, engine, animationManager,
         visualGrid);
   }
 
