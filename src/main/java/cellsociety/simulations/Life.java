@@ -1,7 +1,7 @@
 package cellsociety.simulations;
 
-import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 import cellsociety.Cells.Cell;
 import cellsociety.Cells.LifeCell;
@@ -55,12 +55,17 @@ public class Life extends Simulation {
   }
 
   /**
-   * @see cellsociety.simulations.Simulation#randomize(HashMap, int, int)
+   * @throws Exception
+   * @see cellsociety.simulations.Simulation#randomize(java.util.Map, int, int)
    *      perAlive - fraction of cells to initialize as alive
    */
-  public Cell randomize(HashMap<String, Double> parameters, int xCoordinate, int yCoordinate) {
-    double alive = parameters.get("perAlive");
-    Cell cell = new LifeCell(xCoordinate, yCoordinate);
+  public Cell randomize(Map<String, Double> parameters, int xCoordinate, int yCoordinate) {
+    double alive = 0.4;
+    try {
+      alive = parameters.get("perAlive");
+    } catch (Exception e) {
+    }
+    LifeCell cell = new LifeCell(xCoordinate, yCoordinate);
     if (RAND_NUM_GEN.nextDouble() < alive) {
       cell.setStatus(getAliveString());
     } else {

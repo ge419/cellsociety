@@ -2,25 +2,23 @@
 
 <data>
   <sim_type>Game of Life</sim_type>
-  <config_Name>Blinker</config_Name>
+  <config_Name>Blank</config_Name>
   <author>Conway's Game of Life Wikipedia page</author>
   <description>
-    The smallest oscillating object in Conway's Game of Life.
-    Light green cells represent alive cells, and white cells represents dead cells.
   </description>
-  <width>12</width>
+  <width>10</width>
   <height>10</height>
   <!--Not Required to have an init_state-->
-  <init_state>0 0 0 0 0 0 0 0 0 0 0 0
-    0 0 0 0 0 0 0 0 0 0 0 0
-    0 0 0 0 0 0 0 0 0 0 0 0
-    0 0 0 0 0 0 0 0 0 0 0 0
-    0 0 0 0 1 1 1 0 0 0 0 0
-    0 0 0 0 0 0 0 0 0 0 0 0
-    0 0 0 0 0 0 0 0 0 0 0 0
-    0 0 0 0 0 0 0 0 0 0 0 0
-    0 0 0 0 0 0 0 0 0 0 0 0
-    0 0 0 0 0 0 0 0 0 0 0 0</init_state>
+  <init_state>0 0 0 0 0 0 0 0 0 0
+    0 0 0 0 0 0 0 0 0 0
+    0 0 0 0 0 0 0 0 0 0
+    0 0 0 0 0 0 0 0 0 0
+    0 0 0 0 0 0 0 0 0 0
+    0 0 0 0 0 0 0 0 0 0
+    0 0 0 0 0 0 0 0 0 0
+    0 0 0 0 0 0 0 0 0 0
+    0 0 0 0 0 0 0 0 0 0
+    0 0 0 0 0 0 0 0 0 0</init_state>
   <!--Not Required to have a parameters-->
   <params>
     <probCatch>0</probCatch>

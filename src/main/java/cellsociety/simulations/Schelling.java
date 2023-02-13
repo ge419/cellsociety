@@ -1,8 +1,8 @@
 package cellsociety.simulations;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 import cellsociety.Cells.Cell;
 import cellsociety.Cells.SchellingCell;
@@ -95,14 +95,20 @@ public class Schelling extends Simulation {
   }
 
   /**
-   * @see cellsociety.simulations.Simulation#randomize(HashMap, int, int)
+   * @throws Exception
+   * @see cellsociety.simulations.Simulation#randomize(java.util.Map, int, int)
    *      perEmpty - fraction of cells to initialize as empty
    *      perStateOne - of non-empty cells, fraction that should be in stateA
    */
-  public Cell randomize(HashMap<String, Double> parameters, int xCoordinate, int yCoordinate) {
-    double empty = parameters.get("perEmpty");
-    double stateA = parameters.get("perStateOne");
-    Cell cell = new SchellingCell(xCoordinate, yCoordinate);
+  public Cell randomize(Map<String, Double> parameters, int xCoordinate, int yCoordinate) {
+    double empty = 0.1;
+    double stateA = 0.5;
+    try {
+      empty = parameters.get("perEmpty");
+      stateA = parameters.get("perStateOne");
+    } catch (Exception e) {
+    }
+    SchellingCell cell = new SchellingCell(xCoordinate, yCoordinate);
     if (RAND_NUM_GEN.nextDouble() < empty) {
       cell.setStatus(getDeadString());
     } else if (RAND_NUM_GEN.nextDouble() < stateA) {

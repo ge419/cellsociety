@@ -6,12 +6,11 @@ import cellsociety.Grid;
 import cellsociety.simulations.Schelling;
 import cellsociety.simulations.Simulation;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 /**
- * @author Changmin Shin
+ * @author Changmin Shin, Brandon Weiss
  */
 
 public class SegEngine extends SimEngine {
@@ -19,8 +18,6 @@ public class SegEngine extends SimEngine {
   private static final String SEG_EMPTY = NAMES_FILE.getString("SegEmpty");
   private static final String SEG_A = NAMES_FILE.getString("SegA");
   private static final String SEG_B = NAMES_FILE.getString("SegB");
-
-  Simulation sim;
 
   public SegEngine(VisualGrid visualGrid, String initState, Grid grid, Grid initGrid,
       Map<String, Double> params)
@@ -41,14 +38,19 @@ public class SegEngine extends SimEngine {
     } else if (status == 2) {
       return SEG_B;
     } else {
-      //TODO: create a new exception class, also return e
+      // TODO: create a new exception class, also return e
       throw new Exception("Invalid input for status");
     }
   }
 
   @Override
   void init(Map<String, Double> params) {
-    sim = new Schelling(SEG_EMPTY, SEG_A, SEG_B, params.get("change"));
+    double change = 0.3;
+    try {
+      change = params.get("change");
+    } catch (Exception e) {
+    }
+    sim = new Schelling(SEG_EMPTY, SEG_A, SEG_B, change);
   }
 
   @Override
@@ -89,4 +91,3 @@ public class SegEngine extends SimEngine {
     return neighbors;
   }
 }
-

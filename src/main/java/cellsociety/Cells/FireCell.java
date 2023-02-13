@@ -1,9 +1,11 @@
 package cellsociety.Cells;
 
-public class FireCell extends Cell{
+/**
+ * @author Brandon Weiss
+ */
+public class FireCell extends Cell {
+  public FireCell(int xCoordinate, int yCoordinate) {
+    super(xCoordinate, yCoordinate);
+  }
 
-    public FireCell(int xCoordinate, int yCoordinate) {
-        super(xCoordinate, yCoordinate);
-    }
-    
 }

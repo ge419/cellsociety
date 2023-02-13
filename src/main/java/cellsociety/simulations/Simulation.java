@@ -1,7 +1,7 @@
 package cellsociety.simulations;
 
-import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import cellsociety.Cells.Cell;
 
 /**
@@ -54,5 +54,5 @@ public abstract class Simulation {
    * @param yPos   An int representing the y position of a cell in the grid
    * @return A new cell of a randomized state according to the parameters
    */
-  public abstract Cell randomize(HashMap<String, Double> params, int xPos, int yPos);
+  public abstract Cell randomize(Map<String, Double> params, int xPos, int yPos);
 }

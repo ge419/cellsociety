@@ -1,9 +1,11 @@
 package cellsociety.Cells;
 
-public class SchellingCell extends Cell{
+/**
+ * @author Brandon Weiss
+ */
+public class SchellingCell extends Cell {
+  public SchellingCell(int xCoordinate, int yCoordinate) {
+    super(xCoordinate, yCoordinate);
+  }
 
-    public SchellingCell(int xCoordinate, int yCoordinate) {
-        super(xCoordinate, yCoordinate);
-    }
-    
 }
