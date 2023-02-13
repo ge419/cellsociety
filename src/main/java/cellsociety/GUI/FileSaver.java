@@ -35,7 +35,7 @@ public class FileSaver {
       saved = fileChooser.showSaveDialog(button.getScene().getWindow());
       if (saved != null) {
         try (PrintWriter writer = new PrintWriter(saved)) {
-          saved = config.saveXML(saved);
+          saved = config.saveXML();
         } catch (FileNotFoundException ex) {
           System.out.println("Error writing to file: " + ex.getMessage());
         }

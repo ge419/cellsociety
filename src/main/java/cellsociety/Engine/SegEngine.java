@@ -61,7 +61,7 @@ public class SegEngine extends SimEngine {
 
   @Override
   public void saveNextState() {
-    ArrayList<String> nextStates = new ArrayList<>();
+    nextStates = new ArrayList<>();
     Cell hold;
     for (int r = 0; r < getGrid().getRowNum(); r++) {
       for (int c = 0; c < getGrid().getColNum(); c++) {

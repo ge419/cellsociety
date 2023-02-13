@@ -161,14 +161,14 @@ public class Config {
   /**
    * Creates new XML file and saves current state of simulation. Refined code from
    * https://www.javaguides.net/2018/10/how-to-create-xml-file-in-java-dom-parser.html
-   *
-   * @param file The default XML file created in FileSaver that is to be modified.
+   * https://chat.openai.com/chat/1e2e6e32-cf3e-4c72-998a-ab3e1a8183c5
    */
-  public File saveXML(File file) {
-    DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
+  public File saveXML() {
+    File file = new File("*.xml");
     try {
+      DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
       DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
-      Document doc = docBuilder.parse(file);
+      Document doc = docBuilder.newDocument();
       addElements(doc);
       TransformerFactory transformerFactory = TransformerFactory.newInstance();
       Transformer transformer = transformerFactory.newTransformer();
