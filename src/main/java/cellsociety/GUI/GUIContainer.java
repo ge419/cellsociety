@@ -146,13 +146,9 @@ public class GUIContainer {
 
 
   private void SetUpDescriptionBox(Config config) {
-    TextArea description = new TextArea();
-    description.setId("TextBox");
-    description.setText(config.getDescription());
-    VBox descriptionContainer = new VBox();
-    descriptionContainer.getChildren().add(description);
-    pane.getChildren().add(descriptionContainer);
-    GridPane.setConstraints(descriptionContainer, DESCRIPTION_BOX_COLUMN, DESCRIPTION_BOX_ROW, DESCRIPTION_BOX_COLUMN_SPAN, DESCRIPTION_BOX_ROW_SPAN);
+    DescriptionBox TextBox = new DescriptionBox(config);
+    pane.getChildren().add(TextBox.getDescriptionContainer());
+    GridPane.setConstraints(TextBox.getDescriptionContainer(), DESCRIPTION_BOX_COLUMN, DESCRIPTION_BOX_ROW, DESCRIPTION_BOX_COLUMN_SPAN, DESCRIPTION_BOX_ROW_SPAN);
   }
 
   private void setUpButtons(EngineInterface simulationEngine, AnimationInterface controller, ResourceBundle bundle) {

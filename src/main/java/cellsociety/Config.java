@@ -270,4 +270,10 @@ public class Config {
   public String getDescription() {
     return description;
   }
+  public String getAuthor() {
+    return author;
+  }
+  public String getName(){
+    return configName;
+  }
 }
