@@ -30,7 +30,6 @@ import org.xml.sax.SAXException;
  * @Author Changmin Shin
  */
 
-//TODO: use for loops and the arraylist for repeating lines of code.
 public class Config {
 
   public static final String INTERNAL_CONFIGURATION = "cellsociety.";
