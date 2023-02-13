@@ -56,11 +56,11 @@ public class Grid{
   private void initializeGrid(int width, int height, String simType) {
     grid = new ArrayList<>();
     for (int r = 0; r < width; r++) {
-      List<Cell> row = new ArrayList<>();
+      List<Cell> col = new ArrayList<>();
       for (int c = 0; c < height; c++) {
-        row.add(c, cellType(simType, r, c));
+        col.add(c, cellType(simType, r, c));
       }
-      grid.add(r, row);
+      grid.add(r, col);
     }
   }
 
