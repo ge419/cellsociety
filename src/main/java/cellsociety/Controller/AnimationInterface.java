@@ -14,4 +14,5 @@ public interface AnimationInterface {
   boolean isPaused();
   boolean isStep();
   void setStep();
+  int getFrameNum();
 }

@@ -75,24 +75,23 @@ public class GameLoopManager extends Application {
 
   private void step() {
     gameStateUpdates();
-
   }
 
   private void gameStateUpdates() {
     if (animationManager.isNewFrame()) {
       if (animationManager.isPaused()){
-        animationManager.resetFrameNum();
         if(animationManager.isStep()){
-          animationManager.setStep();
           this.engine.updateGameState();
         }
       }
       else {
-        animationManager.incrementFrame();
         this.engine.updateGameState();
       }
+      animationManager.setStep();
       this.visualGrid.updateEntireGrid(grid);
+      animationManager.resetFrameNum();
     }
+    animationManager.incrementFrame();
   }
 
   //TODO: REFACTOR --> not using if/switch statements?

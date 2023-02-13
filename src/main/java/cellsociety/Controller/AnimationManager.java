@@ -10,10 +10,10 @@ public class AnimationManager implements AnimationInterface{
   private boolean pause;
 
   private boolean step;
-  public static final int FRAMES_PER_SECOND = 60;
+  public static final double FRAMES_PER_SECOND = 60;
   public AnimationManager() {
     frameNum = 0;
-    multiplier = 0;
+    multiplier = 1;
     pause = true;
   }
   @Override
@@ -23,6 +23,10 @@ public class AnimationManager implements AnimationInterface{
 
   public boolean isNewFrame(){
     return (frameNum >= (FRAMES_PER_SECOND * multiplier)) || step;
+  }
+
+  public int getFrameNum(){
+    return frameNum;
   }
 
   @Override
@@ -50,7 +54,10 @@ public class AnimationManager implements AnimationInterface{
   }
   @Override
   public void setAnimationSpeed(double value) {
-    multiplier = value;
-    System.out.println(multiplier*FRAMES_PER_SECOND);
+    if(value == 0){
+      multiplier = Integer.MAX_VALUE;
+      return;
+    }
+    multiplier = 1 / value;
   }
 }
