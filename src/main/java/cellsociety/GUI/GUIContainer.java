@@ -78,7 +78,7 @@ public class GUIContainer {
     setUpSliderContainer(controller);
     SetUpDescriptionBox();
 
-    setUpFilesButtons(config);
+    setUpFilesButtons(config, controller);
     setUpGrid(grid);
 
     List<String> DirectoryNames = new ArrayList<>();
@@ -136,9 +136,9 @@ public class GUIContainer {
     GridPane.setConstraints(drop.getContainer(), DROP_DOWN_COLUMN, DROP_DOWN_ROW, DROP_DOWN_COLUMN_SPAN, DROP_DOWN_ROW_SPAN);
   }
 
-  private void setUpFilesButtons(Config config) {
+  private void setUpFilesButtons(Config config, AnimationInterface controller) {
     FileSaver save = new FileSaver(myResources.getString("Save"), config);
-    FileUploader uploader = new FileUploader(myResources.getString("Upload"), config);
+    FileUploader uploader = new FileUploader(myResources.getString("Upload"), config, controller);
     FileButtonContainer container = new FileButtonContainer(save, uploader);
     pane.getChildren().add(container.getContainer());
     GridPane.setConstraints(container.getContainer(), FILES_COLUMN, FILES_ROW, FILES_COLUMN_SPAN, FILES_ROW_SPAN);

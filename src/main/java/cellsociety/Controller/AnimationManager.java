@@ -16,6 +16,10 @@ public class AnimationManager implements AnimationInterface{
   private boolean newFile;
   public static final double FRAMES_PER_SECOND = 60;
   public static final double STARTING_MULTIPLIER = 1/SliderContainer.CURRENT;
+
+  /**
+   * FrameNum is starting out to be Max to increment the starting stage where the file is displayed from a blank state
+   */
   public AnimationManager() {
     frameNum = Integer.MAX_VALUE;
     multiplier = STARTING_MULTIPLIER;
