@@ -11,8 +11,7 @@ import javafx.scene.shape.Rectangle;
 public class RectangleVisualGrid extends VisualGrid {
 
   private final GridPane gridLayout;
-
-  public static final int GRID_SIZE = 300;
+  public static final int GRID_SIZE = 350;
   private int width;
   private int height;
 

@@ -45,10 +45,10 @@ public class GUIContainer {
   public final static int DROP_DOWN_COLUMN_SPAN = 2;
   public final static int DROP_DOWN_ROW_SPAN = 1;
 
-  public final static int FILE_UPLOADER_COLUMN = 3;
-  public final static int FILE_UPLOADER_ROW = 0;
-  public final static int FILE_SAVER_COLUMN = 4;
-  public final static int FILE_SAVER_ROW = 0;
+  public final static int FILES_COLUMN = 3;
+  public final static int FILES_ROW= 0;
+  public final static int FILES_COLUMN_SPAN = 2;
+  public final static int FILES_ROW_SPAN = 1;
 
   public final static int DESCRIPTION_BOX_COLUMN = 3;
   public final static int DESCRIPTION_BOX_ROW = 3;
@@ -74,15 +74,13 @@ public class GUIContainer {
     Scene stageScene = new Scene(pane, WINDOW_WIDTH, WINDOW_HEIGHT);
 
     myResources = ResourceBundle.getBundle(INTERNAL_CONFIGURATION + language);
-    pane.setGridLinesVisible(true);
     pane.setId("pane");
 
     setUpButtons(simulationEngine, controller, myResources);
     setUpSliderContainer(controller);
     SetUpDescriptionBox();
 
-    setUpFileUploader(config);
-    setUpFileSaver(config);
+    setUpFilesButtons(config);
     setUpGrid(grid);
 
     List<String> DirectoryNames = new ArrayList<>();
@@ -107,7 +105,6 @@ public class GUIContainer {
       )));
       for(String name:list){
         name = dirc + "/" + name;
-        System.out.println(name);
       }
       FileNames.addAll(list);
     }
@@ -134,18 +131,14 @@ public class GUIContainer {
     GridPane.setConstraints(drop.getContainer(), DROP_DOWN_COLUMN, DROP_DOWN_ROW, DROP_DOWN_COLUMN_SPAN, DROP_DOWN_ROW_SPAN);
   }
 
-  private void setUpFileSaver(Config config) {
+  private void setUpFilesButtons(Config config) {
     FileSaver save = new FileSaver(myResources.getString("Save"), config);
-    pane.getChildren().add(save.getButton());
-    GridPane.setConstraints(save.getButton(), FILE_SAVER_COLUMN, FILE_SAVER_ROW);
-    save.setFile("Test");
+    FileUploader uploader = new FileUploader(myResources.getString("Upload"), config);
+    FileButtonContainer container = new FileButtonContainer(save, uploader);
+    pane.getChildren().add(container.getContainer());
+    GridPane.setConstraints(container.getContainer(), FILES_COLUMN, FILES_ROW, FILES_COLUMN_SPAN, FILES_ROW_SPAN);
   }
 
-  private void setUpFileUploader(Config config) {
-    FileUploader uploader = new FileUploader(myResources.getString("Upload"), config);
-    pane.getChildren().add(uploader.getButton());
-    GridPane.setConstraints(uploader.getButton(), FILE_UPLOADER_COLUMN, FILE_UPLOADER_ROW);
-  }
 
   private void SetUpDescriptionBox() {
     TextArea description = new TextArea();

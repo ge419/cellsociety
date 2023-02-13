@@ -166,6 +166,7 @@ public class Config {
       //TODO: figure out the exception
       e.printStackTrace();
     }
+    return null;
   }
 
   /**
