@@ -1,6 +1,7 @@
 package cellsociety.GUI;
 
 import cellsociety.Config;
+import cellsociety.ConfigInterface;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
@@ -24,7 +25,7 @@ public class FileSaver {
    * @param label Text to be displayed on upload button
    * @param config The config object that is passed through the GUIContainer
    */
-  public FileSaver(String label, Config config) {
+  public FileSaver(String label, ConfigInterface config) {
     button = new Button(label);
     button.setId("files-button");
     button.setOnAction(e -> {

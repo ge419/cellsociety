@@ -1,6 +1,7 @@
 package cellsociety.GUI;
 
 import cellsociety.Config;
+import cellsociety.ConfigInterface;
 import cellsociety.Controller.AnimationInterface;
 import cellsociety.Engine.EngineInterface;
 import java.io.File;
@@ -65,7 +66,7 @@ public class GUIContainer {
   public final static int SLIDER_ROW_SPAN = 1;
 
   public static final String CELL_COLOR = "stylesheets/CellColor.css";
-  public GUIContainer(Stage primaryStage, String language, Config config, EngineInterface simulationEngine, AnimationInterface controller, VisualGrid grid) {
+  public GUIContainer(Stage primaryStage, String language, ConfigInterface config, EngineInterface simulationEngine, AnimationInterface controller, VisualGrid grid) {
     pane = new GridPane();
     setColumnConstraints();
 
@@ -130,13 +131,13 @@ public class GUIContainer {
     GridPane.setConstraints(grid.getGridLayout(), GRID_COLUMN, GRID_ROW, GRID_COLUMN_SPAN, GRID_ROW_SPAN);
   }
 
-  private void setUpDropDown(List<String> FileNames, Config config, AnimationInterface controller) {
+  private void setUpDropDown(List<String> FileNames, ConfigInterface config, AnimationInterface controller) {
     DropDown drop = new DropDown(FileNames, myResources.getString("DropButton"), config, controller);
     pane.getChildren().add(drop.getContainer());
     GridPane.setConstraints(drop.getContainer(), DROP_DOWN_COLUMN, DROP_DOWN_ROW, DROP_DOWN_COLUMN_SPAN, DROP_DOWN_ROW_SPAN);
   }
 
-  private void setUpFilesButtons(Config config, AnimationInterface controller) {
+  private void setUpFilesButtons(ConfigInterface config, AnimationInterface controller) {
     FileSaver save = new FileSaver(myResources.getString("Save"), config);
     FileUploader uploader = new FileUploader(myResources.getString("Upload"), config, controller);
     FileButtonContainer container = new FileButtonContainer(save, uploader);
@@ -145,7 +146,7 @@ public class GUIContainer {
   }
 
 
-  private void SetUpDescriptionBox(Config config) {
+  private void SetUpDescriptionBox(ConfigInterface config) {
     DescriptionBox TextBox = new DescriptionBox(config);
     pane.getChildren().add(TextBox.getDescriptionContainer());
     GridPane.setConstraints(TextBox.getDescriptionContainer(), DESCRIPTION_BOX_COLUMN, DESCRIPTION_BOX_ROW, DESCRIPTION_BOX_COLUMN_SPAN, DESCRIPTION_BOX_ROW_SPAN);

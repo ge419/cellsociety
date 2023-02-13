@@ -30,7 +30,7 @@ import org.xml.sax.SAXException;
  * @Author Changmin Shin
  */
 
-public class Config {
+public class Config implements ConfigInterface{
 
   public static final String INTERNAL_CONFIGURATION = "cellsociety.";
   public final List<String> paramName = new ArrayList<>(
