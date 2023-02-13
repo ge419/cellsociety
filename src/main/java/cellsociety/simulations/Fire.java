@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
 import cellsociety.Cells.Cell;
+import cellsociety.Cells.FireCell;
 
 /**
  * Spreading Fire simulation
@@ -74,7 +75,7 @@ public class Fire extends Simulation {
   public Cell randomize(HashMap<String, Double> parameters, int xCoordinate, int yCoordinate) {
     double trees = parameters.get("perTree");
     double burning = parameters.get("perFire");
-    Cell cell = new Cell(xCoordinate, yCoordinate);
+    Cell cell = new FireCell(xCoordinate, yCoordinate);
     if (RAND_NUM_GEN.nextDouble() < trees) {
       cell.setStatus(getDeadString());
     } else if (RAND_NUM_GEN.nextDouble() < burning) {

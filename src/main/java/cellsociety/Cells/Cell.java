@@ -3,7 +3,7 @@ package cellsociety.Cells;
 /**
  * @author Changmin Shin, Brandon Weiss
  */
-public class Cell {
+public abstract class Cell {
   private String status;
   private int xPos;
   private int yPos;

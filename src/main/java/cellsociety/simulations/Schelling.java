@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
 import cellsociety.Cells.Cell;
+import cellsociety.Cells.SchellingCell;
 
 /**
  * Schelling's model of segregation
@@ -101,7 +102,7 @@ public class Schelling extends Simulation {
   public Cell randomize(HashMap<String, Double> parameters, int xCoordinate, int yCoordinate) {
     double empty = parameters.get("perEmpty");
     double stateA = parameters.get("perStateOne");
-    Cell cell = new Cell(xCoordinate, yCoordinate);
+    Cell cell = new SchellingCell(xCoordinate, yCoordinate);
     if (RAND_NUM_GEN.nextDouble() < empty) {
       cell.setStatus(getDeadString());
     } else if (RAND_NUM_GEN.nextDouble() < stateA) {
