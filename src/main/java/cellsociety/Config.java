@@ -57,12 +57,10 @@ public class Config {
   }
 
   /**
-   * Reads the selected XML file given as a parameter, checks if the file is
-   * valid, and if true,
-   * saves the values in each tag to corresponding variables in Config class, and
-   * if false, resets
+   * Reads the selected XML file given as a parameter, checks if the file is valid, and if true,
+   * saves the values in each tag to corresponding variables in Config class, and if false, resets
    * all values to default.
-   * 
+   *
    * @param xmlFile The xml file that is selected by the user to be read.
    */
   public void readFile(File xmlFile) {
@@ -103,7 +101,8 @@ public class Config {
   // TODO: Check exceptions
   public boolean checkValidXML(File xmlFile) {
     try {
-      Document xmlDocument = DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(xmlFile);
+      Document xmlDocument = DocumentBuilderFactory.newInstance().newDocumentBuilder()
+          .parse(xmlFile);
       root = xmlDocument.getDocumentElement();
     } catch (NumberFormatException e) {
       showMessage(AlertType.ERROR, "Invalid number given in data");
@@ -120,7 +119,7 @@ public class Config {
 
   /**
    * Takes the values in the xml file as Strings
-   * 
+   *
    * @param e       Element in xml file that is being accessed
    * @param tagName The name of the tag
    * @return The value of the corresponding tag as String
@@ -142,7 +141,7 @@ public class Config {
 
   /**
    * Saves values in each tag into variables in Config class.
-   * 
+   *
    * @param root The root element the xml file is reading from
    */
   public void updateXML(Element root) {
@@ -183,8 +182,7 @@ public class Config {
   }
 
   /**
-   * Creates Elements rootElement and params, and appends corresponding tag names
-   * and values to the
+   * Creates Elements rootElement and params, and appends corresponding tag names and values to the
    * XML file
    *
    * @param doc The XML document that is being modified by the code.
@@ -267,6 +265,7 @@ public class Config {
   public String getInitState() {
     return initState;
   }
+
   public String getDescription() {
     return description;
   }
