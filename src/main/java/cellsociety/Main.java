@@ -1,6 +1,7 @@
 package cellsociety;
 
 import cellsociety.Controller.GameLoopManager;
+import javafx.application.Application;
 import javafx.stage.Stage;
 
 /**
@@ -9,8 +10,6 @@ import javafx.stage.Stage;
 public class Main{
 
   public static void main(String[] args) throws Exception {
-    String language = "english";
-    Stage primaryStage = new Stage();
-    GameLoopManager manager = new GameLoopManager(primaryStage, language);
+    Application.launch(GameLoopManager.class, args);
   }
 }

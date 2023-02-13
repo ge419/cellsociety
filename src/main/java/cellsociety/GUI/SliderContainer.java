@@ -11,7 +11,6 @@ import javafx.scene.text.Text;
  */
 
 public class SliderContainer {
-
   VBox container;
   Slider slider;
   Text text;
@@ -21,13 +20,11 @@ public class SliderContainer {
 
   public static final int INCREMENT = 1;
   public SliderContainer(String caption, AnimationInterface animation){
-
     sliderInit(animation);
     setText(caption);
     container = new VBox(slider, text);
     container.setId("Container-Vbox");
   }
-
   private void sliderInit(AnimationInterface animation) {
     slider = new Slider();
     slider.setMin(MIN);

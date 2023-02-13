@@ -24,12 +24,10 @@ public class GUIContainer {
   public final int[] COLUMN_PERCENT = {16,16,16,21,21};
 
   private final GridPane pane;
-  private VisualGrid grid;
   private final ResourceBundle myResources;
   public final static String GUI_CSS = "stylesheets/GUIContainer.css";
 
   public final static String INTERNAL_CONFIGURATION = "cellsociety.";
-  private boolean sliderChanged = false;
 
   public final static int WINDOW_WIDTH = 1000;
   public final static int WINDOW_HEIGHT = 700;
@@ -45,10 +43,10 @@ public class GUIContainer {
   public final static int DROP_DOWN_COLUMN_SPAN = 2;
   public final static int DROP_DOWN_ROW_SPAN = 1;
 
-  public final static int FILE_UPLOADER_COLUMN = 3;
-  public final static int FILE_UPLOADER_ROW = 0;
-  public final static int FILE_SAVER_COLUMN = 4;
-  public final static int FILE_SAVER_ROW = 0;
+  public final static int FILES_COLUMN = 3;
+  public final static int FILES_ROW= 0;
+  public final static int FILES_COLUMN_SPAN = 2;
+  public final static int FILES_ROW_SPAN = 1;
 
   public final static int DESCRIPTION_BOX_COLUMN = 3;
   public final static int DESCRIPTION_BOX_ROW = 3;
@@ -74,15 +72,13 @@ public class GUIContainer {
     Scene stageScene = new Scene(pane, WINDOW_WIDTH, WINDOW_HEIGHT);
 
     myResources = ResourceBundle.getBundle(INTERNAL_CONFIGURATION + language);
-    pane.setGridLinesVisible(true);
     pane.setId("pane");
 
     setUpButtons(simulationEngine, controller, myResources);
     setUpSliderContainer(controller);
     SetUpDescriptionBox();
 
-    setUpFileUploader(config);
-    setUpFileSaver(config);
+    setUpFilesButtons(config);
     setUpGrid(grid);
 
     List<String> DirectoryNames = new ArrayList<>();
@@ -99,6 +95,11 @@ public class GUIContainer {
     primaryStage.show();
   }
 
+  /**
+   *
+   * @param DirectoryNames This was a list that contained the number of files, in case there are multiple Directories that need to be check
+   * @param FileNames List of File Names to be added to the dropDown Files
+   */
   private void extractFileNames(List<String> DirectoryNames, List<String> FileNames) {
     for(String dirc: DirectoryNames) {
       File dir = new File(dirc);
@@ -107,12 +108,14 @@ public class GUIContainer {
       )));
       for(String name:list){
         name = dirc + "/" + name;
-        System.out.println(name);
       }
       FileNames.addAll(list);
     }
   }
 
+  /**
+   * Sets up the Width of each Column in terms of Column percents
+   */
   private void setColumnConstraints() {
     for (int j : COLUMN_PERCENT) {
       ColumnConstraints column = new ColumnConstraints();
@@ -122,8 +125,7 @@ public class GUIContainer {
     }
   }
 
-  private void setUpGrid(VisualGrid Grid) {
-    grid = Grid;
+  private void setUpGrid(VisualGrid grid) {
     pane.getChildren().add(grid.getGridLayout());
     GridPane.setConstraints(grid.getGridLayout(), GRID_COLUMN, GRID_ROW, GRID_COLUMN_SPAN, GRID_ROW_SPAN);
   }
@@ -134,18 +136,14 @@ public class GUIContainer {
     GridPane.setConstraints(drop.getContainer(), DROP_DOWN_COLUMN, DROP_DOWN_ROW, DROP_DOWN_COLUMN_SPAN, DROP_DOWN_ROW_SPAN);
   }
 
-  private void setUpFileSaver(Config config) {
+  private void setUpFilesButtons(Config config) {
     FileSaver save = new FileSaver(myResources.getString("Save"), config);
-    pane.getChildren().add(save.getButton());
-    GridPane.setConstraints(save.getButton(), FILE_SAVER_COLUMN, FILE_SAVER_ROW);
-    save.setFile("Test");
+    FileUploader uploader = new FileUploader(myResources.getString("Upload"), config);
+    FileButtonContainer container = new FileButtonContainer(save, uploader);
+    pane.getChildren().add(container.getContainer());
+    GridPane.setConstraints(container.getContainer(), FILES_COLUMN, FILES_ROW, FILES_COLUMN_SPAN, FILES_ROW_SPAN);
   }
 
-  private void setUpFileUploader(Config config) {
-    FileUploader uploader = new FileUploader(myResources.getString("Upload"), config);
-    pane.getChildren().add(uploader.getButton());
-    GridPane.setConstraints(uploader.getButton(), FILE_UPLOADER_COLUMN, FILE_UPLOADER_ROW);
-  }
 
   private void SetUpDescriptionBox() {
     TextArea description = new TextArea();
@@ -167,8 +165,5 @@ public class GUIContainer {
     SliderContainer slider = new SliderContainer(myResources.getString("SliderCaption"), animation);
     pane.getChildren().add(slider.getContainer());
     GridPane.setConstraints(slider.getContainer(), SLIDER_COLUMN, SLIDER_ROW, SLIDER_COLUMN_SPAN, SLIDER_ROW_SPAN);
-  }
-  public VisualGrid getGrid() {
-    return grid;
   }
 }

@@ -19,8 +19,6 @@ public class LifeEngine extends SimEngine {
   private static final String LIFE_ALIVE = NAMES_FILE.getString("LifeAlive");
   private static final String LIFE_DEAD = NAMES_FILE.getString("LifeDead");
 
-  Simulation sim;
-
   public LifeEngine(VisualGrid visualGrid, String initState, Grid grid, Grid initGrid,
       Map<String, Double> params)
       throws Exception {

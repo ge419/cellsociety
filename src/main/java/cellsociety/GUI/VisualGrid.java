@@ -4,12 +4,10 @@ import cellsociety.Grid;
 import javafx.scene.layout.Pane;
 
 /**
- * @Author Han Zhang
+ * @author Han Zhang
  */
 
-
 public abstract class VisualGrid {
-
   int width;
   int height;
 

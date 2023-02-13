@@ -37,6 +37,7 @@ public class Config {
   public final List<String> paramName = new ArrayList<>(
       Arrays.asList("probCatch", "change", "eShark", "ePerFish", "fishBT", "sharkBT", "perAlive",
           "perTree", "perFire", "perEmpty", "perStateOne", "perShark", "perBlocked"));
+  public final List<String> strTagNames = new ArrayList<>(Arrays.asList(""));
   private static final ResourceBundle myResources = ResourceBundle.getBundle(
       INTERNAL_CONFIGURATION + "filesandstates");
 
@@ -52,14 +53,16 @@ public class Config {
   Map<String, Double> simParam;
   Set<String> simNames;
 
-  /**
-   * Reads XML file, if XML file is valid, upload info
-   */
-
   public Config() {
     simNames = new HashSet<>();
   }
 
+  /**
+   * Reads the selected XML file given as a parameter, checks if the file is valid, and if true,
+   * saves the values in each tag to corresponding variables in Config class, and if false, resets
+   * all values to default.
+   * @param xmlFile   The xml file that is selected by the user to be read.
+   */
   public void readFile(File xmlFile) {
     simNames.add(myResources.getString("LifeName"));
     simNames.add(myResources.getString("FireName"));
@@ -73,9 +76,14 @@ public class Config {
         showMessage(AlertType.ERROR, "Invalid simulation name");
         resetTagValues();
       }
+    } else {
+      //TODO: throw exception saying the name of the simulation is invalid.
     }
   }
 
+  /**
+   * Resets the values in each xml tag variables to empty string, 0, or 0.0.
+   */
   private void resetTagValues() {
     simType = "";
     configName = "";
@@ -111,6 +119,12 @@ public class Config {
     return true;
   }
 
+  /**
+   * Takes the values in the xml file as Strings
+   * @param e       Element in xml file that is being accessed
+   * @param tagName The name of the tag
+   * @return        The value of the corresponding tag as String
+   */
   private String getTextValue(Element e, String tagName) {
     NodeList nodeList = e.getElementsByTagName(tagName);
     if (nodeList.getLength() > 0) {
@@ -128,8 +142,7 @@ public class Config {
 
   /**
    * Saves values in each tag into variables in Config class.
-   *
-   * @param root
+   * @param root  The root element the xml file is reading from
    */
   public void updateXML(Element root) {
     simType = getTextValue(root, "sim_type");
@@ -142,37 +155,37 @@ public class Config {
     for (String s : paramName) {
       simParam.put(s, Double.parseDouble(getTextValue(root, s)));
     }
-    //System.out.println(initState);
-    //currState = strToGrid();
   }
 
   /**
    * Creates new XML file and saves current state of simulation. Refined code from
    * https://www.javaguides.net/2018/10/how-to-create-xml-file-in-java-dom-parser.html
-   * TODO: Change parameter to Grid, work on integrating this method with FileSaver
+   *
+   * @param file The default XML file created in FileSaver that is to be modified.
    */
-  public File saveXML() {
+  public File saveXML(File file) {
     DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
     try {
       DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
-      Document doc = docBuilder.newDocument();
+      Document doc = docBuilder.parse(file);
       addElements(doc);
       TransformerFactory transformerFactory = TransformerFactory.newInstance();
       Transformer transformer = transformerFactory.newTransformer();
       DOMSource source = new DOMSource(doc);
-      StreamResult result = new StreamResult(new File("*.xml"));
+      StreamResult result = new StreamResult(file);
       transformer.transform(source, result);
     } catch (Exception e) {
       //TODO: figure out the exception
       e.printStackTrace();
     }
+    return file;
   }
 
   /**
    * Creates Elements rootElement and params, and appends corresponding tag names and values to the
    * XML file
    *
-   * @param doc
+   * @param doc The XML document that is being modified by the code.
    */
   private void addElements(Document doc) {
     Element rootElement = doc.createElement("data");
@@ -239,10 +252,6 @@ public class Config {
 
   public Map<String, Double> getSimParam() {
     return simParam;
-  }
-
-  public List<List<Integer>> getIntGrid() {
-    return currState;
   }
 
   public int getWidth() {

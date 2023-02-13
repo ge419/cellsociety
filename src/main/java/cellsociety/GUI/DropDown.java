@@ -8,6 +8,9 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.layout.VBox;
 
+/**
+ * @Author Han Zhang
+ */
 public class DropDown {
 
   private static ComboBox<String> dropdown;

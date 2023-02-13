@@ -7,6 +7,10 @@ import java.io.PrintWriter;
 import javafx.scene.control.Button;
 import javafx.stage.FileChooser;
 
+/**
+ * @Author Han Zhang
+ */
+
 public class FileSaver {
 
   private File saved;
@@ -14,6 +18,12 @@ public class FileSaver {
   private static String data;
   private static PrintWriter fileWriter;
   private static Button button;
+
+  /**
+   * Used this Chat GPT chat to help me build the constructor https://shareg.pt/dhJrFWq,
+   * @param label Text to be displayed on upload button
+   * @param config The config object that is passed through the GUIContainer
+   */
   public FileSaver(String label, Config config) {
     button = new Button(label);
     button.setId("files-button");
@@ -25,7 +35,7 @@ public class FileSaver {
       saved = fileChooser.showSaveDialog(button.getScene().getWindow());
       if (saved != null) {
         try (PrintWriter writer = new PrintWriter(saved)) {
-          saved = config.saveXML();
+          saved = config.saveXML(saved);
         } catch (FileNotFoundException ex) {
           System.out.println("Error writing to file: " + ex.getMessage());
         }
@@ -35,8 +45,5 @@ public class FileSaver {
 
   public Button getButton() {
     return button;
-  }
-  public void setFile(String str){
-    data = str;
   }
 }

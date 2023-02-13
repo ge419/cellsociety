@@ -8,11 +8,13 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
+/**
+ * @author Han Zhang
+ */
 public class RectangleVisualGrid extends VisualGrid {
 
   private final GridPane gridLayout;
-
-  public static final int GRID_SIZE = 300;
+  public static final int GRID_SIZE = 350;
   private int width;
   private int height;
 
@@ -42,7 +44,8 @@ public class RectangleVisualGrid extends VisualGrid {
 
   @Override
   public void updateCell(int x, int y, String state) {
-    Rectangle rect = (Rectangle) gridLayout.getChildren().get(x * width + y + 1);
+    //TODO: IndexOutOfBounds error occur, if + 1 is removed, works fine.
+    Rectangle rect = (Rectangle) gridLayout.getChildren().get(x * width + y);
     rect.setId(state);
   }
   public void resetGrid(double gridSize){
