@@ -39,7 +39,6 @@ public abstract class SimulationEngine implements EngineInterface {
   private static final String PERC_OPEN = NAMES_FILE.getString("PercolOpen");
   private static final String PERC_PERC = NAMES_FILE.getString("PercolPerc");
 
-  // Potential Bug grid object here is not same grid object
   private Simulation sim;
   private String simType;
   private VisualGrid visualGrid;
@@ -67,9 +66,6 @@ public abstract class SimulationEngine implements EngineInterface {
     // Decodes String status and creates Grid
     //listToGrid(strToGrid(state));
   }
-
-  // TODO: replace string literals in params.get() calls with strings from
-  // properties file
 
   /**
    * @param simType The string representing which of the cellular automata to run
