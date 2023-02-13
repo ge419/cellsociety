@@ -16,6 +16,12 @@ public class ButtonContainer {
     HBox container;
     List<Button> Buttons;
 
+    /**
+     *
+     * @param simulationEngine Engine interface that the buttons can direclty access
+     * @param controller AnimationInterface controller that can directly alter animation speed
+     * @param bundle Resource Bundle to translate text
+     */
     public ButtonContainer(EngineInterface simulationEngine, AnimationInterface controller, ResourceBundle bundle){
         container = new HBox();
         Buttons = new ArrayList<>();

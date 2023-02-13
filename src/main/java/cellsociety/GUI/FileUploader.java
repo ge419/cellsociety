@@ -17,8 +17,8 @@ public class FileUploader {
 
   /**
    * Used this Chat GPT chat to help me build the constructor https://sharegpt.com/c/4ny1y2x
-   * @param label
-   * @param config
+   * @param label Text to be displayed on upload button
+   * @param config The config object that is passed through the GUIContainer
    */
   public FileUploader(String label, Config config){
     Button uploadButton = new Button(label);
@@ -35,15 +35,6 @@ public class FileUploader {
       }
     });
   }
-
-  public boolean isFileUploaded() {
-    return fileUploaded;
-  }
-
-  public File getUploaded() {
-    return uploaded;
-  }
-
   public Button getButton() {
     return button;
   }

@@ -18,6 +18,12 @@ public class FileSaver {
   private static String data;
   private static PrintWriter fileWriter;
   private static Button button;
+
+  /**
+   * Used this Chat GPT chat to help me build the constructor https://shareg.pt/dhJrFWq,
+   * @param label Text to be displayed on upload button
+   * @param config The config object that is passed through the GUIContainer
+   */
   public FileSaver(String label, Config config) {
     button = new Button(label);
     button.setId("files-button");
