@@ -44,7 +44,8 @@ public class RectangleVisualGrid extends VisualGrid {
 
   @Override
   public void updateCell(int x, int y, String state) {
-    Rectangle rect = (Rectangle) gridLayout.getChildren().get(x * width + y + 1);
+    //TODO: IndexOutOfBounds error occur, if + 1 is removed, works fine.
+    Rectangle rect = (Rectangle) gridLayout.getChildren().get(x * width + y);
     rect.setId(state);
   }
   public void resetGrid(double gridSize){
