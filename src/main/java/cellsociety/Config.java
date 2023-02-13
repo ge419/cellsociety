@@ -63,7 +63,7 @@ public class Config {
    * all values to default.
    * @param xmlFile   The xml file that is selected by the user to be read.
    */
-  public void readFile(File xmlFile) throws Exception {
+  public void readFile(File xmlFile) {
     simNames.add(myResources.getString("LifeName"));
     simNames.add(myResources.getString("FireName"));
     simNames.add(myResources.getString("SegName"));

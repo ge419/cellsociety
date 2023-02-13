@@ -35,11 +35,10 @@ public class GameLoopManager extends Application {
     //TODO: Need to read in XML file before initializing new Grid and VisualGrid
     width = config.getWidth();
     height = config.getHeight();
-    this.grid = new Grid(width, height);
-    this.initGrid = new Grid(width, height);
+    this.grid = new Grid(width, height, config.getVariant());
+    this.initGrid = new Grid(width, height, config.getVariant());
     this.visualGrid = new RectangleVisualGrid(width, height);
     this.animationManager = new AnimationManager();
-    // initialize SimEngine
     startEngine(config.getVariant());
     this.container = new GUIContainer(primaryStage, language, config, engine, animationManager, visualGrid);
   }
