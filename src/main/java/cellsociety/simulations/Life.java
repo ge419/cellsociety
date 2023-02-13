@@ -59,7 +59,7 @@ public class Life extends Simulation {
    * @see cellsociety.simulations.Simulation#randomize(HashMap, int, int)
    *      perAlive - fraction of cells to initialize as alive
    */
-  public Cell randomize(HashMap<String, Double> parameters, int xCoordinate, int yCoordinate) throws Exception {
+  public Cell randomize(HashMap<String, Double> parameters, int xCoordinate, int yCoordinate) {
     double alive = 0.4;
     try {
       alive = parameters.get("perAlive");

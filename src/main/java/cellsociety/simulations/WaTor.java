@@ -174,7 +174,7 @@ public class WaTor extends Simulation {
    *      perEmpty - fraction of cells to initialize as empty
    *      perShark - fraction of non-empty cells to initialize as shark
    */
-  public WatorCell randomize(HashMap<String, Double> parameters, int xCoordinate, int yCoordinate) throws Exception {
+  public WatorCell randomize(HashMap<String, Double> parameters, int xCoordinate, int yCoordinate) {
     double empty = 0.3;
     double shark = 0.3;
     try {

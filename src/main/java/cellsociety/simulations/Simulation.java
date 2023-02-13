@@ -54,5 +54,5 @@ public abstract class Simulation {
    * @param yPos   An int representing the y position of a cell in the grid
    * @return A new cell of a randomized state according to the parameters
    */
-  public abstract Cell randomize(HashMap<String, Double> params, int xPos, int yPos) throws Exception;
+  public abstract Cell randomize(HashMap<String, Double> params, int xPos, int yPos);
 }

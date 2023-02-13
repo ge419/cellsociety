@@ -100,7 +100,7 @@ public class Schelling extends Simulation {
    *      perEmpty - fraction of cells to initialize as empty
    *      perStateOne - of non-empty cells, fraction that should be in stateA
    */
-  public Cell randomize(HashMap<String, Double> parameters, int xCoordinate, int yCoordinate) throws Exception {
+  public Cell randomize(HashMap<String, Double> parameters, int xCoordinate, int yCoordinate) {
     double empty = 0.1;
     double stateA = 0.5;
     try {

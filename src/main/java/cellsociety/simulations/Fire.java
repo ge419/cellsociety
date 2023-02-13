@@ -73,7 +73,7 @@ public class Fire extends Simulation {
    *      perTree - fraction of cells to initialize as not empty
    *      perFire - of non-empty cells, fraction that should be burning
    */
-  public Cell randomize(HashMap<String, Double> parameters, int xCoordinate, int yCoordinate) throws Exception {
+  public Cell randomize(HashMap<String, Double> parameters, int xCoordinate, int yCoordinate) {
     double trees = 0.8;
     double burning = 0.1;
     try {
