@@ -50,7 +50,7 @@ public class GameLoopManager extends Application {
     this.config = new Config();
     //Test
 
-    config.readFile(file);
+    File file = new File(INIT_FILE_LOCATION);
     //TODO: Need to read in XML file before initializing new Grid and VisualGrid
     // --> Initialize as default before a file is selected
     // --> Have a pop-up asking the user to select the xml file to get started
