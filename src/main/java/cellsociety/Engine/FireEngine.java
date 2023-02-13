@@ -6,7 +6,6 @@ import cellsociety.Grid;
 import cellsociety.simulations.Fire;
 import cellsociety.simulations.Simulation;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 

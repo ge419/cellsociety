@@ -7,7 +7,6 @@ import cellsociety.Grid;
 import cellsociety.simulations.Simulation;
 import cellsociety.simulations.WaTor;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 

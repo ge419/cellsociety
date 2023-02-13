@@ -4,9 +4,7 @@ import cellsociety.Cells.Cell;
 import cellsociety.GUI.VisualGrid;
 import cellsociety.Grid;
 import cellsociety.simulations.Life;
-import cellsociety.simulations.Simulation;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -15,7 +13,6 @@ import java.util.Map;
  */
 
 public class LifeEngine extends SimEngine {
-
   private static final String LIFE_ALIVE = NAMES_FILE.getString("LifeAlive");
   private static final String LIFE_DEAD = NAMES_FILE.getString("LifeDead");
 
