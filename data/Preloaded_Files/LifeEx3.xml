@@ -29,7 +29,7 @@
     <ePerFish>0</ePerFish>
     <fishBT>0</fishBT>
     <sharkBT>0</sharkBT>
-    <perAlive>0</perAlive>
+    <perAlive>0.4</perAlive>
     <perTree>0</perTree>
     <perFire>0</perFire>
     <perEmpty>0</perEmpty>
