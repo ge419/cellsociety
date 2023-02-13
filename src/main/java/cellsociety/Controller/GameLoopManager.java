@@ -22,7 +22,7 @@ import javafx.util.Duration;
  * @author Han Zhang, Changmin Shin
  */
 public class GameLoopManager extends Application {
-
+  public static final String INIT_FILE_LOCATION = "data/Init.xml";
   public static final String INTERNAL_CONFIGURATION = "cellsociety.filesandstates";
   public static final ResourceBundle NAMES_FILE = ResourceBundle.getBundle(INTERNAL_CONFIGURATION);
   private static final String SEG_NAME = NAMES_FILE.getString("SegName");
@@ -49,11 +49,8 @@ public class GameLoopManager extends Application {
     this.language = "english";
     this.config = new Config();
     //Test
-    File file = new File("data/Preloaded_Files/LifeEx1.xml");
+    File file = new File(INIT_FILE_LOCATION);
     config.readFile(file);
-    //TODO: Need to read in XML file before initializing new Grid and VisualGrid
-    // --> Initialize as default before a file is selected
-    // --> Have a pop-up asking the user to select the xml file to get started
     setUpFromConfig(primaryStage);
     Timeline animation = new Timeline();
     animation.setCycleCount(Timeline.INDEFINITE);
