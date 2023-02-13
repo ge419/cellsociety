@@ -57,7 +57,6 @@ public class FireEngine extends SimEngine {
     updateNextState();
   }
 
-  @Override
   public List<Cell> findNeighbors(Cell cell) {
     List<Cell> neighbors = new ArrayList<>();
     if (cell.getX() != 0) {
