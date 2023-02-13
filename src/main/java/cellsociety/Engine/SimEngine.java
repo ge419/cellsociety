@@ -140,7 +140,7 @@ public abstract class SimEngine implements EngineInterface {
     Cell hold;
     for (int r = 0; r < grid.getRowNum(); r++) {
       for (int c = 0; c < grid.getColNum(); c++) {
-        hold = grid.getCell(c, r);
+        hold = grid.getCell(r, c);
         nextStates.add(this.sim.getUpdatedCellStatus(hold, findNeighbors(hold)));
       }
     }
