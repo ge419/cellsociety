@@ -48,12 +48,8 @@ public class GameLoopManager extends Application {
   public void start(Stage primaryStage) throws Exception {
     this.language = "english";
     this.config = new Config();
-    //Test
-
     File file = new File(INIT_FILE_LOCATION);
-    //TODO: Need to read in XML file before initializing new Grid and VisualGrid
-    // --> Initialize as default before a file is selected
-    // --> Have a pop-up asking the user to select the xml file to get started
+    config.readFile(file);
     setUpFromConfig(primaryStage);
     Timeline animation = new Timeline();
     animation.setCycleCount(Timeline.INDEFINITE);
