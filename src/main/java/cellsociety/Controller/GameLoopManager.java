@@ -60,6 +60,7 @@ public class GameLoopManager extends Application {
       this.engine.updateGameState();
       this.visualGrid.updateEntireGrid(grid);
     }
+
   }
   //TODO: Create a method that determines the simulation type and starts the corresponding engine
   // REFACTOR --> not using if/switch statements?

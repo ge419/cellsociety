@@ -36,7 +36,4 @@ public class FileSaver {
   public Button getButton() {
     return button;
   }
-  public void setFile(String str){
-    data = str;
-  }
 }

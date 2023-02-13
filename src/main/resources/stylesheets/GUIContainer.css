@@ -23,6 +23,7 @@
 #Container-Vbox{
   -fx-alignment: CENTER;
   -fx-padding: 20;
+  -fx-spacing: 20;
   -fx-start-margin: 20;
 }
 .text-area{
@@ -37,7 +38,10 @@
   -fx-background-color: lightgrey;
   -fx-border-color: black;
 }
-
+#File-Buttons{
+  -fx-alignment: CENTER;
+  -fx-spacing: 100;
+}
 #Container-HBox{
   -fx-alignment: CENTER;
   -fx-padding: 10;
@@ -55,3 +59,4 @@
   -fx-pref-width: 20;
   -fx-pref-height: 70;
 }
+
