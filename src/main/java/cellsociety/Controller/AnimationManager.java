@@ -1,5 +1,9 @@
 package cellsociety.Controller;
 
+/**
+ * @Author Han Zhang
+ */
+
 public class AnimationManager implements AnimationInterface{
   private int frameNum;
   private double multiplier;

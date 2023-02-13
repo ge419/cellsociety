@@ -2,6 +2,10 @@ package cellsociety.GUI;
 
 import javafx.scene.layout.HBox;
 
+/**
+ * @Author Han Zhang
+ */
+
 public class FileButtonContainer {
   HBox container;
   public FileButtonContainer(FileSaver saver, FileUploader uploader){

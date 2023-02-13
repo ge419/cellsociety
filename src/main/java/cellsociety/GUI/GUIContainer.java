@@ -24,12 +24,10 @@ public class GUIContainer {
   public final int[] COLUMN_PERCENT = {16,16,16,21,21};
 
   private final GridPane pane;
-  private VisualGrid grid;
   private final ResourceBundle myResources;
   public final static String GUI_CSS = "stylesheets/GUIContainer.css";
 
   public final static String INTERNAL_CONFIGURATION = "cellsociety.";
-  private boolean sliderChanged = false;
 
   public final static int WINDOW_WIDTH = 1000;
   public final static int WINDOW_HEIGHT = 700;
@@ -97,6 +95,11 @@ public class GUIContainer {
     primaryStage.show();
   }
 
+  /**
+   *
+   * @param DirectoryNames This was a list that contained the number of files, in case there are multiple Directories that need to be check
+   * @param FileNames List of File Names to be added to the dropDown Files
+   */
   private void extractFileNames(List<String> DirectoryNames, List<String> FileNames) {
     for(String dirc: DirectoryNames) {
       File dir = new File(dirc);
@@ -110,6 +113,9 @@ public class GUIContainer {
     }
   }
 
+  /**
+   * Sets up the Width of each Column in terms of Column percents
+   */
   private void setColumnConstraints() {
     for (int j : COLUMN_PERCENT) {
       ColumnConstraints column = new ColumnConstraints();
@@ -119,8 +125,7 @@ public class GUIContainer {
     }
   }
 
-  private void setUpGrid(VisualGrid Grid) {
-    grid = Grid;
+  private void setUpGrid(VisualGrid grid) {
     pane.getChildren().add(grid.getGridLayout());
     GridPane.setConstraints(grid.getGridLayout(), GRID_COLUMN, GRID_ROW, GRID_COLUMN_SPAN, GRID_ROW_SPAN);
   }
@@ -160,8 +165,5 @@ public class GUIContainer {
     SliderContainer slider = new SliderContainer(myResources.getString("SliderCaption"), animation);
     pane.getChildren().add(slider.getContainer());
     GridPane.setConstraints(slider.getContainer(), SLIDER_COLUMN, SLIDER_ROW, SLIDER_COLUMN_SPAN, SLIDER_ROW_SPAN);
-  }
-  public VisualGrid getGrid() {
-    return grid;
   }
 }

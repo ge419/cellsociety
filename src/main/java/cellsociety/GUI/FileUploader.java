@@ -5,12 +5,21 @@ import java.io.File;
 import javafx.scene.control.Button;
 import javafx.stage.FileChooser;
 
+/**
+ * @Author Han Zhang
+ */
+
 public class FileUploader {
   private File uploaded;
 
   private boolean fileUploaded;
   private Button button;
-  //ChatGPT chat https://chat.openai.com/chat/58c1eb7e-810d-4c1a-b4a6-26be693a9dd4
+
+  /**
+   * Used this Chat GPT chat to help me build the constructor https://sharegpt.com/c/4ny1y2x
+   * @param label Text to be displayed on upload button
+   * @param config The config object that is passed through the GUIContainer
+   */
   public FileUploader(String label, Config config){
     Button uploadButton = new Button(label);
     button = uploadButton;
@@ -26,15 +35,6 @@ public class FileUploader {
       }
     });
   }
-
-  public boolean isFileUploaded() {
-    return fileUploaded;
-  }
-
-  public File getUploaded() {
-    return uploaded;
-  }
-
   public Button getButton() {
     return button;
   }

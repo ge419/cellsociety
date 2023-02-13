@@ -1,5 +1,9 @@
 package cellsociety.Controller;
 
+/**
+ * @Author Han Zhang
+ */
+
 public interface AnimationInterface {
  void stepAnimation();
   void pauseToggle();
