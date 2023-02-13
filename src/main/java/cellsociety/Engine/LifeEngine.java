@@ -33,7 +33,7 @@ public class LifeEngine extends SimEngine {
     } else if (status == 1) {
       return LIFE_ALIVE;
     } else {
-      //TODO: create a new exception class, also return e
+      // TODO: create a new exception class, also return e
       throw new Exception("Invalid input for status");
     }
   }

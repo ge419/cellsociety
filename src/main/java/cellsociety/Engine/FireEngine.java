@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * @author Changmin Shin
+ * @author Changmin Shin, Brandon Weiss
  */
 
 public class FireEngine extends SimEngine {
@@ -40,14 +40,19 @@ public class FireEngine extends SimEngine {
     } else if (status == 2) {
       return FIRE_BURNING;
     } else {
-      //TODO: create a new exception class, also return e
+      // TODO: create a new exception class, also return e
       throw new Exception("Invalid input for status");
     }
   }
 
   @Override
   void init(Map<String, Double> params) {
-    sim = new Fire(FIRE_EMPTY, FIRE_TREE, FIRE_BURNING, params.get("probCatch"));
+    double probCatch = 0.5;
+    try {
+      probCatch = params.get("probCatch");
+    } catch (Exception e) {
+    }
+    sim = new Fire(FIRE_EMPTY, FIRE_TREE, FIRE_BURNING, probCatch);
   }
 
   @Override
@@ -73,4 +78,3 @@ public class FireEngine extends SimEngine {
     return neighbors;
   }
 }
-

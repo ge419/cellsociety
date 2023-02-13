@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * @author Changmin Shin
+ * @author Changmin Shin, Brandon Weiss
  */
 
 public class WatorEngine extends SimEngine {
@@ -42,15 +42,26 @@ public class WatorEngine extends SimEngine {
     } else if (status == 2) {
       return WATOR_SHARK;
     } else {
-      //TODO: create a new exception class, also return e
+      // TODO: create a new exception class, also return e
       throw new Exception("Invalid input for status");
     }
   }
 
   @Override
   void init(Map<String, Double> params) {
-    sim = new WaTor(WATOR_EMPTY, WATOR_FISH, WATOR_SHARK, params.get("eShark"),
-        params.get("ePerFish"), params.get("fishBT"), params.get("sharkBT"));
+    double sharkEnergy = 5;
+    double energyPerFish = 3;
+    double fishBreedingTime = 4;
+    double sharkBreedingTime = 4;
+    try {
+      sharkEnergy = params.get("eShark");
+      energyPerFish = params.get("ePerFish");
+      fishBreedingTime = params.get("fishBT");
+      sharkBreedingTime = params.get("sharkBT");
+    } catch (Exception e) {
+    }
+    sim = new WaTor(WATOR_EMPTY, WATOR_FISH, WATOR_SHARK, fishBreedingTime, sharkBreedingTime,
+        sharkEnergy, energyPerFish);
   }
 
   @Override
@@ -93,4 +104,3 @@ public class WatorEngine extends SimEngine {
     return neighbors;
   }
 }
-
