@@ -11,12 +11,12 @@ import javafx.scene.text.Text;
  */
 
 public class SliderContainer {
-  VBox container;
-  Slider slider;
-  Text text;
+  private VBox container;
+  private Slider slider;
+  private Text text;
   public static final int MIN = 0;
-  public static final int MAX = 4;
-  public static final int CURRENT = 1;
+  public static final int MAX = 60;
+  public static final int CURRENT = 60;
 
   public static final int INCREMENT = 1;
   public SliderContainer(String caption, AnimationInterface animation){

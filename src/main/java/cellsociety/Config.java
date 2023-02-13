@@ -57,10 +57,13 @@ public class Config {
   }
 
   /**
-   * Reads the selected XML file given as a parameter, checks if the file is valid, and if true,
-   * saves the values in each tag to corresponding variables in Config class, and if false, resets
+   * Reads the selected XML file given as a parameter, checks if the file is
+   * valid, and if true,
+   * saves the values in each tag to corresponding variables in Config class, and
+   * if false, resets
    * all values to default.
-   * @param xmlFile   The xml file that is selected by the user to be read.
+   * 
+   * @param xmlFile The xml file that is selected by the user to be read.
    */
   public void readFile(File xmlFile) {
     simNames.add(myResources.getString("LifeName"));
@@ -75,8 +78,6 @@ public class Config {
         showMessage(AlertType.ERROR, "Invalid simulation name");
         resetTagValues();
       }
-    } else {
-      //TODO: throw exception saying the name of the simulation is invalid.
     }
   }
 
@@ -99,11 +100,10 @@ public class Config {
   /**
    * Checks if the XML file is valid
    */
-  //TODO: Check exceptions
+  // TODO: Check exceptions
   public boolean checkValidXML(File xmlFile) {
     try {
-      Document xmlDocument =
-          DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(xmlFile);
+      Document xmlDocument = DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(xmlFile);
       root = xmlDocument.getDocumentElement();
     } catch (NumberFormatException e) {
       showMessage(AlertType.ERROR, "Invalid number given in data");
@@ -120,9 +120,10 @@ public class Config {
 
   /**
    * Takes the values in the xml file as Strings
+   * 
    * @param e       Element in xml file that is being accessed
    * @param tagName The name of the tag
-   * @return        The value of the corresponding tag as String
+   * @return The value of the corresponding tag as String
    */
   private String getTextValue(Element e, String tagName) {
     NodeList nodeList = e.getElementsByTagName(tagName);
@@ -141,7 +142,8 @@ public class Config {
 
   /**
    * Saves values in each tag into variables in Config class.
-   * @param root  The root element the xml file is reading from
+   * 
+   * @param root The root element the xml file is reading from
    */
   public void updateXML(Element root) {
     simType = getTextValue(root, "sim_type");
@@ -174,14 +176,15 @@ public class Config {
       StreamResult result = new StreamResult(file);
       transformer.transform(source, result);
     } catch (Exception e) {
-      //TODO: figure out the exception
+      // TODO: figure out the exception
       e.printStackTrace();
     }
     return file;
   }
 
   /**
-   * Creates Elements rootElement and params, and appends corresponding tag names and values to the
+   * Creates Elements rootElement and params, and appends corresponding tag names
+   * and values to the
    * XML file
    *
    * @param doc The XML document that is being modified by the code.
@@ -202,11 +205,11 @@ public class Config {
     }
   }
 
-//  private void addToElement(Element e) {
-//    List<String> strNames = new ArrayList<>(); // How to set up basic arraylist
-//    strNames.add("sim_type");
-//    e.appendChild(addTagStr());
-//  }
+  // private void addToElement(Element e) {
+  // List<String> strNames = new ArrayList<>(); // How to set up basic arraylist
+  // strNames.add("sim_type");
+  // e.appendChild(addTagStr());
+  // }
 
   private String intStrConverter(List<List<Integer>> state) {
     List<List<String>> current = new ArrayList<>();
@@ -227,9 +230,9 @@ public class Config {
     doc.appendChild(doc.createTextNode(value));
     return node;
 
-//    Element sim_type = doc.createElement("sim_type");
-//    sim_type.appendChild(doc.createTextNode(simType));
-//    rootElement.appendChild(sim_type);
+    // Element sim_type = doc.createElement("sim_type");
+    // sim_type.appendChild(doc.createTextNode(simType));
+    // rootElement.appendChild(sim_type);
   }
 
   private org.w3c.dom.Node addTagInt(Document doc, String tagName, int value) {

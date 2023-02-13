@@ -1,7 +1,7 @@
 package cellsociety.simulations;
 
-import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 import cellsociety.Cells.Cell;
 import cellsociety.Cells.FireCell;
@@ -68,14 +68,20 @@ public class Fire extends Simulation {
   }
 
   /**
-   * @see cellsociety.simulations.Simulation#randomize(HashMap, int, int)
+   * @throws Exception
+   * @see cellsociety.simulations.Simulation#randomize(java.util.Map, int, int)
    *      perTree - fraction of cells to initialize as not empty
    *      perFire - of non-empty cells, fraction that should be burning
    */
-  public Cell randomize(HashMap<String, Double> parameters, int xCoordinate, int yCoordinate) {
-    double trees = parameters.get("perTree");
-    double burning = parameters.get("perFire");
-    Cell cell = new FireCell(xCoordinate, yCoordinate);
+  public Cell randomize(Map<String, Double> parameters, int xCoordinate, int yCoordinate) {
+    double trees = 0.8;
+    double burning = 0.1;
+    try {
+      trees = parameters.get("perTree");
+      burning = parameters.get("perFire");
+    } catch (Exception e) {
+    }
+    FireCell cell = new FireCell(xCoordinate, yCoordinate);
     if (RAND_NUM_GEN.nextDouble() < trees) {
       cell.setStatus(getDeadString());
     } else if (RAND_NUM_GEN.nextDouble() < burning) {

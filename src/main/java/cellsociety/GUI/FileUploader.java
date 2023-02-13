@@ -1,6 +1,7 @@
 package cellsociety.GUI;
 
 import cellsociety.Config;
+import cellsociety.Controller.AnimationInterface;
 import java.io.File;
 import javafx.scene.control.Button;
 import javafx.stage.FileChooser;
@@ -20,7 +21,7 @@ public class FileUploader {
    * @param label Text to be displayed on upload button
    * @param config The config object that is passed through the GUIContainer
    */
-  public FileUploader(String label, Config config){
+  public FileUploader(String label, Config config, AnimationInterface controller){
     Button uploadButton = new Button(label);
     button = uploadButton;
     uploadButton.setId("files-button");
@@ -32,6 +33,7 @@ public class FileUploader {
         uploaded = selectedFile;
         fileUploaded = true;
         config.readFile(uploaded);
+        controller.setNewFile(true);
       }
     });
   }

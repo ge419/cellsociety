@@ -30,10 +30,7 @@ public class WatorCell extends Cell {
    * @return Whether a fish or shark can reproduce at this time step
    */
   public boolean reproduce(int breedingTime) {
-    if (breedingStage >= breedingTime) {
-      return true;
-    }
-    return false;
+    return (breedingStage >= breedingTime);
   }
 
   /**
