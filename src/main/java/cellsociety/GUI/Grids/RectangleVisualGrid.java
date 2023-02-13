@@ -8,6 +8,9 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
+/**
+ * @author Han Zhang
+ */
 public class RectangleVisualGrid extends VisualGrid {
 
   private final GridPane gridLayout;

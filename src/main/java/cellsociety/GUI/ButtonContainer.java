@@ -8,6 +8,9 @@ import java.util.ResourceBundle;
 import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
 
+/**
+ * @author Han Zhang
+ */
 public class ButtonContainer {
 
     HBox container;

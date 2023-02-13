@@ -7,6 +7,10 @@ import java.io.PrintWriter;
 import javafx.scene.control.Button;
 import javafx.stage.FileChooser;
 
+/**
+ * @Author Han Zhang
+ */
+
 public class FileSaver {
 
   private File saved;
