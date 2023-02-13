@@ -12,7 +12,6 @@ import cellsociety.Cells.WatorCell;
  * @author Brandon Weiss
  */
 public class WaTor extends Simulation {
-
   public static final Random RAND_NUM_GEN = new Random();
   private String fishString;
   private String sharkString;
@@ -26,10 +25,12 @@ public class WaTor extends Simulation {
    * @param emptyString       The string representing an empty cell
    * @param fishString        The string representing a fish cell
    * @param sharkString       The string representing a shark cell
-   * @param fishBreedingTime  The minimum number of time steps needed for a fish to reproduce
-   * @param sharkBreedingTime The minimum number of time steps needed for a shark to reproduce
-   * @param sharkEnergy       The default number of energy units a shark starts with
-   * @param energyPerFish     The number of energy units a shark gains by eating a fish
+   * @param fishBreedingTime  The minimum number of time steps needed for a fish
+   *                          to reproduce
+   * @param sharkBreedingTime The minimum number of time steps needed for a shark
+   *                          to reproduce
+   * @param sharkEnergy       Default number of energy units a shark starts with
+   * @param energyPerFish     Number of energy units a shark gains by eating fish
    */
   public WaTor(String emptyString, String fishString, String sharkString,
       double fishBreedingTime, double sharkBreedingTime, double sharkEnergy, double energyPerFish) {
@@ -168,9 +169,9 @@ public class WaTor extends Simulation {
   }
 
   /**
-   * @see cellsociety.simulations.Simulation#randomize(java.util.HashMap, int, int) parameters used:
-   * perEmpty - fraction of cells to initialize as empty perShark - fraction of non-empty cells to
-   * initialize as shark
+   * @see cellsociety.simulations.Simulation#randomize(HashMap, int, int)
+   *      parameters used: perEmpty - fraction of cells to initialize as empty
+   *      perShark - fraction of non-empty cells to initialize as shark
    */
   public WatorCell randomize(HashMap<String, Double> parameters, int xCoordinate, int yCoordinate) {
     double empty = parameters.get("perEmpty");

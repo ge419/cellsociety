@@ -1,17 +1,13 @@
 package cellsociety.Engine;
 
 import cellsociety.Grid;
-import cellsociety.Controller.SimulationController;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.ResourceBundle;
 import cellsociety.Cells.Cell;
 import cellsociety.Cells.WatorCell;
 import cellsociety.GUI.VisualGrid;
-import cellsociety.simulations.Fire;
-import cellsociety.simulations.Life;
 import cellsociety.simulations.Schelling;
 import cellsociety.simulations.Simulation;
 import cellsociety.simulations.WaTor;
@@ -21,7 +17,7 @@ import javafx.scene.control.Alert.AlertType;
 /**
  * @author Brandon Weiss, Changmin Shin
  */
-public abstract class SimulationEngine implements SimulationController {
+public abstract class SimulationEngine implements EngineInterface {
 
   public static final String INTERNAL_CONFIGURATION = "cellsociety.filesandstates";
   public static final ResourceBundle NAMES_FILE = ResourceBundle.getBundle(INTERNAL_CONFIGURATION);
@@ -167,7 +163,7 @@ public abstract class SimulationEngine implements SimulationController {
         for (int j = 0; j < cells.get(i).size(); j++) {
           next = nextStates.get(i * cells.get(i).size() + j);
           //getCell(i, j).setStatus(next);
-          visualGrid.updateGrid(i, j, next);
+//          visualGrid.updateCell(i, j, next);
         }
       }
     }

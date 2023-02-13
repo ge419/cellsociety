@@ -1,38 +1,47 @@
 package cellsociety.GUI.Grids;
 
+import cellsociety.Cells.Cell;
 import cellsociety.GUI.VisualGrid;
-import java.util.ResourceBundle;
-import javafx.scene.Scene;
+import cellsociety.Grid;
+import java.util.List;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
 public class RectangleVisualGrid extends VisualGrid {
 
-  public static final String CELL_COLOR_PATH = "stylesheets/CellColor.css";
-  private GridPane gridLayout;
+  private final GridPane gridLayout;
 
+  public static final int GRID_SIZE = 300;
   private int width;
   private int height;
-  private Scene parentScene;
 
-  public RectangleVisualGrid(int columns, int rows, double gridSize, Scene baseScene) {
+  public RectangleVisualGrid(int columns, int rows) {
     super(columns, rows);
-    parentScene = baseScene;
-    parentScene.getStylesheets().add(CELL_COLOR_PATH);
     width = columns;
     height = rows;
     gridLayout = new GridPane();
-    resetGrid(gridSize);
+    resetGrid(GRID_SIZE);
   }
 
   public void changeSize(int newWidth, int newHeight, int gridSize){
+    gridLayout.getChildren().clear();
     width = newWidth;
     height = newHeight;
     resetGrid(gridSize);
   }
+
   @Override
-  public void updateGrid(int x, int y, String state) {
+  public void updateEntireGrid(Grid grid) {
+    for(List<Cell> cells: grid.getGrid()){
+      for(Cell cell: cells){
+        updateCell(cell.getX(), cell.getY(), cell.getStatus());
+      }
+    }
+  }
+
+  @Override
+  public void updateCell(int x, int y, String state) {
     Rectangle rect = (Rectangle) gridLayout.getChildren().get(x * width + y + 1);
     rect.setId(state);
   }
