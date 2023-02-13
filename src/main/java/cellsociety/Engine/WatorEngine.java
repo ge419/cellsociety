@@ -20,8 +20,6 @@ public class WatorEngine extends SimEngine {
   private static final String WATOR_SHARK = NAMES_FILE.getString("WTShark");
   private static final String WATOR_FISH = NAMES_FILE.getString("WTFish");
 
-  Simulation sim;
-
   public WatorEngine(VisualGrid visualGrid, String initState, Grid grid, Grid initGrid,
       Map<String, Double> params)
       throws Exception {

@@ -19,8 +19,6 @@ public class FireEngine extends SimEngine {
   private static final String FIRE_TREE = NAMES_FILE.getString("FireTree");
   private static final String FIRE_BURNING = NAMES_FILE.getString("FireBurning");
 
-  Simulation sim;
-
   public FireEngine(VisualGrid visualGrid, String initState, Grid grid, Grid initGrid,
       Map<String, Double> params)
       throws Exception {
