@@ -49,7 +49,7 @@ public class GameLoopManager extends Application {
     this.language = "english";
     this.config = new Config();
     //Test
-    File file = new File("data/Preloaded_Files/LifeEx2.xml");
+
     config.readFile(file);
     //TODO: Need to read in XML file before initializing new Grid and VisualGrid
     // --> Initialize as default before a file is selected
