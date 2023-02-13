@@ -45,7 +45,7 @@ public class GameLoopManager extends Application {
   private EngineInterface engine;
   private GUIContainer container;
   public static final int FRAMES_PER_SECOND = 60;
-  public static final double SECOND_DELAY = 1.0 / FRAMES_PER_SECOND;
+  public static final double SECOND_DELAY = 10.0 / FRAMES_PER_SECOND;
 
   @Override
   public void start(Stage primaryStage) throws Exception {
@@ -73,9 +73,19 @@ public class GameLoopManager extends Application {
   }
 
   private void step() {
+
     if (animationManager.isNewFrame()) {
-      animationManager.incrementFrame();
-      this.engine.updateGameState();
+      if (animationManager.isPaused()){
+        animationManager.resetFrameNum();
+        if(animationManager.isStep()){
+          animationManager.setStep();
+          this.engine.updateGameState();
+        }
+      }
+      else {
+        animationManager.incrementFrame();
+        this.engine.updateGameState();
+      }
       this.visualGrid.updateEntireGrid(grid);
     }
 

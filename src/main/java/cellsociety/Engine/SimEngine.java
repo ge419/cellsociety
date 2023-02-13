@@ -181,7 +181,11 @@ public abstract class SimEngine implements EngineInterface {
    * Resets the backend Grid, (simulation configuration) to its initial state
    */
   public void reset() {
-    grid = initGrid;
+    for (int i = 0; i < width; i++) {
+      for (int j = 0; j < height; j++) {
+        grid.setCell(i, j, initGrid.getCell(i,j).getStatus());
+      }
+    }
     //TODO: determine if grid.reset() should be used instead
     // --> is Grid the only thing being reset?
   }

@@ -9,6 +9,9 @@ public interface AnimationInterface {
   void pauseToggle();
   void setAnimationSpeed(double multiplier);
   boolean isNewFrame();
-
   void incrementFrame();
+  void resetFrameNum();
+  boolean isPaused();
+  boolean isStep();
+  void setStep();
 }
