@@ -6,13 +6,10 @@ import cellsociety.Engine.LifeEngine;
 import cellsociety.Engine.EngineInterface;
 import cellsociety.Engine.SegEngine;
 import cellsociety.Engine.WatorEngine;
-import cellsociety.GUI.FileUploader;
 import cellsociety.GUI.GUIContainer;
 import cellsociety.GUI.Grids.RectangleVisualGrid;
 import cellsociety.GUI.VisualGrid;
 import cellsociety.Grid;
-import cellsociety.simulations.Life;
-import cellsociety.simulations.Schelling;
 import java.io.File;
 import java.util.ResourceBundle;
 import javafx.animation.KeyFrame;
@@ -45,7 +42,7 @@ public class GameLoopManager extends Application {
   private EngineInterface engine;
   private GUIContainer container;
   public static final int FRAMES_PER_SECOND = 60;
-  public static final double SECOND_DELAY = 1.0 / FRAMES_PER_SECOND;
+  public static final double SECOND_DELAY = 10.0 / FRAMES_PER_SECOND;
 
   @Override
   public void start(Stage primaryStage) throws Exception {
@@ -57,6 +54,14 @@ public class GameLoopManager extends Application {
     //TODO: Need to read in XML file before initializing new Grid and VisualGrid
     // --> Initialize as default before a file is selected
     // --> Have a pop-up asking the user to select the xml file to get started
+    setUpFromConfig(primaryStage);
+    Timeline animation = new Timeline();
+    animation.setCycleCount(Timeline.INDEFINITE);
+    animation.getKeyFrames().add(new KeyFrame(Duration.seconds(SECOND_DELAY), e -> step()));
+    animation.play();
+  }
+
+  private void setUpFromConfig(Stage primaryStage) throws Exception {
     width = config.getWidth();
     height = config.getHeight();
     this.grid = new Grid(width, height, config.getVariant());
@@ -66,19 +71,28 @@ public class GameLoopManager extends Application {
     startEngine(config.getVariant());
     this.container = new GUIContainer(primaryStage, language, config, engine, animationManager,
         visualGrid);
-    Timeline animation = new Timeline();
-    animation.setCycleCount(Timeline.INDEFINITE);
-    animation.getKeyFrames().add(new KeyFrame(Duration.seconds(SECOND_DELAY), e -> step()));
-    animation.play();
   }
 
   private void step() {
+    gameStateUpdates();
+
+  }
+
+  private void gameStateUpdates() {
     if (animationManager.isNewFrame()) {
-      animationManager.incrementFrame();
-      this.engine.updateGameState();
+      if (animationManager.isPaused()){
+        animationManager.resetFrameNum();
+        if(animationManager.isStep()){
+          animationManager.setStep();
+          this.engine.updateGameState();
+        }
+      }
+      else {
+        animationManager.incrementFrame();
+        this.engine.updateGameState();
+      }
       this.visualGrid.updateEntireGrid(grid);
     }
-
   }
 
   //TODO: REFACTOR --> not using if/switch statements?
