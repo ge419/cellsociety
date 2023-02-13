@@ -169,13 +169,19 @@ public class WaTor extends Simulation {
   }
 
   /**
+   * @throws Exception
    * @see cellsociety.simulations.Simulation#randomize(HashMap, int, int)
-   *      parameters used: perEmpty - fraction of cells to initialize as empty
+   *      perEmpty - fraction of cells to initialize as empty
    *      perShark - fraction of non-empty cells to initialize as shark
    */
-  public WatorCell randomize(HashMap<String, Double> parameters, int xCoordinate, int yCoordinate) {
-    double empty = parameters.get("perEmpty");
-    double shark = parameters.get("perShark");
+  public WatorCell randomize(HashMap<String, Double> parameters, int xCoordinate, int yCoordinate) throws Exception {
+    double empty = 0.3;
+    double shark = 0.3;
+    try {
+      empty = parameters.get("perEmpty");
+      shark = parameters.get("perShark");
+    } catch (Exception e) {
+    }
     WatorCell cell = new WatorCell(xCoordinate, yCoordinate);
     if (RAND_NUM_GEN.nextDouble() < empty) {
       cell.setStatus(getDeadString());

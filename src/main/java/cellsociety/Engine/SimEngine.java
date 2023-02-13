@@ -204,8 +204,9 @@ public abstract class SimEngine implements EngineInterface {
 
   /**
    * Randomize the starting configuration for a simulation
+   * @throws Exception
    */
-  public void randomizeStart() {
+  public void randomizeStart() throws Exception {
     for (int i = 0; i < width; i++) {
       for (int j = 0; j < height; j++) {
         //TODO: Change sim.randomize to return String status, not Cell itself after discussing with Brandon

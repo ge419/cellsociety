@@ -19,7 +19,7 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 
 /**
- * @author Han Zhang, Changmin Shin
+ * @author Han Zhang, Changmin Shin, Brandon Weiss
  */
 public class GameLoopManager extends Application {
   public static final String INIT_FILE_LOCATION = "data/Init.xml";

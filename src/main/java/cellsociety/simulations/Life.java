@@ -55,12 +55,17 @@ public class Life extends Simulation {
   }
 
   /**
+   * @throws Exception
    * @see cellsociety.simulations.Simulation#randomize(HashMap, int, int)
    *      perAlive - fraction of cells to initialize as alive
    */
-  public Cell randomize(HashMap<String, Double> parameters, int xCoordinate, int yCoordinate) {
-    double alive = parameters.get("perAlive");
-    Cell cell = new LifeCell(xCoordinate, yCoordinate);
+  public Cell randomize(HashMap<String, Double> parameters, int xCoordinate, int yCoordinate) throws Exception {
+    double alive = 0.4;
+    try {
+      alive = parameters.get("perAlive");
+    } catch (Exception e) {
+    }
+    LifeCell cell = new LifeCell(xCoordinate, yCoordinate);
     if (RAND_NUM_GEN.nextDouble() < alive) {
       cell.setStatus(getAliveString());
     } else {
