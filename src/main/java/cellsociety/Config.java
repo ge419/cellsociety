@@ -267,4 +267,7 @@ public class Config {
   public String getInitState() {
     return initState;
   }
+  public String getDescription() {
+    return description;
+  }
 }

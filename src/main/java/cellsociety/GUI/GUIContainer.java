@@ -76,7 +76,7 @@ public class GUIContainer {
 
     setUpButtons(simulationEngine, controller, myResources);
     setUpSliderContainer(controller);
-    SetUpDescriptionBox();
+    SetUpDescriptionBox(config);
 
     setUpFilesButtons(config, controller);
     setUpGrid(grid);
@@ -145,9 +145,10 @@ public class GUIContainer {
   }
 
 
-  private void SetUpDescriptionBox() {
+  private void SetUpDescriptionBox(Config config) {
     TextArea description = new TextArea();
     description.setId("TextBox");
+    description.setText(config.getDescription());
     VBox descriptionContainer = new VBox();
     descriptionContainer.getChildren().add(description);
     pane.getChildren().add(descriptionContainer);
