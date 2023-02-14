@@ -1,17 +1,17 @@
 # cell society
-## TEAM NUMBER
-## NAMES
+## 4
+## Han Zhang, Changmin Shin, Brandon Weiss
 
 
 This project implements a cellular automata simulator.
 
 ### Timeline
 
- * Start Date: 
+ * Start Date: 1/30/2023
 
- * Finish Date: 
+ * Finish Date: 2/13/2023
 
- * Hours Spent:
+ * Hours Spent: 90
 
 
 
@@ -24,7 +24,7 @@ This project implements a cellular automata simulator.
 
 ### Running the Program
 
- * Main class:
+ * Main class: Main.java
 
  * Data files needed: 
 
