@@ -4,6 +4,7 @@ import cellsociety.ConfigInterface;
 import cellsociety.Controller.SimulationController;
 import cellsociety.Engine.EngineInterface;
 import cellsociety.GUI.ButtonContainers.GameButtonContainer;
+import cellsociety.GUI.ButtonContainers.ParameterButtons;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -33,35 +34,41 @@ public class GUIContainer {
 
   //TODO say that decided to use this deisng choice, should be css, but can't figure out how to do it
   public final static int GRID_COLUMN = 0;
-  public final static int GRID_ROW = 0;
+  public final static int GRID_ROW = 1;
   public final static int GRID_COLUMN_SPAN = 3;
   public final static int GRID_ROW_SPAN = 4;
 
   public final static int DROP_DOWN_COLUMN= 3;
-  public final static int DROP_DOWN_ROW = 2;
+  public final static int DROP_DOWN_ROW = 3;
   public final static int DROP_DOWN_COLUMN_SPAN = 2;
   public final static int DROP_DOWN_ROW_SPAN = 1;
 
   public final static int FILES_COLUMN = 3;
-  public final static int FILES_ROW= 0;
+  public final static int FILES_ROW= 1;
   public final static int FILES_COLUMN_SPAN = 2;
   public final static int FILES_ROW_SPAN = 1;
 
   public final static int DESCRIPTION_BOX_COLUMN = 3;
-  public final static int DESCRIPTION_BOX_ROW = 3;
+  public final static int DESCRIPTION_BOX_ROW = 4;
   public final static int DESCRIPTION_BOX_COLUMN_SPAN = 2;
   public final static int DESCRIPTION_BOX_ROW_SPAN = 1;
 
   public final static int BUTTONS_COLUMN = 0;
-  public final static int BUTTONS_ROW = 5;
+  public final static int BUTTONS_ROW = 6;
   public final static int BUTTONS_COLUMN_SPAN = 5;
   public final static int BUTTONS_ROW_SPAN = 1;
 
   public final static int SLIDER_COLUMN = 3;
-  public final static int SLIDER_ROW = 4;
+  public final static int SLIDER_ROW = 5;
 
   public final static int SLIDER_COLUMN_SPAN = 2;
   public final static int SLIDER_ROW_SPAN = 1;
+
+  public final static int PARAM_COLUMN = 0;
+  public final static int PARAM_ROW = 0;
+  public final static int PARAM_COLUMN_SPAN = 5;
+  public final static int PARAM_ROW_SPAN = 1;
+
 
   public static final String CELL_COLOR = "stylesheets/CellColor.css";
   public GUIContainer(Stage primaryStage, String language, ConfigInterface config, EngineInterface simulationEngine, SimulationController controller, VisualGrid grid) {
@@ -79,14 +86,12 @@ public class GUIContainer {
 
     setUpFilesButtons(config, controller);
     setUpGrid(grid);
-
     List<String> DirectoryNames = new ArrayList<>();
     List<String> FileNames = new ArrayList<>();
-
     DirectoryNames.add("data/Preloaded_Files");
     extractFileNames(DirectoryNames, FileNames);
     setUpDropDown(FileNames, config, controller);
-
+    setUpParamButtons(simulationEngine);
     pane.setMaxSize(stageScene.getWidth(), stageScene.getHeight());
     primaryStage.setScene(stageScene);
     stageScene.getStylesheets().add(GUI_CSS);
@@ -129,6 +134,11 @@ public class GUIContainer {
     GridPane.setConstraints(grid.getGridLayout(), GRID_COLUMN, GRID_ROW, GRID_COLUMN_SPAN, GRID_ROW_SPAN);
   }
 
+  private void setUpParamButtons(EngineInterface engine){
+    ParameterButtons parameters = new ParameterButtons(engine);
+    pane.getChildren().add(parameters.getContainer());
+    GridPane.setConstraints(parameters.getContainer(), PARAM_COLUMN, PARAM_ROW, PARAM_COLUMN_SPAN, PARAM_ROW_SPAN);
+  }
   private void setUpDropDown(List<String> FileNames, ConfigInterface config, SimulationController controller) {
     DropDown drop = new DropDown(FileNames, myResources.getString("DropButton"), config, controller);
     pane.getChildren().add(drop.getContainer());

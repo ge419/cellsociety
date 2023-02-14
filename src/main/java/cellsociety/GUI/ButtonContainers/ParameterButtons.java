@@ -9,7 +9,6 @@ import javafx.scene.layout.VBox;
 
 public class ParameterButtons extends ButtonContainer {
 
-  HBox container;
   public ParameterButtons(EngineInterface engine){
     super();
     Set<String> Params = engine.getParamWords();
@@ -18,7 +17,8 @@ public class ParameterButtons extends ButtonContainer {
       miniContainer.setId("Mini-Container");
       createButton(param, miniContainer);
       createTextField(miniContainer);
-      container.getChildren().add(miniContainer);
+      this.getContainer().getChildren().add(miniContainer);
+      this.getContainer().setId("Param-Box");
     }
   }
   private void createTextField(VBox miniContainer){

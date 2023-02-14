@@ -1,7 +1,5 @@
 package cellsociety.GUI;
 
-import java.util.ArrayList;
-import java.util.List;
 import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
@@ -24,7 +22,7 @@ public abstract class ButtonContainer {
   public Button createButton(String word, Pane container) {
     Button newButton = new Button(word);
     container.getChildren().add(newButton);
-    newButton.setId("Button");
+    newButton.setId("Param-Button");
     return newButton;
   }
   public HBox getContainer() {
