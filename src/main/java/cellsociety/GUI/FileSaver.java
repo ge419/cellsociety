@@ -1,6 +1,8 @@
 package cellsociety.GUI;
 
 import cellsociety.ConfigInterface;
+import cellsociety.Engine.EngineInterface;
+import cellsociety.Grid;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
@@ -8,7 +10,7 @@ import javafx.scene.control.Button;
 import javafx.stage.FileChooser;
 
 /**
- * @author Han Zhang
+ * @author Han Zhang, Changmin Shin
  */
 
 public class FileSaver {
@@ -21,7 +23,7 @@ public class FileSaver {
    * @param label Text to be displayed on upload button
    * @param config The config object that is passed through the GUIContainer
    */
-  public FileSaver(String label, ConfigInterface config) {
+  public FileSaver(String label, ConfigInterface config, Grid grid) {
     button = new Button(label);
     button.setId("files-button");
     button.setOnAction(e -> {
