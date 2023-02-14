@@ -31,7 +31,11 @@ public class FileSaver {
       fileChooser.setSelectedExtensionFilter(xmlFilter);
       saved = fileChooser.showSaveDialog(button.getScene().getWindow());
       if (saved != null) {
-          saved = config.saveXML(saved);
+        try (PrintWriter writer = new PrintWriter(saved)) {
+          saved = config.saveXML();
+        } catch (FileNotFoundException ex) {
+          System.out.println("Error writing to file: " + ex.getMessage());
+        }
       }
     });
   }
