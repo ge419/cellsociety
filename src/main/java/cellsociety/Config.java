@@ -1,7 +1,5 @@
 package cellsociety;
 
-import java.io.FileOutputStream;
-import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Map;
@@ -17,12 +15,6 @@ import javafx.scene.control.Alert.AlertType;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.transform.OutputKeys;
-import javax.xml.transform.Transformer;
-import javax.xml.transform.TransformerException;
-import javax.xml.transform.TransformerFactory;
-import javax.xml.transform.dom.DOMSource;
-import javax.xml.transform.stream.StreamResult;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
@@ -195,6 +187,7 @@ public class Config implements ConfigInterface {
     for (String s : paramName) {
       params.appendChild(addTagParam(doc, s, simParam));
     }
+    rootElement.appendChild(params);
   }
 
   private org.w3c.dom.Node addTagStr(Document doc, String tagName, String value) {
@@ -212,7 +205,7 @@ public class Config implements ConfigInterface {
   private org.w3c.dom.Node addTagParam(Document doc, String tagName,
       Map<String, Double> param) {
     Element node = doc.createElement(tagName);
-    node.setTextContent(String.valueOf(param.get("tagName")));
+    node.setTextContent(String.valueOf(param.get(tagName)));
     return node;
   }
 

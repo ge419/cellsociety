@@ -243,7 +243,7 @@ public abstract class SimEngine implements EngineInterface {
       String rowStr = String.join(" ", rowList);
       listOfRows.add(rowStr);
     }
-    String result = String.join("\n", listOfRows);
+    String result = String.join("\n    ", listOfRows);
     return result;
   }
 
