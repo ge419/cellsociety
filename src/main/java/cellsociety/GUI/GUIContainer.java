@@ -146,7 +146,7 @@ public class GUIContainer {
   }
 
   private void setUpFilesButtons(ConfigInterface config, SimulationController controller, EngineInterface simulationEngine) {
-    FileSaver save = new FileSaver(myResources.getString("Save"), config, simulationEngine.getGrid());
+    FileSaver save = new FileSaver(myResources.getString("Save"), config, simulationEngine);
     FileUploader uploader = new FileUploader(myResources.getString("Upload"), config, controller);
     FileButtonContainer container = new FileButtonContainer(save, uploader);
     pane.getChildren().add(container.getContainer());

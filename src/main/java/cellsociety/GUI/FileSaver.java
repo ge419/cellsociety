@@ -23,7 +23,7 @@ public class FileSaver {
    * @param label Text to be displayed on upload button
    * @param config The config object that is passed through the GUIContainer
    */
-  public FileSaver(String label, ConfigInterface config, Grid grid) {
+  public FileSaver(String label, ConfigInterface config, EngineInterface simulationEngine) {
     button = new Button(label);
     button.setId("files-button");
     button.setOnAction(e -> {
@@ -34,7 +34,7 @@ public class FileSaver {
       saved = fileChooser.showSaveDialog(button.getScene().getWindow());
       if (saved != null) {
         try (PrintWriter writer = new PrintWriter(saved)) {
-          saved = config.saveXML();
+          saved = config.saveXML(simulationEngine.gridToStr(simulationEngine.getGrid()));
         } catch (FileNotFoundException ex) {
           System.out.println("Error writing to file: " + ex.getMessage());
         }

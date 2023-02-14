@@ -235,6 +235,10 @@ public abstract class SimEngine implements EngineInterface {
     }
   }
 
+  public abstract String gridToStr(Grid grid);
+
+  abstract String arrListToStr(List<List<String>> arrList);
+
   public Cell getCell(int x, int y) {
     return grid.getCell(x, y);
   }

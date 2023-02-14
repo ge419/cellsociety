@@ -160,13 +160,13 @@ public class Config implements ConfigInterface{
    * https://www.javaguides.net/2018/10/how-to-create-xml-file-in-java-dom-parser.html
    * https://chat.openai.com/chat/1e2e6e32-cf3e-4c72-998a-ab3e1a8183c5
    */
-  public File saveXML() {
+  public File saveXML(String state) {
     File file = new File("*.xml");
     try {
       DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
       DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
       Document doc = docBuilder.newDocument();
-      addElements(doc);
+      addElements(doc, state);
       TransformerFactory transformerFactory = TransformerFactory.newInstance();
       Transformer transformer = transformerFactory.newTransformer();
       DOMSource source = new DOMSource(doc);
@@ -185,7 +185,7 @@ public class Config implements ConfigInterface{
    *
    * @param doc The XML document that is being modified by the code.
    */
-  private void addElements(Document doc) {
+  private void addElements(Document doc, String state) {
     Element rootElement = doc.createElement("data");
     doc.appendChild(rootElement);
     rootElement.appendChild(addTagStr(doc, "sim_type", simType));
@@ -194,7 +194,7 @@ public class Config implements ConfigInterface{
     rootElement.appendChild(addTagStr(doc, "description", description));
     rootElement.appendChild(addTagInt(doc, "width", width));
     rootElement.appendChild(addTagInt(doc, "height", height));
-    rootElement.appendChild(addTagStr(doc, "curr_state", intStrConverter(currState)));
+    rootElement.appendChild(addTagStr(doc, "curr_state", state));
     Element params = doc.createElement("params");
     for (String s : paramName) {
       params.appendChild(addTagParam(doc, s, simParam));

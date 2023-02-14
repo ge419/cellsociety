@@ -18,6 +18,7 @@ public interface EngineInterface {
   Set<String> getParamWords();
 
   Grid getGrid();
+  String gridToStr(Grid grid);
 
   void setParamValue(String param, Double newValue);
 }
