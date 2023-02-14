@@ -11,7 +11,7 @@ This project implements a cellular automata simulator.
 
  * Finish Date: 2/13/2023
 
- * Hours Spent: 90
+ * Hours Spent: 120
 
 
 
@@ -54,7 +54,7 @@ This project implements a cellular automata simulator.
 
  * Noteworthy Features:
 
-Runs Conway's Game of Life and the Spreading Fire simulations.
+Runs Conway's Game of Life and the Spreading Fire simulations, displays pie graph of current cells.
 
 
 ### Assignment Impressions
