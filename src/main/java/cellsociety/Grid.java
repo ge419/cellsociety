@@ -40,12 +40,14 @@ public class Grid{
   }
 
   public int getColNum() {
-    return grid.size();
+    //return grid.size();
+    return grid.get(0).size();
     //return height;
   }
 
   public int getRowNum() {
-    return grid.get(0).size();
+    return grid.size();
+    //return grid.get(0).size();
     //return width;
   }
 
