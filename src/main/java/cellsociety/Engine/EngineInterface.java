@@ -13,17 +13,17 @@ public interface EngineInterface {
   /**
    * Randomizes all cells inside of an Engine's grid
    */
-  public void randomizeStart();
+  void randomizeStart();
 
   /**
    * Sets all cells to a default or dead state inside the Engine
    */
-  public void blankStart();
+  void blankStart();
 
   /**
    * Resets the grid to the initial Configuration of the simulation
    */
-  public void reset();
+  void reset();
 
   /**
    * updates the backend grid to the next iteration/state it should be in,
