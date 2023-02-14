@@ -90,4 +90,11 @@ public class SegEngine extends SimEngine {
     neighbors.addAll(findCornerNeighbors(cell));
     return neighbors;
   }
+
+  @Override
+  public void setParamValue(String param, Double newValue) {
+    super.setParamValue(param, newValue);
+    Double change = params.get("change");
+    sim = new Schelling(SEG_EMPTY, SEG_A, SEG_B, change);
+  }
 }

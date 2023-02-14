@@ -67,4 +67,10 @@ public class LifeEngine extends SimEngine {
     neighbors.addAll(findCornerNeighbors(cell));
     return neighbors;
   }
+
+  @Override
+  public void setParamValue(String param, Double newValue) {
+    super.setParamValue(param, newValue);
+    sim = new Life(LIFE_DEAD, LIFE_ALIVE);
+  }
 }

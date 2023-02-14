@@ -1,9 +1,10 @@
 package cellsociety.GUI;
 
-import cellsociety.Config;
 import cellsociety.ConfigInterface;
-import cellsociety.Controller.AnimationInterface;
+import cellsociety.Controller.SimulationController;
 import cellsociety.Engine.EngineInterface;
+import cellsociety.GUI.ButtonContainers.GameButtonContainer;
+import cellsociety.GUI.ButtonContainers.ParameterButtons;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -11,11 +12,9 @@ import java.util.List;
 import java.util.Objects;
 import java.util.ResourceBundle;
 import javafx.scene.Scene;
-import javafx.scene.control.TextArea;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
-import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 /**
@@ -30,43 +29,49 @@ public class GUIContainer {
 
   public final static String INTERNAL_CONFIGURATION = "cellsociety.";
 
-  public final static int WINDOW_WIDTH = 1000;
+  public final static int WINDOW_WIDTH = 1300;
   public final static int WINDOW_HEIGHT = 700;
 
   //TODO say that decided to use this deisng choice, should be css, but can't figure out how to do it
   public final static int GRID_COLUMN = 0;
-  public final static int GRID_ROW = 0;
+  public final static int GRID_ROW = 1;
   public final static int GRID_COLUMN_SPAN = 3;
   public final static int GRID_ROW_SPAN = 4;
 
   public final static int DROP_DOWN_COLUMN= 3;
-  public final static int DROP_DOWN_ROW = 2;
+  public final static int DROP_DOWN_ROW = 3;
   public final static int DROP_DOWN_COLUMN_SPAN = 2;
   public final static int DROP_DOWN_ROW_SPAN = 1;
 
   public final static int FILES_COLUMN = 3;
-  public final static int FILES_ROW= 0;
+  public final static int FILES_ROW= 1;
   public final static int FILES_COLUMN_SPAN = 2;
   public final static int FILES_ROW_SPAN = 1;
 
   public final static int DESCRIPTION_BOX_COLUMN = 3;
-  public final static int DESCRIPTION_BOX_ROW = 3;
+  public final static int DESCRIPTION_BOX_ROW = 4;
   public final static int DESCRIPTION_BOX_COLUMN_SPAN = 2;
   public final static int DESCRIPTION_BOX_ROW_SPAN = 1;
 
   public final static int BUTTONS_COLUMN = 0;
-  public final static int BUTTONS_ROW = 5;
+  public final static int BUTTONS_ROW = 6;
   public final static int BUTTONS_COLUMN_SPAN = 5;
   public final static int BUTTONS_ROW_SPAN = 1;
 
   public final static int SLIDER_COLUMN = 3;
-  public final static int SLIDER_ROW = 4;
+  public final static int SLIDER_ROW = 5;
 
   public final static int SLIDER_COLUMN_SPAN = 2;
   public final static int SLIDER_ROW_SPAN = 1;
 
+  public final static int PARAM_COLUMN = 0;
+  public final static int PARAM_ROW = 0;
+  public final static int PARAM_COLUMN_SPAN = 5;
+  public final static int PARAM_ROW_SPAN = 1;
+
+
   public static final String CELL_COLOR = "stylesheets/CellColor.css";
-  public GUIContainer(Stage primaryStage, String language, ConfigInterface config, EngineInterface simulationEngine, AnimationInterface controller, VisualGrid grid) {
+  public GUIContainer(Stage primaryStage, String language, ConfigInterface config, EngineInterface simulationEngine, SimulationController controller, VisualGrid grid) {
     pane = new GridPane();
     setColumnConstraints();
 
@@ -81,14 +86,12 @@ public class GUIContainer {
 
     setUpFilesButtons(config, controller);
     setUpGrid(grid);
-
     List<String> DirectoryNames = new ArrayList<>();
     List<String> FileNames = new ArrayList<>();
-
     DirectoryNames.add("data/Preloaded_Files");
     extractFileNames(DirectoryNames, FileNames);
     setUpDropDown(FileNames, config, controller);
-
+    setUpParamButtons(simulationEngine);
     pane.setMaxSize(stageScene.getWidth(), stageScene.getHeight());
     primaryStage.setScene(stageScene);
     stageScene.getStylesheets().add(GUI_CSS);
@@ -131,13 +134,18 @@ public class GUIContainer {
     GridPane.setConstraints(grid.getGridLayout(), GRID_COLUMN, GRID_ROW, GRID_COLUMN_SPAN, GRID_ROW_SPAN);
   }
 
-  private void setUpDropDown(List<String> FileNames, ConfigInterface config, AnimationInterface controller) {
+  private void setUpParamButtons(EngineInterface engine){
+    ParameterButtons parameters = new ParameterButtons(engine);
+    pane.getChildren().add(parameters.getContainer());
+    GridPane.setConstraints(parameters.getContainer(), PARAM_COLUMN, PARAM_ROW, PARAM_COLUMN_SPAN, PARAM_ROW_SPAN);
+  }
+  private void setUpDropDown(List<String> FileNames, ConfigInterface config, SimulationController controller) {
     DropDown drop = new DropDown(FileNames, myResources.getString("DropButton"), config, controller);
     pane.getChildren().add(drop.getContainer());
     GridPane.setConstraints(drop.getContainer(), DROP_DOWN_COLUMN, DROP_DOWN_ROW, DROP_DOWN_COLUMN_SPAN, DROP_DOWN_ROW_SPAN);
   }
 
-  private void setUpFilesButtons(ConfigInterface config, AnimationInterface controller) {
+  private void setUpFilesButtons(ConfigInterface config, SimulationController controller) {
     FileSaver save = new FileSaver(myResources.getString("Save"), config);
     FileUploader uploader = new FileUploader(myResources.getString("Upload"), config, controller);
     FileButtonContainer container = new FileButtonContainer(save, uploader);
@@ -152,14 +160,14 @@ public class GUIContainer {
     GridPane.setConstraints(TextBox.getDescriptionContainer(), DESCRIPTION_BOX_COLUMN, DESCRIPTION_BOX_ROW, DESCRIPTION_BOX_COLUMN_SPAN, DESCRIPTION_BOX_ROW_SPAN);
   }
 
-  private void setUpButtons(EngineInterface simulationEngine, AnimationInterface controller, ResourceBundle bundle) {
-    ButtonContainer buttons = new ButtonContainer(simulationEngine, controller, bundle);
+  private void setUpButtons(EngineInterface simulationEngine, SimulationController controller, ResourceBundle bundle) {
+    GameButtonContainer buttons = new GameButtonContainer(simulationEngine, controller, bundle);
     //https://docs.oracle.com/javase/8/javafx/api/javafx/scene/layout/GridPane.html
     pane.getChildren().add(buttons.getContainer());
     GridPane.setConstraints(buttons.getContainer(), BUTTONS_COLUMN,BUTTONS_ROW, BUTTONS_COLUMN_SPAN, BUTTONS_ROW_SPAN);
   }
 
-  public void setUpSliderContainer(AnimationInterface animation) {
+  public void setUpSliderContainer(SimulationController animation) {
     SliderContainer slider = new SliderContainer(myResources.getString("SliderCaption"), animation);
     pane.getChildren().add(slider.getContainer());
     GridPane.setConstraints(slider.getContainer(), SLIDER_COLUMN, SLIDER_ROW, SLIDER_COLUMN_SPAN, SLIDER_ROW_SPAN);

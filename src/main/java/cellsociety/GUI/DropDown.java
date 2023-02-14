@@ -1,8 +1,7 @@
 package cellsociety.GUI;
 
-import cellsociety.Config;
 import cellsociety.ConfigInterface;
-import cellsociety.Controller.AnimationInterface;
+import cellsociety.Controller.SimulationController;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,7 +17,7 @@ public class DropDown {
   private static ComboBox<String> dropdown;
 
   private static VBox container;
-  public DropDown(List<String> list, String buttonLabel, ConfigInterface config, AnimationInterface controller) {
+  public DropDown(List<String> list, String buttonLabel, ConfigInterface config, SimulationController controller) {
 
     container = new VBox();
     container.setId("Container-Vbox");
@@ -33,7 +32,7 @@ public class DropDown {
     container.getChildren().add(button);
   }
 
-  private void loadFile(ConfigInterface config, AnimationInterface controller) {
+  private void loadFile(ConfigInterface config, SimulationController controller) {
 
     sendFileToConfig(dropdown.getValue(), config);
     controller.setNewFile(true);
