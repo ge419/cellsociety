@@ -4,6 +4,7 @@ import cellsociety.ConfigInterface;
 import cellsociety.Controller.SimulationController;
 import cellsociety.Engine.EngineInterface;
 import cellsociety.GUI.ButtonContainers.GameButtonContainer;
+import cellsociety.GUI.ButtonContainers.GraphButtons;
 import cellsociety.GUI.ButtonContainers.ParameterButtons;
 import java.io.File;
 import java.util.ArrayList;
@@ -71,7 +72,7 @@ public class GUIContainer {
 
 
   public static final String CELL_COLOR = "stylesheets/CellColor.css";
-  public GUIContainer(Stage primaryStage, String language, ConfigInterface config, EngineInterface simulationEngine, SimulationController controller, VisualGrid grid) {
+  public GUIContainer(Stage primaryStage, String language, ConfigInterface config, EngineInterface simulationEngine, SimulationController controller, VisualGrid grid, VisualGraphInterface graph) {
     pane = new GridPane();
     setColumnConstraints();
 
@@ -86,17 +87,25 @@ public class GUIContainer {
 
     setUpFilesButtons(config, controller, simulationEngine);
     setUpGrid(grid);
-    List<String> DirectoryNames = new ArrayList<>();
-    List<String> FileNames = new ArrayList<>();
-    DirectoryNames.add("data/Preloaded_Files");
-    extractFileNames(DirectoryNames, FileNames);
-    setUpDropDown(FileNames, config, controller);
+
+    setUpDropDownContainer(config, controller);
     setUpParamButtons(simulationEngine);
+
+    setupGraphButtons(myResources, graph);
+
     pane.setMaxSize(stageScene.getWidth(), stageScene.getHeight());
     primaryStage.setScene(stageScene);
     stageScene.getStylesheets().add(GUI_CSS);
     stageScene.getStylesheets().add(CELL_COLOR);
     primaryStage.show();
+  }
+
+  private void setUpDropDownContainer(ConfigInterface config, SimulationController controller) {
+    List<String> DirectoryNames = new ArrayList<>();
+    List<String> FileNames = new ArrayList<>();
+    DirectoryNames.add("data/Preloaded_Files");
+    extractFileNames(DirectoryNames, FileNames);
+    setUpDropDown(FileNames, config, controller);
   }
 
   /**
@@ -127,6 +136,13 @@ public class GUIContainer {
       column.setHgrow(Priority.ALWAYS);
       pane.getColumnConstraints().add(column);
     }
+  }
+
+
+  private void setupGraphButtons(ResourceBundle bundle, VisualGraphInterface graph){
+    GraphButtons graphButtons = new GraphButtons(bundle, graph);
+    pane.getChildren().add(graphButtons.getContainer());
+    GridPane.setConstraints(graphButtons.getContainer(), 0,4);
   }
 
   private void setUpGrid(VisualGrid grid) {

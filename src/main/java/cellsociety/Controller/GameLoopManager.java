@@ -7,7 +7,9 @@ import cellsociety.Engine.EngineInterface;
 import cellsociety.Engine.SegEngine;
 import cellsociety.Engine.WatorEngine;
 import cellsociety.GUI.GUIContainer;
+import cellsociety.GUI.Graphs.PieVisualGraph;
 import cellsociety.GUI.Grids.RectangleVisualGrid;
+import cellsociety.GUI.VisualGraphInterface;
 import cellsociety.GUI.VisualGrid;
 import cellsociety.Grid;
 import java.io.File;
@@ -37,6 +39,8 @@ public class GameLoopManager extends Application {
   private Grid initGrid; // stores initial state of Grid
   private VisualGrid visualGrid;
   private SimulationController animationManager;
+
+  private VisualGraphInterface visualGraph;
   private int width;
   private int height;
   private EngineInterface engine;
@@ -69,10 +73,11 @@ public class GameLoopManager extends Application {
     this.grid = new Grid(width, height, config.getVariant());
     this.initGrid = new Grid(width, height, config.getVariant());
     this.visualGrid = new RectangleVisualGrid(width, height);
+    this.visualGraph = new PieVisualGraph(grid);
     this.animationManager = new SimulationManager();
     startEngine(config.getVariant());
     new GUIContainer(primaryStage, language, config, engine, animationManager,
-        visualGrid);
+        visualGrid, visualGraph);
   }
 
   private void step(Stage primaryStage) throws Exception {
@@ -100,6 +105,7 @@ public class GameLoopManager extends Application {
       animationManager.resetFrameNum();
     }
     animationManager.incrementFrame();
+    visualGraph.updateGraph();
   }
 
   //TODO: REFACTOR --> not using if/switch statements?
