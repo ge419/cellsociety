@@ -15,15 +15,16 @@ public class ParameterButtons extends ButtonContainer {
     for(String param: Params){
       VBox miniContainer = new VBox();
       miniContainer.setId("Mini-Container");
-      createButton(param, miniContainer);
-      createTextField(miniContainer);
+      TextField text = createTextField(miniContainer);
+      createButton(param, miniContainer, engine, text);
       this.getContainer().getChildren().add(miniContainer);
       this.getContainer().setId("Param-Box");
     }
   }
-  private void createTextField(VBox miniContainer){
+  private TextField createTextField(VBox miniContainer){
     TextField newTextBox = new TextField();
     newTextBox.setId("Param-TextBox");
     miniContainer.getChildren().add(newTextBox);
+    return newTextBox;
   }
 }

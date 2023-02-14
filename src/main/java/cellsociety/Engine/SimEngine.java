@@ -248,4 +248,8 @@ public abstract class SimEngine implements EngineInterface {
   public Set<String> getParamWords(){
     return params.keySet();
   }
+  public void setParamValue(String param, Double newValue){
+    params.put(param,newValue);
+    System.out.println("Param Changed");
+  }
 }

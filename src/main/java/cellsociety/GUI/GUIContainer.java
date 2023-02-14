@@ -29,7 +29,7 @@ public class GUIContainer {
 
   public final static String INTERNAL_CONFIGURATION = "cellsociety.";
 
-  public final static int WINDOW_WIDTH = 1000;
+  public final static int WINDOW_WIDTH = 1300;
   public final static int WINDOW_HEIGHT = 700;
 
   //TODO say that decided to use this deisng choice, should be css, but can't figure out how to do it

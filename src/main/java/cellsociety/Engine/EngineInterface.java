@@ -15,4 +15,6 @@ public interface EngineInterface {
   void updateGameState();
 
   Set<String> getParamWords();
+
+  void setParamValue(String param, Double newValue);
 }
