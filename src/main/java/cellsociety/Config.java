@@ -1,9 +1,7 @@
 package cellsociety;
 
-import cellsociety.Cells.Cell;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.Map;
 import java.util.ResourceBundle;
 import java.io.File;
@@ -17,10 +15,6 @@ import javafx.scene.control.Alert.AlertType;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.transform.Transformer;
-import javax.xml.transform.TransformerFactory;
-import javax.xml.transform.dom.DOMSource;
-import javax.xml.transform.stream.StreamResult;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
@@ -30,7 +24,7 @@ import org.xml.sax.SAXException;
  * @Author Changmin Shin
  */
 
-public class Config implements ConfigInterface{
+public class Config implements ConfigInterface {
 
   public static final String INTERNAL_CONFIGURATION = "cellsociety.";
   public final List<String> paramName = new ArrayList<>(
@@ -161,24 +155,16 @@ public class Config implements ConfigInterface{
    * Creates new XML file and saves current state of simulation. Refined code from
    * https://www.javaguides.net/2018/10/how-to-create-xml-file-in-java-dom-parser.html
    * https://chat.openai.com/chat/1e2e6e32-cf3e-4c72-998a-ab3e1a8183c5
+   * https://mkyong.com/java/how-to-create-xml-file-in-java-dom/
+   * @param state Current state of the grid which has been converted to a String
    */
-  public File saveXML() {
-    File file = new File("*.xml");
-    try {
+  public Document saveXML(String state) throws ParserConfigurationException {
       DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
       DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
       Document doc = docBuilder.newDocument();
-      addElements(doc);
-      TransformerFactory transformerFactory = TransformerFactory.newInstance();
-      Transformer transformer = transformerFactory.newTransformer();
-      DOMSource source = new DOMSource(doc);
-      StreamResult result = new StreamResult(file);
-      transformer.transform(source, result);
-    } catch (Exception e) {
-      // TODO: figure out the exception
-      e.printStackTrace();
-    }
-    return file;
+      addElements(doc, state);
+
+    return doc;
   }
 
   /**
@@ -187,7 +173,7 @@ public class Config implements ConfigInterface{
    *
    * @param doc The XML document that is being modified by the code.
    */
-  private void addElements(Document doc) {
+  private void addElements(Document doc, String state) {
     Element rootElement = doc.createElement("data");
     doc.appendChild(rootElement);
     rootElement.appendChild(addTagStr(doc, "sim_type", simType));
@@ -196,53 +182,30 @@ public class Config implements ConfigInterface{
     rootElement.appendChild(addTagStr(doc, "description", description));
     rootElement.appendChild(addTagInt(doc, "width", width));
     rootElement.appendChild(addTagInt(doc, "height", height));
-    rootElement.appendChild(addTagStr(doc, "curr_state", intStrConverter(currState)));
+    rootElement.appendChild(addTagStr(doc, "curr_state", state));
     Element params = doc.createElement("params");
     for (String s : paramName) {
       params.appendChild(addTagParam(doc, s, simParam));
     }
-  }
-
-  // private void addToElement(Element e) {
-  // List<String> strNames = new ArrayList<>(); // How to set up basic arraylist
-  // strNames.add("sim_type");
-  // e.appendChild(addTagStr());
-  // }
-
-  private String intStrConverter(List<List<Integer>> state) {
-    List<List<String>> current = new ArrayList<>();
-    for (int i = 0; i < state.size(); i++) {
-      for (int j = 0; j < state.get(i).size(); j++) {
-        current.get(i).add(j, String.valueOf(state.get(i).get(j)));
-      }
-    }
-    List<String> toStringArr = new ArrayList<>();
-    for (int k = 0; k < current.size(); k++) {
-      toStringArr.add(k, String.join(" ", current.get(k)));
-    }
-    return String.join("\n", toStringArr);
+    rootElement.appendChild(params);
   }
 
   private org.w3c.dom.Node addTagStr(Document doc, String tagName, String value) {
     Element node = doc.createElement(tagName);
-    doc.appendChild(doc.createTextNode(value));
+    node.setTextContent(value);
     return node;
-
-    // Element sim_type = doc.createElement("sim_type");
-    // sim_type.appendChild(doc.createTextNode(simType));
-    // rootElement.appendChild(sim_type);
   }
 
   private org.w3c.dom.Node addTagInt(Document doc, String tagName, int value) {
     Element node = doc.createElement(tagName);
-    doc.appendChild(doc.createTextNode(String.valueOf(value)));
+    node.setTextContent(String.valueOf(value));
     return node;
   }
 
   private org.w3c.dom.Node addTagParam(Document doc, String tagName,
       Map<String, Double> param) {
     Element node = doc.createElement(tagName);
-    doc.appendChild(doc.createTextNode(String.valueOf(param.get("tagName"))));
+    node.setTextContent(String.valueOf(param.get(tagName)));
     return node;
   }
 
@@ -269,10 +232,12 @@ public class Config implements ConfigInterface{
   public String getDescription() {
     return description;
   }
+
   public String getAuthor() {
     return author;
   }
-  public String getName(){
+
+  public String getName() {
     return configName;
   }
 }

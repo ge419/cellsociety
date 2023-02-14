@@ -78,6 +78,7 @@ public abstract class SimEngine implements EngineInterface {
         row.remove("");
       }
       stateArr.add(i, row);
+      //System.out.println(stateArr);
     }
     return strIntConverter(stateArr);
   }
@@ -232,6 +233,18 @@ public abstract class SimEngine implements EngineInterface {
         grid.setCell(i, j, random.getStatus());
       }
     }
+  }
+
+  public abstract String gridToStr(Grid grid);
+
+  public String arrListToStr(List<List<String>> arrList) {
+    List<String> listOfRows = new ArrayList<>();
+    for (List<String> rowList: arrList) {
+      String rowStr = String.join(" ", rowList);
+      listOfRows.add(rowStr);
+    }
+    String result = String.join("\n    ", listOfRows);
+    return result;
   }
 
   public Cell getCell(int x, int y) {
