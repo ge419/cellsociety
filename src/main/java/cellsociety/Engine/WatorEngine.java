@@ -101,4 +101,10 @@ public class WatorEngine extends SimEngine {
     }
     return neighbors;
   }
+
+  @Override
+  public void setParamValue(String param, Double newValue) {
+    super.setParamValue(param, newValue);
+    init(params);
+  }
 }
