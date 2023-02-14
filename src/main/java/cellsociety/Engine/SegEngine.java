@@ -92,6 +92,28 @@ public class SegEngine extends SimEngine {
   }
 
   @Override
+  public String gridToStr(Grid grid) {
+    List<List<String>> strGrid = new ArrayList<>();
+    for (int i = 0; i < height; i++) {
+      List<String> row = new ArrayList<>();
+      for (int j = 0; j <width; j++) {
+        String status = grid.getCell(i, j).getStatus();
+        if (status.equals(SEG_EMPTY)) {
+          row.add(j, "0");
+        }
+        else if (status.equals(SEG_A)) {
+          row.add(j, "1");
+        }
+        else if (status.equals(SEG_B)) {
+          row.add(j, "2");
+        }
+      }
+      strGrid.add(i, row);
+    }
+    return arrListToStr(strGrid);
+  }
+
+  @Override
   public void setParamValue(String param, Double newValue) {
     super.setParamValue(param, newValue);
     Double change = params.get("change");

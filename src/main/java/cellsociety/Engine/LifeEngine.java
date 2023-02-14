@@ -88,17 +88,6 @@ public class LifeEngine extends SimEngine {
   }
 
   @Override
-  String arrListToStr(List<List<String>> arrList) {
-    List<String> listOfRows = new ArrayList<>();
-    for (List<String> rowList: arrList) {
-      String rowStr = String.join(" ", rowList);
-      listOfRows.add(rowStr);
-    }
-    String result = String.join("\n", listOfRows);
-    return result;
-  }
-
-  @Override
   public void setParamValue(String param, Double newValue) {
     super.setParamValue(param, newValue);
     sim = new Life(LIFE_DEAD, LIFE_ALIVE);

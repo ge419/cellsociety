@@ -237,7 +237,15 @@ public abstract class SimEngine implements EngineInterface {
 
   public abstract String gridToStr(Grid grid);
 
-  abstract String arrListToStr(List<List<String>> arrList);
+  public String arrListToStr(List<List<String>> arrList) {
+    List<String> listOfRows = new ArrayList<>();
+    for (List<String> rowList: arrList) {
+      String rowStr = String.join(" ", rowList);
+      listOfRows.add(rowStr);
+    }
+    String result = String.join("\n", listOfRows);
+    return result;
+  }
 
   public Cell getCell(int x, int y) {
     return grid.getCell(x, y);
