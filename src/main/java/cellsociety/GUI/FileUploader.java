@@ -7,14 +7,12 @@ import javafx.scene.control.Button;
 import javafx.stage.FileChooser;
 
 /**
- * @Author Han Zhang
+ * @author Han Zhang
  */
 
 public class FileUploader {
   private File uploaded;
-
-  private boolean fileUploaded;
-  private Button button;
+  private final Button button;
 
   /**
    * Used this Chat GPT chat to help me build the constructor https://sharegpt.com/c/4ny1y2x
@@ -31,7 +29,6 @@ public class FileUploader {
       File selectedFile = fileChooser.showOpenDialog(null);
       if (selectedFile != null) {
         uploaded = selectedFile;
-        fileUploaded = true;
         config.readFile(uploaded);
         controller.setNewFile(true);
       }

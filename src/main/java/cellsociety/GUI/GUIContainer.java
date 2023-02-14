@@ -70,15 +70,16 @@ public class GUIContainer {
   public final static int PARAM_COLUMN_SPAN = 5;
   public final static int PARAM_ROW_SPAN = 1;
 
-
+  public final static int GRAPH_COLUMN = 0;
+  public final static int GRAPH_ROW = 5;
   public static final String CELL_COLOR = "stylesheets/CellColor.css";
   public GUIContainer(Stage primaryStage, String language, ConfigInterface config, EngineInterface simulationEngine, SimulationController controller, VisualGrid grid, VisualGraphInterface graph) {
     pane = new GridPane();
     setColumnConstraints();
-
     Scene stageScene = new Scene(pane, WINDOW_WIDTH, WINDOW_HEIGHT);
 
     myResources = ResourceBundle.getBundle(INTERNAL_CONFIGURATION + language);
+    primaryStage.setTitle(myResources.getString("GameWindowTitle"));
     pane.setId("pane");
 
     setUpButtons(simulationEngine, controller, myResources);
@@ -119,9 +120,6 @@ public class GUIContainer {
       List<String> list = Arrays.asList(Objects.requireNonNull(dir.list(
           (dir1, name) -> name.endsWith(".xml")
       )));
-      for(String name:list){
-        name = dirc + "/" + name;
-      }
       FileNames.addAll(list);
     }
   }
@@ -137,12 +135,10 @@ public class GUIContainer {
       pane.getColumnConstraints().add(column);
     }
   }
-
-
   private void setupGraphButtons(ResourceBundle bundle, VisualGraphInterface graph){
     GraphButtons graphButtons = new GraphButtons(bundle, graph);
     pane.getChildren().add(graphButtons.getContainer());
-    GridPane.setConstraints(graphButtons.getContainer(), 0,4);
+    GridPane.setConstraints(graphButtons.getContainer(), GRAPH_COLUMN,GRAPH_ROW);
   }
 
   private void setUpGrid(VisualGrid grid) {

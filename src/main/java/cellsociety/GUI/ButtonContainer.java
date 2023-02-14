@@ -8,7 +8,7 @@ import javafx.scene.layout.Pane;
 
 public abstract class ButtonContainer {
 
-  private HBox container;
+  private final HBox container;
 
   public ButtonContainer(){
     container = new HBox();

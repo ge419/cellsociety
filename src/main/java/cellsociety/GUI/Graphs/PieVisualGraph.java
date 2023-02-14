@@ -6,6 +6,7 @@ import cellsociety.Grid;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
+import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.Group;
@@ -21,10 +22,10 @@ public class PieVisualGraph implements VisualGraphInterface {
   public static final int CHART_SIZE = 500;
   private final Grid grid;
   private final Stage graphStage;
-
   private PieChart chart;
   private final Group root;
-
+  public static final String LANGUAGE_LOCATION = "cellsociety.english";
+  public static final ResourceBundle LANGUAGE = ResourceBundle.getBundle(LANGUAGE_LOCATION);
 
   /**
    * https://docs.oracle.com/javafx/2/charts/pie-chart.htm#:~:text=To%20create%20a%20pie%20chart,slices%20you%20want%20to%20appear.
@@ -32,6 +33,7 @@ public class PieVisualGraph implements VisualGraphInterface {
    */
   public PieVisualGraph(Grid dataGrid){
     graphStage = new Stage();
+    graphStage.setTitle(LANGUAGE.getString("PieChartTitle"));
     grid = dataGrid;
     root = new Group();
     updateGraph();
