@@ -69,6 +69,25 @@ public class LifeEngine extends SimEngine {
   }
 
   @Override
+  public String gridToStr(Grid grid) {
+    List<List<String>> strGrid = new ArrayList<>();
+    for (int i = 0; i < height; i++) {
+      List<String> row = new ArrayList<>();
+      for (int j = 0; j <width; j++) {
+        String status = grid.getCell(i, j).getStatus();
+        if (status.equals(LIFE_DEAD)) {
+          row.add(j, "0");
+        }
+        else if (status.equals(LIFE_ALIVE)) {
+          row.add(j, "1");
+        }
+      }
+      strGrid.add(i, row);
+    }
+    return arrListToStr(strGrid);
+  }
+
+  @Override
   public void setParamValue(String param, Double newValue) {
     super.setParamValue(param, newValue);
     sim = new Life(LIFE_DEAD, LIFE_ALIVE);
