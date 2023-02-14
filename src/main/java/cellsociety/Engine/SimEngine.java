@@ -263,6 +263,5 @@ public abstract class SimEngine implements EngineInterface {
   }
   public void setParamValue(String param, Double newValue){
     params.put(param,newValue);
-    System.out.println("Param Changed");
   }
 }
