@@ -1,13 +1,12 @@
 package cellsociety.Controller;
 
-import cellsociety.GUI.DropDown;
 import cellsociety.GUI.SliderContainer;
 
 /**
  * @Author Han Zhang
  */
 
-public class AnimationManager implements AnimationInterface{
+public class SimulationManager implements SimulationController {
   private int frameNum;
   private double multiplier;
   private boolean pause;
@@ -20,7 +19,7 @@ public class AnimationManager implements AnimationInterface{
   /**
    * FrameNum is starting out to be Max to increment the starting stage where the file is displayed from a blank state
    */
-  public AnimationManager() {
+  public SimulationManager() {
     frameNum = Integer.MAX_VALUE;
     multiplier = STARTING_MULTIPLIER;
     pause = true;
@@ -62,7 +61,6 @@ public class AnimationManager implements AnimationInterface{
   @Override
   public void setNewFile(boolean state) {
     newFile = state;
-    System.out.println(newFile);
   }
   public boolean isNewFile(){
     return newFile;

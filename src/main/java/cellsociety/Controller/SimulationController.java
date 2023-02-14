@@ -4,7 +4,7 @@ package cellsociety.Controller;
  * @Author Han Zhang
  */
 
-public interface AnimationInterface {
+public interface SimulationController {
  void stepAnimation();
   void pauseToggle();
   void setAnimationSpeed(double multiplier);
