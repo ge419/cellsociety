@@ -15,10 +15,6 @@ import javafx.scene.control.Alert.AlertType;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.transform.Transformer;
-import javax.xml.transform.TransformerFactory;
-import javax.xml.transform.dom.DOMSource;
-import javax.xml.transform.stream.StreamResult;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
@@ -28,7 +24,7 @@ import org.xml.sax.SAXException;
  * @Author Changmin Shin
  */
 
-public class Config {
+public class Config implements ConfigInterface {
 
   public static final String INTERNAL_CONFIGURATION = "cellsociety.";
   public final List<String> paramName = new ArrayList<>(
@@ -55,12 +51,10 @@ public class Config {
   }
 
   /**
-   * Reads the selected XML file given as a parameter, checks if the file is
-   * valid, and if true,
-   * saves the values in each tag to corresponding variables in Config class, and
-   * if false, resets
+   * Reads the selected XML file given as a parameter, checks if the file is valid, and if true,
+   * saves the values in each tag to corresponding variables in Config class, and if false, resets
    * all values to default.
-   * 
+   *
    * @param xmlFile The xml file that is selected by the user to be read.
    */
   public void readFile(File xmlFile) {
@@ -101,7 +95,8 @@ public class Config {
   // TODO: Check exceptions
   public boolean checkValidXML(File xmlFile) {
     try {
-      Document xmlDocument = DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(xmlFile);
+      Document xmlDocument = DocumentBuilderFactory.newInstance().newDocumentBuilder()
+          .parse(xmlFile);
       root = xmlDocument.getDocumentElement();
     } catch (NumberFormatException e) {
       showMessage(AlertType.ERROR, "Invalid number given in data");
@@ -118,7 +113,7 @@ public class Config {
 
   /**
    * Takes the values in the xml file as Strings
-   * 
+   *
    * @param e       Element in xml file that is being accessed
    * @param tagName The name of the tag
    * @return The value of the corresponding tag as String
@@ -140,7 +135,7 @@ public class Config {
 
   /**
    * Saves values in each tag into variables in Config class.
-   * 
+   *
    * @param root The root element the xml file is reading from
    */
   public void updateXML(Element root) {
@@ -159,35 +154,28 @@ public class Config {
   /**
    * Creates new XML file and saves current state of simulation. Refined code from
    * https://www.javaguides.net/2018/10/how-to-create-xml-file-in-java-dom-parser.html
+   * https://chat.openai.com/chat/1e2e6e32-cf3e-4c72-998a-ab3e1a8183c5
+   * https://mkyong.com/java/how-to-create-xml-file-in-java-dom/
    *
-   * @param file The default XML file created in FileSaver that is to be modified.
+   * @param state      Current state of the grid which has been converted to a String
+   * @param parameters Map of parameters that is taken from SimEngine
    */
-  public File saveXML(File file) {
+  public Document saveXML(String state, Map<String, Double> parameters)
+      throws ParserConfigurationException {
     DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
-    try {
-      DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
-      Document doc = docBuilder.parse(file);
-      addElements(doc);
-      TransformerFactory transformerFactory = TransformerFactory.newInstance();
-      Transformer transformer = transformerFactory.newTransformer();
-      DOMSource source = new DOMSource(doc);
-      StreamResult result = new StreamResult(file);
-      transformer.transform(source, result);
-    } catch (Exception e) {
-      // TODO: figure out the exception
-      e.printStackTrace();
-    }
-    return file;
+    DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
+    Document doc = docBuilder.newDocument();
+    addElements(doc, state, parameters);
+    return doc;
   }
 
   /**
-   * Creates Elements rootElement and params, and appends corresponding tag names
-   * and values to the
+   * Creates Elements rootElement and params, and appends corresponding tag names and values to the
    * XML file
    *
    * @param doc The XML document that is being modified by the code.
    */
-  private void addElements(Document doc) {
+  private void addElements(Document doc, String state, Map<String, Double> parameters) {
     Element rootElement = doc.createElement("data");
     doc.appendChild(rootElement);
     rootElement.appendChild(addTagStr(doc, "sim_type", simType));
@@ -196,53 +184,30 @@ public class Config {
     rootElement.appendChild(addTagStr(doc, "description", description));
     rootElement.appendChild(addTagInt(doc, "width", width));
     rootElement.appendChild(addTagInt(doc, "height", height));
-    rootElement.appendChild(addTagStr(doc, "curr_state", intStrConverter(currState)));
+    rootElement.appendChild(addTagStr(doc, "curr_state", state));
     Element params = doc.createElement("params");
     for (String s : paramName) {
-      params.appendChild(addTagParam(doc, s, simParam));
+      params.appendChild(addTagParam(doc, s, parameters));
     }
-  }
-
-  // private void addToElement(Element e) {
-  // List<String> strNames = new ArrayList<>(); // How to set up basic arraylist
-  // strNames.add("sim_type");
-  // e.appendChild(addTagStr());
-  // }
-
-  private String intStrConverter(List<List<Integer>> state) {
-    List<List<String>> current = new ArrayList<>();
-    for (int i = 0; i < state.size(); i++) {
-      for (int j = 0; j < state.get(i).size(); j++) {
-        current.get(i).add(j, String.valueOf(state.get(i).get(j)));
-      }
-    }
-    List<String> toStringArr = new ArrayList<>();
-    for (int k = 0; k < current.size(); k++) {
-      toStringArr.add(k, String.join(" ", current.get(k)));
-    }
-    return String.join("\n", toStringArr);
+    rootElement.appendChild(params);
   }
 
   private org.w3c.dom.Node addTagStr(Document doc, String tagName, String value) {
     Element node = doc.createElement(tagName);
-    doc.appendChild(doc.createTextNode(value));
+    node.setTextContent(value);
     return node;
-
-    // Element sim_type = doc.createElement("sim_type");
-    // sim_type.appendChild(doc.createTextNode(simType));
-    // rootElement.appendChild(sim_type);
   }
 
   private org.w3c.dom.Node addTagInt(Document doc, String tagName, int value) {
     Element node = doc.createElement(tagName);
-    doc.appendChild(doc.createTextNode(String.valueOf(value)));
+    node.setTextContent(String.valueOf(value));
     return node;
   }
 
   private org.w3c.dom.Node addTagParam(Document doc, String tagName,
       Map<String, Double> param) {
     Element node = doc.createElement(tagName);
-    doc.appendChild(doc.createTextNode(String.valueOf(param.get("tagName"))));
+    node.setTextContent(String.valueOf(param.get(tagName)));
     return node;
   }
 
@@ -264,5 +229,17 @@ public class Config {
 
   public String getInitState() {
     return initState;
+  }
+
+  public String getDescription() {
+    return description;
+  }
+
+  public String getAuthor() {
+    return author;
+  }
+
+  public String getName() {
+    return configName;
   }
 }

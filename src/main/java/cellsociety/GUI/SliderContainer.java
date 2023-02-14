@@ -1,7 +1,6 @@
 package cellsociety.GUI;
 
-import cellsociety.Controller.AnimationInterface;
-import cellsociety.Controller.AnimationManager;
+import cellsociety.Controller.SimulationController;
 import javafx.scene.control.Slider;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
@@ -19,13 +18,13 @@ public class SliderContainer {
   public static final int CURRENT = 60;
 
   public static final int INCREMENT = 1;
-  public SliderContainer(String caption, AnimationInterface animation){
+  public SliderContainer(String caption, SimulationController animation){
     sliderInit(animation);
     setText(caption);
     container = new VBox(slider, text);
     container.setId("Container-Vbox");
   }
-  private void sliderInit(AnimationInterface animation) {
+  private void sliderInit(SimulationController animation) {
     slider = new Slider();
     slider.setMin(MIN);
     slider.setMax(MAX);

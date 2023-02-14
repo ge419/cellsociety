@@ -19,8 +19,6 @@ public class FireEngine extends SimEngine {
   private static final String FIRE_TREE = NAMES_FILE.getString("FireTree");
   private static final String FIRE_BURNING = NAMES_FILE.getString("FireBurning");
 
-  Simulation sim;
-
   public FireEngine(VisualGrid visualGrid, String initState, Grid grid, Grid initGrid,
       Map<String, Double> params)
       throws Exception {
@@ -76,5 +74,33 @@ public class FireEngine extends SimEngine {
       neighbors.add(getCell(cell.getX(), cell.getY() + 1));
     }
     return neighbors;
+  }
+
+  @Override
+  public String gridToStr(Grid grid) {
+    List<List<String>> strGrid = new ArrayList<>();
+    for (int i = 0; i < height; i++) {
+      List<String> row = new ArrayList<>();
+      for (int j = 0; j <width; j++) {
+        String status = grid.getCell(i, j).getStatus();
+        if (status.equals(FIRE_EMPTY)) {
+          row.add(j, "0");
+        }
+        else if (status.equals(FIRE_TREE)) {
+          row.add(j, "1");
+        }
+        else if(status.equals(FIRE_BURNING)) {
+          row.add(j, "2");
+        }
+      }
+      strGrid.add(i, row);
+    }
+    return arrListToStr(strGrid);
+  }
+
+  @Override
+  public void setParamValue(String param, Double newValue) {
+    super.setParamValue(param, newValue);
+    init(params);
   }
 }

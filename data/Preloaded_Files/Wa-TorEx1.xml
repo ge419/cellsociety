@@ -26,8 +26,8 @@
   <params>
     <probCatch>0</probCatch>
     <change>0</change>
-    <eShark>0</eShark>
-    <ePerFish>0</ePerFish>
+    <eShark>1</eShark>
+    <ePerFish>1</ePerFish>
     <fishBT>2</fishBT>
     <sharkBT>1</sharkBT>
     <perAlive>0</perAlive>

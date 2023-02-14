@@ -26,13 +26,6 @@ public class RectangleVisualGrid extends VisualGrid {
     resetGrid(GRID_SIZE);
   }
 
-  public void changeSize(int newWidth, int newHeight, int gridSize){
-    gridLayout.getChildren().clear();
-    width = newWidth;
-    height = newHeight;
-    resetGrid(gridSize);
-  }
-
   @Override
   public void updateEntireGrid(Grid grid) {
     for(List<Cell> cells: grid.getGrid()){

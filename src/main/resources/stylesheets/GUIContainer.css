@@ -14,7 +14,6 @@
   -fx-background-radius: 6, 5;
   -fx-background-insets: 0, 1;
   -fx-text-fill: #395306;
-
 }
 #SliderText{
   -fx-font-family: "Times New Roman";
@@ -57,6 +56,24 @@
 
 #TextBox{
   -fx-pref-width: 20;
-  -fx-pref-height: 70;
+  -fx-pref-height: 100;
+}
+#Mini-Container{
+  -fx-alignment: CENTER;
+  -fx-spacing: 10;
+}
+#Param-Box{
+  -fx-alignment: CENTER;
+  -fx-padding: 30;
+  -fx-spacing: 20;
+}
+
+#Param-Button{
+  -fx-alignment: CENTER;
+  -fx-background-color:
+      linear-gradient(#f0ff35, #6ff50a);
+  -fx-background-radius: 6, 5;
+  -fx-background-insets: 0, 1;
+  -fx-text-fill: #395306;
 }
 

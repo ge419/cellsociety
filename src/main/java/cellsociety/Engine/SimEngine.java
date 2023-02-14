@@ -10,6 +10,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
+import java.util.Set;
 
 /**
  * @author Changmin Shin, Brandon Weiss
@@ -47,6 +48,7 @@ public abstract class SimEngine implements EngineInterface {
     this.grid = grid;
     this.initGrid = initGrid;
     this.params = params;
+    this.sim = sim;
   }
 
   /**
@@ -76,6 +78,7 @@ public abstract class SimEngine implements EngineInterface {
         row.remove("");
       }
       stateArr.add(i, row);
+      //System.out.println(stateArr);
     }
     return strIntConverter(stateArr);
   }
@@ -141,7 +144,7 @@ public abstract class SimEngine implements EngineInterface {
     for (int r = 0; r < grid.getRowNum(); r++) {
       for (int c = 0; c < grid.getColNum(); c++) {
         hold = grid.getCell(r, c);
-        nextStates.add(this.sim.getUpdatedCellStatus(hold, findNeighbors(hold)));
+        nextStates.add(sim.getUpdatedCellStatus(hold, findNeighbors(hold)));
       }
     }
   }
@@ -155,7 +158,6 @@ public abstract class SimEngine implements EngineInterface {
       for (int c = 0; c < grid.getColNum(); c++) {
         next = nextStates.get(r * grid.getColNum() + c);
         getCell(r, c).setStatus(next);
-        // visualGrid.updateGrid(r, c, next);
       }
     }
   }
@@ -232,6 +234,18 @@ public abstract class SimEngine implements EngineInterface {
     }
   }
 
+  public abstract String gridToStr(Grid grid);
+
+  public String arrListToStr(List<List<String>> arrList) {
+    List<String> listOfRows = new ArrayList<>();
+    for (List<String> rowList: arrList) {
+      String rowStr = String.join(" ", rowList);
+      listOfRows.add(rowStr);
+    }
+    String result = String.join("\n    ", listOfRows);
+    return result;
+  }
+
   public Cell getCell(int x, int y) {
     return grid.getCell(x, y);
   }
@@ -242,5 +256,11 @@ public abstract class SimEngine implements EngineInterface {
 
   public Map<String, Double> getParams() {
     return params;
+  }
+  public Set<String> getParamWords(){
+    return params.keySet();
+  }
+  public void setParamValue(String param, Double newValue){
+    params.put(param,newValue);
   }
 }

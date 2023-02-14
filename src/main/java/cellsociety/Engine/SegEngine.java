@@ -19,8 +19,6 @@ public class SegEngine extends SimEngine {
   private static final String SEG_A = NAMES_FILE.getString("SegA");
   private static final String SEG_B = NAMES_FILE.getString("SegB");
 
-  Simulation sim;
-
   public SegEngine(VisualGrid visualGrid, String initState, Grid grid, Grid initGrid,
       Map<String, Double> params)
       throws Exception {
@@ -63,7 +61,7 @@ public class SegEngine extends SimEngine {
 
   @Override
   public void saveNextState() {
-    ArrayList<String> nextStates = new ArrayList<>();
+    nextStates = new ArrayList<>();
     Cell hold;
     for (int r = 0; r < getGrid().getRowNum(); r++) {
       for (int c = 0; c < getGrid().getColNum(); c++) {
@@ -91,5 +89,34 @@ public class SegEngine extends SimEngine {
     }
     neighbors.addAll(findCornerNeighbors(cell));
     return neighbors;
+  }
+
+  @Override
+  public String gridToStr(Grid grid) {
+    List<List<String>> strGrid = new ArrayList<>();
+    for (int i = 0; i < height; i++) {
+      List<String> row = new ArrayList<>();
+      for (int j = 0; j <width; j++) {
+        String status = grid.getCell(i, j).getStatus();
+        if (status.equals(SEG_EMPTY)) {
+          row.add(j, "0");
+        }
+        else if (status.equals(SEG_A)) {
+          row.add(j, "1");
+        }
+        else if (status.equals(SEG_B)) {
+          row.add(j, "2");
+        }
+      }
+      strGrid.add(i, row);
+    }
+    return arrListToStr(strGrid);
+  }
+
+  @Override
+  public void setParamValue(String param, Double newValue) {
+    super.setParamValue(param, newValue);
+    Double change = params.get("change");
+    sim = new Schelling(SEG_EMPTY, SEG_A, SEG_B, change);
   }
 }

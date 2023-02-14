@@ -27,7 +27,5 @@ public abstract class VisualGrid {
 
   public abstract Pane getGridLayout();
 
-  public abstract void changeSize(int i, int i1, int gridSize);
-
   public abstract void updateEntireGrid(Grid grid);
 }
