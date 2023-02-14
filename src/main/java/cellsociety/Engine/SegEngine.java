@@ -4,7 +4,6 @@ import cellsociety.Cells.Cell;
 import cellsociety.GUI.VisualGrid;
 import cellsociety.Grid;
 import cellsociety.simulations.Schelling;
-import cellsociety.simulations.Simulation;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -56,6 +55,7 @@ public class SegEngine extends SimEngine {
   @Override
   public void updateGameState() {
     saveNextState();
+    ((Schelling) sim).moveCells();
     updateNextState();
   }
 
@@ -67,7 +67,6 @@ public class SegEngine extends SimEngine {
       for (int c = 0; c < getGrid().getColNum(); c++) {
         hold = getGrid().getCell(r, c);
         nextStates.add(sim.getUpdatedCellStatus(hold, findNeighbors(hold)));
-        ((Schelling) sim).moveCells();
       }
     }
   }
