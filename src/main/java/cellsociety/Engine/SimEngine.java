@@ -158,7 +158,6 @@ public abstract class SimEngine implements EngineInterface {
       for (int c = 0; c < grid.getColNum(); c++) {
         next = nextStates.get(r * grid.getColNum() + c);
         getCell(r, c).setStatus(next);
-        // visualGrid.updateGrid(r, c, next);
       }
     }
   }

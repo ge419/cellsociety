@@ -2,6 +2,7 @@ package cellsociety.Engine;
 
 import cellsociety.Grid;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 /**
@@ -19,6 +20,8 @@ public interface EngineInterface {
 
   Grid getGrid();
   String gridToStr(Grid grid);
+
+  Map<String, Double> getParams();
 
   void setParamValue(String param, Double newValue);
 }
