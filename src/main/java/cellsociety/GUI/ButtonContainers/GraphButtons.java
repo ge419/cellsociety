@@ -5,6 +5,9 @@ import cellsociety.GUI.VisualGraphInterface;
 import java.util.ResourceBundle;
 import javafx.scene.control.Button;
 
+/**
+ * @author Han
+ */
 public class GraphButtons extends ButtonContainer {
   public GraphButtons(ResourceBundle bundle, VisualGraphInterface visualGraph){
     super();

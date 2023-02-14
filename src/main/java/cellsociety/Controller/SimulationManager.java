@@ -54,7 +54,7 @@ public class SimulationManager implements SimulationController {
     pause = !pause;
   }
 
-  public void setStep() {
+  public void setStepFalse() {
     step = false;
   }
 
@@ -64,11 +64,6 @@ public class SimulationManager implements SimulationController {
   }
   public boolean isNewFile(){
     return newFile;
-  }
-
-  @Override
-  public int getFrame() {
-    return frameNum;
   }
 
   public boolean isStep(){

@@ -100,7 +100,7 @@ public class GameLoopManager extends Application {
       else {
         this.engine.updateGameState();
       }
-      animationManager.setStep();
+      animationManager.setStepFalse();
       this.visualGrid.updateEntireGrid(grid);
       animationManager.resetFrameNum();
     }
