@@ -57,12 +57,10 @@ public class Config implements ConfigInterface{
   }
 
   /**
-   * Reads the selected XML file given as a parameter, checks if the file is
-   * valid, and if true,
-   * saves the values in each tag to corresponding variables in Config class, and
-   * if false, resets
+   * Reads the selected XML file given as a parameter, checks if the file is valid, and if true,
+   * saves the values in each tag to corresponding variables in Config class, and if false, resets
    * all values to default.
-   * 
+   *
    * @param xmlFile The xml file that is selected by the user to be read.
    */
   public void readFile(File xmlFile) {
@@ -103,7 +101,8 @@ public class Config implements ConfigInterface{
   // TODO: Check exceptions
   public boolean checkValidXML(File xmlFile) {
     try {
-      Document xmlDocument = DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(xmlFile);
+      Document xmlDocument = DocumentBuilderFactory.newInstance().newDocumentBuilder()
+          .parse(xmlFile);
       root = xmlDocument.getDocumentElement();
     } catch (NumberFormatException e) {
       showMessage(AlertType.ERROR, "Invalid number given in data");
@@ -120,7 +119,7 @@ public class Config implements ConfigInterface{
 
   /**
    * Takes the values in the xml file as Strings
-   * 
+   *
    * @param e       Element in xml file that is being accessed
    * @param tagName The name of the tag
    * @return The value of the corresponding tag as String
@@ -142,7 +141,7 @@ public class Config implements ConfigInterface{
 
   /**
    * Saves values in each tag into variables in Config class.
-   * 
+   *
    * @param root The root element the xml file is reading from
    */
   public void updateXML(Element root) {
@@ -161,14 +160,14 @@ public class Config implements ConfigInterface{
   /**
    * Creates new XML file and saves current state of simulation. Refined code from
    * https://www.javaguides.net/2018/10/how-to-create-xml-file-in-java-dom-parser.html
-   *
-   * @param file The default XML file created in FileSaver that is to be modified.
+   * https://chat.openai.com/chat/1e2e6e32-cf3e-4c72-998a-ab3e1a8183c5
    */
-  public File saveXML(File file) {
-    DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
+  public File saveXML() {
+    File file = new File("*.xml");
     try {
+      DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
       DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
-      Document doc = docBuilder.parse(file);
+      Document doc = docBuilder.newDocument();
       addElements(doc);
       TransformerFactory transformerFactory = TransformerFactory.newInstance();
       Transformer transformer = transformerFactory.newTransformer();
@@ -183,8 +182,7 @@ public class Config implements ConfigInterface{
   }
 
   /**
-   * Creates Elements rootElement and params, and appends corresponding tag names
-   * and values to the
+   * Creates Elements rootElement and params, and appends corresponding tag names and values to the
    * XML file
    *
    * @param doc The XML document that is being modified by the code.
@@ -267,6 +265,7 @@ public class Config implements ConfigInterface{
   public String getInitState() {
     return initState;
   }
+
   public String getDescription() {
     return description;
   }
