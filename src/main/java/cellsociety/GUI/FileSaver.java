@@ -30,16 +30,18 @@ public class FileSaver {
   /**
    * Used this Chat GPT chat to help me build the constructor <a href="https://shareg.pt/dhJrFWq">...</a>,
    * and https://chat.openai.com/chat/1e2e6e32-cf3e-4c72-998a-ab3e1a8183c5
-   * @param label Text to be displayed on upload button
+   *
+   * @param label  Text to be displayed on upload button
    * @param config The config object that is passed through the GUIContainer
    */
   public FileSaver(String label, ConfigInterface config, EngineInterface simulationEngine) {
     button = new Button(label);
     button.setId("files-button");
     button.setOnAction(e -> {
-    FileChooser fileChooser = new FileChooser();
+      FileChooser fileChooser = new FileChooser();
       fileChooser.setTitle("Save Current State into XML File");
-      FileChooser.ExtensionFilter xmlFilter = new FileChooser.ExtensionFilter("XML files (*.xml)", "*.xml");
+      FileChooser.ExtensionFilter xmlFilter = new FileChooser.ExtensionFilter("XML files (*.xml)",
+          "*.xml");
       fileChooser.getExtensionFilters().add(xmlFilter);
       fileChooser.setSelectedExtensionFilter(xmlFilter);
       File file = fileChooser.showSaveDialog(button.getScene().getWindow());
@@ -48,7 +50,9 @@ public class FileSaver {
           TransformerFactory transformerFactory = TransformerFactory.newInstance();
           Transformer transformer = transformerFactory.newTransformer();
           transformer.setOutputProperty(OutputKeys.INDENT, "yes");
-          DOMSource source = new DOMSource(config.saveXML(simulationEngine.gridToStr(simulationEngine.getGrid()))); // the DOM source of the XML file
+          DOMSource source = new DOMSource(
+              config.saveXML(simulationEngine.gridToStr(simulationEngine.getGrid()),
+                  simulationEngine.getParams()));
           StreamResult result = new StreamResult(file);
           transformer.transform(source, result);
         } catch (TransformerConfigurationException ex) {
