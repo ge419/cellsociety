@@ -77,6 +77,7 @@ public abstract class SimEngine implements EngineInterface {
         row.remove("");
       }
       stateArr.add(i, row);
+      //System.out.println(stateArr);
     }
     return strIntConverter(stateArr);
   }

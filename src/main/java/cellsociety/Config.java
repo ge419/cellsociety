@@ -203,12 +203,6 @@ public class Config {
     }
   }
 
-  // private void addToElement(Element e) {
-  // List<String> strNames = new ArrayList<>(); // How to set up basic arraylist
-  // strNames.add("sim_type");
-  // e.appendChild(addTagStr());
-  // }
-
   private String intStrConverter(List<List<Integer>> state) {
     List<List<String>> current = new ArrayList<>();
     for (int i = 0; i < state.size(); i++) {
@@ -225,24 +219,20 @@ public class Config {
 
   private org.w3c.dom.Node addTagStr(Document doc, String tagName, String value) {
     Element node = doc.createElement(tagName);
-    doc.appendChild(doc.createTextNode(value));
+    node.setTextContent(value);
     return node;
-
-    // Element sim_type = doc.createElement("sim_type");
-    // sim_type.appendChild(doc.createTextNode(simType));
-    // rootElement.appendChild(sim_type);
   }
 
   private org.w3c.dom.Node addTagInt(Document doc, String tagName, int value) {
     Element node = doc.createElement(tagName);
-    doc.appendChild(doc.createTextNode(String.valueOf(value)));
+    node.setTextContent(String.valueOf(value));
     return node;
   }
 
   private org.w3c.dom.Node addTagParam(Document doc, String tagName,
       Map<String, Double> param) {
     Element node = doc.createElement(tagName);
-    doc.appendChild(doc.createTextNode(String.valueOf(param.get("tagName"))));
+    node.setTextContent(String.valueOf(param.get("tagName")));
     return node;
   }
 
