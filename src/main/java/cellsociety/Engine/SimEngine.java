@@ -10,6 +10,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
+import java.util.Set;
 
 /**
  * @author Changmin Shin, Brandon Weiss
@@ -243,5 +244,8 @@ public abstract class SimEngine implements EngineInterface {
 
   public Map<String, Double> getParams() {
     return params;
+  }
+  public Set<String> getParamWords(){
+    return params.keySet();
   }
 }

@@ -3,6 +3,7 @@ package cellsociety.GUI;
 import cellsociety.ConfigInterface;
 import cellsociety.Controller.SimulationController;
 import cellsociety.Engine.EngineInterface;
+import cellsociety.GUI.ButtonContainers.GameButtonContainer;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -150,7 +151,7 @@ public class GUIContainer {
   }
 
   private void setUpButtons(EngineInterface simulationEngine, SimulationController controller, ResourceBundle bundle) {
-    ButtonContainer buttons = new ButtonContainer(simulationEngine, controller, bundle);
+    GameButtonContainer buttons = new GameButtonContainer(simulationEngine, controller, bundle);
     //https://docs.oracle.com/javase/8/javafx/api/javafx/scene/layout/GridPane.html
     pane.getChildren().add(buttons.getContainer());
     GridPane.setConstraints(buttons.getContainer(), BUTTONS_COLUMN,BUTTONS_ROW, BUTTONS_COLUMN_SPAN, BUTTONS_ROW_SPAN);
