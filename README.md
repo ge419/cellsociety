@@ -18,9 +18,11 @@ This project implements a cellular automata simulator.
 ### Attributions
 
  * Resources used for learning (including AI assistance)
+     CHAT-GPT(Cited in JAVADOCS)
+     
  
  * Resources used directly (including AI assistance)
-
+    CHAT-GPT(Cited in JAVADOCS)
 
 ### Running the Program
 
