@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><data><sim_type>Game of Life</sim_type><config_Name>Glider</config_Name><author> Richard Guy</author><description>
+    The smallest moving object in Conway's Game of Life.
+    Light green cells represent alive cells, and white cells represents dead cells.
+  </description><width>10</width><height>10</height><curr_state>0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 1 0 0 0 0
+0 0 0 0 0 0 1 1 0 0
+0 0 0 0 0 1 1 0 0 0
+0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0</curr_state></data>

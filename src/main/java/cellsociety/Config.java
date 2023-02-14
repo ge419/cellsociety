@@ -1,5 +1,7 @@
 package cellsociety;
 
+import java.io.FileOutputStream;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Map;
@@ -15,7 +17,9 @@ import javafx.scene.control.Alert.AlertType;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.OutputKeys;
 import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
@@ -28,7 +32,7 @@ import org.xml.sax.SAXException;
  * @Author Changmin Shin
  */
 
-public class Config implements ConfigInterface{
+public class Config implements ConfigInterface {
 
   public static final String INTERNAL_CONFIGURATION = "cellsociety.";
   public final List<String> paramName = new ArrayList<>(
@@ -159,24 +163,16 @@ public class Config implements ConfigInterface{
    * Creates new XML file and saves current state of simulation. Refined code from
    * https://www.javaguides.net/2018/10/how-to-create-xml-file-in-java-dom-parser.html
    * https://chat.openai.com/chat/1e2e6e32-cf3e-4c72-998a-ab3e1a8183c5
+   * https://mkyong.com/java/how-to-create-xml-file-in-java-dom/
+   * @param state Current state of the grid which has been converted to a String
    */
-  public File saveXML(String state) {
-    File file = new File("*.xml");
-    try {
+  public Document saveXML(String state) throws ParserConfigurationException {
       DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
       DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
       Document doc = docBuilder.newDocument();
       addElements(doc, state);
-      TransformerFactory transformerFactory = TransformerFactory.newInstance();
-      Transformer transformer = transformerFactory.newTransformer();
-      DOMSource source = new DOMSource(doc);
-      StreamResult result = new StreamResult(file);
-      transformer.transform(source, result);
-    } catch (Exception e) {
-      // TODO: figure out the exception
-      e.printStackTrace();
-    }
-    return file;
+
+    return doc;
   }
 
   /**
@@ -199,20 +195,6 @@ public class Config implements ConfigInterface{
     for (String s : paramName) {
       params.appendChild(addTagParam(doc, s, simParam));
     }
-  }
-
-  private String intStrConverter(List<List<Integer>> state) {
-    List<List<String>> current = new ArrayList<>();
-    for (int i = 0; i < state.size(); i++) {
-      for (int j = 0; j < state.get(i).size(); j++) {
-        current.get(i).add(j, String.valueOf(state.get(i).get(j)));
-      }
-    }
-    List<String> toStringArr = new ArrayList<>();
-    for (int k = 0; k < current.size(); k++) {
-      toStringArr.add(k, String.join(" ", current.get(k)));
-    }
-    return String.join("\n", toStringArr);
   }
 
   private org.w3c.dom.Node addTagStr(Document doc, String tagName, String value) {
@@ -257,10 +239,12 @@ public class Config implements ConfigInterface{
   public String getDescription() {
     return description;
   }
+
   public String getAuthor() {
     return author;
   }
-  public String getName(){
+
+  public String getName() {
     return configName;
   }
 }
