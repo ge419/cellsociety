@@ -156,14 +156,16 @@ public class Config implements ConfigInterface {
    * https://www.javaguides.net/2018/10/how-to-create-xml-file-in-java-dom-parser.html
    * https://chat.openai.com/chat/1e2e6e32-cf3e-4c72-998a-ab3e1a8183c5
    * https://mkyong.com/java/how-to-create-xml-file-in-java-dom/
-   * @param state Current state of the grid which has been converted to a String
+   *
+   * @param state      Current state of the grid which has been converted to a String
+   * @param parameters Map of parameters that is taken from SimEngine
    */
-  public Document saveXML(String state) throws ParserConfigurationException {
-      DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
-      DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
-      Document doc = docBuilder.newDocument();
-      addElements(doc, state);
-
+  public Document saveXML(String state, Map<String, Double> parameters)
+      throws ParserConfigurationException {
+    DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
+    DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
+    Document doc = docBuilder.newDocument();
+    addElements(doc, state, parameters);
     return doc;
   }
 
@@ -173,7 +175,7 @@ public class Config implements ConfigInterface {
    *
    * @param doc The XML document that is being modified by the code.
    */
-  private void addElements(Document doc, String state) {
+  private void addElements(Document doc, String state, Map<String, Double> parameters) {
     Element rootElement = doc.createElement("data");
     doc.appendChild(rootElement);
     rootElement.appendChild(addTagStr(doc, "sim_type", simType));
@@ -185,7 +187,7 @@ public class Config implements ConfigInterface {
     rootElement.appendChild(addTagStr(doc, "curr_state", state));
     Element params = doc.createElement("params");
     for (String s : paramName) {
-      params.appendChild(addTagParam(doc, s, simParam));
+      params.appendChild(addTagParam(doc, s, parameters));
     }
     rootElement.appendChild(params);
   }
