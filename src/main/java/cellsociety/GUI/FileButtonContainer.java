@@ -3,7 +3,7 @@ package cellsociety.GUI;
 import javafx.scene.layout.HBox;
 
 /**
- * @Author Han Zhang
+ * @author Han Zhang
  */
 
 public class FileButtonContainer {

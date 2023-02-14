@@ -1,12 +1,11 @@
 package cellsociety.GUI;
 
-import cellsociety.Config;
 import cellsociety.ConfigInterface;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.VBox;
 
 public class DescriptionBox {
-  private VBox descriptionContainer;
+  private final VBox descriptionContainer;
   public DescriptionBox(ConfigInterface config){
     TextArea description = new TextArea();
     setUpDescription(config, description);

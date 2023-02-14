@@ -10,7 +10,7 @@ import javafx.scene.text.Text;
  */
 
 public class SliderContainer {
-  private VBox container;
+  private final VBox container;
   private Slider slider;
   private Text text;
   public static final int MIN = 0;
