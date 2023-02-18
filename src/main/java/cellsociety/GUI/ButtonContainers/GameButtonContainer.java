@@ -3,11 +3,8 @@ package cellsociety.GUI.ButtonContainers;
 import cellsociety.Controller.SimulationController;
 import cellsociety.Engine.EngineInterface;
 import cellsociety.GUI.ButtonContainer;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.ResourceBundle;
 import javafx.scene.control.Button;
-import javafx.scene.layout.HBox;
 
 /**
  * @author Han Zhang

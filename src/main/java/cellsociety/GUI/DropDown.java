@@ -10,7 +10,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.layout.VBox;
 
 /**
- * @Author Han Zhang
+ * @author Han Zhang
  */
 public class DropDown {
 
@@ -69,10 +69,6 @@ public class DropDown {
       return null;
     }
     return matchingFiles[0];
-  }
-
-  public String getValue(){
-    return dropdown.getValue();
   }
   public VBox getContainer(){
     return container;

@@ -4,9 +4,11 @@ import cellsociety.Engine.EngineInterface;
 import cellsociety.GUI.ButtonContainer;
 import java.util.Set;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
+/**
+ * @author Han
+ */
 public class ParameterButtons extends ButtonContainer {
 
   public ParameterButtons(EngineInterface engine){
